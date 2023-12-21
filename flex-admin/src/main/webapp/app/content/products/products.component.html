@@ -1,0 +1,6 @@
+<h1 class="title">{{ 'products.title' | translate }}</h1>
+<p-confirmPopup [baseZIndex]="20000"></p-confirmPopup>
+<div class="actions-box" *appHasAuthority="'FLEX_ADMIN_FORECASTED_PRICES_VIEW'">
+  <p-selectButton [options]="getTabs()" [(ngModel)]="selectedTab" optionValue="type" (onChange)="changeTab()"></p-selectButton>
+</div>
+<router-outlet></router-outlet>

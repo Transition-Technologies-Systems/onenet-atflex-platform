@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202205261000-add-column" author="">
+        <addColumn tableName="product">
+            <column name="direction" type="varchar(10)" remarks="Direction of power transfer" defaultValue="UNDEFINED">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

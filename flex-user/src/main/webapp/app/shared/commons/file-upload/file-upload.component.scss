@@ -1,0 +1,12 @@
+::ng-deep .p-fileupload {
+  &.ng-invalid {
+    .p-fileupload-buttonbar,
+    .p-fileupload-content {
+      border: 1px solid red;
+    }
+
+    .p-fileupload-content {
+      border-top: 0;
+    }
+  }
+}

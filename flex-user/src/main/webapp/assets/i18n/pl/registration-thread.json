@@ -1,0 +1,21 @@
+{
+  "registrationThread": {
+    "title": "Wątek rejestracyjny",
+    "actions": {
+      "withdraw": {
+        "btn": "Wycofaj swoją aplikację",
+        "question": "Czy jesteś pewien, że wniosek o rejestrację na Platformie Elastyczności został wycofany?",
+        "success": "Wniosek o rejestrację na Platformie Elastyczności \"{{ id }}\" został wycofany przez wnioskodawcę",
+        "error": "Wystąpił błąd podczas wycofywania aplikacji na Platformie Elastyczności"
+      }
+    },
+    "messages": {
+      "init": "Nowy wniosek o rejestrację na Platformie Flexbility \"{{ id }}\": <br/>Imię: {{ firstName }}, Nazwisko: {{ lastName }}, Nazwa firmy: {{ companyName }}, adres e-mail: {{ email }}, numer telefonu: {{ phoneNumber }} ",
+      "READ_BY_ADMIN": "Wniosek o rejestrację na Platformie Elastyczności przeczytał {{createdBy}}",
+      "ACCEPTED_BY_ADMIN": "Wniosek o rejestrację na Platformie Elastyczności został przyjęty",
+      "REJECTED_BY_ADMIN": "Wniosek o rejestrację na Platformie Elastyczności został odrzucony",
+      "WITHDRAWN_BY_USER": "Wniosek o rejestrację na Platformie Elastyczności został wycofany",
+      "FILE_ADDED": "Dodano plik"
+    }
+  }
+}

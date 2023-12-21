@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.subportfolio.edition.title}">Flexibility Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.subportfolio.greeting(${user.login})}">
+    Dear
+</p>
+<p th:text="#{email.subportfolio.edition.text1(${subportfolioName})}">
+    Flex potential has been created with the following attributes
+</p>
+<ul>
+    <li th:if="${fspa != null}" th:text="#{email.subportfolio.edition.fspa(${fspa})}">FSPA: </li>
+    <li th:if="${ders != null}" th:text="#{email.subportfolio.edition.ders(${ders})}">DERs: </li>
+    <li th:if="${couplingPointId != null}" th:text="#{email.subportfolio.edition.couplingPointId(${couplingPointId})}">Coupling point id: </li>
+    <li th:if="${mrid != null}" th:text="#{email.subportfolio.edition.mrid(${mrid})}">mRID: </li>
+    <li th:if="${validFrom != null}" th:text="#{email.subportfolio.edition.validFrom(${validFrom})}">Valid from: </li>
+    <li th:if="${validTo != null}" th:text="#{email.subportfolio.edition.validTo(${validTo})}">Valid to: </li>
+    <li th:if="${active != null}" th:text="#{email.subportfolio.edition.active(${active})}">Active: </li>
+    <li th:if="${certified != null}" th:text="#{email.subportfolio.edition.certified(${certified})}">Certified: </li>
+</ul>
+<p>
+    <a th:with="url=(@{|${baseUrl}/subportfolios?id=${subportfolioId}|})" th:href="${url}" th:text="#{email.subportfolio.edition.link}">
+        Link
+    </a>
+</p>
+<p>
+    <span th:text="#{email.subportfolio.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+</p>
+</body>
+</html>

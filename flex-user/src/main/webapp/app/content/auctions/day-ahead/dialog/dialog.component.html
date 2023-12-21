@@ -1,0 +1,258 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'auctions.actions.' + mode + '.title' | translate: data }}</h2>
+    <div class="actions">
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'auctions.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form">
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.types"
+              formControlName="type"
+              inputId="field-type"
+              aria-describedby="type-help"
+            ></app-select>
+            <label for="field-type">{{ 'auctions.table.type' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('type')?.touched">
+            <small id="type-help" class="p-error" *ngIf="form.get('type')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="mode === 'edit'">
+            <app-select
+              [optionObject]="true"
+              optionValue="id"
+              [options]="dictionaries.products$ | async"
+              formControlName="product"
+              inputId="field-product"
+              aria-describedby="product-help"
+            ></app-select>
+            <label for="field-product">{{ 'auctions.table.product' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('product')?.touched">
+            <small id="product-help" class="p-error" *ngIf="form.get('product')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+        <div class="preview-data" *ngIf="productData">
+          <app-product-preview [productData]="productData" [embeddedPreview]="true"></app-product-preview>
+        </div>
+      </div>
+    </div>
+    <app-auctions-data-range-quarters
+      [form]="form"
+      *ngIf="hasCapacity"
+      [min]="dateRangeMin"
+      [max]="capacityMaxDate"
+      [showDateControl]="false"
+      dateControlName="firstAuctionDate"
+      dateFromControlName="capacityGateOpeningTime"
+      dateToControlName="capacityGateClosureTime"
+    ></app-auctions-data-range-quarters>
+    <app-auctions-data-range-quarters
+      [form]="form"
+      *ngIf="hasEnergy"
+      [showDateControl]="false"
+      [min]="form.get('capacityGateClosureTime')?.value"
+      dateControlName="firstAuctionDate"
+      dateFromControlName="energyGateOpeningTime"
+      dateToControlName="energyGateClosureTime"
+    ></app-auctions-data-range-quarters>
+    <div class="formgrid grid" *ngIf="hasCapacity">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="minDesiredCapacity"
+              inputId="field-minDesiredCapacity"
+              [min]="minBidSize"
+              [max]="maxDesiredCapacity"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="2"
+              aria-describedby="minDesiredCapacity-help"
+            >
+            </app-input-number>
+            <label for="field-minDesiredCapacity">{{ 'auctions.table.minDesiredCapacity' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('minDesiredCapacity')?.touched">
+            <small id="minDesiredCapacity-help" class="p-error" *ngIf="form.get('minDesiredCapacity')?.hasError('min')">
+              {{ 'validate.min' | translate: { value: minBidSize } }}
+            </small>
+            <small id="minDesiredCapacity-help" class="p-error" *ngIf="form.get('minDesiredCapacity')?.hasError('max')">
+              {{ 'validate.max' | translate: { value: maxDesiredCapacity } }}
+            </small>
+            <small id="minDesiredCapacity-help" class="p-error" *ngIf="form.get('minDesiredCapacity')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="maxDesiredCapacity"
+              inputId="field-maxDesiredCapacity"
+              [max]="maxBidSize"
+              [min]="minDesiredCapacity"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="2"
+              aria-describedby="maxDesiredCapacity-help"
+            >
+            </app-input-number>
+            <label for="field-maxDesiredCapacity">{{ 'auctions.table.maxDesiredCapacity' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('maxDesiredCapacity')?.touched">
+            <small id="maxDesiredCapacity-help" class="p-error" *ngIf="form.get('maxDesiredCapacity')?.hasError('min')">
+              {{ 'validate.min' | translate: { value: minDesiredCapacity } }}
+            </small>
+            <small id="maxDesiredCapacity-help" class="p-error" *ngIf="form.get('maxDesiredCapacity')?.hasError('max')">
+              {{ 'validate.max' | translate: { value: maxBidSize } }}
+            </small>
+            <small id="maxDesiredCapacity-help" class="p-error" *ngIf="form.get('maxDesiredCapacity')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="hasEnergy">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="minDesiredEnergy"
+              inputId="field-minDesiredEnergy"
+              [min]="minBidSize"
+              [max]="maxDesiredEnergy"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="2"
+              aria-describedby="minDesiredEnergy-help"
+            >
+            </app-input-number>
+            <label for="field-minDesiredEnergy">{{ 'auctions.table.minDesiredEnergy' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('minDesiredEnergy')?.touched">
+            <small id="minDesiredEnergy-help" class="p-error" *ngIf="form.get('minDesiredEnergy')?.hasError('min')">
+              {{ 'validate.min' | translate: { value: minBidSize } }}
+            </small>
+            <small id="minDesiredEnergy-help" class="p-error" *ngIf="form.get('minDesiredEnergy')?.hasError('max')">
+              {{ 'validate.max' | translate: { value: maxDesiredEnergy } }}
+            </small>
+            <small id="minDesiredEnergy-help" class="p-error" *ngIf="form.get('minDesiredEnergy')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="maxDesiredEnergy"
+              inputId="field-maxDesiredEnergy"
+              [max]="maxBidSize"
+              [min]="minDesiredEnergy"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="2"
+              aria-describedby="maxDesiredEnergy-help"
+            >
+            </app-input-number>
+            <label for="field-maxDesiredEnergy">{{ 'auctions.table.maxDesiredEnergy' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('maxDesiredEnergy')?.touched">
+            <small id="maxDesiredEnergy-help" class="p-error" *ngIf="form.get('maxDesiredEnergy')?.hasError('min')">
+              {{ 'validate.min' | translate: { value: minDesiredEnergy } }}
+            </small>
+            <small id="maxDesiredEnergy-help" class="p-error" *ngIf="form.get('maxDesiredEnergy')?.hasError('max')">
+              {{ 'validate.max' | translate: { value: maxBidSize } }}
+            </small>
+            <small id="maxDesiredEnergy-help" class="p-error" *ngIf="form.get('maxDesiredEnergy')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <app-auctions-data-range-quarters
+      [form]="form"
+      *ngIf="hasCapacity"
+      [showDateControl]="false"
+      dateControlName="firstAuctionDate"
+      dateFromControlName="capacityAvailabilityFrom"
+      dateToControlName="capacityAvailabilityTo"
+    ></app-auctions-data-range-quarters>
+    <app-auctions-data-range-quarters
+      [form]="form"
+      *ngIf="hasEnergy"
+      [showDateControl]="false"
+      dateControlName="firstAuctionDate"
+      dateFromControlName="energyAvailabilityFrom"
+      dateToControlName="energyAvailabilityTo"
+    ></app-auctions-data-range-quarters>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="firstAuctionDate"
+              inputId="field-firstAuctionDate"
+              [minDate]="minDate"
+              aria-describedby="firstAuctionDate-help"
+            ></app-calendar>
+            <label for="field-firstAuctionDate">{{ 'auctions.table.firstAuctionDate' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('firstAuctionDate')?.touched">
+            <small id="firstAuctionDate-help" class="p-error" *ngIf="form.get('firstAuctionDate')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="lastAuctionDate"
+              inputId="field-lastAuctionDate"
+              [minDate]="minLastAuctionDate"
+              aria-describedby="lastAuctionDate-help"
+            ></app-calendar>
+            <label for="field-lastAuctionDate">{{ 'auctions.table.lastAuctionDate' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('lastAuctionDate')?.touched">
+            <small id="lastAuctionDate-help" class="p-error" *ngIf="form.get('lastAuctionDate')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div modal-footer></div>
+</app-modal>

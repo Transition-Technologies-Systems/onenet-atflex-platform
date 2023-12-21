@@ -1,0 +1,21 @@
+{
+  "registrationThread": {
+    "title": "Registration Thread",
+    "actions": {
+      "withdraw": {
+        "btn": "Withdraw your application",
+        "question": "Are you sure that the application for registration on the Flexibility Platform should be withdrawn?",
+        "success": "The application for registration on the Flexibility Platform \"{{ id }}\" has been withdrawn by the applicant",
+        "error": "An error occurred while withdrawing the application on the Flexibility Platform"
+      }
+    },
+    "messages": {
+      "init": "New application for registration on the Flexbility Platform \"{{ id }}\":<br/>First name: {{ firstName }}, Last name: {{ lastName }}, Company name: {{ companyName }}, E-mail adress: {{ email }}, phone number: {{ phoneNumber }}",
+      "READ_BY_ADMIN": "The application for registration on the Flexibility Platform was read by {{ createdBy }}",
+      "ACCEPTED_BY_ADMIN": "The application for registration on the Flexibility Platform has been accepted",
+      "REJECTED_BY_ADMIN": "The application for registration on the Flexibility Platform has been rejected",
+      "WITHDRAWN_BY_USER": "The application for registration on the Flexibility Platform has been withdrawn",
+      "FILE_ADDED": "File added"
+    }
+  }
+}

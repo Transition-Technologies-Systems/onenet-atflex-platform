@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202206301400-reduce_coupling_points_type_in_unit" author="">
+        <!-- Sql redukuje ilość przypisanych do Unita CouplingPointIdTypes do jedenego elementu-->
+        <sql>
+            delete from unit_coup_point_id_type
+            where exists (
+                select max_cp_unit_id.unit_id as unit_id, max_cp_unit_id.localization_type_id as localization_type_id from unit_coup_point_id_type max_cp_unit_id
+                INNER JOIN (select unit_id, MAX(localization_type_id) as max_local_type_id from unit_coup_point_id_type GROUP BY unit_id)
+                    grouping_unit_cp on grouping_unit_cp.unit_id = max_cp_unit_id.unit_id
+                where grouping_unit_cp.max_local_type_id != max_cp_unit_id.localization_type_id
+                    and unit_coup_point_id_type.unit_id = max_cp_unit_id.unit_id
+                    and unit_coup_point_id_type.localization_type_id = max_cp_unit_id.localization_type_id)
+        </sql>
+    </changeSet>
+</databaseChangeLog>

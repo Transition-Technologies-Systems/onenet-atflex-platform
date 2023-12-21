@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202303151600_unit_self_schedule_der_id_index" author="">
+        <createIndex indexName="idx_u_self_schedule_der_date" tableName="unit_self_schedule" unique="false">
+            <column name="unit_id" type="bigint"/>
+            <column name="self_schedule_date" type="datetime"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="202303151605_unit_self_schedule_der_index" author="">
+        <createIndex indexName="idx_u_self_schedule_der" tableName="unit_self_schedule" unique="false">
+            <column name="unit_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

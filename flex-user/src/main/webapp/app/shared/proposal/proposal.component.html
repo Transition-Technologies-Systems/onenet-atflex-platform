@@ -1,0 +1,58 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'shared.proposal.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button appPreventDoubleClick pButton pRipple type="button" [label]="'shared.proposal.saveBtn' | translate" (click)="save()"></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form">
+    <div class="formgrid grid">
+      <div class="field col-6" *ngIf="isFspa">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.subportfolios"
+              optionValue="id"
+              optionLabel="name"
+              formControlName="subportfolio"
+              inputId="field-subportfolio"
+              aria-describedby="subportfolio-help"
+            ></app-select>
+            <label for="field-subportfolio">{{ 'shared.proposal.subportfolio' | translate }}</label>
+          </span>
+        </span>
+        <ng-container *ngIf="form.get('subportfolio')?.touched">
+          <small id="subportfolio-help" class="p-error" *ngIf="form.get('subportfolio')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.units"
+              formControlName="unitId"
+              inputId="field-unitId"
+              aria-describedby="unitId-help"
+            ></app-select>
+            <label for="field-unitId">{{ 'shared.proposal.unitId' | translate }}</label>
+          </span>
+        </span>
+        <ng-container *ngIf="form.get('unitId')?.touched">
+          <small id="unitId-help" class="p-error" *ngIf="form.get('unitId')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</app-modal>

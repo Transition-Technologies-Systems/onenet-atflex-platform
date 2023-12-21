@@ -1,0 +1,15 @@
+<app-filters [form]="filters" (getData)="filter()" state="fsps-filters">
+  <app-filter-container>
+    <app-filter type="date-range" controlName="createdDate" name="fsps.filters.createdDate"></app-filter>
+    <app-filter type="date-range" controlName="lastModifiedDate" name="fsps.filters.lastModifiedDate"></app-filter>
+    <app-filter type="date-range" controlName="valid" name="fsps.filters.validDate"></app-filter>
+    <app-filter
+      [showHeader]="false"
+      type="multi-select"
+      controlName="active"
+      name="fsps.filters.active"
+      [translateDictionaries]="true"
+      [dictionaries]="dictionaries.boolean"
+    ></app-filter>
+  </app-filter-container>
+</app-filters>

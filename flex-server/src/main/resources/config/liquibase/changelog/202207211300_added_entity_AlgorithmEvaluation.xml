@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202207211300-table" author="">
+        <createSequence incrementBy="1" sequenceName="algorithm_evaluation_seq" startValue="1" ordered="true"/>
+        <createTable tableName="algorithm_evaluation" remarks="AGNO algorithm evaluations">
+            <column name="id" type="bigint" defaultValueSequenceNext="algorithm_evaluation_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="type_of_algorithm" type="varchar(50)" remarks="Type of algorithm">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_date" type="timestamp" remarks="Date of delivery used in algorithm">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="timestamp" remarks="Algorithm processing end date">
+                <constraints nullable="true"/>
+            </column>
+            <column name="input_files_zip" type="blob" remarks="Input files in a zip archive">
+                <constraints nullable="false" />
+            </column>
+            <column name="output_files_zip" type="blob" remarks="Output files in a zip archive">
+                <constraints nullable="true" />
+            </column>
+            <column name="process_logs_zip" type="blob" remarks="Log file in a zip archive">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(50)" remarks="Algorithm processing status">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202207211300-constraints" author="">
+        <createTable tableName="alg_evaluation_cmvc_offers" remarks="Join table for algorithm evaluation and cmvc offers tables">
+            <column name="algorithm_evaluation_id" type="bigint" remarks="Algorithm evaluation identifier from table algorithm_evaluation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cmvc_offer_id" type="bigint" remarks="Cmvc offer identifier from table auction_cmvc_offer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="algorithm_evaluation_id, cmvc_offer_id" tableName="alg_evaluation_cmvc_offers"/>
+        <addForeignKeyConstraint baseColumnNames="algorithm_evaluation_id" baseTableName="alg_evaluation_cmvc_offers" constraintName="fk_alg_eval_cmvc_ae_id"
+                                 referencedColumnNames="id" referencedTableName="algorithm_evaluation"/>
+        <addForeignKeyConstraint baseColumnNames="cmvc_offer_id" baseTableName="alg_evaluation_cmvc_offers" constraintName="fk_alg_eval_cmvc_offer_id"
+                                 referencedColumnNames="id" referencedTableName="auction_cmvc_offer"/>
+
+        <createTable tableName="alg_evaluation_da_offers" remarks="Join table for algorithm evaluation and day ahead offers tables">
+            <column name="algorithm_evaluation_id" type="bigint" remarks="Algorithm evaluation identifier from table algorithm_evaluation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="da_offer_id" type="bigint" remarks="Day ahead offer identifier from table auction_da_offer">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="algorithm_evaluation_id, da_offer_id" tableName="alg_evaluation_da_offers"/>
+        <addForeignKeyConstraint baseColumnNames="algorithm_evaluation_id" baseTableName="alg_evaluation_da_offers" constraintName="fk_alg_eval_da_ae_id"
+                                 referencedColumnNames="id" referencedTableName="algorithm_evaluation"/>
+        <addForeignKeyConstraint baseColumnNames="da_offer_id" baseTableName="alg_evaluation_da_offers" constraintName="fk_alg_eval_da_offer_id"
+                                 referencedColumnNames="id" referencedTableName="auction_da_offer"/>
+    </changeSet>
+
+    <changeSet id="202207211300-audit" author="">
+        <addColumn tableName="algorithm_evaluation">
+            <column name="created_by" type="varchar(50)" defaultValue="system"
+                    remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Algorithm processing start date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"
+                    remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

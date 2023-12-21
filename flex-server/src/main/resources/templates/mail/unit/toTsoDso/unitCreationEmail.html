@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.unit.creation.title}">Flexibility Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.unit.greeting(${user.login})}">
+    Dear
+</p>
+<p th:text="#{email.unit.tsoDso.creation.text1(${#numbers.formatDecimal(unit.id, 0, 0)}, ${unit.name}, ${derType}, ${unit.fsp.representative.companyName})}">
+    A new unit has appeared in the FSP system.
+</p>
+<p>
+    <span th:text="#{email.unit.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+</p>
+</body>
+</html>

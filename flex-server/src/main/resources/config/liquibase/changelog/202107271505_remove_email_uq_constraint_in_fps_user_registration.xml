@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202107271505" author="">
+        <dropUniqueConstraint tableName="fsp_user_registration" constraintName="UX_FSP_USER_REG_EMAIL" uniqueColumns="email"/>
+    </changeSet>
+</databaseChangeLog>

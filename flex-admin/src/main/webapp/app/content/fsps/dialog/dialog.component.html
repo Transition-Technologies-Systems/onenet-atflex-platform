@@ -1,0 +1,221 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'fsps.actions.' + mode + '.title' | translate: data }}</h2>
+    <div class="actions">
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'fsps.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form">
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-companyName" type="companyName" pInputText formControlName="companyName" aria-describedby="companyName-help" />
+            <label for="field-companyName">{{ 'fsps.table.companyName' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('companyName')?.touched">
+            <small id="companyName-help" class="p-error" *ngIf="form.get('companyName')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="companyName-help" class="p-error" *ngIf="form.get('companyName')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 254 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="representative" formGroupName="representative">
+      <div class="formgrid grid">
+        <div class="field col-6">
+          <span class="field-control">
+            <span class="p-float-label">
+              <input
+                id="field-representative-firstName"
+                type="firstName"
+                pInputText
+                formControlName="firstName"
+                aria-describedby="firstName-help"
+              />
+              <label for="field-representative-firstName">{{ 'fsps.table.representative.firstName' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('representative.firstName')?.touched">
+              <small id="firstName-help" class="p-error" *ngIf="form.get('representative.firstName')?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+              <small id="firstName-help" class="p-error" *ngIf="form.get('representative.firstName')?.hasError('maxlength')">
+                {{ 'validate.maxlength' | translate: { value: 50 } }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+        <div class="field col">
+          <span class="field-control">
+            <span class="p-float-label">
+              <input
+                id="field-representative-lastName"
+                type="lastName"
+                pInputText
+                formControlName="lastName"
+                aria-describedby="lastName-help"
+              />
+              <label for="field-representative-lastName">{{ 'fsps.table.representative.lastName' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('representative.lastName')?.touched">
+              <small id="lastName-help" class="p-error" *ngIf="form.get('representative.lastName')?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+              <small id="lastName-help" class="p-error" *ngIf="form.get('representative.lastName')?.hasError('maxlength')">
+                {{ 'validate.maxlength' | translate: { value: 50 } }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col">
+          <span class="field-control">
+            <span class="p-float-label">
+              <input id="field-representative-email" type="email" pInputText formControlName="email" aria-describedby="email-help" />
+              <label for="field-representative-email">{{ 'fsps.table.representative.email' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('representative.email')?.touched">
+              <small id="email-help" class="p-error" *ngIf="form.get('representative.email')?.hasError('email')">
+                {{ 'validate.email' | translate }}
+              </small>
+              <small id="email-help" class="p-error" *ngIf="form.get('representative.email')?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+        <div class="field col">
+          <span class="field-control">
+            <span class="p-float-label">
+              <ngx-intl-tel-input
+                [cssClass]="'custom'"
+                [preferredCountries]="prefferedCountries"
+                [enableAutoCountrySelect]="false"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [searchCountryField]="searchCountryField"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]="selectedCountry"
+                [maxLength]="20"
+                [phoneValidation]="true"
+                inputId="field-phoneNumber"
+                name="phone"
+                formControlName="phoneNumber"
+                aria-describedby="phoneNumber-help"
+              ></ngx-intl-tel-input>
+              <label for="field-phoneNumber">{{ 'fsps.table.representative.phoneNumber' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('representative.phoneNumber')?.touched">
+              <small id="phoneNumber-help" class="p-error" *ngIf="form.get('representative.phoneNumber')?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+              <small
+                id="phoneNumber-help"
+                class="p-error"
+                *ngIf="form.get('representative.phoneNumber')?.invalid && !form.get('representative.phoneNumber')?.hasError('required')"
+              >
+                {{ 'validate.invalidPhoneNumber' | translate }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validFrom"
+              inputId="field-validFrom"
+              [maxDate]="form.get('validTo')?.value"
+              [minDate]="minValidDate"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validFrom-help"
+            ></app-calendar>
+            <label for="field-validFrom">{{ 'fsps.form.validFrom' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validFrom')?.touched">
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('beforeCurrentHour')">
+              {{ 'validate.beforeCurrentHour' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validTo"
+              inputId="field-validTo"
+              [minDate]="minValidToDate"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validTo-help"
+            ></app-calendar>
+            <label for="field-validTo">{{ 'fsps.form.validTo' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validTo')?.touched">
+            <small id="validTo-help" class="p-error" *ngIf="form.get('validTo')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-active">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="active"
+              inputId="field-active"
+              [label]="'fsps.form.active' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="isBsp">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-agreementWithTso">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="agreementWithTso"
+              inputId="field-agreementWithTso"
+              [label]="'fsps.table.agreementWithTso' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div modal-footer></div>
+</app-modal>

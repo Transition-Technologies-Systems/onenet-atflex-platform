@@ -1,0 +1,19 @@
+{
+  "account": {
+    "password": "Hasło",
+    "confirmPassword": "Powtórz hasło",
+    "currentPassword": "Aktualne hasło",
+    "changePassword": {
+      "btn": "Ustaw hasło",
+      "title": "Zmiana hasła",
+      "success": "Hasło zostało zmienione",
+      "error": "Wystąpił błąd podczas zmiany hasła"
+    },
+    "resetPassword": {
+      "setPassword": "Ustaw hasło",
+      "goToLogin": "Wróc do strony logowania",
+      "success": "Pomyślnie ustawiono hasło - zaloguj się do systemu",
+      "error": "Wystąpił błąd podczas ustawiania hasła - skontaktuj się z serwisem"
+    }
+  }
+}

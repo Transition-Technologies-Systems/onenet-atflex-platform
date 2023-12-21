@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head>
+    <title th:text="#{email.unit.edition.title}">Flexibility Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.unit.greeting(${user.login})}">
+    Dear
+</p>
+<p th:text="#{email.unit.edition.text1(${unit.name})}">
+    The following attributes of DER have been edited:
+</p>
+<ul>
+    <li  th:if="${companyName != null}" th:text="#{email.unit.creation.fsp(${companyName})}">Company name</li>
+    <li  th:if="${code != null}" th:text="#{email.unit.creation.code(${code})}">Code</li>
+    <li  th:if="${sourcePower != null}" th:text="#{email.unit.creation.sourcePower(${sourcePower})}">Source power</li>
+    <li  th:if="${connectionPower != null}" th:text="#{email.unit.creation.connectionPower(${connectionPower})}">Connection power</li>
+    <li  th:if="${directionOfDeviation != null}" th:text="#{email.unit.creation.directionOfDeviation(${directionOfDeviation})}">Direction of deviation</li>
+    <li  th:if="${derTypeReception != null}" th:text="#{email.unit.creation.derTypeReception(${derTypeReception})}">Der Type Reception</li>
+    <li  th:if="${derTypeEnergyStorage != null}" th:text="#{email.unit.creation.derTypeEnergyStorage(${derTypeEnergyStorage})}">Der Type Energy Storage</li>
+    <li  th:if="${derTypeGeneration != null}" th:text="#{email.unit.creation.derTypeGeneration(${derTypeGeneration})}">Der Type Generation</li>
+    <li  th:if="${validFrom != null}" th:text="#{email.unit.creation.validFrom(${validFrom})}">Valid from</li>
+    <li  th:if="${validTo != null}" th:text="#{email.unit.creation.validTo(${validTo})}">Valid to</li>
+    <li  th:if="${ppe != null}" th:text="#{email.unit.creation.ppe(${ppe})}">PPE</li>
+    <li  th:if="${couplingPointIds != null}" th:text="#{email.unit.creation.couplingPointId(${couplingPointIds})}">Coupling point ID</li>
+    <li  th:if="${powerStationTypes != null}" th:text="#{email.unit.creation.powerStation(${powerStationTypes})}">Power station MV/LV number</li>
+    <li  th:if="${mridTso != null}" th:text="#{email.unit.creation.mridTso(${mridTso})}">mrid TSO</li>
+    <li  th:if="${mridDso != null}" th:text="#{email.unit.creation.mridDso(${mridDso})}">mrid DSO</li>
+    <li  th:if="${active != null}" th:text="#{email.unit.creation.active(${active})}">Active</li>
+    <li  th:if="${aggregated != null}" th:text="#{email.unit.creation.aggregated(${aggregated})}">Aggregated</li>
+    <li  th:if="${certified != null}" th:text="#{email.unit.creation.certified(${certified})}">Certified</li>
+    <li  th:if="${pMin != null}" th:text="#{email.unit.creation.pMin(${pMin})}">Minimum power</li>
+    <li  th:if="${qMin != null}" th:text="#{email.unit.creation.qMin(${qMin})}">Minimum reactive power</li>
+    <li  th:if="${qMax != null}" th:text="#{email.unit.creation.qMax(${qMax})}">Maximum reactive power</li>
+    <li  th:if="${pointOfConnectionWithLvTypes != null}" th:text="#{email.unit.creation.pointOfConnectionWithLv(${pointOfConnectionWithLvTypes})}">Point of connection with LV</li>
+</ul>
+<p>
+    <a th:with="url=(@{|${baseUrl}/ders/list?id=${unit.id}|})" th:href="${url}" th:text="#{email.unit.edition.link}">
+        Link
+    </a>
+</p>
+<p>
+    <span th:text="#{email.unit.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+</p>
+</body>
+</html>

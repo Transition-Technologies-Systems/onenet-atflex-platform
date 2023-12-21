@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 11MB
+
+jhipster:
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+        base64-secret: Y2M4MWQ3NzUwM2YxZmMyYjE5NDNlNTdkZmZhMjNkNDBlMWJhMzkzOTNkMjQ3MjVjNzk2NTMwZWE0MmY5MDU0OWRmZjc1ODYwODZjOTRlMWZlMmIzNWE5OWQ3YzVjYzExMjg0N2M2NWFkNzU3NDIzMGU3ZDI0YzY0N2UyZDdhYTA=
+
+logging:
+  path: /usr/local/flexibility-platform/logs/flex-admin
+  level:
+    ROOT: DEBUG
+    io.github.jhipster: DEBUG
+    pl.com.tt.flex.server: DEBUG
+
+application:
+  websocket-address: ws://localhost:8080

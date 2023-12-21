@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202110061630" author="">
+        <delete tableName="activity_monitor">
+            <where>event in('UNIT_CREATED', 'UNIT_DELETED', 'UNIT_UPDATED',
+                'FSP_CREATED', 'FSP_DELETED', 'FSP_UPDATED',
+                'DER_TYPE_CREATED', 'DER_TYPE_DELETED', 'DER_TYPE_UPDATED',
+                'FP_CREATED', 'FP_DELETED', 'FP_UPDATED',
+                'SCHEDULING_UNIT_CREATED', 'SCHEDULING_UNIT_DELETED', 'SCHEDULING_UNIT_UPDATED',
+                'USER_CREATED', 'USER_DELETED', 'USER_UPDATED',
+                'PRODUCT_CREATED', 'PRODUCT_DELETED', 'PRODUCT_UPDATED')
+            </where>
+        </delete>
+    </changeSet>
+</databaseChangeLog>

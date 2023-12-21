@@ -1,0 +1,64 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'dictionariesPage.kdmModelsDialog.addModel.title' | translate: { areaName: areaName } }}</h2>
+    <div class="actions">
+      <div class="actions">
+        <button
+          pButton
+          pRipple
+          type="button"
+          [label]="'actions.cancel' | translate"
+          class="p-button-secondary"
+          (click)="close()"
+        ></button>
+        <button
+          appPreventDoubleClick
+          pButton
+          pRipple
+          type="button"
+          [label]="'dictionariesPage.actions.' + mode + '.saveBtn' | translate"
+          (click)="save()"
+        ></button>
+      </div>
+    </div>
+  </div>
+  <div modal-content>
+    <div class="kdm-models-table">
+      <p-table [value]="data" [lazy]="true" dataKey="id" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 100px">{{ 'dictionariesPage.kdmModelsDialog.addModel.timestamp' | translate }}</th>
+            <th>{{ 'dictionariesPage.kdmModelsDialog.addModel.fileName' | translate }}</th>
+            <th style="width: 160px">{{ 'dictionariesPage.kdmModelsDialog.addModel.action' | translate }}</th>
+            <th style="width: 50px">{{ 'dictionariesPage.kdmModelsDialog.addModel.delete' | translate }}</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row let-index="index">
+          <tr [class.timestamp-green]="hasStatus('INCLUDED', row)" [class.timestamp-yellow]="hasStatus('NEW', row)">
+            <td>{{ row.timestamp }}</td>
+            <td>{{ row.fileName }}</td>
+            <td style="text-align: center">
+              <p-fileUpload
+                #fileUploader
+                [customUpload]="true"
+                accept=".kdm"
+                [chooseLabel]="'dictionariesPage.table.buttons.addModel' | translate"
+                chooseIcon=""
+                [auto]="false"
+                mode="basic"
+                (onSelect)="uploadModel($event, row.timestamp, fileUploader)"
+                class="fileupload-button"
+              >
+              </p-fileUpload>
+            </td>
+            <td style="text-align: center">
+              <p-confirmPopup></p-confirmPopup>
+              <i class="icon icon--delete c-pointer" (click)="deleteModel($event, row)" *ngIf="row.fileName"></i>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div modal-footer></div>
+</app-modal>

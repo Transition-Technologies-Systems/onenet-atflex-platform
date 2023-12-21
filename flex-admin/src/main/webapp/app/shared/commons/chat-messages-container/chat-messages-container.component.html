@@ -1,0 +1,139 @@
+<section class="chat-messages-container">
+  <ng-container *ngTemplateOutlet="messagesHeader ? messagesHeader : defaultMessagesHeader"></ng-container>
+  <div class="messages-container">
+    <div #scrollContainer class="messages">
+      <div
+        class="message"
+        *ngFor="let message of messages | async"
+        [class.is-automat]="isChatMessage ? false : message.automat"
+        [class.my-person]="isChatMessage ? message.myCompanyMessage : message.userId === user?.id"
+        [class.receiver]="isReceiver(message)"
+      >
+        <ng-container
+          *ngIf="!isChatMessage"
+          [ngTemplateOutlet]="registrationThreadMessage"
+          [ngTemplateOutletContext]="{ $implicit: message }"
+        ></ng-container>
+        <ng-container
+          *ngIf="isChatMessage"
+          [ngTemplateOutlet]="chatMessage"
+          [ngTemplateOutletContext]="{ $implicit: message }"
+        ></ng-container>
+      </div>
+    </div>
+    <div class="send-message" *appHasAuthority="sendPermission">
+      <span class="field-control-attachments" *ngIf="attachments.length">
+        <div class="attachment-control" *ngFor="let attachment of attachments; index as index">
+          <div class="attachment" [pTooltip]="attachment.name" tooltipPosition="top">
+            <span>{{ attachment.name }}</span>
+            <button
+              appPreventDoubleClick
+              pButton
+              pRipple
+              type="button"
+              icon="icon icon--remove"
+              (click)="removeAttachment(index)"
+              class="p-button-rounded p-button-text"
+            ></button>
+          </div>
+        </div>
+      </span>
+
+      <div class="message">
+        <span class="message-count">
+          {{ (message ? message.length : 0) + '/500' }}
+        </span>
+        <textarea
+          [rows]="2"
+          [cols]="30"
+          [placeholder]="'field.chatMessage' | translate"
+          [(ngModel)]="message"
+          class="message"
+          pInputTextarea
+          [autoResize]="true"
+          (keydown.enter)="send($event)"
+          [disabled]="disabled"
+          [maxLength]="500"
+        ></textarea>
+        <p-button
+          [pTooltip]="'tip.chatAddAttachment' | translate"
+          icon="icon icon--attachment"
+          styleClass="p-button-text"
+          tooltipZIndex="20000"
+          [disabled]="disabled"
+          (click)="addAtachments()"
+        ></p-button>
+        <p-button
+          (click)="send()"
+          [disabled]="disabled"
+          [loading]="sendIncomplete"
+          [label]="sendIncomplete ? (progress | number: '1.0-1') + '%' : ''"
+          [pTooltip]="'actions.send' | translate"
+          icon="icon icon--send-white"
+          tooltipZIndex="20000"
+          tooltipPosition="left"
+        >
+        </p-button>
+      </div>
+      <input
+        #fileInput
+        type="file"
+        (change)="onFileSelect($event)"
+        [multiple]="attachmentConfig.multiple"
+        [accept]="attachmentConfig.accept"
+        [attr.title]="''"
+      />
+    </div>
+  </div>
+</section>
+
+<ng-template #defaultMessagesHeader></ng-template>
+
+<ng-template #chatMessage let-message>
+  <ng-container
+    *ngIf="message.attachedFileName"
+    [ngTemplateOutlet]="attachmentView"
+    [ngTemplateOutletContext]="{ $implicit: message }"
+  ></ng-container>
+  <ng-container *ngIf="message.content" [ngTemplateOutlet]="messageView" [ngTemplateOutletContext]="{ $implicit: message }"></ng-container>
+</ng-template>
+
+<ng-template #registrationThreadMessage let-message>
+  <div class="attachments" *ngIf="message.attachments.length">
+    <div class="attachment-control" *ngFor="let attachment of message.attachments">
+      <div class="attachment" [pTooltip]="attachment.name" tooltipPosition="top">
+        <p-button [label]="attachment.name" styleClass="p-button-link" (click)="downloadAttachment(attachment.id)"></p-button>
+      </div>
+    </div>
+  </div>
+  <ng-container [ngTemplateOutlet]="messageView" [ngTemplateOutletContext]="{ $implicit: message }"></ng-container>
+</ng-template>
+
+<ng-template #messageView let-message>
+  <div class="message-content">
+    <p [innerHTML]="message.content"></p>
+    <p class="details">
+      <span class="user" *ngIf="!message.automat">{{ message.createdBy + ',' }}</span>
+      <span class="time">{{ message.createdDate | chatMessageDate }}</span>
+    </p>
+    <p *ngIf="message?.read" class="details">
+      <span class="italic">{{ 'chat.messages.read' | translate }}</span>
+    </p>
+  </div>
+</ng-template>
+
+<ng-template #attachmentView let-message>
+  <div class="message-content">
+    <div class="attachments">
+      <div class="attachment-control">
+        <div class="attachment" [pTooltip]="message.attachedFileName" tooltipPosition="top">
+          <p-button [label]="message.attachedFileName" styleClass="p-button-link" (click)="downloadAttachment(message.id)"></p-button>
+        </div>
+      </div>
+    </div>
+    <p class="details">
+      <span class="user">{{ message.createdBy + ',' }}</span>
+      <span class="time">{{ message.createdDate | chatMessageDate }}</span>
+    </p>
+  </div>
+</ng-template>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202101270801-table" author="">
+        <createSequence incrementBy="1" sequenceName="users_seq" startValue="10" ordered="true" />
+        <createTable tableName="users" remarks="Table with application users">
+            <column name="id" type="bigint" defaultValueSequenceNext="users_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(50)" remarks="Unique login of user">
+                <constraints unique="true" nullable="false" uniqueConstraintName="ux_user_login"/>
+            </column>
+            <column name="password_hash" type="varchar(60)" remarks="Hashed password of user"/>
+            <column name="first_name" type="varchar(50)" remarks="First name of user"/>
+            <column name="last_name" type="varchar(50)" remarks="Last name of user"/>
+            <column name="email" type="varchar(191)" remarks="Unique email address of user">
+                <constraints unique="true" nullable="false" uniqueConstraintName="ux_user_email"/>
+            </column>
+            <column name="phone_number" type="varchar(20)" remarks="Phone number of user"/>
+            <column name="company_name" type="varchar(254)" remarks="Company name of user"/>
+            <column name="activated" type="boolean" valueBoolean="false" remarks="Flag informing if user is activated">
+                <constraints nullable="false" />
+            </column>
+            <column name="lang_key" type="varchar(10)" remarks="Default language of the application for user"/>
+            <column name="activation_key" type="varchar(20)" remarks="Key needed to activate user"/>
+            <column name="reset_key" type="varchar(20)" remarks="Key needed to reset user password"/>
+            <column name="reset_date" type="timestamp" remarks="Date of user request for password reset"/>
+            <column name="password_change_on_first_login" type="boolean" defaultValue="true" remarks="Flag informing if user has to change his password on first login">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unsuccessful_login_count" type="int" defaultValue="0" remarks="Number of unsuccessful user logins in a row">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_successful_login_date" type="timestamp" remarks="Date of last successful user login"/>
+            <column name="creation_source" type="varchar(50)" remarks="Name of the source/process on the basis of which the user was created">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202101270801-constraints" author="">
+        <addNotNullConstraint columnName="password_hash" columnDataType="varchar(60)" tableName="users"/>
+    </changeSet>
+
+    <changeSet id="202101270801-audit" author="">
+        <addColumn tableName="users">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation"/>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202101270801-data" author="" runOnChange="true">
+        <loadUpdateData primaryKey="id" file="config/liquibase/data/user.csv" separator=";" tableName="users">
+            <column name="activated" type="boolean"/>
+        </loadUpdateData>
+    </changeSet>
+</databaseChangeLog>

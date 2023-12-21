@@ -1,0 +1,14 @@
+.filter-group-btn {
+  background-color: #16424f;
+  text-transform: uppercase;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  padding: 0 8px;
+  color: #c4cdcf;
+  height: 24px;
+
+  &.active {
+    color: #fff;
+  }
+}

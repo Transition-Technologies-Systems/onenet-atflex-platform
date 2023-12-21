@@ -1,0 +1,33 @@
+<app-filters [form]="filters" (getData)="filter()" state="products-filters">
+  <app-filter-container>
+    <ng-container *ngIf="type === 'list'; else showForecastedPricesFilters">
+      <app-filter
+        [showHeader]="false"
+        type="multi-select"
+        controlName="locational"
+        name="products.filters.locational"
+        [translateDictionaries]="true"
+        [dictionaries]="dictionaries.boolean"
+      ></app-filter>
+      <app-filter
+        [showHeader]="false"
+        type="multi-select"
+        controlName="active"
+        name="products.filters.active"
+        [translateDictionaries]="true"
+        [dictionaries]="dictionaries.boolean"
+      ></app-filter>
+    </ng-container>
+
+    <ng-template #showForecastedPricesFilters>
+      <app-filter
+        [showHeader]="true"
+        type="multi-select"
+        controlName="productId"
+        name="products.filters.product"
+        [translateDictionaries]="true"
+        [dictionaries]="dictionaries.products | async"
+      ></app-filter>
+    </ng-template>
+  </app-filter-container>
+</app-filters>

@@ -1,0 +1,48 @@
+{
+  "onsUsers": {
+    "title": "ONS users",
+    "actions": {
+      "add": {
+        "btn": "Add",
+        "title": "Add OneNet System user",
+        "saveBtn": "Save",
+        "success": "Successfully added OneNet System user",
+        "error": "Connection error with OneNet System. Contact technical support.",
+        "wrongPassword": "Wrong username or password has been passed. Please revise your data"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected OneNet System user from the system?",
+        "success": "The selected OneNet System user has been successfully deleted",
+        "error": "An error occurred while deleting the selected OneNet System user"
+      },
+      "setActiveUser": {
+        "success": "Successfully connected to OneNet System user",
+        "error": "Could not connect to OneNet System user. Contact technical support"
+      }
+    },
+    "table": {
+      "actions": "Actions",
+      "id": "ID",
+      "username": "Username",
+      "onenetId": "ONS user ID",
+      "email": "E-mail",
+      "active": "Active",
+      "delete": "Delete"
+    },
+    "dialog": {
+      "id": "ID",
+      "username": "Username",
+      "password": "Password"
+    }
+  },
+  "error": {
+    "onenetUser": {
+      "wrongLogin": "Wrong username has been passed. Please revise your data",
+      "wrongPassword": "Wrong password has been passed. Please revise your data",
+      "unknownErrorConnectingToOnenetSystem": "Connection error with OneNet System. Contact technical support.",
+      "cannotAlterNotOwnedUser": "Cannot alter not owned user",
+      "cannotRemoveActiveUser": "It is not possible to delete an active user.",
+      "userAlreadyAdded": "User with given username already exists"
+    }
+  }
+}

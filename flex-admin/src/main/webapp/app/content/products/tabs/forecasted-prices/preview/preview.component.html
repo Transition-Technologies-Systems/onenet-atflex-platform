@@ -1,0 +1,25 @@
+<app-modal [showCancelBtn]="false" [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose [(ngModel)]="versionId" (ngModelChange)="changeVersion()" (closePreview)="close()">
+      <div sub-title>
+        {{ 'products.forecastedPrices.previewTitle' | translate }}
+      </div>
+      <div title>{{ data.product.fullName }} - {{ data.forecastedPricesDate | date: 'dd/MM/yyyy' }}</div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <p-table [lazy]="false" [value]="details" [scrollable]="true" responsiveLayout="scroll">
+      <ng-template pTemplate="header"></ng-template>
+      <ng-template pTemplate="body" let-row>
+        <tr>
+          <td style="flex: 1 0 120px">{{ 'products.forecastedPrices.previewHour' | translate }}</td>
+          <td style="flex: 1 0 80px" *ngFor="let hour of hours">{{ hour }}</td>
+        </tr>
+        <tr>
+          <td style="flex: 1 0 120px">{{ 'products.forecastedPrices.previewPrice' | translate }}</td>
+          <td style="flex: 1 0 80px" *ngFor="let hour of hours; index as index">{{ row.prices[index]?.value }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</app-modal>

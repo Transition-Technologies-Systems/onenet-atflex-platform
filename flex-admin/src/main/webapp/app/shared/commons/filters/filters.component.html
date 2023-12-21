@@ -1,0 +1,173 @@
+<form [formGroup]="form">
+  <div class="filters" *ngIf="activeContainer">
+    <div class="filters-header">
+      <div *ngIf="!hideToogle" class="filters-toogle" (click)="toggle()">
+        <span class="icon-billy" [class.show-filter]="showFilters" [class.hide-filter]="!showFilters"></span>
+        <span class="filters-info" [translate]="showFilters ? hideTranslation : showTranslation"></span>
+        <span *ngIf="additionalToogleName" [innerText]="additionalToogleName"></span>
+      </div>
+      <div class="filters-groups" [class.hidden]="!showFilters">
+        <ng-content select="[filters-groups]"></ng-content>
+      </div>
+      <div class="filters-additional">
+        <ng-content select="[filters-header]"></ng-content>
+      </div>
+    </div>
+    <div
+      [className]="containerClass"
+      [class.border-left-0]="!showFilters"
+      [class.border-right-0]="!showFilters"
+      [class.border-bottom-0]="!showFilters"
+    >
+      <div class="content" [class.hidden]="!showFilters">
+        <div class="filters-content" *ngIf="getFiltersToPrint(activeContainer) as data">
+          <div class="filters-body">
+            <div class="filter-tabs" *ngIf="containerTabs as tabs">
+              <div class="tab" *ngFor="let tab of tabs; index as tabId" [class.active]="activeTab === tabId" (click)="changeTab(tabId)">
+                {{ tab.tabName | translate }}
+              </div>
+            </div>
+            <div class="filters-container-wrap d-flex flex-grow-1">
+              <div [className]="'filter ' + filter.type" *ngFor="let filter of data">
+                <label *ngIf="filter.type !== 'date-range' && !filter.template"> {{ filter.name | translate }} </label>
+                <ng-template
+                  *ngIf="getFormControl(filter) as control"
+                  [ngTemplateOutlet]="getTemplate(filter)"
+                  [ngTemplateOutletContext]="{
+                    $implicit: filter,
+                    control: control
+                  }"
+                ></ng-template>
+              </div>
+              <ng-content select="[filters-body]"></ng-content>
+            </div>
+            <div class="filter-actions-wrap d-flex">
+              <button
+                appPreventDoubleClick
+                pButton
+                pRipple
+                type="button"
+                [disabled]="disabledSubmitButton"
+                [label]="submitName | translate"
+                (click)="filter()"
+                class="p-button-secondary"
+              ></button>
+              <button
+                *ngIf="!hideClearButton"
+                pButton
+                pRipple
+                type="button"
+                [label]="'filters.clear' | translate"
+                (click)="clearFilter()"
+                class="p-button-secondary"
+              ></button>
+              <ng-content select="[filters-actions]"></ng-content>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #checkboxFilter let-filter let-control="control">
+  <div class="field-checkbox">
+    <p-checkbox [inputId]="filter.controlName" [formControl]="control" [binary]="true" inputId="binary"></p-checkbox>
+  </div>
+</ng-template>
+
+<ng-template #checkboxMultipleFilter let-filter let-control="control">
+  <div class="field-checkbox" *ngFor="let option of filter.dictionaries; index as index">
+    <p-checkbox
+      [value]="option.value"
+      [formControl]="control"
+      [name]="filter.controlName"
+      [inputId]="filter.controlName + '-' + index"
+    ></p-checkbox>
+    <label [attr.for]="filter.controlName + '-' + index">
+      {{ filter.translateDictionaries ? (option.label | translate) : option.label }}
+    </label>
+  </div>
+</ng-template>
+
+<ng-template #dateFilter let-filter let-control="control">
+  <app-calendar [inputId]="filter.controlName" [formControl]="control" class="static-filter-calendar"></app-calendar>
+</ng-template>
+
+<ng-template #dateWithTimeFilter let-filter let-control="control">
+  <app-calendar
+    [inputId]="filter.controlName"
+    [showTime]="true"
+    [showSeconds]="false"
+    [formControl]="control"
+    [stepMinute]="15"
+    class="static-filter-calendar"
+  ></app-calendar>
+</ng-template>
+
+<ng-template #dateRangeFilter let-filter let-control="control">
+  <label>{{ filter.name | translate }}</label>
+  <app-calendar
+    class="static-filter-calendar"
+    [formControl]="control.get('from')"
+    [maxDate]="control.get('to')?.value"
+    [inputId]="filter.controlName + '-from'"
+  ></app-calendar>
+  <app-calendar
+    class="static-filter-calendar"
+    [formControl]="control.get('to')"
+    [minDate]="control.get('from')?.value"
+    [inputId]="filter.controlName + '-to'"
+  ></app-calendar>
+</ng-template>
+
+<ng-template #inputFilter let-filter let-control="control">
+  <input [attr.id]="filter.controlName" class="form-control" type="text" [formControl]="control" [className]="filter.className" />
+</ng-template>
+
+<ng-template #inputNumberFilter let-filter let-control="control">
+  <app-input-number [inputId]="filter.controlName" [formControl]="control"> </app-input-number>
+</ng-template>
+
+<ng-template #selectFilter let-filter let-control="control">
+  <app-select
+    [inputId]="filter.controlName"
+    [options]="filter.dictionaries"
+    [formControl]="control"
+    [showClear]="true"
+    style
+    [iconClass]="filter.iconClass || 'icon icon--expand'"
+    [optionLabel]="filter.optionLabel"
+    [optionValue]="filter.optionValue"
+    [filter]="filter.filter"
+  >
+  </app-select>
+</ng-template>
+
+<ng-template #multiSelectFilter let-filter let-control="control">
+  <app-multiselect
+    [inputId]="filter.controlName"
+    [options]="filter.dictionaries"
+    [formControl]="control"
+    style
+    [showHeader]="filter.showHeader"
+    [iconClass]="filter.iconClass || 'icon icon--expand'"
+    [optionLabel]="filter.optionLabel"
+    [optionValue]="filter.optionValue"
+  >
+  </app-multiselect>
+</ng-template>
+
+<ng-template #radioButtonFilter let-filter let-control="control">
+  <div class="field-radiobutton" *ngFor="let option of filter.dictionaries; index as index">
+    <p-radioButton
+      [name]="filter.controlName"
+      [value]="option.value"
+      [formControl]="control"
+      [inputId]="filter.controlName + '-' + index"
+    ></p-radioButton>
+    <label [attr.for]="filter.controlName + '-' + index">
+      {{ filter.translateDictionaries ? (option.label | translate) : option.label }}
+    </label>
+  </div>
+</ng-template>

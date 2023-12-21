@@ -1,0 +1,55 @@
+:host ::ng-deep table {
+  border-collapse: separate;
+
+  .p-datatable .p-datatable-tbody > tr > td.nested-column-field {
+    width: 90px;
+    height: 65px;
+    border: none;
+    padding: 5px;
+
+    &.nested-column-border {
+      border-top: 1px solid #c8c8c8;
+    }
+  }
+
+  td {
+    &.accepted {
+      background-color: #00800080;
+    }
+
+    &.changed {
+      background-color: #ffa50069;
+    }
+
+    &.deleted {
+      background-color: #ff00008c;
+    }
+  }
+
+  .sticky-ders {
+    position: sticky;
+    z-index: 1;
+    background-color: white;
+  }
+
+  .l-0 {
+    left: -20px;
+  }
+}
+
+:host ::ng-deep .p-datatable-wrapper {
+  overflow-x: inherit;
+}
+
+:host ::ng-deep .container {
+  width: fit-content;
+  position: fixed;
+  display: inline-block;
+
+  .sticky-form {
+    width: calc(100vw - 215px);
+    position: sticky;
+    position: -webkit-sticky;
+    left: 0;
+  }
+}

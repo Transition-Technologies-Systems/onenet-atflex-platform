@@ -1,0 +1,72 @@
+<app-modal [showCancelBtn]="false" [showFooter]="hasRole" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose [(ngModel)]="versionId" (ngModelChange)="changeVersion()" (closePreview)="close()">
+      <div sub-title>
+        {{ 'activationsSettlements.title' | translate }}
+      </div>
+      <div title>
+        {{ ('activationsSettlements.table.id' | translate) + ': ' + data.id }}
+      </div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'activationsSettlements.dialog.previewData' | translate | uppercase" [selected]="true">
+        <div>
+          <div class="field">
+            <label>{{ 'activationsSettlements.table.id' | translate }}</label>
+            <span>{{ data.id }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'activationsSettlements.table.derName' | translate }}</label>
+            <span>{{ data.derName }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'activationsSettlements.table.offerId' | translate }}</label>
+            <span>{{ data.offerId }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'activationsSettlements.table.auctionName' | translate }}</label>
+            <span>{{ data.auctionName }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'activationsSettlements.table.companyName' | translate }}</label>
+            <span>{{ data.companyName }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'activationsSettlements.table.acceptedDeliveryPeriod' | translate }}</label>
+            <span>{{ formatDeliveryDate(data) }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'activationsSettlements.table.acceptedVolume' | translate }}</label>
+            <span [pTooltip]="showTooltip(data) | translate">{{ data | showVolume: 'acceptedVolume':data.unit }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'activationsSettlements.table.activatedVolume' | translate }}</label>
+            <span>{{ data.activatedVolume ? data.activatedVolume + ' ' + data.unit : '' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'activationsSettlements.table.settlementAmount' | translate }}</label>
+            <span>{{ data.settlementAmount ? data.settlementAmount : '' }}</span>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</app-modal>

@@ -1,0 +1,51 @@
+<app-filters [form]="filters" (getData)="filter()" state="units-filters">
+  <app-filter-container>
+    <ng-container *ngIf="type === 'list'; else showSelfSchedulesFilters">
+      <app-filter
+        [showHeader]="false"
+        type="multi-select"
+        controlName="aggregated"
+        name="units.filters.aggregated"
+        [translateDictionaries]="true"
+        [dictionaries]="dictionaries$.boolean | async"
+      ></app-filter>
+      <app-filter type="date-range" controlName="createdDate" name="units.filters.creationDate"></app-filter>
+      <app-filter type="date-range" controlName="lastModifiedDate" name="units.filters.lastModified"></app-filter>
+      <app-filter
+        [showHeader]="false"
+        type="multi-select"
+        controlName="active"
+        name="units.filters.active"
+        [translateDictionaries]="true"
+        [dictionaries]="dictionaries$.boolean | async"
+      ></app-filter>
+      <app-filter
+        [showHeader]="false"
+        type="multi-select"
+        controlName="certified"
+        name="units.filters.certified"
+        [translateDictionaries]="true"
+        [dictionaries]="dictionaries$.boolean | async"
+      ></app-filter>
+    </ng-container>
+
+    <ng-template #showSelfSchedulesFilters>
+      <app-filter
+        [showHeader]="true"
+        type="multi-select"
+        controlName="unitId"
+        name="units.filters.unit"
+        [translateDictionaries]="true"
+        [dictionaries]="dictionaries$.units | async"
+      ></app-filter>
+      <app-filter
+        [showHeader]="true"
+        type="multi-select"
+        controlName="fspId"
+        name="units.filters.fsp"
+        [translateDictionaries]="true"
+        [dictionaries]="dictionaries$.companies | async"
+      ></app-filter>
+    </ng-template>
+  </app-filter-container>
+</app-filters>

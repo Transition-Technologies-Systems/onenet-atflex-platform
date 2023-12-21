@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.auction.activation.title}">Activation reminder</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.auction.activation.greeting(${user.login})}">
+    Dear
+</p>
+<p th:text="#{email.auction.cmvc.activation.text(${energyAuctionName}, ${unitName}, ${productName}, ${deliveryDate}, ${deliveryInterval}, ${acceptedVolume})}">
+    Due to acceptation of your offer we would like to kindly remind you about the request of activation of DER for product, tomorrow at 00:00 with volume 500 kWh.
+</p>
+<p>
+    <span th:text="#{email.auction.cmvc.activation.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature2}">atFlex Platform.</em>
+</p>
+</body>
+</html>

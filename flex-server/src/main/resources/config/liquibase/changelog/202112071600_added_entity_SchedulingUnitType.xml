@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202112071600-table" author="">
+        <createSequence incrementBy="1" sequenceName="scheduling_unit_type_seq" startValue="100" ordered="true" />
+        <createTable tableName="scheduling_unit_type" remarks="De">
+            <column name="id" type="bigint" defaultValueSequenceNext="scheduling_unit_type_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description_en" type="varchar(100)" remarks="Scheduling Unit Type description in English">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description_pl" type="varchar(100)" remarks="Scheduling Unit Type description in Polish">>
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202112071600-audit" author="">
+        <addColumn tableName="scheduling_unit_type">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202112071600-constraints" author="">
+
+        <createTable tableName="scheduling_unit_type_products" remarks="Join table for scheduling unit type and products tables">
+            <column name="scheduling_unit_type_id" type="bigint" remarks="Scheduling unit type identifier from table scheduling_unit_type">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint" remarks="Product identifier from table product">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="scheduling_unit_type_id, product_id" tableName="scheduling_unit_type_products"/>
+
+        <addForeignKeyConstraint baseColumnNames="scheduling_unit_type_id" baseTableName="scheduling_unit_type_products" constraintName="fk_su_type_prod_su_type_id"
+                                 referencedColumnNames="id" referencedTableName="scheduling_unit_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="scheduling_unit_type_products" constraintName="fk_su_type_prod_prod_id"
+                                 referencedColumnNames="id" referencedTableName="product"/>
+    </changeSet>
+</databaseChangeLog>

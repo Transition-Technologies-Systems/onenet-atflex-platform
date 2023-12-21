@@ -1,0 +1,22 @@
+{
+  "sidebar": {
+    "auctions": {
+      "title": "Auctions",
+      "dayAhead": "Day-ahead",
+      "cmVc": "Congestion Management & Voltage Control"
+    },
+    "users": "Users",
+    "registration": "Registration",
+    "schedulingUnits": "Scheduling units",
+    "partnership": "Partnership invitations/propositions",
+    "schedulingUnitsRegister": "Registered Scheduling units",
+    "flexibilityPotentialsRegister": "Registered Flexibility potentials",
+    "flexibilityPotentials": "Flexibility Potentials",
+    "subportfolios": "Subportfolio",
+    "products": "Products",
+    "units": "DERs",
+    "bsps": "BSP",
+    "chat": "Chat",
+    "activationsSettlements": "Activations/settlements"
+  }
+}

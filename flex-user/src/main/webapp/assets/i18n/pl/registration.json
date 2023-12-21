@@ -1,0 +1,38 @@
+{
+  "registration": {
+    "attachments": "Załączniki",
+    "confirm": {
+      "info": "Wniosek \"{{ id }}\" o rejestrację w Platformie OneNet Flexibility został przesłany do weryfikacji. Jego ocena i dalsze informacje zostaną przesłane na adres podany podczas rejestracji.",
+      "error": "Wystąpił błąd podczas wysyłania wniosku o rejestrację w Platformie OneNet Flexibility"
+    },
+    "reject": {
+      "info": "Wniosek o dostęp do Platformy OneNet Flexibility został wycofany.",
+      "confirmOption": {
+        "success": "Adres e-mail został usunięty z procesu rejestracji na Platformie OneNet Flexibility",
+        "error": "Wystąpił błąd podczas usuwania adresu e-mail z rejestracji z procesu rejestracji na Platformie OneNet Flexibility"
+      },
+      "rejectOption": {
+        "success": "Adres e-mail nie został usunięty z procesu rejestracji na platformie OneNet Flexibility",
+        "error": "Wystąpił błąd podczas usuwania konta z procesu rejestracji na Platformie OneNet Flexibility"
+      }
+    },
+    "form": {
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "companyName": "Nazwa firmy",
+      "email": "E-mail",
+      "phoneNumber": "Nr telefonu",
+      "role": "Rola",
+      "acceptRule": "Zapoznałem/am się i akceptuję",
+      "rules": "Regulamin platformy",
+      "rodo": "Zasady RODO"
+    },
+    "register": "Zarejestruj się",
+    "goToLogin": "Wróć do strony logowania",
+    "invalidFiles": "Wprowadź pliki wymagane do rejestracji na platformie",
+    "invalidForm": "Wypełnij wszystkie wymagane pola. Zaakceptuj wymagane dokumenty do rejestracji na platformie",
+    "success": "Wniosek o rejestrację na platformie został wysłany do weryfikacji. Szczegóły zgłoszenia oraz jego ocena zostaną przesłane na podany adres e-mail",
+    "error": "Wystąpił błąd podczas wysyłania wniosku",
+    "emailExists": "Adres e-mail jest już w użyciu"
+  }
+}

@@ -1,0 +1,84 @@
+<ng-container *ngIf="form" [formGroup]="form">
+  <div class="formgrid grid" *ngIf="showDateControl">
+    <div class="field col-6">
+      <span class="field-control">
+        <span class="p-float-label" [class.disabled]="disabled || dateDiabled">
+          <app-calendar
+            [formControlName]="dateControlName"
+            [inputId]="'field-' + dateControlName"
+            [minDate]="minDeliveryDate"
+            styleClass="no-border"
+            aria-describedby="deliveryDate-help"
+          ></app-calendar>
+          <label for="field-deliveryDate">{{ deliveryDateLabel | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get(dateControlName) as control">
+          <ng-container *ngIf="control?.touched">
+            <small id="deliveryDateTo-help" class="p-error" *ngIf="control?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </ng-container>
+      </span>
+    </div>
+  </div>
+  <div class="formgrid grid">
+    <div class="field col-6">
+      <span class="field-control">
+        <span class="p-float-label" [class.disabled]="disabled">
+          <app-calendar
+            [formControlName]="dateFromControlName"
+            [inputId]="'field-' + dateFromControlName"
+            [maxDate]="deliveryDateFromMax"
+            [minDate]="min"
+            [dayForTime]="form.get(dateControlName)?.value"
+            [stepMinute]="15"
+            styleClass="no-border"
+            [showTime]="true"
+            [timeOnly]="true"
+            [showMinute]="true"
+            [showSeconds]="false"
+            aria-describedby="deliveryDateFrom-help"
+          ></app-calendar>
+          <label for="field-deliveryDateFrom">{{ deliveryDateFromLabel | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get(dateFromControlName) as control">
+          <ng-container *ngIf="control?.touched">
+            <small id="deliveryDateTo-help" class="p-error" *ngIf="control?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </ng-container>
+      </span>
+    </div>
+    <div class="field col-6">
+      <span class="field-control">
+        <span class="p-float-label" [class.disabled]="disabled">
+          <app-calendar
+            [formControlName]="dateToControlName"
+            [inputId]="'field-' + dateToControlName"
+            [minDate]="deliveryDateFromMin"
+            [maxDate]="deliveryDateToMax"
+            [dayForTime]="form.get(dateControlName)?.value"
+            [stepMinute]="15"
+            [showTime]="true"
+            [timeOnly]="true"
+            styleClass="no-border"
+            [showMinute]="true"
+            [showSeconds]="false"
+            [show24Hour]="true"
+            aria-describedby="deliveryDateTo-help"
+          ></app-calendar>
+          <label for="field-deliveryDateTo">{{ deliveryDateToLabel | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get(dateToControlName) as control">
+          <ng-container *ngIf="control?.touched">
+            <small id="deliveryDateTo-help" class="p-error" *ngIf="control?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </ng-container>
+      </span>
+    </div>
+  </div>
+</ng-container>

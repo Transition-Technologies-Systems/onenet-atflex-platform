@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{email.schedulingUnit.readyForTests.title(${schedulingUnitName})}">Flexibility Platform - Scheduling Unit Ready For Tests</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.schedulingUnit.readyForTests.greeting(${tsoAndTaName})}">
+            Dear TA/TSO,
+        </p>
+        <p th:text="#{email.schedulingUnit.readyForTests.text(${schedulingUnitName}, ${bspName})}">
+            {0} is ready for tests. Contact {1} to set up a date for tests.
+        </p>
+        <p>
+            <a th:with="url=(@{|${baseUrl}/scheduling-units?id=${schedulingUnitId}|})" th:href="${url}"
+               th:text="#{email.schedulingUnit.readyForTests.link}" th:style="'color: blue;'">link</a>
+        </p>
+    </body>
+</html>

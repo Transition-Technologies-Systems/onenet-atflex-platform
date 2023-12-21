@@ -1,0 +1,59 @@
+{
+  "users": {
+    "actions": {
+      "add": {
+        "btn": "Add user",
+        "success": "Saving successful",
+        "error": "An error occurred while adding the user",
+        "title": "Add new user",
+        "saveBtn": "Save"
+      },
+      "delete": {
+        "question": "Are you sure to remove the specified user from the system?",
+        "answerYes": "Yes, delete this user",
+        "answerNo": "Cancel",
+        "success": "The indicated user has been successfully removed from the system",
+        "error": "An error occurred while deleting the user"
+      },
+      "edit": {
+        "success": "Saving successful",
+        "error": "An error occurred while editing the user",
+        "title": "Edit user: {{ login }}",
+        "saveBtn": "Save"
+      },
+      "reload": {
+        "btn": "Reload"
+      }
+    },
+    "form": {
+      "password": "Password",
+      "confirmPassword": "Repeat password",
+      "email": "E-mail address",
+      "fspId": "FSP",
+      "fspa": "FSPA",
+      "bsp": "BSP",
+      "role": "Role",
+      "passwordChangeOnFirstLogin": "Password change on first login",
+      "unsuccessfulLoginCount": "Number of unsuccessful logins to the system: {{ value }}",
+      "lastSuccessfulLoginDate": "Last successful login: {{ value }}",
+      "passwordSetByUser": "Password set by the user"
+    },
+    "info": {
+      "fspOwner": "The user is the owner of the FSP"
+    },
+    "table": {
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "ID",
+      "firstName": "Name",
+      "lastName": "Last name",
+      "login": "Login",
+      "roles": "Role",
+      "companyName": "Company name",
+      "email": "E-mail address",
+      "phoneNumber": "Phone number",
+      "activated": "Active"
+    },
+    "title": "Users"
+  }
+}

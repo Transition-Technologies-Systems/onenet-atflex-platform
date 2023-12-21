@@ -1,0 +1,156 @@
+<p-confirmPopup [baseZIndex]="20000"></p-confirmPopup>
+<app-custom-confirm></app-custom-confirm>
+<div class="filters-box">
+  <app-units-filters
+    type="self-schedules"
+    [initFilters]="viewParameters.staticFilters"
+    (filterData)="filterCollection($event)"
+  ></app-units-filters>
+</div>
+<div class="actions-box" *appHasAuthority="'FLEX_USER_SELF_SCHEDULE_MANAGE'">
+  <p-fileUpload
+    [customUpload]="true"
+    (onSelect)="import($event)"
+    accept=".xlsx"
+    [chooseLabel]="'units.actions.selfSchedule.import.btn' | translate"
+    chooseIcon=""
+    [auto]="false"
+    [multiple]="true"
+    sizeLimit="100000"
+    mode="basic"
+    class="fileupload-button"
+  >
+  </p-fileUpload>
+  <button
+    appPreventDoubleClick
+    pButton
+    pRipple
+    type="button"
+    class="p-button-secondary"
+    [label]="'units.actions.selfSchedule.downloadTemplate.btn' | translate"
+    (click)="download()"
+  ></button>
+</div>
+
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.selfSchedule.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.unit" pSortableColumn="unit.name">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.selfSchedule.table.unit' | translate }}
+            <p-sortIcon field="unit.name"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.selfScheduleDate" pSortableColumn="selfScheduleDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.selfSchedule.table.selfScheduleDate' | translate }}
+            <p-sortIcon field="selfScheduleDate"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.createdBy" pSortableColumn="createdBy">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.selfSchedule.table.createdBy' | translate }}
+            <p-sortIcon field="createdBy"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.fsp" pSortableColumn="unit.fsp.companyName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.selfSchedule.table.fsp' | translate }}
+            <p-sortIcon field="unit.fsp.companyName"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate" pSortableColumn="createdDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.selfSchedule.table.createdDate' | translate }}
+            <p-sortIcon field="createdDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+      <tr class="filter-row">
+        <th style="flex: 0 0 46px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.unit"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.selfScheduleDate">
+          <p-columnFilter type="date" field="selfScheduleDate" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="selfScheduleDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.createdBy">
+          <p-columnFilter type="text" field="createdBy" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.fsp"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate"></th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.actions">
+          <i class="icon icon--preview c-pointer" (click)="preview(row)"></i>
+        </td>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.unit">{{ row.unit?.name }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.selfScheduleDate">{{ row.selfScheduleDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td *ngIf="columnsState.createdBy">{{ row.createdBy }}</td>
+        <td *ngIf="columnsState.fsp">{{ row.fsp?.companyName }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.createdDate">{{ row.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.delete">
+          <ng-container *ngIf="row.canDelete">
+            <i *appHasAuthority="'FLEX_USER_SELF_SCHEDULE_DELETE'" class="icon icon--delete c-pointer" (click)="delete($event, row)"></i>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

@@ -1,0 +1,10 @@
+<h1 class="title">{{ (isRegister ? 'schedulingUnits.registerTitle' : 'schedulingUnits.title') | translate }}</h1>
+<p-confirmPopup [baseZIndex]="20000"></p-confirmPopup>
+
+<ng-container *ngIf="!isRegister">
+  <div class="actions-box" *appHasRole="'ROLE_BALANCING_SERVICE_PROVIDER'">
+    <p-selectButton [options]="getTabs()" [(ngModel)]="selectedTab" optionValue="type" (onChange)="changeTab()"></p-selectButton>
+  </div>
+</ng-container>
+
+<router-outlet></router-outlet>

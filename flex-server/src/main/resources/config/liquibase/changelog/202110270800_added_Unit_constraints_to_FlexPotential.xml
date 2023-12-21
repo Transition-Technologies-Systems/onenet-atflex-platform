@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202110270800-constraints" author="">
+
+        <createTable tableName="flex_potential_units" remarks="Join table for units and flex potentials tables">
+            <column name="unit_id" type="bigint" remarks="Unit identifier from table unit">
+                <constraints nullable="false"/>
+            </column>
+            <column name="flex_potential_id" type="bigint" remarks="Flex Potential identifier from table flex_potential">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="unit_id, flex_potential_id" tableName="flex_potential_units"/>
+
+        <addForeignKeyConstraint baseColumnNames="unit_id" baseTableName="flex_potential_units" constraintName="fk_flex_potential_units_unit_id"
+                                 referencedColumnNames="id" referencedTableName="unit"/>
+
+        <addForeignKeyConstraint baseColumnNames="flex_potential_id" baseTableName="flex_potential_units" constraintName="fk_flex_potential_unit_fp_id"
+                                 referencedColumnNames="id" referencedTableName="flex_potential"/>
+    </changeSet>
+
+    <changeSet id="202110281451-sql" author="">
+        <sql>
+            INSERT INTO FLEX_POTENTIAL_UNITS (FLEX_POTENTIAL_ID, UNIT_ID)
+            SELECT fp.id, fp.unit_id FROM FLEX_POTENTIAL fp;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

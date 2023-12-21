@@ -1,0 +1,144 @@
+{
+  "units": {
+    "actions": {
+      "selfSchedule": {
+        "downloadTemplate": {
+          "btn": "Download self-schedule template"
+        },
+        "import": {
+          "btn": "Import self-schedule",
+          "success": "File has been successfully imported",
+          "error": "An unexpected error has occurred. Contact technical support.",
+          "questionHeader": "Confirmation",
+          "reimportQuestion": "Are you sure you want to import self-schedule for the following units again:"
+        },
+        "delete": {
+          "question": "Are you sure to remove the selected self-schedule from the system?",
+          "success": "The selected self-schedule has been successfully deleted",
+          "error": "An error occurred while deleting the selected self-schedule"
+        }
+      },
+      "add": {
+        "btn": "Add new DER",
+        "title": "Add DER",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "There was an error adding the DER"
+      },
+      "addLocationPoint": {
+        "btn": "Add the location of the next DER point"
+      },
+      "edit": {
+        "title": "Edit DER: {{ name }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "An error occurred while editing the DER"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected DER from the system?",
+        "success": "The selected DER has been successfully deleted",
+        "error": "An error occurred while deleting the selected DER"
+      },
+      "export": {
+        "btn": "Export to file",
+        "allData": "Export data of all DERs",
+        "displayedData": "Export data of displayed DERs"
+      },
+      "inviteDer": {
+        "btn": "Invite DER",
+        "title": "Invite DER",
+        "saveBtn": "Send invite",
+        "schedulingUnit": "Scheduling unit"
+      }
+    },
+    "filters": {
+      "derType": "Type of DER",
+      "aggregated": "Aggregated",
+      "creationDate": "Creation date",
+      "active": "Active",
+      "lastModified": "Last modified",
+      "certified": "Certified",
+      "unit": "DER",
+      "fsp": "FSP/FSPA"
+    },
+    "form": {
+      "fillsFsp": "Fills FSP/FSPA",
+      "fillsDso": "Fills DSO",
+      "fsp": "FSP/FSPA",
+      "sourcePower": "Source power/receiving power [kW] (Pmax)",
+      "pointOfConnectionWithLv": "Point of connection with LV",
+      "unitData": "DER Data",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "mainLocation": "Main location",
+      "removeLocationPoint": "Remove location point",
+      "tooltip": {
+        "directionOfDeviation": "Direction of deviation from nominal working point",
+        "editableForDso": "This attribute can only be set by DSO",
+        "connectionPower": "Enter connection power from agreement of connection",
+        "sourcePower": "If this DER is producing power, enter source power from your agreement of connection/If this DER is power receiver, enter receiving power from your agreement of connection",
+        "certificationNotAvailable": "Before certification of DER Pmin[kW], Qmin[kvar], Qmax[kvar], BRP code, coupling point ID and power station MV/LV number must be set",
+        "notAvailableWithSubportfolio": "Attribute cannot be changed because of connection with subportfolio"
+      }
+    },
+    "selfSchedule": {
+      "previewTitle": "Preview self-schedule",
+      "previewHour": "Day's hour",
+      "previewPower": "Power [kW]",
+      "table": {
+        "actions": "Actions",
+        "delete": "Delete",
+        "id": "ID",
+        "unit": "DER",
+        "selfScheduleDate": "Date of self-schedule",
+        "createdBy": "Added by",
+        "fsp": "FSP/FSPA",
+        "createdDate": "Creation date"
+      }
+    },
+    "tabs": {
+      "list": "List of DERs",
+      "selfSchedules": "Self-schedules"
+    },
+    "table": {
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "DER ID",
+      "name": "Name",
+      "code": "BRP Code",
+      "location": "Location",
+      "sourcePower": "Source power/receiving power [kW]",
+      "sourcePowerInfo": "Source power/receiving power",
+      "connectionPower": "Connection power [kW]",
+      "pMin": "Pmin [kW]",
+      "qMin": "Qmin [kvar]",
+      "qMax": "Qmax [kvar]",
+      "directionOfDeviation": "Direction of deviation",
+      "derType": "Type",
+      "derSubType": "Subtype",
+      "sder": "Is SDER",
+      "aggregated": "Aggregated",
+      "fspId": "FSP",
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "validFrom": "Valid from",
+      "validTo": "Valid to",
+      "active": "Active",
+      "certified": "Certified",
+      "version": "Version",
+      "subportfolio": "Subportfolio",
+      "schedulingUnit": "Scheduling unit",
+      "ppe": "PoC",
+      "ppeName": "Point of Connection",
+      "powerStationTypes": "Power station MV/LV number",
+      "couplingPointIdTypes": "Coupling point ID",
+      "pointOfConnectionWithLvTypes": "Point of connection with LV"
+    },
+    "title": "DERs",
+    "warning": {
+      "noMainLocation": "You have to choose a main location",
+      "chooseOneType": "Choose at least one type of DER",
+      "maxOneGeoLocations": "A non-aggregate DER allows you to define up to one location"
+    }
+  }
+}

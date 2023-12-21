@@ -1,0 +1,427 @@
+<h1 class="title">{{ 'auctions.title.DAY_AHEAD' | translate }}</h1>
+<p-confirmPopup [baseZIndex]="20000"></p-confirmPopup>
+<div class="actions-box">
+  <p-selectButton [options]="getTabs()" [(ngModel)]="selectedTab" optionValue="type" (onChange)="tabChange()"></p-selectButton>
+</div>
+<div class="actions-box pt-2" *ngIf="selectedTab === 'series-auctions'">
+  <button
+    appPreventDoubleClick
+    *appHasAuthority="'FLEX_ADMIN_AUCTIONS_SERIES_MANAGE'"
+    pButton
+    pRipple
+    type="button"
+    class="p-button-secondary"
+    [label]="'auctions.actions.add.btn' | translate"
+    (click)="add()"
+  ></button>
+</div>
+<div class="filters-box">
+  <app-auctions-day-ahead-filters
+    [initFilters]="viewParameters.staticFilters"
+    [tab]="selectedTab"
+    (filterData)="filterCollection($event, 'day-ahead')"
+  ></app-auctions-day-ahead-filters>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 0 0 100px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.deliveryDate" pSortableColumn="deliveryDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.deliveryDate' | translate }}
+            <p-sortIcon field="deliveryDate"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.status" pSortableColumn="status">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.status' | translate }}
+            <p-sortIcon field="status"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.offers">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.offers' | translate }}
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.name" pSortableColumn="name">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.name' | translate }}
+            <p-sortIcon field="name"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.product" [pSortableColumn]="!isSeriesView ? 'productName' : 'product.shortName'">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.product' | translate }}
+            <p-sortIcon [field]="!isSeriesView ? 'productName' : 'product.shortName'"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.type" pSortableColumn="type">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.type' | translate }}
+            <p-sortIcon field="type"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.capacityGateOpeningTime" pSortableColumn="capacityGateOpeningTime">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.' + (isSeriesView ? 'capacityGateOpeningTime' : 'gateOpeningTime') | translate }}
+            <p-sortIcon field="capacityGateOpeningTime"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.capacityGateClosureTime" pSortableColumn="capacityGateClosureTime">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.' + (isSeriesView ? 'capacityGateClosureTime' : 'gateClosureTime') | translate }}
+            <p-sortIcon field="capacityGateClosureTime"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.energyGateOpeningTime" pSortableColumn="energyGateOpeningTime">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.' + (isSeriesView ? 'energyGateOpeningTime' : 'gateOpeningTime') | translate }}
+            <p-sortIcon field="energyGateOpeningTime"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.energyGateClosureTime" pSortableColumn="energyGateClosureTime">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.' + (isSeriesView ? 'energyGateClosureTime' : 'gateClosureTime') | translate }}
+            <p-sortIcon field="energyGateClosureTime"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.minDesiredCapacity" pSortableColumn="minDesiredCapacity">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.minDesiredCapacity' | translate }}
+            <p-sortIcon field="minDesiredCapacity"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.maxDesiredCapacity" pSortableColumn="maxDesiredCapacity">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.maxDesiredCapacity' | translate }}
+            <p-sortIcon field="maxDesiredCapacity"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.minDesiredEnergy" pSortableColumn="minDesiredEnergy">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.minDesiredEnergy' | translate }}
+            <p-sortIcon field="minDesiredEnergy"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.maxDesiredEnergy" pSortableColumn="maxDesiredEnergy">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.maxDesiredEnergy' | translate }}
+            <p-sortIcon field="maxDesiredEnergy"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.capacityAvailability" pSortableColumn="capacityAvailabilityFrom">
+          <div class="flex justify-content-between align-items-center">
+            {{ (isSeriesView ? 'auctions.table.capacityAvailability' : 'auctions.table.availability') | translate }}
+            <p-sortIcon field="capacityAvailabilityFrom"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.energyAvailability" pSortableColumn="energyAvailabilityFrom">
+          <div class="flex justify-content-between align-items-center">
+            {{ (isSeriesView ? 'auctions.table.energyAvailability' : 'auctions.table.availability') | translate }}
+            <p-sortIcon field="energyAvailabilityFrom"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.firstAuctionDate" pSortableColumn="firstAuctionDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.firstAuctionDate' | translate }}
+            <p-sortIcon field="firstAuctionDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.lastAuctionDate" pSortableColumn="lastAuctionDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.lastAuctionDate' | translate }}
+            <p-sortIcon field="lastAuctionDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate" pSortableColumn="createdDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.createdDate' | translate }}
+            <p-sortIcon field="createdDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate" pSortableColumn="lastModifiedDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.lastModifiedDate' | translate }}
+            <p-sortIcon field="lastModifiedDate"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.createdBy" pSortableColumn="createdBy">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.createdBy' | translate }}
+            <p-sortIcon field="createdBy"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.lastModifiedBy" pSortableColumn="lastModifiedBy">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.table.lastModifiedBy' | translate }}
+            <p-sortIcon field="lastModifiedBy"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete && isSeriesView"></th>
+      </tr>
+      <tr class="filter-row">
+        <th style="flex: 0 0 100px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.deliveryDate"></th>
+        <th *ngIf="columnsState.status">
+          <p-columnFilter field="status" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="status"
+                [options]="dictionaries.statuses"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.offers"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.name">
+          <p-columnFilter type="text" field="name" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.product">
+          <p-columnFilter type="text" field="productName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.type">
+          <p-columnFilter field="type" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="type"
+                [options]="dictionaries.types"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.capacityGateOpeningTime">
+          <p-columnFilter type="date" field="capacityGateOpeningTime" matchMode="lte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar
+                inputId="capacityGateOpeningTime"
+                [showTime]="true"
+                [showSeconds]="false"
+                [stepMinute]="15"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                [showIcon]="false"
+              ></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.capacityGateClosureTime">
+          <p-columnFilter type="date" field="capacityGateClosureTime" matchMode="lte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar
+                inputId="capacityGateClosureTime"
+                [showTime]="true"
+                [showSeconds]="false"
+                [stepMinute]="15"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                [showIcon]="false"
+              ></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.energyGateOpeningTime">
+          <p-columnFilter type="date" field="energyGateOpeningTime" matchMode="lte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar
+                inputId="energyGateOpeningTime"
+                [showTime]="true"
+                [showSeconds]="false"
+                [stepMinute]="15"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                [showIcon]="false"
+              ></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.energyGateClosureTime">
+          <p-columnFilter type="date" field="energyGateClosureTime" matchMode="lte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar
+                inputId="energyGateClosureTime"
+                [showTime]="true"
+                [showSeconds]="false"
+                [stepMinute]="15"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                [showIcon]="false"
+              ></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.minDesiredCapacity">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="minDesiredCapacity"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.maxDesiredCapacity">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="maxDesiredCapacity"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.minDesiredEnergy">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="minDesiredEnergy"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.maxDesiredEnergy">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="maxDesiredEnergy"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.capacityAvailability"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.energyAvailability"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.firstAuctionDate"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.lastAuctionDate"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate"></th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate"></th>
+        <th *ngIf="columnsState.createdBy">
+          <p-columnFilter type="text" field="createdBy" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.lastModifiedBy">
+          <p-columnFilter type="text" field="lastModifiedBy" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete && isSeriesView"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr
+        [class.auction-green]="hasStatus(auctionStatus.OPEN, row)"
+        [class.auction-yellow]="hasStatus(auctionStatus.NEW, row)"
+        [class.auction-red]="hasStatus(auctionStatus.CLOSED, row)"
+      >
+        <td style="flex: 0 0 100px" *ngIf="columnsState.actions">
+          <ng-container *ngIf="isSeriesView">
+            <i *appHasAuthority="'FLEX_ADMIN_AUCTIONS_SERIES_MANAGE'" class="icon icon--edit c-pointer" (click)="edit(row)"></i>
+          </ng-container>
+          <i class="icon icon--preview c-pointer" (click)="preview(row)"></i>
+          <ng-container *appHasAuthority="'FLEX_ADMIN_AUCTIONS_DAY_AHEAD_OFFER_CREATE'">
+            <i
+              appPreventDoubleClick
+              class="icon icon--plus c-pointer"
+              *ngIf="hasStatus(auctionStatus.OPEN, row) && row.canAddBid"
+              [pTooltip]="'auctions.actions.bids.add.tooltip' | translate"
+              (click)="addBid(row)"
+            ></i>
+          </ng-container>
+        </td>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.deliveryDate">{{ row.deliveryDate | date: 'dd/MM/yyyy' }}</td>
+        <td *ngIf="columnsState.status">{{ row.status ? ('AuctionStatus.' + getStatus(row.status) | translate) : '' }}</td>
+        <td *ngIf="columnsState.offers">
+          <div [pTooltip]="getOffersTooltip(row)" [escape]="false" tooltipStyleClass="xl">
+            {{ row.offers.length ? row.offers.length : ('labels.none' | translate) }}
+          </div>
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.name">{{ row.name }}</td>
+        <td *ngIf="columnsState.product">{{ row.productName ?? row.product?.shortName }}</td>
+        <td *ngIf="columnsState.type">{{ 'AuctionDayAheadType.' + row.type | translate }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.capacityGateOpeningTime">
+          {{ row.capacityGateOpeningTime | date: (isSeriesView ? 'HH:mm' : 'dd/MM/yyyy HH:mm') }}
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.capacityGateClosureTime">
+          {{ row.capacityGateClosureTime | date: (isSeriesView ? 'HH:mm' : 'dd/MM/yyyy HH:mm') }}
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.energyGateOpeningTime">
+          {{ row.energyGateOpeningTime | date: (isSeriesView ? 'HH:mm' : 'dd/MM/yyyy HH:mm') }}
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.energyGateClosureTime">
+          {{ row.energyGateClosureTime | date: (isSeriesView ? 'HH:mm' : 'dd/MM/yyyy HH:mm') }}
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.minDesiredCapacity">{{ row.minDesiredCapacity }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.maxDesiredCapacity">{{ row.maxDesiredCapacity }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.minDesiredEnergy">{{ row.minDesiredEnergy }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.maxDesiredEnergy">{{ row.maxDesiredEnergy }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.capacityAvailability">{{ formatAvailability(row, 'capacity') }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.energyAvailability">{{ formatAvailability(row, 'energy') }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.firstAuctionDate">{{ row.firstAuctionDate | date: 'dd/MM/yyyy' }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.lastAuctionDate">{{ row.lastAuctionDate | date: 'dd/MM/yyyy' }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.createdDate">{{ row.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate">{{ row.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td *ngIf="columnsState.createdBy">{{ row.createdBy }}</td>
+        <td style="flex: 1 0 150px" *ngIf="columnsState.lastModifiedBy">{{ row.lastModifiedBy }}</td>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.delete && isSeriesView">
+          <i *appHasAuthority="'FLEX_ADMIN_AUCTIONS_SERIES_DELETE'" class="icon icon--delete c-pointer" (click)="delete($event, row)"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.delete && isSeriesView" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>
+
+<router-outlet></router-outlet>

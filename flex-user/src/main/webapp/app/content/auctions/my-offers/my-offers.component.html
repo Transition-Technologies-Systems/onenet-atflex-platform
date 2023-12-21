@@ -1,0 +1,315 @@
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+    tableStyleClass="auction-offers-table"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 110px" *ngIf="columnsState.auctionId" pSortableColumn="auctionId">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.auctionId' | translate }}
+            <p-sortIcon field="auctionId"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.auctionName" pSortableColumn="auctionName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.auctionName' | translate }}
+            <p-sortIcon field="auctionName"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 120px; max-width: 120px" *ngIf="columnsState.product" pSortableColumn="productName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.product' | translate }}
+            <p-sortIcon field="productName"></p-sortIcon>
+          </div>
+        </th>
+        <th
+          style="flex: 1 0 180px; max-width: 180px"
+          *ngIf="columnsState.schedulingUnitOrPotential"
+          pSortableColumn="schedulingUnitOrPotential"
+        >
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.schedulingUnitOrPotential' | translate }}
+            <p-sortIcon field="schedulingUnitOrPotential"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.auctionStatus" pSortableColumn="auctionStatus">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.auctionStatus' | translate }}
+            <p-sortIcon field="auctionStatus"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.status" pSortableColumn="status">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.bidStatus' | translate }}
+            <p-sortIcon field="status"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 130px; max-width: 130px" *ngIf="columnsState.onlyPrice" pSortableColumn="price">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.onlyPrice' | translate }}
+            <p-sortIcon field="price"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 170px; max-width: 170px" *ngIf="columnsState.onlyVolume">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.onlyVolume' | translate }}
+          </div>
+        </th>
+        <th style="flex: 1 0 130px" *ngIf="columnsState.volumeDivisibility" pSortableColumn="volumeDivisibility">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.volumeDivisibility' | translate }}
+            <p-sortIcon field="volumeDivisibility"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 180px" *ngIf="columnsState.deliveryPeriod" pSortableColumn="deliveryPeriodFrom,deliveryPeriodTo">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.deliveryPeriod' | translate }}
+            <p-sortIcon field="deliveryPeriodFrom,deliveryPeriodTo"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.deliveryPeriodDivisibility" pSortableColumn="deliveryPeriodDivisibility">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.deliveryPeriodDivisibility' | translate }}
+            <p-sortIcon field="deliveryPeriodDivisibility"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 170px; max-width: 170px" *ngIf="columnsState.acceptedVolume">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.acceptedVolume' | translate }}
+          </div>
+        </th>
+        <th
+          style="flex: 1 0 180px"
+          *ngIf="columnsState.acceptedDeliveryPeriod"
+          pSortableColumn="acceptedDeliveryPeriodFrom,acceptedDeliveryPeriodTo"
+        >
+          <div class="flex justify-content-between align-items-center">
+            {{ 'auctions.offers.acceptedDeliveryPeriod' | translate }}
+            <p-sortIcon field="acceptedDeliveryPeriodFrom,acceptedDeliveryPeriodTo"></p-sortIcon>
+          </div>
+        </th>
+      </tr>
+      <tr class="filter-row">
+        <th style="flex: 0 0 46px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 110px" *ngIf="columnsState.auctionId">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="auctionId"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.auctionName">
+          <p-columnFilter type="text" field="auctionName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 120px; max-width: 120px" *ngIf="columnsState.product">
+          <p-columnFilter type="text" field="productName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 180px; max-width: 180px" *ngIf="columnsState.schedulingUnitOrPotential">
+          <p-columnFilter type="text" field="schedulingUnitOrPotential" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.auctionStatus">
+          <p-columnFilter field="auctionStatus" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="status"
+                [options]="dictionaries.auctionStatuses"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.status">
+          <p-columnFilter field="status" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="status"
+                [options]="dictionaries.statuses"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 130px; max-width: 130px" *ngIf="columnsState.onlyPrice">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="price"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 170px; max-width: 170px" *ngIf="columnsState.onlyVolume"></th>
+        <th style="flex: 1 0 130px" *ngIf="columnsState.volumeDivisibility">
+          <p-columnFilter field="volumeDivisibility" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="volumeDivisibility"
+                [options]="dictionaries.boolean"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 180px" *ngIf="columnsState.deliveryPeriod">
+          <p-columnFilter type="date" field="deliveryPeriod" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="deliveryPeriod" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.deliveryPeriodDivisibility">
+          <p-columnFilter field="deliveryPeriodDivisibility" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="deliveryPeriodDivisibility"
+                [options]="dictionaries.boolean"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 170px; max-width: 170px" *ngIf="columnsState.acceptedVolume"></th>
+        <th style="flex: 1 0 180px" *ngIf="columnsState.acceptedDeliveryPeriod">
+          <p-columnFilter type="date" field="acceptedDeliveryPeriod" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar
+                inputId="acceptedDeliveryPeriod"
+                [ngModel]="value"
+                (ngModelChange)="filter($event)"
+                [showIcon]="false"
+              ></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr [ngClass]="getRowClass(row)">
+        <td style="flex: 0 0 46px" *ngIf="columnsState.actions">
+          <i
+            class="icon icon--edit c-pointer"
+            *appHasAuthority="
+              row.offerCategory === 'CMVC' ? 'FLEX_USER_AUCTIONS_CMVC_OFFER_EDIT' : 'FLEX_USER_AUCTIONS_DAY_AHEAD_OFFER_EDIT'
+            "
+            (click)="edit(row)"
+          ></i>
+        </td>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td style="flex: 1 0 110px" *ngIf="columnsState.auctionId">{{ row.auctionId }}</td>
+        <td style="flex: 1 0 160px" *ngIf="columnsState.auctionName">{{ row.auctionName }}</td>
+        <td style="flex: 1 0 120px; max-width: 120px" *ngIf="columnsState.product">{{ row.productName }}</td>
+        <td style="flex: 1 0 180px; max-width: 180px" *ngIf="columnsState.schedulingUnitOrPotential">
+          <span [pTooltip]="getSchedulingUnitOrPotentialTooltip(row)" [escape]="false">
+            {{ row.schedulingUnitOrPotential }}
+          </span>
+        </td>
+        <td *ngIf="columnsState.auctionStatus">{{ row.auctionStatus ? ('AuctionStatus.' + row.auctionStatus | translate) : '' }}</td>
+        <td *ngIf="columnsState.status">
+          <span>
+            <span>{{ row.status ? ('AuctionOfferStatus.' + row.status | translate) : '' }}</span>
+            <span *ngIf="row.status === 'VOLUMES_VERIFIED' && row.verifiedVolumesPercent !== 100">
+              ({{ row.verifiedVolumesPercent }}%)</span
+            >
+          </span>
+        </td>
+        <td style="flex: 1 0 130px; max-width: 130px" *ngIf="columnsState.onlyPrice">
+          <app-tooltip>
+            <div class="text-ellipsis" *ngIf="row.offerCategory === 'DAY_AHEAD'; else showValue">
+              {{ row.price }} {{ getUnit('price', row) }}
+            </div>
+          </app-tooltip>
+          <ng-template #showValue> {{ row.price }} {{ getUnit('price', row) }} </ng-template>
+        </td>
+        <td style="flex: 1 0 170px; max-width: 170px" *ngIf="columnsState.onlyVolume">
+          <div
+            class="text-ellipsis"
+            [pTooltip]="row.volumeTooltipVisible ? ('shared.volumeTooltip' | translate) : ''"
+            *ngIf="row.offerCategory === 'DAY_AHEAD'; else showValue"
+          >
+            {{ row | showVolume: 'volume' }}
+          </div>
+          <ng-template #showValue> {{ row | showVolume: 'volume' }} </ng-template>
+        </td>
+        <td style="flex: 1 0 130px" *ngIf="columnsState.volumeDivisibility">{{ 'Boolean.' + !!row.volumeDivisibility | translate }}</td>
+        <td style="flex: 1 0 180px" *ngIf="columnsState.deliveryPeriod">{{ formatDeliveryDate(row) }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.deliveryPeriodDivisibility">
+          {{ 'Boolean.' + !!row.deliveryPeriodDivisibility | translate }}
+        </td>
+        <td style="flex: 1 0 170px; max-width: 170px" *ngIf="columnsState.acceptedVolume">
+          <div
+            class="text-ellipsis"
+            [pTooltip]="row.acceptedVolumeTooltipVisible ? ('shared.volumeTooltip' | translate) : ''"
+            *ngIf="row.offerCategory === 'DAY_AHEAD'; else showValue"
+          >
+            {{ row | showVolume: 'acceptedVolume' }}
+          </div>
+          <ng-template #showValue> {{ row | showVolume: 'acceptedVolume' }} </ng-template>
+        </td>
+        <td style="flex: 1 0 180px" *ngIf="columnsState.acceptedDeliveryPeriod">{{ formatAcceptedDeliveryDate(row) }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.delete" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

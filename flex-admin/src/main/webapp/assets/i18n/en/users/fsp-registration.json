@@ -1,0 +1,62 @@
+{
+  "fspRegistration": {
+    "preview": {
+      "title": "Preview of the application",
+      "actions": {
+        "accept": {
+          "btn": "Accept {{ value }}",
+          "question": "Are you sure of the acceptance of the indicated {{ value }}?",
+          "success": "The application for registration on the Flexibility Platform \"{{ id }}\" has been accepted",
+          "error": "An error occurred while accepting the application on the Flexibility Platform"
+        },
+        "markRead": {
+          "btn": "Mark as read",
+          "question": "Are you sure you want to mark the Flexibility Platform application as read?",
+          "success": "Marked the application on the Flexibility Platform as read",
+          "error": "There was an error marking the application on Flexibility Platform as read"
+        },
+        "preConfirm": {
+          "btn": "Create a registration thread",
+          "question": "Are you sure you want to create a registration thread?",
+          "success": "A registration thread has been created on the Flexibility Platform",
+          "error": "An error occurred while creating a registration thread on the Flexibility Platform"
+        },
+        "reject": {
+          "btn": "Reject {{ value }}",
+          "question": "Are you sure of rejection of the indicated {{ value }}?",
+          "success": "The application for registration on the Flexibility Platform \"{{ id }}\" has been rejected",
+          "error": "An error occurred while rejecting the application on the Flexibility Platform"
+        },
+        "withdraw": {
+          "btn": "Withdraw your application",
+          "question": "Are you sure that the application for registration on the Flexibility Platform should be withdrawn?",
+          "success": "The application for registration on the Flexibility Platform \"{{ id }}\" has been withdrawn by the applicant",
+          "error": "An error occurred while withdrawing the application on the Flexibility Platform"
+        }
+      },
+      "messages": {
+        "init": "New application for registration on the Flexbility Platform \"{{ id }}\":<br/>First name: {{ firstName }}, Last name: {{ lastName }}, Company name: {{ companyName }}, E-mail adress: {{ email }}, phone number: {{ phoneNumber }}",
+        "READ_BY_ADMIN": "The application for registration on the Flexibility Platform was read by {{ createdBy }}",
+        "ACCEPTED_BY_ADMIN": "The application for registration on the Flexibility Platform has been accepted",
+        "REJECTED_BY_ADMIN": "The application for registration on the Flexibility Platform has been rejected",
+        "WITHDRAWN_BY_USER": "The application for registration on the Flexibility Platform has been withdrawn",
+        "FILE_ADDED": "File added"
+      }
+    },
+    "title": "Registration",
+    "tabs": {
+      "active": "Active applications",
+      "inactive": "Inactive applications"
+    },
+    "table": {
+      "actions": "Actions",
+      "applicationId": "Application ID",
+      "name": "Name",
+      "lastName": "Last name",
+      "companyName": "Company name",
+      "creationDate": "Creation date",
+      "lastUpdate": "Last update",
+      "applicationStatus": "Application status"
+    }
+  }
+}

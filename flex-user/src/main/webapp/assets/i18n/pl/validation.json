@@ -1,0 +1,193 @@
+{
+  "error": {
+    "emailExists": "Podany e-mail już istnieje w systemie",
+    "badCredentials": "Błędne dane logowania",
+    "objectModifiedByAnotherUser": "Obiekt został zmodyfikowany przez innego użytkownika - dokonaj modyfikacji na najnowszej wersji",
+    "unexpectedError": "Wystąpił niespodziewany błąd",
+    "userIsNotActivated": "Twoje konto jest nieaktywne",
+    "userLoginNotFound": "Nie znaleziono użytkownika o takim loginie",
+    "userEmailNotFound": "Nie znaleziono użytkownika o takim e-mailu",
+    "securityKeyIsInvalidOrExpired": "Klucz aktywacyjny jest nieprawidłowy lub wygasł",
+    "activate": {
+      "securityKeyIsInvalidOrExpired": "Klucz aktywacyjny jest nieprawidłowy lub wygasł"
+    },
+    "user": {
+      "cannotSetPasswordDueToIncorrectLength": "Hasło musi zawierać minimum 4 znaki",
+      "cannotChangeEmailForExistingUser": "Nie można zmienić adresu e-mail dla istniejącego użytkownika",
+      "loginContainsInvalidCharacters": "Login nie może zawierać spacji, polskich znaków (np. ąćęłńóśźż) oraz znaków specjalnych (np. !@#$%^&*(),.?\":{}|<>)",
+      "loginAlreadyExists": "Użytkownik o podanej nazwie już istnieje",
+      "noCompany": "Nie można wyświetlić ofert, ze względu na brak przypisania do firmy"
+    },
+    "flexPotential": {
+      "newFlexibilityPotentialHasBeenAddedBeforeSavingThisOne": "Został utworzony nowy potencjał elastyczności przed zapisaniem obecnego",
+      "cannotBeActiveBecauseDateNowIsNotBetweenValidFromToDates": "Potencjał elastyczności nie może być aktywny przed podanym okresem. Zmieni on status na aktywny po rozpoczęciu się wyznaczonego zakresu dat.",
+      "fpExceedsTheExpiryDateOfTheUnit": "Daty potencjału wykraczają poza daty ważności zasobu",
+      "fpVolumeIsNotBetweenMinMaxProductBidSize": "Wolumen potencjału nie znajduje się w przedziale od 'Minimalna wartość oferty' do 'Maksymalna wartość oferty' produktu",
+      "unitIsNotActive": "Zasób jest nieaktywny",
+      "cannotMoveEmptyFlexPotentialToFlexRegister": "Nie można przenieść jednostki grafikowej do flex register, jeśli nie ma podpiętych zasobów",
+      "nothingToExport": "Brak obiektów do eksportu."
+    },
+    "unit": {
+      "fieldPowerStationHasIncorrectLocalizationType": "Pole \"Nr stacji zasilającej SN/nn\" ma niepoprawny typ lokalizacji",
+      "cannotBeActiveBecauseDateNowIsNotBetweenValidFromToDates": "Zasób nie może być aktywny przed podanym okresem. Zmieni on status na aktywny po rozpoczęciu się wyznaczonego zakresu dat.",
+      "maxOneGeoLocations": "Zasób niezagregowany umożliwia zdefiniowanie maksymalnie jednej lokalizacji",
+      "cannotDeactivateBecauseOfActiveFlexPotentials": "Nie można dezaktywować zasobu, związanego z aktywnymi potencjałami",
+      "cannotDeleteBecauseOfJoinedFlexPotentials": "Wszystkie potencjały dostarczone przez wskazany zasób muszą zostać usunięte przed usunięciem zasobu",
+      "cannotDeleteBecauseOfJoinedChilds": "Wszystkie potencjały dostarczone przez wskazany zasób muszą zostać usunięte przed usunięciem zasobu",
+      "uniqueUnitName": "Ta nazwa już istnieje w systemie",
+      "userHasNoAuthorityToModifyUnitCertified": "Użytkownik nie ma uprawnień do modyfikowania certyfikatu zasobu",
+      "sourcePowerCannotBeGreaterThanConnectionPower": "Moc źródłowa nie może być większa od mocy przyłączeniowej",
+      "cannotDeactivateBecauseOfJoinedSubportfolios": "Nie można dezaktywować zasobu związanego z aktywnymi subportfolio",
+      "cannotRemoveCertificationBecauseOfJoinedSubportfolios": "Nie można usunąć certyfikacji zasobu związanego z aktywnymi subportfolio",
+      "nothingToExport": "Brak obiektów do eksportu."
+    },
+    "fsp": {
+      "nothingToExport": "Brak obiektów do eksportu."
+    },
+    "product": {
+      "cannotBeActiveBecauseDateNowIsNotBetweenValidFromToDates": "Produkt nie może być aktywny przed podanym okresem. Zmieni on status na aktywny po rozpoczęciu się wyznaczonego zakresu dat.",
+      "uniqueProductShortName": "Ta skrócona nazwa już istnieje w systemie",
+      "uniqueProductFullName": "Ta pełna nazwa już istnieje w systemie",
+      "userHasNoAuthorityToModifyUnitCertified": "Użytkownik nie ma uprawnień do modyfikowania certyfikatu zasobu",
+      "nothingToExport": "Brak obiektów do eksportu."
+    },
+    "schedulingUnit": {
+      "cannotDeleteActive": "Nie możesz usunąć aktywnej jednostki grafikowej.",
+      "uniqueScheduligUnitName": "Nazwa już istnieje w systemie",
+      "cannotChangeSchedulingUnitTypeBecauseItIsMarkedAsReadyForTests": "Nie można zmienić typu jednostki grafikowej, ponieważ jest oznaczona jako gotowa do testów",
+      "cannotChangeSchedulingUnitTypeBecauseSomeDERIsAlreadyJoinedToIt": "Nie można zmienić typu jednostki grafikowej, jeśli posiada ona podłączone zasoby",
+      "userHasNoAuthorityToModifySchedulingUnitCertified": "Użytkownik nie ma uprawnień do modyfikowania certyfikatu jednostki grafikowej",
+      "schedulingUnitCannotBeCertifiedIfItIsNotMarkedAsReadyForTests": "Jednostka grafikowa nie może być certyfikowana, jeśli nie jest oznaczona jako gotowa do testów",
+      "cannotRemoveBecauseSchedulingUnitHasJoinedDERs": "Nie można usunąć, ponieważ jednostka grafikowa posiada podłączone zasoby",
+      "cannotRemoveBecauseSchedulingUnitHasProposalsDERs": "Nie można usunąć, ponieważ jednostka grafikowa posiada propozycję zasobu",
+      "cannotRemoveDersFromSuMarkeAsReadyForTests": "Nie można usuwać zasobów z jednostki grafikowej oznaczonej jako gotowej do testów",
+      "cannotRemoveDersFromSuMarkeAsCertified": "Nie można usuwać zasobów jednostki grafikowej oznaczonej jako certyfikowana",
+      "cannotMoveEmptySchedulingUnitToFlexRegister": "Nie można przenieść jednostki grafikowej do flex register, jeśli nie ma podpiętych zasobów",
+      "nothingToExport": "Brak obiektów do eksportu."
+    },
+    "schedulingUnitProposal": {
+      "unitIsAlreadyJoinedToSchedulingUnit": "Zasób jest już dołączony do jednostki grafikowej",
+      "fspOwnerOfProposedUnitHasAlreadyJoinedOtherUnitsToAnotherBsp": "Właściciel FSP dołączył już inne zasoby do innego BSP",
+      "fspaUnitIsNotJoinedToAnySubportfolio": "Zasób FSPA nie jest połączony z żadnym subportfolio",
+      "someUnitFromSubportfolioOfProposedUnitIsAlreadyJoinedToAnotherBSP": "Niektóre zasoby z podportfela proponowanego zasobu są już połączone z innym BSP",
+      "someUnitFromSubportfolioOfProposedUnitIsAlreadyJoinedToAnotherSchedulingUnitOfProposedBSP": "Niektóre zasoby z podportfela proponowanego zasobu są już połączone z inną jednostką grafikową należącą do proponowanego BSP",
+      "proposalAlreadyExists": "Propozycja już istnieje",
+      "cannotCreateOrAcceptSchedulingUnitProposalBecauseSchedulingUnitIsMarkedAsReadyForTests": "Nie można utworzyć/zaakceptować propozycji zasobu, ponieważ jednostka grafikowa jest oznaczona jako gotowa do testów",
+      "cannotResendBecauseOfWrongCurrentStatus": "Nie można wysłać ponownie z względu na nieprawidłowy status",
+      "cannotCreatePropositionBecauseAlreadyExistsFromOppositeSide": "Propozycja już istnieje. Sprawdź swoje \"Propozycje\" w oknie \"Zaproszenia/propozycje partnerstwa\"",
+      "cannotCreateInvitationBecauseAlreadyExistsFromOppositeSide": "Zaproszenie już istnieje. Sprawdź swoje \"Zaproszenia\" w oknie \"Zaproszenia/propozycje partnerstwa\"",
+      "cannotJoinDerToSuBecauseDerIsNotLinkedWithAllProductThatAreInSuType": "DER nie może być połączony z jednostką grafikową, ponieważ DER nie jest połączony z wszystkimi produktami znajdującymi się w typie jednostki grafikowej"
+    },
+    "subportfolio": {
+      "cannotDeleteActive": "Nie możesz usunąć aktywnego subportfolio",
+      "uniqueSubportfolioName": "Nazwa już istnieje w systemie",
+      "cannotAddDersNotBelongingToAnotherFspa": "Nie można dodawać do subportfolio zasobów należących do innego FSPA",
+      "cannotAddDersInSchedulingUnit": "Nie można dodawać do subportfolio zasobów przypisanych do jednostki grafikowej",
+      "cannotDeleteSubportfolioContainingDers": "Nie można usunąć subportfolio zawierającego zasoby",
+      "cannotCertifySubportfolioWithoutDers": "Nie można certyfikować subportfolio nie zawierającego żadnych zasobów",
+      "nothingToExport": "Brak obiektów do eksportu."
+    },
+    "fspUserRegistration": {
+      "uniqueEmail": "Podany e-mail już istnieje w systemie",
+      "uniqueCompanyName": "Nazwa firmy już istnieje w systemie"
+    },
+    "dayAhead": {
+      "offer": {
+        "cannotCreateOfferBecauseAuctionIsNotOpen": "Nie można utworzyć oferty, ponieważ aukcja nie jest otwarta",
+        "cannotModifyOfferBecauseAuctionIsNotOpen": "Nie można edytować oferty, ponieważ aukcja nie jest otwarta",
+        "cannotChangeSchedulingUnitInSubmittedOffer": "Nie można zmienić jednostki grafikowej w już złożonej ofercie",
+        "cannotChangeBspNameNorSchedulingUnitInSubmittedOffer": "Nie można zmienić jednostki grafikowej lub nazwy BSP w już złożonej ofercie",
+        "notAllRequiredHoursHaveBeenTyped": "Nie wpisano wszystkich wymaganych godzin",
+        "notSetVolumeInAllBands": "Nie ustawiono wolumenu we wszystkich pasmach",
+        "bandZeroMustHaveVolumeFromSelfSchedule": "Wolumeny pasma zerowego nie zgadzają się z planem pracy DERa",
+        "cannotDeleteOfferBecauseItsUsedInCalculations": "Nie można usunąć oferty, ponieważ była ona wykorzystana w obliczeniach",
+        "notSetRequiredBandsInEnergyOffer": "Uzupełnij przynajmniej jedno pasmo któregokolwiek zasobu w pustym timestampie lub usuń ten pusty timestamp.",
+        "derLimitExceededInAtLeastOneTimestamp": "Przekroczono limit wolumenu w jednym lub więcej timestampów"
+      }
+    },
+    "auctionCmvc": {
+      "deliveryDateToBeforeDeliveryDateFrom": "Data początku dostawy musi być przed datą zakończenia",
+      "gateClosureTimeBeforeGateOpeningTime": "Data otwarcia bramy musi być przed datą zamknięcia",
+      "maxDesiredPowerIsBiggerThanMinDesiredPower": "Maksymalna dostarczona moc nie może być większa niż minimalna",
+      "gateClosureTimeIsAfterDeliveryDateFrom": "Data zamknięcia bramy nie może być po dacie rozpoczęcia dostawy ",
+      "productIsInactiveOrDateValidToExpired": "Produkt jest nieaktywny lub przedawniony",
+      "cannotDeleteOpenAuction": "Nie można usunąć otwartej aukcji",
+      "cannotDeleteClosedAuction": "Nie można usunąć zamkniętej aukcji",
+      "offer": {
+        "cannotCreateOfferBecauseAuctionIsNotOpen": "Nie można utworzyć oferty, ponieważ aukcja nie jest otwarta",
+        "cannotModifyOfferBecauseAuctionIsNotOpen": "Nie można edytować oferty, ponieważ aukcja nie jest otwarta",
+        "volumeOfOfferCannotBeGraterThanVolumeOfPotential": "Wolumen oferty nie może być większy niż wolumen potencjału",
+        "cannotChangeFlexPotentialInSubmittedOffer": "Nie można zmienić potencjału elastyczności w już złożonej ofercie",
+        "cannotChangeFspNameNorFlexPotentialInSubmittedOffer": "Nie można zmienić potencjału elastyczności lub nazwy FSP w już złożonej ofercie",
+        "modificationOfOfferIsOnlyAllowedIfOfferStatusIsPending": "Modyfikacja oferty jest dozwolona tylko wtedy, gdy status oferty jest w toku",
+        "acceptedVolumeOfOfferCannotExceedTheRange": "Zaakceptowany wolumen oferty nie moze przekraczac dopuszczalnego zakresu",
+        "deliveryPeriodHasInvalidMinute": "Okres dostawy ma nieprawidłową minutę",
+        "acceptedDeliveryPeriodHasInvalidMinute": "Zaakceptowany okres dostawy ma nieprawidłową minutę",
+        "acceptedDeliverPeriodFromToAreOverlapped": "'Zaakceptowany okres dostawy od' nie może być po dacie 'Zaakceptowany okres dostawy do"
+      }
+    },
+    "cannotAddBid": {
+      "offer": {
+        "cannotAddBid": "Nie udało się dodać oferty"
+      }
+    },
+    "validation": {
+      "schedulingUnitProposal": "Nie można wysłać propozycji dołączenia do jednostki grafikowej zaznaczonej jako gotowa do testów"
+    },
+    "auction": {
+      "offer": {
+        "import": {
+          "incoherentSelfSchedule": "Niespójny plan pracy",
+          "noValidTimestamps": "Plik nie został zaimportowany. Wymagana co najmniej jedna godzina z wpisanym wolumenem i ceną."
+        }
+      }
+    },
+    "selfSchedule": {
+      "derExceedsTechnicalLimits": "Nie zaimportowano planów pracy, ponieważ wartości planu pracy {{files}} nie mieszczą się pomiędzy Pmin i Pmax zasobu",
+      "dersExceedTechnicalLimits": "Nie zaimportowano planów pracy, ponieważ wartości planów pracy {{files}} nie mieszczą się pomiędzy Pmin i Pmax zasobu",
+      "precisionTooHigh": "Wartość planu pracy może posiadać maksymalnie 3 miejsca po przecinku. Błąd w plikach: {{files}}",
+      "templateIncorrect": "Harmonogramy nie zostały zaimportowane z powodu błędu w pliku: {{files}}. Sprawdź poprawność szablonu",
+      "importUncertifiedDer": "Nie możesz zaimportować harmonogramu dla zasobu bez certyfikacji. Błąd w plikach: {{files}}",
+      "notAllowedToImportSelfScheduleWithPastOrCurrentDate": "Nie możesz importować harmonogramu z przeszłą lub bieżącą datą. Błędne pliki: {{files}}",
+      "cannotDeleteBecauseSelfScheduledDayHasAlreadyStartedOrEnded": "Nie możesz usunąć harmonogramu z przeszłą lub bieżącą datą",
+      "cannotDeleteBecauseSelfScheduleUsedInOffer": "Nie można usunąć, ponieważ własny harmonogram jest już używany w ofercie aukcji",
+      "cannotImportIfAdminUsedFspsTemplate": "Import nieudany. Użyto szablonu użytkownika. Proszę użyć szablonu dla administratora. Błędne pliki: {{files}}",
+      "cannotImportIfFspUsedAdminsTemplate": "Import nieudany. Ten szablon jest niedozwolony dla twojej roli. Proszę użyć szablonu dla użytkownika. Błędne pliki: {{files}}",
+      "SAVING_THE_SAME_SELF_SCHEDULES": "Nie możesz zaimportować tego samego zasobu({{files}}) wiele razy w ramach jednej daty. Sprawdź poprawność szablonu."
+    },
+    "activationSettlements": {
+      "nothingToExport": "Brak danych do eksportu"
+    },
+    "chat": {
+      "alreadyExists": "Czat już istnieje"
+    }
+  },
+  "validate": {
+    "invalidDate": "Niepoprawna data",
+    "dateAfter": "Data powinna być późniejsza niż {{ value }}",
+    "dateBefore": "Data powinna być wcześniejsza niż {{ value }}",
+    "invalidRange": "Nieprawidłowy zakres",
+    "invalidPhoneNumber": "Nieprawidłowy numer telefonu",
+    "required": "Pole jest wymagane",
+    "zeroIsDisabledValue": "Wartość nie może być zerem",
+    "unique": "Wartość musi być unikalna",
+    "notNull": "Pole nie może być puste",
+    "withoutSpace": "Spacje są niedozwolone",
+    "maxlength": "Maksymalna ilość znaków to {{ value }}",
+    "minlength": "Minimalna ilość znaków to {{ value }}",
+    "max": "Maksymalna wartość to {{ value }}",
+    "min": "Minimalna wartość to {{ value }}",
+    "email": "Wprowadzona wartość nie jest adresem e-mail",
+    "passwordDoNotMatching": "Wprowadzone hasła powinny być identyczne",
+    "requiredRangeDate": "Musisz ustawić zakres dat",
+    "dateRangeInclude": "Zakres dat nie zawiera się w zakresie z pola {{ name }}",
+    "maxControl": "Ta wartość powinna być równa lub mniejsza niż {{ field }}",
+    "minControl": "Ta wartość powinna być równa lub większa niż {{ field }}",
+    "valueNotInRange": "Wartość powinna mieścić się w przedziale od {{min}} do {{max}}",
+    "invalidVolumeRange": "Nie można dodać oferty do tej aukcji",
+    "beforeCurrentHour": "Data i godzina powinna być równa bądź wyższa niż aktualna data i godzina",
+    "bandHourNoFilled": "Wypełnij co najmniej jedno pasmo",
+    "timestampNoFilled": "Wypełnij dla przynajmniej jednej godziny",
+    "limitExceed": "Przekroczono limit"
+  }
+}

@@ -1,0 +1,46 @@
+:host ::ng-deep {
+  p-dropdown {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .select-filter-row {
+    background: transparent;
+    min-height: 27px;
+    border: none;
+    .p-dropdown-label {
+      color: white;
+    }
+  }
+
+  .select-style {
+    &.p-dropdown {
+      border: none;
+      min-height: 44px;
+
+      .p-dropdown-label {
+        padding-top: 20px;
+
+        font-family: Roboto Condensed;
+        color: #05358f;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+  }
+
+  .p-dropdown {
+    &:not(.p-disabled).p-focus {
+      box-shadow: none;
+    }
+
+    .p-dropdown-label {
+      height: 100%;
+      align-items: center;
+      display: flex;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.flexPotential.edition.title}">Flexibility Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.flexPotential.greeting(${user.login})}">
+    Dear
+</p>
+<p th:text="#{email.flexPotential.edition.text1(${#numbers.formatDecimal(fpId, 0, 0)})}">
+    Flex potential has been created with the following attributes
+</p>
+<ul>
+    <li th:if="${product != null}" th:text="#{email.flexPotential.edition.product(${product})}">Product: </li>
+    <li th:if="${fspName != null}" th:text="#{email.flexPotential.edition.fsp(${fspName})}">FSP/FSPA: </li>
+    <li th:if="${ders != null}" th:text="#{email.flexPotential.edition.ders(${ders})}">DERs: </li>
+    <li th:if="${volume != null}" th:text="#{email.flexPotential.edition.volume(${volume})}">Volume: </li>
+    <li th:if="${volumeUnit != null}" th:text="#{email.flexPotential.edition.volumeUnit(${volumeUnit})}">Volume unit: </li>
+    <li th:if="${divisible != null}" th:text="#{email.flexPotential.edition.divisible(${divisible})}">Divisible: </li>
+    <li th:if="${fullActivationTime != null}" th:text="#{email.flexPotential.edition.fullActivationTime(${fullActivationTime})}">Full activation time [sec]: </li>
+    <li th:if="${minDeliveryDuration != null}" th:text="#{email.flexPotential.edition.minDurationOfDelivery(${minDeliveryDuration})}">Minimum duration of delivery [min]: </li>
+    <li th:if="${validFrom != null}" th:text="#{email.flexPotential.edition.validFrom(${validFrom})}">Valid from: </li>
+    <li th:if="${validTo != null}" th:text="#{email.flexPotential.edition.validTo(${validTo})}">Valid to: </li>
+    <li th:if="${active != null}" th:text="#{email.flexPotential.edition.active(${active})}">Active: </li>
+    <li th:if="${productPrequalification != null}" th:text="#{email.flexPotential.edition.productPrequalification(${productPrequalification})}">Product prequalification: </li>
+    <li th:if="${staticGridPrequalification != null}" th:text="#{email.flexPotential.edition.staticGridPrequalification(${staticGridPrequalification})}">Static grid prequalification: </li>
+</ul>
+<p>
+    <a th:with="url=(@{|${baseUrl}/flexibility-potentials?id=${fpId}|})" th:href="${url}" th:text="#{email.flexPotential.edition.link}">
+        Link
+    </a>
+</p>
+<p>
+    <span th:text="#{email.flexPotential.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+</p>
+</body>
+</html>

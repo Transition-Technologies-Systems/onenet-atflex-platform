@@ -1,0 +1,61 @@
+<h1 class="title">{{ 'chat.title' | translate }}</h1>
+<div class="grid m-0 chat-grid">
+  <div class="col-12 md:col-4 lg:col-3 search-box">
+    <div>
+      <div class="search-container">
+        <div class="search w-100">
+          <input id="field-search" type="text" pInputText [(ngModel)]="searchValue" [attr.placeholder]="'actions.search' | translate" />
+        </div>
+      </div>
+      <div class="companies">
+        <div
+          *ngFor="let chat of data$ | async | filter: searchValue"
+          (click)="selectChat(chat)"
+          class="company"
+          [class.active]="(selectedChat$ | async)?.id === chat.id"
+          [class.unread]="chat.latestMessage ? !chat.latestMessage.read && !chat.latestMessage.myCompanyMessage : false"
+        >
+          <div class="name truncate">{{ chat.respondent.name | translate }}</div>
+          <div class="info">
+            <span class="lastMessage truncate">
+              <ng-container *ngIf="chat.latestMessage?.content">
+                {{ chat.latestMessage?.content }}
+              </ng-container>
+              <ng-container *ngIf="chat.latestMessage?.attachedFileName">
+                {{ chat.latestMessage?.attachedFileName }}
+              </ng-container>
+            </span>
+            <span class="time">{{ chat.latestMessage?.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      appPreventDoubleClick
+      type="button"
+      pButton
+      [label]="'chat.actions.startNewChat' | translate"
+      (click)="openNewChatModal()"
+      [ngClass]="'p-confirm-popup-accept'"
+    ></button>
+  </div>
+  <div class="col-12 md:col-8 lg:col-9 chat-box">
+    <app-chat-messages-container
+      *ngIf="selectedChat$ | async as selectedChat"
+      [disabled]="false"
+      [messages]="selectedChatMessages$"
+      [messagesHeader]="messagesHeader"
+      (sendMessage)="onSendMessage($event, selectedChat.id)"
+      (attchmentDownload)="onAtchmentDownload($event)"
+      [isChatMessage]="true"
+    ></app-chat-messages-container>
+  </div>
+</div>
+
+<ng-template #messagesHeader>
+  <div class="chat-messages-header">
+    <div class="d-flex d-flex-space-between d-flex-align-center">
+      <h2 *ngIf="selectedChat$ | async as selectedChat">{{ selectedChat.respondent.name | translate }}</h2>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,393 @@
+<p-confirmPopup [baseZIndex]="20000"></p-confirmPopup>
+<div class="filters-box">
+  <app-units-filters type="list" [initFilters]="viewParameters.staticFilters" (filterData)="filterCollection($event)"></app-units-filters>
+</div>
+<div class="actions-box">
+  <button
+    appPreventDoubleClick
+    pButton
+    pRipple
+    type="button"
+    [label]="'units.actions.export.btn' | translate"
+    (click)="exportMenu.toggle($event)"
+  ></button>
+  <ng-container *appHasRole="'!ROLE_DISTRIBUTION_SYSTEM_OPERATOR'">
+    <button
+      appPreventDoubleClick
+      *appHasAuthority="'FLEX_ADMIN_UNIT_MANAGE'"
+      pButton
+      pRipple
+      type="button"
+      class="p-button-secondary"
+      [label]="'units.actions.add.btn' | translate"
+      (click)="add()"
+    ></button>
+  </ng-container>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th [attr.style]="isAdmin ? 'flex: 0 0 100px' : 'flex: 0 0 80px'" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.name" pSortableColumn="name">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.name' | translate }}
+            <p-sortIcon field="name"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.directionOfDeviation" pSortableColumn="directionOfDeviation">
+          <div class="flex justify-content-between align-items-center" [pTooltip]="'units.form.tooltip.directionOfDeviation' | translate">
+            <span>
+              {{ 'units.table.directionOfDeviation' | translate }}
+            </span>
+            <p-sortIcon field="directionOfDeviation"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.sourcePower" pSortableColumn="sourcePower">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.sourcePower' | translate }}
+            <p-sortIcon field="sourcePower"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.connectionPower" pSortableColumn="connectionPower">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.connectionPower' | translate }}
+            <p-sortIcon field="connectionPower"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.pMin" pSortableColumn="pMin">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.pMin' | translate }}
+            <p-sortIcon field="pMin"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.qMin" pSortableColumn="qMin">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.qMin' | translate }}
+            <p-sortIcon field="qMin"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.qMax" pSortableColumn="qMax">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.qMax' | translate }}
+            <p-sortIcon field="qMax"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.derType">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.derType' | translate }}
+          </div>
+        </th>
+        <th *ngIf="columnsState.sder" pSortableColumn="sder">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.sder' | translate }}
+            <p-sortIcon field="sder"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.aggregated" pSortableColumn="aggregated">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.aggregated' | translate }}
+            <p-sortIcon field="aggregated"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.fspId" pSortableColumn="fsp.companyName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.fspId' | translate }}
+            <p-sortIcon field="fsp.companyName"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate" pSortableColumn="createdDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.createdDate' | translate }}
+            <p-sortIcon field="createdDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate" pSortableColumn="lastModifiedDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.lastModifiedDate' | translate }}
+            <p-sortIcon field="lastModifiedDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.validFrom" pSortableColumn="validFrom">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.validFrom' | translate }}
+            <p-sortIcon field="validFrom"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.validTo" pSortableColumn="validTo">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.validTo' | translate }}
+            <p-sortIcon field="validTo"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.subportfolio" pSortableColumn="subportfolio.name">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.subportfolio' | translate }}
+            <p-sortIcon field="subportfolio.name"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.schedulingUnit" pSortableColumn="schedulingUnit.name">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.schedulingUnit' | translate }}
+            <p-sortIcon field="schedulingUnit.name"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.ppe" pSortableColumn="ppe">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.ppe' | translate }}
+            <p-sortIcon field="ppe"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.powerStationTypes" pSortableColumn="powerStationTypes">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.powerStationTypes' | translate }}
+            <p-sortIcon field="powerStationTypes"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.couplingPointIdTypes" pSortableColumn="couplingPointIdTypes">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.couplingPointIdTypes' | translate }}
+            <p-sortIcon field="couplingPointIdTypes"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.pointOfConnectionWithLvTypes" pSortableColumn="pointOfConnectionWithLvTypes">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.pointOfConnectionWithLvTypes' | translate }}
+            <p-sortIcon field="pointOfConnectionWithLvTypes"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.code" pSortableColumn="code">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.code' | translate }}
+            <p-sortIcon field="code"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.active" pSortableColumn="active">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.active' | translate }}
+            <p-sortIcon field="active"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 144px" *ngIf="columnsState.certified" pSortableColumn="certified">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'units.table.certified' | translate }}
+            <p-sortIcon field="certified"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+      <tr class="filter-row">
+        <th [attr.style]="isAdmin ? 'flex: 0 0 100px' : 'flex: 0 0 80px'" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.name">
+          <p-columnFilter type="text" field="name" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.directionOfDeviation">
+          <p-columnFilter field="directionOfDeviation" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-select
+                inputId="directionOfDeviation"
+                [options]="dictionaries.directions"
+                [ngModel]="value"
+                styleClass="select-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+                [showClear]="true"
+              ></app-select>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.sourcePower"></th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.connectionPower"></th>
+        <th *ngIf="columnsState.pMin">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="pmin"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.qMin">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="qmin"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.qMax">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="qmax"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.derType"></th>
+        <th *ngIf="columnsState.sder"></th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.aggregated"></th>
+        <th *ngIf="columnsState.fspId">
+          <p-columnFilter type="text" field="fspRepresentativeCompanyName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate">
+          <p-columnFilter type="date" field="createdDate" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="createdDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate">
+          <p-columnFilter type="date" field="lastModifiedDate" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="lastModifiedDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.validFrom">
+          <p-columnFilter type="date" field="validFrom" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="validFrom" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.validTo">
+          <p-columnFilter type="date" field="validTo" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="validTo" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.subportfolio">
+          <p-columnFilter type="text" field="subportfolioName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.schedulingUnit"></th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.ppe"></th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.powerStationTypes"></th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.couplingPointIdTypes"></th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.pointOfConnectionWithLvTypes"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.code">
+          <p-columnFilter type="text" field="code" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.active"></th>
+        <th style="flex: 1 0 144px" *ngIf="columnsState.certified"></th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr [class.certified]="row.certified" [class.no-certified]="!row.certified">
+        <td [attr.style]="isAdmin ? 'flex: 0 0 100px' : 'flex: 0 0 80px'" *ngIf="columnsState.actions">
+          <i *appHasAuthority="'FLEX_ADMIN_UNIT_MANAGE'" class="icon icon--edit c-pointer" (click)="edit(row)"></i>
+          <i class="icon icon--preview c-pointer" (click)="preview(row)"></i>
+          <ng-container *appHasRole="'ROLE_ADMIN'">
+            <i
+              class="icon icon--plus c-pointer"
+              [pTooltip]="'shared.proposal.btnDer' | translate"
+              *ngIf="showProposal(row)"
+              (click)="proposal(row)"
+            ></i>
+          </ng-container>
+        </td>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.name">{{ row.name }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.directionOfDeviation">
+          {{ row.directionOfDeviation ? ('DirectionOfDeviationType.' + row.directionOfDeviation | translate) : '' }}
+        </td>
+        <td style="flex: 1 0 170px" *ngIf="columnsState.sourcePower">{{ row.sourcePower | number: '1.2':'pl' }}</td>
+        <td style="flex: 1 0 150px" *ngIf="columnsState.connectionPower">{{ row.connectionPower | number: '1.2':'pl' }}</td>
+        <td *ngIf="columnsState.pMin">{{ row.pmin | number: '1.2':'pl' }}</td>
+        <td *ngIf="columnsState.qMin">{{ row.qmin | number: '1.2':'pl' }}</td>
+        <td *ngIf="columnsState.qMax">{{ row.qmax | number: '1.2':'pl' }}</td>
+        <td style="max-width: 120px" *ngIf="columnsState.derType">
+          <app-tooltip>
+            <div class="text-ellipsis">
+              {{ getDerType(row) }}
+            </div>
+          </app-tooltip>
+        </td>
+        <td *ngIf="columnsState.sder">
+          {{ 'Boolean.' + !!row.sder | translate }}
+        </td>
+        <td style="flex: 1 0 160px" *ngIf="columnsState.aggregated">
+          {{ 'Boolean.' + !!row.aggregated | translate }}
+        </td>
+        <td *ngIf="columnsState.fspId">{{ row.fsp?.representative?.companyName }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.createdDate">{{ row.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate">{{ row.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 160px" *ngIf="columnsState.validFrom">{{ row.validFrom | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 150px" *ngIf="columnsState.validTo">{{ row.validTo | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.subportfolio">{{ row.subportfolio?.name }}</td>
+        <td style="flex: 1 0 150px" *ngIf="columnsState.schedulingUnit">{{ row.schedulingUnit?.name }}</td>
+        <td style="flex: 1 0 150px" *ngIf="columnsState.ppe">{{ row.ppe }}</td>
+        <td style="flex: 1 0 150px" *ngIf="columnsState.powerStationTypes">{{ row.powerStationTypes | printDictionary: 'name' }}</td>
+        <td style="flex: 1 0 150px" *ngIf="columnsState.couplingPointIdTypes">{{ row.couplingPointIdTypes | printDictionary: 'name' }}</td>
+        <td style="flex: 1 0 170px" *ngIf="columnsState.pointOfConnectionWithLvTypes">
+          {{ row.pointOfConnectionWithLvTypes | printDictionary: 'name' }}
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.code">{{ row.code }}</td>
+        <td *ngIf="columnsState.active">
+          {{ 'Boolean.' + !!row.active | translate }}
+        </td>
+        <td style="flex: 1 0 144px" *ngIf="columnsState.certified">
+          {{ 'Boolean.' + !!row.certified | translate }}
+        </td>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.delete">
+          <i *appHasAuthority="'FLEX_ADMIN_UNIT_DELETE'" class="icon icon--delete c-pointer" (click)="delete($event, row)"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>
+
+<p-menu #exportMenu [popup]="true" [model]="exportOptions()" appendTo="body"></p-menu>

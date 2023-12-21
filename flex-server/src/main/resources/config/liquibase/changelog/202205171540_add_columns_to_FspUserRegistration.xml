@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202205171540-add-column" author="">
+        <addColumn tableName="fsp_user_registration">
+            <column name="rodo_confirmation" type="boolean" remarks="User confirmation that user have read the RODO regulations."/>
+            <column name="rules_confirmation" type="boolean" remarks="User confirmation that user have read the rules."/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="202205171540-fill-column" author="">
+        <sql>
+            UPDATE fsp_user_registration
+            SET rodo_confirmation = 1, rules_confirmation = 1
+        </sql>
+    </changeSet>
+    <changeSet id="202205171540-constraints" author="">
+        <addNotNullConstraint tableName="fsp_user_registration" columnName="rodo_confirmation"/>
+        <addNotNullConstraint tableName="fsp_user_registration" columnName="rules_confirmation"/>
+    </changeSet>
+</databaseChangeLog>

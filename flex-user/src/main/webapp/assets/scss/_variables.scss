@@ -1,0 +1,79 @@
+$background-color: #fafafa;
+$black-color: #182a40;
+$fontFamily: Roboto Condensed, 'Helvetica Neue', sans-serif;
+$overlay-background: rgb(16 63 153 / 80%);
+
+$disabled-background: rgba(196, 196, 196, 0.26);
+$input-wrapper-background: #fafafa;
+$input-border-color: #323acc;
+
+$button-border-color: #323acc;
+$button-dark-color: #323acc;
+$button-prime-background: #323acc;
+
+$box-shadow: 0px 4px 4px rgba(72, 191, 227, 0.25);
+
+$chat-attachments-background: #e5ebf6;
+$chat-attachment-background: #f3f7ff;
+$chat-header-background: #0842b2;
+$chat-send-message-background: #ecf1fa;
+$chat-messages-container-background: #ecf1fa;
+$chat-message-border: 1px solid #c6cde2;
+$chat-message-box-shadow: 0px 4px 4px rgba(114, 239, 247, 0.1);
+$chat-message-send-box-border-top: 4px solid #496cad;
+
+$chat-message-color: #05358f;
+$chat-header-color: #ffffff;
+$chat-message-attachment-background: #eaeaec;
+$chat-message-attachments-border-bottom: 1px solid rgba(5, 53, 143, 0.2);
+$chat-header-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+$chat-message-receiver-color: #05358f;
+$chat-message-background: #e5ebf7;
+$chat-message-automat-color: #05358f;
+$chat-message-background-automat: #e3fed6;
+$chat-message-background-my-person: rgba(114, 239, 246, 0.1);
+$chat-message-background-receiver: #ffffff;
+
+$filters-background: #ffffff;
+$filters-box-shadow: 0px 4px 4px rgba(72, 191, 227, 0.25);
+
+$modal-background: #fafafa;
+$modal-header-background: #fafafa;
+$modal-input-border-color: #e8ebf0;
+$modal-input-color: #05358f;
+$modal-header-border: 1px solid rgba(5, 53, 143, 0.2);
+$modal-input-wrapper-background: #ffffff;
+
+$sidebar-color: #ffffff;
+$sidebar-background: #323acc;
+$sidebar-color-active: #ffffff;
+$sidebar-hover-background: #ffffff1a;
+$sidebar-children-background: #2f3e5d;
+$sidebar-children-color-active: #ffffff;
+$sidebar-active-border-left-color: #88a4de;
+$sidebar-icons: auctions, bsp, chat, ders, dictionaries, flexibility-potentials, flex-register, fsp, partnerships, products, registration,
+  scheduling-units, subportfolios, units, users, activations-settlements;
+
+$table-header-background: #05358f;
+$table-header-color: #ffffff;
+$table-header-filter-background: #3262ba;
+$table-odd-tr-background: #fafafa;
+$table-even-tr-background: #ffffff;
+$table-odd-tr-color: #05358f;
+$table-even-tr-color: #05358f;
+$table-header-tr-border: 1px solid #05358f;
+$table-header-filter-tr-border: 1px solid rgba(5, 53, 143, 0.15);
+$table-tr-border: 1px solid rgba(5, 53, 143, 0.15);
+
+$pagination-color: $input-border-color;
+$pagination-background: #ffffff;
+$pagination-inactive-color: gray;
+
+$calendar-icon-color: #05358f;
+$calendar-icon-background: #ffffff;
+$calendar-box-shadow: 0 0 0 0.2rem #8dcdff;
+
+$icons: attachment, delete, download, edit, expand, expand-white, collapse, hidde-columns, invitation-cancel, invitation-resend, logout,
+  messages, next, plus, prev, preview, remove, send, send-white, user, calendar, sorting-arrows, magnifier;
+
+$z-indexes: ('sidebar-wrapper', 'navbar', 'table', 'page-wrapper');

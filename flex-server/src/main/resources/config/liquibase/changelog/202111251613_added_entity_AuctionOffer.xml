@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202111251613-table" author="">
+        <createSequence incrementBy="1" sequenceName="auction_offer_seq" startValue="1" ordered="true"/>
+        <createTable tableName="auction_offer" remarks="Auction offer table">
+            <column name="id" type="bigint" defaultValueSequenceNext="auction_offer_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="auction_cmvc_id" type="bigint" remarks="Auction CmVc id">
+                <constraints nullable="true"/>
+            </column>
+            <column name="flex_potential_id" type="bigint" remarks="Flex potential id">
+                <constraints nullable="true"/>
+            </column>
+            <column name="auction_day_ahead_id" type="bigint" remarks="Auction Day-ahead id">
+                <constraints nullable="true"/>
+            </column>
+            <column name="scheduling_unit_id" type="bigint" remarks="Scheduling unit id">
+                <constraints nullable="true"/>
+            </column>
+            <column name="status" type="varchar(50)" remarks="Offer status">
+                <constraints nullable="false" />
+            </column>
+            <column name="type" type="varchar(50)" remarks="Offer type">
+                <constraints nullable="false" />
+            </column>
+            <column name="price" type="decimal(21,2)" remarks="Offer price">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volume" type="decimal(21,2)" remarks="Offer volume">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volume_divisibility" type="boolean" remarks="Volume divisibility">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accepted_volume" type="decimal(21,2)" remarks="Accepted offer volume">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_period_from" type="datetime" remarks="Delivery period from">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_period_to" type="datetime" remarks="Delivery period to">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_period_divisibility" type="boolean" remarks="Delivery period divisibility">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accepted_delivery_period_from" type="datetime" remarks="Accepted delivery period from">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accepted_delivery_period_to" type="datetime" remarks="Accepted delivery period to">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202111251613-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="auction_cmvc_id" baseTableName="auction_offer"
+                                 constraintName="au_offer_au_cmvc_id" referencedColumnNames="id" referencedTableName="auction_cmvc"/>
+        <createIndex tableName="auction_offer" indexName="idx_fk_au_offer_au_cmvc_id">
+            <column name="auction_cmvc_id" type="bigint"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="flex_potential_id" baseTableName="auction_offer"
+                                 constraintName="au_offer_flex_pot_id" referencedColumnNames="id" referencedTableName="flex_potential"/>
+        <createIndex tableName="auction_offer" indexName="idx_fk_au_offer_flex_pot_id">
+            <column name="flex_potential_id" type="bigint"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="auction_day_ahead_id" baseTableName="auction_offer"
+                                 constraintName="au_offer_au_day_ahead_id" referencedColumnNames="id" referencedTableName="auction_day_ahead"/>
+        <createIndex tableName="auction_offer" indexName="idx_fk_au_off_au_dayah_id">
+            <column name="auction_day_ahead_id" type="bigint"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="scheduling_unit_id" baseTableName="auction_offer"
+                                 constraintName="au_offer_su_id" referencedColumnNames="id" referencedTableName="scheduling_unit"/>
+        <createIndex tableName="auction_offer" indexName="idx_fk_au_offer_su_id">
+            <column name="scheduling_unit_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="202111251613-audit" author="">
+        <addColumn tableName="auction_offer">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

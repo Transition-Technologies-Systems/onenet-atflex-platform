@@ -1,0 +1,79 @@
+{
+  "title": "atFlex Platform",
+  "euInfo": "Projekt ten otrzymał dofinansowanie z unijnego programu badawczego i innowacyjnego Horyzont 2020 w ramach umowy o grant nr 957739",
+  "subtitle": "",
+  "actions": {
+    "cancel": "Anuluj",
+    "close": "Zamknij",
+    "export": "Eksportuj",
+    "logout": "Wyloguj",
+    "return": "Wróć",
+    "search": "Szukaj",
+    "send": "Wyślij",
+    "ok": "OK",
+    "yes": "Tak",
+    "no": "Nie",
+    "myProfile": "Mój profil",
+    "apply": "Zastosuj"
+  },
+  "confirm": {
+    "confirmBtn": "Tak",
+    "rejectBtn": "Nie",
+    "title": "Potwierdzenie",
+    "questionCloseModal": "Czy chcesz zapisać postęp?"
+  },
+  "docsDownload": {
+    "documents": "Dokumenty rejestracyjne",
+    "info": "Dokumenty wymagane w procesie rejestracji FSP"
+  },
+  "field": {
+    "chatMessage": "Wpisz wiadomość",
+    "chooseVersion": "Numer wersji"
+  },
+  "fileUpload": {
+    "chooseLabelMultiple": "Wybierz pliki",
+    "chooseLabel": "Wybierz plik",
+    "invalidFileSizeMessageSummary": "{0}: Nieprawidłowy rozmiar pliku, ",
+    "invalidFileSizeMessageDetail": "maksymalny rozmiar to {0}.",
+    "invalidFileTypeMessageSummary": "{0}: Nieprawidłowy typ pliku, ",
+    "invalidFileLimitMessageDetail": "limit to {0}.",
+    "invalidFileLimitMessageSummary": "Przekroczono maksymalną liczbę plików, ",
+    "invalidFileTypeMessageDetail": "dozwolone formaty: {0}."
+  },
+  "labels": {
+    "none": "Brak"
+  },
+  "filters": {
+    "show": "Pokaż filtry",
+    "hide": "Ukryj filtry",
+    "filter": "Filtruj",
+    "clear": "Wyczyść"
+  },
+  "global": {
+    "selectedItemsLabel": "{0} wybranych",
+    "httpRequestUriPath": "Request URL: {{ value }}",
+    "httpResponseStatus": "Request status: {{ value }}",
+    "offerReminder": "Jesteś zobowiązany do wysłania oferty w aukcji"
+  },
+  "invalidForm": "Wypełnij wszystkie wymagane pola",
+  "notifications": {
+    "messagesTitle": "Wiadomości",
+    "alertsTitle": "Komunikaty",
+    "createdDate": "Data otrzymania",
+    "eventType": "Wiadomość",
+    "event": "Wiadomość",
+    "markAllAsRead": "Oznacz wszystkie jako przeczytane"
+  },
+  "pagination": {
+    "viewElementsOnThePage": "{{ from }} - {{ to }} z {{ total }}"
+  },
+  "pendingProcessing": "Trwa procesowanie...",
+  "tip": {
+    "chatAddAttachment": "Dodaj załącznik"
+  },
+  "warning": {
+    "fileTypeInvalid": "Plik {{ name }} ma niedozwolone rozszerzenie",
+    "fileMaxSize": "Plik {{ name }} jest za duży, maksymalny rozmiar pliku to 10 MB",
+    "chatNoMessage": "Nie możesz wysłać pustej wiadomości"
+  }
+}

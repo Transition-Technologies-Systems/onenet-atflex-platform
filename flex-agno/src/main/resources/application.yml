@@ -1,0 +1,109 @@
+eureka:
+  client:
+    enabled: true
+    healthcheck:
+      enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    instance-info-replication-interval-seconds: 10
+    registry-fetch-interval-seconds: 10
+    service-url:
+      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+  instance:
+    appname: flex-agno
+    instanceId: flexAgno:${spring.application.instance-id:${random.value}}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+
+ribbon:
+  eureka:
+    enabled: true
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      flex-server:
+        connectTimeout: 60000
+        readTimeout: 60000
+      flex-admin:
+        connectTimeout: 60000
+        readTimeout: 60000
+
+# See https://github.com/Netflix/Hystrix/wiki/Configuration
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          # See https://github.com/spring-cloud/spring-cloud-netflix/issues/1330
+          # thread:
+          #     timeoutInMilliseconds: 10000
+  shareSecurityContext: true
+
+jhipster:
+  clientApp:
+    name: 'FlexAgno'
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: flex_local
+    password: flex_local
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+  liquibase:
+    contexts: dev
+  jpa:
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+      # modify batch size as necessary
+      hibernate.jdbc.batch_size: 25
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      # modify fetch size as necessary
+      hibernate.jdbc.fetch_size: 150
+      hibernate.criteria.literal_handling_mode: BIND
+      hibernate.query.fail_on_pagination_over_collection_fetch: true
+      hibernate.query.in_clause_parameter_padding: true
+      hibernate.cache.region.factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
+      hibernate.cache.use_minimal_puts: true
+      hibernate.cache.hazelcast.instance_name: flexserver
+      hibernate.cache.hazelcast.use_lite_member: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+
+server:
+  port: 8086
+
+application:
+  jwt:
+    base64-secret: Y2M4MWQ3NzUwM2YxZmMyYjE5NDNlNTdkZmZhMjNkNDBlMWJhMzkzOTNkMjQ3MjVjNzk2NTMwZWE0MmY5MDU0OWRmZjc1ODYwODZjOTRlMWZlMmIzNWE5OWQ3YzVjYzExMjg0N2M2NWFkNzU3NDIzMGU3ZDI0YzY0N2UyZDdhYTA=
+    token-validity-in-seconds: 86400
+  algorithm:
+    path: C:\onenet-0.2.0
+    config-file-path: C:\onenet-0.2.0\onenet-0.2.0\config\config.ini
+    process-directory-path: C:\onenet-0.2.0\processDirectory
+    run-kdm-mod: true
+    # aktualizacja log'ow
+    agno-log-update-in-seconds: 30
+    agno-log-update-init-delay-in-seconds: 3
+  kdm-import:
+    enable-gen-section-validation: true
+logging:
+  path: /usr/local/flex-platform/logs/flex-agno

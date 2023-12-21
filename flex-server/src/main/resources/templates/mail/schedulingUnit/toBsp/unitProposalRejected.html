@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{email.schedulingUnit.proposal.toBsp.rejected.title}">
+            FSP FSP_NAME has rejected your invitation SCHEDULING_UNIT_PROPOSAL_ID
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.schedulingUnit.proposal.greeting(${proposal.details.bspName})}">
+            Dear BSP,
+        </p>
+        <p th:text="#{email.schedulingUnit.proposal.toBsp.rejected.message(${proposal.details.fspName}, ${proposal.details.derName},
+        ${proposal.details.schedulingUnitName}, ${proposal.id})}">
+            FSP FSP_NAME has rejected invitation of DER DER_NAME to your scheduling unit SCHEDULING_UNIT_NAME. ID of invitation: SCHEDULING_UNIT_PROPOSAL_ID
+        </p>
+    </body>
+</html>

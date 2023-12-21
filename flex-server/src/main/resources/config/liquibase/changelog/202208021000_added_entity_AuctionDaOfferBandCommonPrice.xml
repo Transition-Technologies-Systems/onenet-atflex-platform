@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202208021000-table" author="">
+        <createSequence incrementBy="1" sequenceName="da_ofr_bnd_cmn_prc_seq" startValue="1" ordered="true"/>
+        <createTable tableName="da_offer_band_common_price" remarks="Auction Day Ahead Offer Band Common Price">
+            <column name="id" type="bigint" defaultValueSequenceNext="da_ofr_bnd_cmn_prc_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="auction_offer_id" type="bigint" remarks="Offer id">
+                <constraints nullable="false"/>
+            </column>
+            <column name="band_number" type="varchar(2)" remarks="The band number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="common_price" type="decimal(13,3)" remarks="Band common price">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202208021000-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="auction_offer_id" baseTableName="da_offer_band_common_price"
+                                 constraintName="au_da_o_bd_cmn_prc_id" referencedColumnNames="id" referencedTableName="auction_da_offer"/>
+        <createIndex tableName="da_offer_band_common_price" indexName="idx_fk_au_da_o_bd_cmn_prc_id">
+            <column name="auction_offer_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="202208021000-audit" author="">
+        <addColumn tableName="da_offer_band_common_price">
+            <column name="created_by" type="varchar(50)" defaultValue="system"
+                    remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"
+                    remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,19 @@
+<app-modal [showConfirmAfterEsc]="false" [closeOnEscape]="false" [showCancelBtn]="false">
+  <div modal-header>
+    <h2 [translate]="config.data?.title || 'confirm.title'"></h2>
+  </div>
+  <div modal-content>
+    {{ config.data?.question | translate: config.data?.params }}
+  </div>
+  <div modal-footer>
+    <button
+      pButton
+      pRipple
+      type="button"
+      [label]="'confirm.rejectBtn' | translate"
+      class="p-button-secondary"
+      (click)="close()"
+    ></button>
+    <button appPreventDoubleClick pButton pRipple type="button" [label]="'confirm.confirmBtn' | translate" (click)="confirm()"></button>
+  </div>
+</app-modal>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202102120947-table" author="">
+        <createSequence incrementBy="1" sequenceName="product_seq" startValue="1" ordered="true"/>
+        <createTable tableName="product" remarks="Table with defined products on the platform">
+            <column name="id" type="bigint" defaultValueSequenceNext="product_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="version" type="integer" remarks="Counter that increases each time the record is updated">
+                <constraints nullable="true"/>
+            </column>
+            <column name="full_name" type="varchar(255)" remarks="Full name of product e.g. Manual Frequency Restoration Reserve">
+                <constraints nullable="false" />
+            </column>
+            <column name="short_name" type="varchar(50)" remarks="Short name of product e.g. mFRR">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_product_short_name" />
+            </column>
+            <column name="type" type="varchar(255)" remarks="Type of product e.g. 'capacity', 'energy'">
+                <constraints nullable="false" />
+            </column>
+            <column name="locational" type="boolean" remarks="Flag informing if product is locational (if true then congestion)">
+                <constraints nullable="false" />
+            </column>
+            <column name="min_bid_size" type="decimal(21,1)" remarks="Minimum bid size">
+                <constraints nullable="false" />
+            </column>
+            <column name="max_bid_size" type="decimal(21,1)" remarks="Maximum bid size">
+                <constraints nullable="false" />
+            </column>
+            <column name="direction" type="varchar(255)" remarks="Direction of deviation (up/down)">
+                <constraints nullable="false" />
+            </column>
+            <column name="min_duration" type="datetime" remarks="Date of minimum duration">
+                <constraints nullable="false" />
+            </column>
+            <column name="max_duration" type="datetime" remarks="Date of maximum duration">
+                <constraints nullable="false" />
+            </column>
+            <column name="has_asm_report" type="boolean" remarks="Flag informing if product has Design ASM report">
+                <constraints nullable="false" />
+            </column>
+            <column name="active" type="boolean" remarks="Flag informing if product is active/inactive">
+                <constraints nullable="false" />
+            </column>
+            <column name="valid_from" type="datetime" remarks="Start date of product validation (products can be valid for a specified period of time)">
+                <constraints nullable="false" />
+            </column>
+            <column name="valid_to" type="datetime" remarks="End date of product validation (products can be valid for a specified period of time)">
+                <constraints nullable="false" />
+            </column>
+            <column name="prod_preq_needed" type="boolean" remarks="Flag informing if product prequalification is needed">
+                <constraints nullable="false" />
+            </column>
+            <column name="stat_grid_preq_needed" type="boolean" remarks="Flag informing if static grid prequalification is needed">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202102120947-audit" author="">
+        <addColumn tableName="product">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

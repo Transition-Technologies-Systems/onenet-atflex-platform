@@ -1,0 +1,172 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'auctions.actions.' + mode + '.title' | translate: data }}</h2>
+    <div class="actions">
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'auctions.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form">
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="mode === 'edit'">
+            <app-select
+              [optionObject]="true"
+              optionValue="id"
+              [options]="dictionaries.products$ | async"
+              formControlName="product"
+              inputId="field-product"
+              aria-describedby="product-help"
+            ></app-select>
+            <label for="field-product">{{ 'auctions.table.product' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('product')?.touched">
+            <small id="product-help" class="p-error" *ngIf="form.get('product')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+        <div class="preview-data" *ngIf="productData">
+          <app-product-preview [productData]="productData" [embeddedPreview]="true"></app-product-preview>
+        </div>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="mode === 'edit'">
+            <app-multiselect
+              [options]="dictionaries.localizationTypes$ | async"
+              [optionObject]="true"
+              optionValue="id"
+              optionLabel="name"
+              formControlName="localization"
+              inputId="field-localization"
+              aria-describedby="localization-help"
+            ></app-multiselect>
+            <label for="field-localization">{{ 'auctions.table.localization' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <app-auctions-data-range-quarters [form]="form" [disabled]="isOpenOrClosedAuction"></app-auctions-data-range-quarters>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="isOpenOrClosedAuction">
+            <app-calendar
+              formControlName="gateOpeningTime"
+              inputId="field-gateOpeningTime"
+              [maxDate]="form.get('deliveryDateFrom')?.value"
+              [minDate]="minDate"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="gateOpeningTime-help"
+            ></app-calendar>
+            <label for="field-gateOpeningTime">{{ 'auctions.table.gateOpeningTime' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('gateOpeningTime')?.touched">
+            <small id="gateOpeningTime-help" class="p-error" *ngIf="form.get('gateOpeningTime')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="isOpenOrClosedAuction">
+            <app-calendar
+              formControlName="gateClosureTime"
+              inputId="field-gateClosureTime"
+              [minDate]="form.get('gateOpeningTime')?.value ?? minDate"
+              [maxDate]="form.get('deliveryDateFrom')?.value"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="gateClosureTime-help"
+            ></app-calendar>
+            <label for="field-gateClosureTime">{{ 'auctions.table.gateClosureTime' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('gateClosureTime')?.touched">
+            <small id="gateClosureTime-help" class="p-error" *ngIf="form.get('gateClosureTime')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="isOpenOrClosedAuction">
+            <app-input-number
+              formControlName="maxDesiredPower"
+              inputId="field-maxDesiredPower"
+              [max]="maxBidSize"
+              [min]="minDesiredPower"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="2"
+              aria-describedby="maxDesiredPower-help"
+            >
+            </app-input-number>
+            <label for="field-maxDesiredPower">{{ 'auctions.table.maxDesiredPower' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('maxDesiredPower')?.touched">
+            <small id="maxDesiredPower-help" class="p-error" *ngIf="form.get('maxDesiredPower')?.hasError('min')">
+              {{ 'validate.min' | translate: { value: minDesiredPower } }}
+            </small>
+            <small id="maxDesiredPower-help" class="p-error" *ngIf="form.get('maxDesiredPower')?.hasError('max')">
+              {{ 'validate.max' | translate: { value: maxBidSize } }}
+            </small>
+            <small id="maxDesiredPower-help" class="p-error" *ngIf="form.get('maxDesiredPower')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="isOpenOrClosedAuction">
+            <app-input-number
+              formControlName="minDesiredPower"
+              inputId="field-minDesiredPower"
+              [min]="minBidSize"
+              [max]="maxDesiredPower"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="2"
+              aria-describedby="minDesiredPower-help"
+            >
+            </app-input-number>
+            <label for="field-minDesiredPower">{{ 'auctions.table.minDesiredPower' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('minDesiredPower')?.touched">
+            <small id="minDesiredPower-help" class="p-error" *ngIf="form.get('minDesiredPower')?.hasError('min')">
+              {{ 'validate.min' | translate: { value: minBidSize } }}
+            </small>
+            <small id="minDesiredPower-help" class="p-error" *ngIf="form.get('minDesiredPower')?.hasError('max')">
+              {{ 'validate.max' | translate: { value: maxDesiredPower } }}
+            </small>
+            <small id="minDesiredPower-help" class="p-error" *ngIf="form.get('minDesiredPower')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div modal-footer></div>
+</app-modal>

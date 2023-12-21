@@ -1,0 +1,32 @@
+{
+  "account": {
+    "password": "Password",
+    "confirmPassword": "Repeat password",
+    "currentPassword": "Current password",
+    "activate": {
+      "setPassword": "Save",
+      "success": "The account on the Flexibility Platform has been activated",
+      "error": "There was an error activating the account on the Flexibility Platform"
+    },
+    "changePassword": {
+      "btn": "Set password",
+      "title": "Change password",
+      "success": "Password changed successfully",
+      "error": "An error occurred while changing the password"
+    },
+    "form": {
+      "firstName": "Name",
+      "lastName": "Last name",
+      "companyName": "Company name",
+      "email": "E-mail address",
+      "login": "Login",
+      "phoneNumber": "Phone number"
+    },
+    "resetPassword": {
+      "setPassword": "Set password",
+      "goToLogin": "Back to login page",
+      "success": "Successfully set password - log in to the system",
+      "error": "An error occurred while setting the password - contact the service"
+    }
+  }
+}

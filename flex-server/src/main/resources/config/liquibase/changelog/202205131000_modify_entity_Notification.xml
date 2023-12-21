@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202205131000-add-not-null-constraint" author="">
+        <sql>
+            delete from notification_param
+            where value is null
+        </sql>
+
+        <sql>
+            delete from notification_param
+            where name is null
+        </sql>
+
+        <addNotNullConstraint tableName="notification_param" columnName="value"/>
+        <addNotNullConstraint tableName="notification_param" columnName="name"/>
+    </changeSet>
+
+    <changeSet id="202205131000-delete-notification" author="">
+        <sql>
+            delete from notification_param
+            where notification_id in (
+                select id from notification
+                where event_type = 'PRODUCT_AGGREGATION_ALLOWED'
+            )
+        </sql>
+        <sql>
+            delete from notification_user
+            where notification_id in (
+                select id from notification
+                where event_type = 'PRODUCT_AGGREGATION_ALLOWED'
+            )
+        </sql>
+        <sql>
+            delete from notification
+            where event_type = 'PRODUCT_AGGREGATION_ALLOWED'
+        </sql>
+    </changeSet>
+</databaseChangeLog>

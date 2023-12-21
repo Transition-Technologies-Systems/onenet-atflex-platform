@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202212201417-table" author="sleszczynski">
+        <dropColumn tableName="auction_da_offer">
+            <column name="is_edited">
+            </column>
+        </dropColumn>
+        <addColumn tableName="auction_da_offer_band_data">
+            <column name="is_edited" type="boolean" remarks="Flag informing if band data was edited" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <rollback>
+            ALTER TABLE auction_da_offer ADD COLUMN is_edited BOOLEAN;
+            ALTER TABLE auction_da_offer_band_data DROP COLUMN is_edited BOOLEAN;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

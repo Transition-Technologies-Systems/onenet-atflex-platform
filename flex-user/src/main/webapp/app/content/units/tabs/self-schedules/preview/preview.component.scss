@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  .p-datatable-tbody {
+    td {
+      &:not(:first-child) {
+        justify-content: flex-end;
+      }
+    }
+  }
+}

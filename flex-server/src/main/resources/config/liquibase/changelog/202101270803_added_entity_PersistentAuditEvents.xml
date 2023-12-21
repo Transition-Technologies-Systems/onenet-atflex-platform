@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202101270803-table" author="">
+        <createSequence incrementBy="1" sequenceName="persistent_audit_events_seq" startValue="1" ordered="true" />
+        <createTable tableName="persistent_audit_events" remarks="Table with security events logs">
+            <column name="id" type="bigint" defaultValueSequenceNext="persistent_audit_events_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="principal" type="varchar(50)" remarks="User principal responsible for the event or an empty String if the principal is not available">
+                <constraints nullable="false" />
+            </column>
+            <column name="event_date" type="timestamp" remarks="Date/time that the event was logged"/>
+            <column name="event_type" type="varchar(255)" remarks="Type of security event"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202101270803-indexes" author="">
+        <createIndex indexName="idx_persistent_audit_event" tableName="persistent_audit_events" unique="false">
+            <column name="principal" type="varchar(50)"/>
+            <column name="event_date" type="timestamp"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

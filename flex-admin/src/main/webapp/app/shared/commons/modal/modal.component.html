@@ -1,0 +1,30 @@
+<p-dialog
+  [closable]="closable"
+  [draggable]="false"
+  [(visible)]="visible"
+  [showHeader]="showHeader"
+  [transitionOptions]="'0ms'"
+  (onHide)="onHide()"
+  [style]="{ width: '100%' }"
+  [focusTrap]="false"
+  [focusOnShow]="false"
+  [contentStyleClass]="contentStyleClass"
+  [styleClass]="styleClass"
+>
+  <ng-template pTemplate="header">
+    <ng-content select="[modal-header]"></ng-content>
+  </ng-template>
+  <ng-content select="[modal-content]"></ng-content>
+  <p-footer *ngIf="showFooter">
+    <button
+      pButton
+      pRipple
+      type="button"
+      *ngIf="showCancelBtn"
+      [label]="'actions.cancel' | translate"
+      class="p-button-outlined"
+      (click)="close()"
+    ></button>
+    <ng-content select="[modal-footer]"></ng-content>
+  </p-footer>
+</p-dialog>

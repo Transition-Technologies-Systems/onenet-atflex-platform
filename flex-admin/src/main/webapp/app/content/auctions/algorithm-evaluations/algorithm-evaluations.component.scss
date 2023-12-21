@@ -1,0 +1,31 @@
+.bid-green {
+  td {
+    background-color: #d5fcd9 !important;
+  }
+}
+
+.bid-yellow {
+  td {
+    background-color: #faffc7 !important;
+  }
+}
+
+.bid-red {
+  td {
+    background-color: #fcbcbc !important;
+  }
+}
+
+.table-box i:hover {
+  cursor: pointer;
+}
+
+::ng-deep .p-tieredmenu {
+  width: 140px !important;
+}
+
+::ng-deep {
+  .p-tooltip .p-tooltip-text {
+    width: max-content;
+  }
+}

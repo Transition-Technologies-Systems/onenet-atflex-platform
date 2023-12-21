@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202104300915-1" author="">
+        <addColumn tableName="product">
+            <column name="bid_size_unit" type="varchar(30)" remarks="Unit of product bid size">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <sql>
+            UPDATE PRODUCT SET PRODUCT.bid_size_unit = 'MW';
+        </sql>
+        <addNotNullConstraint tableName="product" columnName="bid_size_unit" constraintName="bid_size_unit_not_null"/>
+    </changeSet>
+    <changeSet id="202104300915-2" author="">
+        <modifyDataType columnName="volume_unit" newDataType="varchar(30)" tableName="flex_potential"/>
+        <sql>
+            UPDATE FLEX_POTENTIAL SET FLEX_POTENTIAL.volume_unit = 'MW';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

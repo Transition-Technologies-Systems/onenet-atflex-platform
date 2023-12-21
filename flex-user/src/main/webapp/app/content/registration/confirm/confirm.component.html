@@ -1,0 +1,14 @@
+<main id="page-wrapper">
+  <section class="box">
+    <h1>{{ 'title' | translate }}</h1>
+    <h2>{{ 'subtitle' | translate }}</h2>
+  </section>
+</main>
+
+<p-dialog [showHeader]="false" [(visible)]="visible" (onHide)="onClose()" [style]="{ width: '50vw' }" [modal]="true">
+  <i class="pi pi-exclamation-triangle dialog-icon" *ngIf="!isConfirm"></i>
+  <span [translate]="isConfirm === undefined ? 'pendingProcessing' : isConfirm ? 'registration.confirm.info' : 'registration.confirm.error'" [translateParams]="data"></span>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="visible = false" [label]="'actions.ok' | translate" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>

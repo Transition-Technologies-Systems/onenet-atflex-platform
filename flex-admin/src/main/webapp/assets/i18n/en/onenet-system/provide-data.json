@@ -1,0 +1,21 @@
+{
+  "provideData": {
+    "title": "Provide data",
+    "actions": {
+      "provide": {
+        "btn": "Provide data",
+        "success": "Successfully provided file for {name}",
+        "error": "Could not send a file. Please contact technical support."
+      }
+    },
+    "table": {
+      "id": "ID",
+      "title": "Title",
+      "onenetId": "ONS ID",
+      "businessObject": "Business object",
+      "description": "Description",
+      "file": "File",
+      "tooltip": "Available from GUI OneNet System"
+    }
+  }
+}

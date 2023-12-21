@@ -1,0 +1,20 @@
+<app-filters [form]="filters" (getData)="filter()" state="products-filters">
+  <app-filter-container>
+    <app-filter
+      [showHeader]="false"
+      type="multi-select"
+      controlName="locational"
+      name="products.filters.locational"
+      [translateDictionaries]="true"
+      [dictionaries]="dictionaries.boolean"
+    ></app-filter>
+    <app-filter
+      [showHeader]="false"
+      type="multi-select"
+      controlName="active"
+      name="products.filters.active"
+      [translateDictionaries]="true"
+      [dictionaries]="dictionaries.boolean"
+    ></app-filter>
+  </app-filter-container>
+</app-filters>

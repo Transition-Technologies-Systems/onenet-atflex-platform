@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202107190918" author="">
+
+        <addColumn tableName="unit">
+            <column name="ppe" type="varchar(100)" remarks="Energy consumption point (in Polish - Punkt Poboru Energii)"/>
+        </addColumn>
+        <sql>UPDATE unit SET ppe = 'Punkt Poboru Energii 1'</sql>
+        <addNotNullConstraint tableName="unit" columnName="ppe"/>
+
+        <addColumn tableName="unit">
+            <column name="coupling_point_id" type="varchar(100)" remarks="Energy transformer coupling point id">
+                <constraints nullable="true"/>
+            </column>
+            <column name="mrid" type="varchar(200)" remarks="Energy transformer mRID">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

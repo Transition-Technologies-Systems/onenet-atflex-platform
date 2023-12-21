@@ -1,0 +1,93 @@
+<main id="page-wrapper">
+  <section class="box">
+    <h1>{{ 'title' | translate }}</h1>
+    <h2>{{ 'subtitle' | translate }}</h2>
+
+    <form id="login-box" [formGroup]="form">
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-firstName" type="text" pInputText formControlName="firstName" />
+          <label for="field-firstName">{{ 'account.form.firstName' | translate }}</label>
+        </span>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-lastName" type="text" pInputText formControlName="lastName" />
+          <label for="field-lastName">{{ 'account.form.lastName' | translate }}</label>
+        </span>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-companyName" type="text" pInputText formControlName="companyName" />
+          <label for="field-companyName">{{ 'account.form.companyName' | translate }}</label>
+        </span>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-email" type="email" pInputText formControlName="email" />
+          <label for="field-email">{{ 'account.form.email' | translate }}</label>
+        </span>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-phoneNumber" type="phoneNumber" pInputText formControlName="phoneNumber" />
+          <label for="field-phoneNumber">{{ 'account.form.phoneNumber' | translate }}</label>
+        </span>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-login" type="text" pInputText formControlName="login" />
+          <label for="field-login">{{ 'account.form.login' | translate }}</label>
+        </span>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-password" type="password" pInputText formControlName="password" aria-describedby="password-help" />
+          <label for="field-password">{{ 'account.password' | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get('password')?.touched">
+          <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+          <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('minlength')">
+            {{ 'validate.minlength' | translate: { value: 4 } }}
+          </small>
+          <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('maxlength')">
+            {{ 'validate.maxlength' | translate: { value: 100 } }}
+          </small>
+        </ng-container>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input
+            id="field-confirm-password"
+            type="password"
+            pInputText
+            formControlName="confirmPassword"
+            aria-describedby="confirm-password-help"
+          />
+          <label for="field-confirm-password">{{ 'account.confirmPassword' | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get('confirmPassword')?.touched">
+          <small id="confirm-password-help" class="p-error" *ngIf="form.get('confirmPassword')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+          <small id="confirm-password-help" class="p-error" *ngIf="form.get('confirmPassword')?.hasError('isMatching')">
+            {{ 'validate.passwordDoNotMatching' | translate }}
+          </small>
+        </ng-container>
+      </span>
+
+      <div class="d-flex d-flex-space-between w-100 actions">
+        <button
+          appPreventDoubleClick
+          (click)="activate()"
+          pButton
+          pRipple
+          type="submit"
+          [label]="'account.activate.setPassword' | translate"
+        ></button>
+      </div>
+    </form>
+  </section>
+</main>

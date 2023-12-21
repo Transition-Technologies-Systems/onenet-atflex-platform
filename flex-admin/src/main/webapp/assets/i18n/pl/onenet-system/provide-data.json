@@ -1,0 +1,21 @@
+{
+  "provideData": {
+    "title": "Dostarcz dane",
+    "actions": {
+      "provide": {
+        "btn": "Dostarcz dane",
+        "success": "Prawidłowo dostarczono plik dla {name}",
+        "error": "Nie przesłano pliku. Proszę skontaktować się z pomocą techniczną."
+      }
+    },
+    "table": {
+      "id": "ID",
+      "title": "Tytuł",
+      "onenetId": "ID ONS",
+      "businessObject": "Obiekt biznesowy",
+      "description": "Opis",
+      "file": "Plik",
+      "tooltip": "Dostępne z poziomu GUI OneNet System"
+    }
+  }
+}

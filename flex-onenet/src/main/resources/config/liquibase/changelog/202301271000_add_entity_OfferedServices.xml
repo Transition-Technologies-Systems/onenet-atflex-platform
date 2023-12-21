@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202301271000-table" author="">
+        <createSequence incrementBy="1" sequenceName="offered_service_seq" startValue="1" ordered="true"/>
+        <createTable tableName="offered_services" remarks="Table with offered services for onenet users">
+            <column name="id" type="bigint" defaultValueSequenceNext="offered_service_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="onenet_id" type="varchar(50)" remarks="Offered service id in the onenet system">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="title" type="varchar(50)" remarks="Offered service title"/>
+            <column name="business_object" type="varchar(50)" remarks="Business object name"/>
+            <column name="service_code" type="varchar(50)" remarks="Service code"/>
+            <column name="description" type="varchar(50)" remarks="Offered service profile description"/>
+            <column name="file_schema_zip" type="blob" remarks="Offered service file schema zip"/>
+            <column name="file_schema_sample_zip" type="blob" remarks="Offered service file schema sample zip"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202301271000-audit" author="">
+        <addColumn tableName="offered_services">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

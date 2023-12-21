@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202208041400-add-column" author="">
+        <addColumn tableName="auction_da_offer_band_data">
+            <column name="accepted_price" type="decimal(13,3)" remarks="Offer accepted price">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="202208041400-data" author="">
+        <sql>
+            UPDATE auction_da_offer_band_data SET accepted_price = price;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

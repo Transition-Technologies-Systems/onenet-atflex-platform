@@ -1,0 +1,41 @@
+<nav class="pagination">
+  <p-dropdown
+    [options]="rowsPerPageItems"
+    [(ngModel)]="size"
+    *ngIf="showRowsPerPage && rowsPerPageOptions"
+    styleClass="p-paginator-rpp-options"
+    dropdownIcon="icon icon--expand"
+    (onChange)="onRppChange()"
+  >
+  </p-dropdown>
+
+  <label
+    translate="pagination.viewElementsOnThePage"
+    [translateParams]="{ from: elementsOnThePage.from, to: elementsOnThePage.to, total: totalElements }"
+  ></label>
+
+  <ul class="rounded-0 justify-content-center" *ngIf="pagesTotal > 0">
+    <li class="page-item link" [class.inactive]="currentPage === 1">
+      <p-button icon="icon icon--prev" (click)="handleLinkClick(currentPage - 1)" styleClass="p-button-text"></p-button>
+    </li>
+
+    <li class="page-item" *ngFor="let page of pages; trackBy: trackByFn" [ngClass]="{ active: page - 1 === currentPage }">
+      <button
+        pButton
+        pRipple
+        type="button"
+        *ngIf="page - 1 !== currentPage; else showActive"
+        [label]="'' + page"
+        class="p-button-text"
+        (click)="handleLinkClick(page - 1)"
+      ></button>
+
+      <ng-template #showActive>
+        <p-button [label]="'' + page"></p-button>
+      </ng-template>
+    </li>
+    <li class="page-item link" [class.inactive]="currentPage === pagesTotal">
+      <p-button icon="icon icon--next" (click)="handleLinkClick(currentPage + 1)" styleClass="p-button-text"></p-button>
+    </li>
+  </ul>
+</nav>

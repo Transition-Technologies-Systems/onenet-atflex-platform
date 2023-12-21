@@ -1,0 +1,65 @@
+{
+  "subportfolio": {
+    "actions": {
+      "add": {
+        "btn": "Dodaj nowe subportfolio",
+        "title": "Dodaj subportfolio",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania subportfolio"
+      },
+      "edit": {
+        "title": "Edytuj subportfolio: {{ name }}",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas edycji subportfolio"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybrane subportfolio z systemu?",
+        "success": "Wybrane subportfolio zostało pomyślnie usunięte",
+        "error": "Wystąpił błąd podczas usuwania wybranego subportfolio"
+      },
+      "export": {
+        "btn": "Eksportuj do pliku",
+        "allData": "Eksportuj dane wszystkich subportfolio",
+        "displayedData": "Eksportuj dane wyświetlanych subportfolio"
+      }
+    },
+    "filters": {
+      "creationDate": "Data utworzenia",
+      "active": "Aktywny",
+      "lastModified": "Ostatnia modyfikacja",
+      "certyfikowany": "Certyfikowany"
+    },
+    "form": {
+      "data": "Dane",
+      "files": "Pliki",
+      "tooltip": {
+        "editableForDso": "Pole może zostać wypełnione tylko przez DSO"
+      }
+    },
+    "table": {
+      "actions": "Działania",
+      "delete": "Usuń",
+      "id": "ID subportfolio",
+      "name": "Nazwa",
+      "numberOfDers": "Liczba zasobów",
+      "combinedPowerOfDers": "Połączona moc zasobów",
+      "couplingPointId": "ID punktu sprzężenia",
+      "mrid": "mRID",
+      "fspa": "FSPA",
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "validFrom": "Ważne od",
+      "validTo": "Ważne do",
+      "active": "Aktywne",
+      "certified": "Certyfikowane",
+      "version": "Wersja",
+      "unitId": "Zasoby",
+      "units": "Przypisane zasoby",
+      "unitsDetails": "Lista zasobów",
+      "unitInformation": "{{ unit.name }}, moc przyłączeniowa[kW]: {{ unit.connectionPower }}"
+    },
+    "title": "Subportfolio"
+  }
+}

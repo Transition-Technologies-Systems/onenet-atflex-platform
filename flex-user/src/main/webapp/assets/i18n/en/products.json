@@ -1,0 +1,63 @@
+{
+  "products": {
+    "actions": {
+      "add": {
+        "btn": "Add new product",
+        "title": "Add product",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "There was an error adding the product"
+      },
+      "edit": {
+        "title": "Edit product: {{ shortName }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "An error occurred while editing the product"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected product from the system?",
+        "success": "The selected product has been successfully deleted",
+        "error": "An error occurred while deleting the selected product"
+      },
+      "export": {
+        "btn": "Export to file",
+        "allData": "Export data of all products",
+        "displayedData": "Export data of displayed products"
+      }
+    },
+    "filters": {
+      "locational": "Is locational",
+      "active": "Active"
+    },
+    "form": {
+      "prodData": "Product",
+      "details": "Product details",
+      "files": "Files",
+      "psoUserId": "pSo",
+      "ssoUserIds": "sSo"
+    },
+    "table": {
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "Product ID",
+      "fullName": "Full name",
+      "shortName": "Short name",
+      "locational": "Is locational",
+      "minBidSize": "Min bid size",
+      "maxBidSize": "Max bid size",
+      "bidSizeUnit": "Bid size unit",
+      "direction": "Direction",
+      "maxFullActivationTime": "Maximum full activation time [sec]",
+      "minRequiredDeliveryDuration": "Minimum required duration of delivery [min]",
+      "lastModifiedDate": "Last modified",
+      "createdDate": "Creation date",
+      "active": "Active",
+      "balancing": "Balancing",
+      "cmvc": "CM&VC",
+      "validFrom": "Valid from",
+      "validTo": "Valid to",
+      "version": "Version"
+    },
+    "title": "Products"
+  }
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202302071300-table" author="">
+        <createTable tableName="onenet_user_offered_services" remarks="Join table for onenet user and offered services tables">
+            <column name="onenet_user_id" type="bigint" remarks="Onenet user identifier from table onenet_user">
+                <constraints nullable="false"/>
+            </column>
+            <column name="offered_service_id" type="bigint" remarks="Offered service identifier from table offered_services">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="onenet_user_id, offered_service_id" tableName="onenet_user_offered_services"/>
+        <addForeignKeyConstraint baseColumnNames="onenet_user_id" baseTableName="onenet_user_offered_services" constraintName="fk_ont_usr_ofrd_srv_usr_id"
+                                 referencedColumnNames="id" referencedTableName="onenet_user"/>
+        <addForeignKeyConstraint baseColumnNames="offered_service_id" baseTableName="onenet_user_offered_services" constraintName="fk_ont_usr_ofrd_srv_ofsr_id"
+                                 referencedColumnNames="id" referencedTableName="offered_services"/>
+    </changeSet>
+
+</databaseChangeLog>

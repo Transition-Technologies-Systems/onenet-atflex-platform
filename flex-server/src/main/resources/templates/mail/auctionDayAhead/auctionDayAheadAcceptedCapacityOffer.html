@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.dayAhead.offer.capacity.accepted.creation.title}">Flexibility Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p th:text="#{email.dayAhead.offer.capacity.accepted.greeting(${user.login})}">
+    Dear
+</p>
+<p>
+    <span th:text="#{email.dayAhead.offer.capacity.accepted.text1(${capacityAuctionName}, ${offerIds})}">
+        You have won in the auction...
+    </span>
+<!--    <a th:with="url=(@{|${baseUrl}/auctions/day-ahead|})" th:href="${url}" th:text="${energyAuctionName}">-->
+<!--        link-->
+<!--    </a>-->
+    <span th:text="${energyAuctionName}">
+        Link
+    </span>
+    <span th:text="#{email.dayAhead.offer.capacity.accepted.text2(${deliveryDate}, ${energyAuctionName}, ${energyAuctionGateOpeningTime})}">
+        Be ready to bid in this auction...
+    </span>
+</p>
+
+<p>
+    <span th:text="#{email.dayAhead.offer.capacity.accepted.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature2}">atFlex Platform</em>
+</p>
+</body>
+</html>

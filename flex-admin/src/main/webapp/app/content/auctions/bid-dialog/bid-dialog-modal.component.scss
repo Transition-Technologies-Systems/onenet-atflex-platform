@@ -1,0 +1,13 @@
+:host ::ng-deep .p-dialog {
+  &.DAY_AHEAD {
+    height: calc(100vh - 250px);
+  }
+
+  &:not(.DAY_AHEAD) {
+    height: 560px;
+
+    &.add-bid-mode {
+      height: 400px;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "pl.com.tt.flex.server",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "microservice",
+    "baseName": "flexserver",
+    "packageName": "pl.com.tt.flex.server",
+    "packageFolder": "pl/com/tt/flex/server",
+    "serverPort": "8085",
+    "authenticationType": "jwt",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "oracle",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "Y2M4MWQ3NzUwM2YxZmMyYjE5NDNlNTdkZmZhMjNkNDBlMWJhMzkzOTNkMjQ3MjVjNzk2NTMwZWE0MmY5MDU0OWRmZjc1ODYwODZjOTRlMWZlMmIzNWE5OWQ3YzVjYzExMjg0N2M2NWFkNzU3NDIzMGU3ZDI0YzY0N2UyZDdhYTA=",
+    "embeddableLaunchScript": false,
+    "creationTimestamp": 1610629379551,
+    "testFrameworks": [],
+    "jhiPrefix": "",
+    "entitySuffix": "Entity",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "clientPackageManager": "npm",
+    "nativeLanguage": "en",
+    "languages": ["en", "pl"],
+    "blueprints": [],
+    "skipClient": true,
+    "skipUserManagement": true,
+    "lastLiquibaseTimestamp": 1616070837000
+  }
+}

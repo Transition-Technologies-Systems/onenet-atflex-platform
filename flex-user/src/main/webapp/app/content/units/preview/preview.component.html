@@ -1,0 +1,191 @@
+<app-modal [showCancelBtn]="false" [showFooter]="hasRole ? true : false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose [(ngModel)]="versionId" (ngModelChange)="changeVersion()" (closePreview)="close()">
+      <div sub-title>
+        {{ 'units.title' | translate }}
+      </div>
+      <div title>
+        {{ data.name }}
+      </div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'units.form.unitData' | translate | uppercase" [selected]="true">
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.id' | translate }}</label>
+            <span>{{ data.id }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.fspId' | translate }}</label>
+            <span>{{ data.fsp.representative.companyName }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.name' | translate }}</label>
+            <span>{{ data.name }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.sourcePower' | translate }}</label>
+            <span>{{ data.sourcePower | number: '1.2':'pl' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.connectionPower' | translate }}</label>
+            <span>{{ data.connectionPower | number: '1.2':'pl' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.pMin' | translate }}</label>
+            <span>{{ data.pmin | number: '1.2':'pl' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.qMin' | translate }}</label>
+            <span>{{ data.qmin | number: '1.2':'pl' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.qMax' | translate }}</label>
+            <span>{{ data.qmax | number: '1.2':'pl' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.directionOfDeviation' | translate }}</label>
+            <span>{{ data.directionOfDeviation ? ('DirectionOfDeviationType.' + data.directionOfDeviation | translate) : '' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.derType' | translate }}</label>
+            <span>{{ getDerType(data) }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.sder' | translate }}</label>
+            <span>{{ 'Boolean.' + !!data.sder | translate }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.validFrom' | translate }}</label>
+            <span>{{ data.validFrom | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.validTo' | translate }}</label>
+            <span>{{ data.validTo | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.subportfolio' | translate }}</label>
+            <span>{{ data.subportfolio?.name }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.schedulingUnit' | translate }}</label>
+            <span>{{ data.schedulingUnit?.name }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.ppe' | translate }}</label>
+            <span>{{ data.ppe }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.powerStationTypes' | translate }}</label>
+            <span>{{ data.powerStationTypes | printDictionary: 'name' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.couplingPointIdTypes' | translate }}</label>
+            <span>{{ data.couplingPointIdTypes | printDictionary: 'name' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.pointOfConnectionWithLvTypes' | translate }}</label>
+            <span>{{ data.pointOfConnectionWithLvTypes | printDictionary: 'name' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.code' | translate }}</label>
+            <span>{{ data.code }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.active' | translate }}</label>
+            <span>{{ 'Boolean.' + data.active | translate }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.aggregated' | translate }}</label>
+            <span>{{ 'Boolean.' + data.aggregated | translate }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.certified' | translate }}</label>
+            <span>{{ 'Boolean.' + data.certified | translate }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.createdDate' | translate }}</label>
+            <span>{{ data.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'units.table.lastModifiedDate' | translate }}</label>
+            <span>{{ data.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+
+        <div *ngFor="let location of data.geoLocations">
+          <div class="field">
+            <label>{{ 'units.form.latitude' | translate }}</label>
+            <span>{{ location.latitude }}</span>
+            <label>{{ 'units.form.longitude' | translate }}</label>
+            <span>{{ location.longitude }}</span>
+            <label>{{ 'units.form.mainLocation' | translate }}</label>
+            <span>{{ 'Boolean.' + location.mainLocation | translate }}</span>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+  <div modal-footer>
+    <button
+      appPreventDoubleClick
+      pButton
+      pRipple
+      type="button"
+      [disabled]="!canAddToBsp || !data.certified"
+      *appHasRole="'ROLE_BALANCING_SERVICE_PROVIDER'"
+      [label]="'units.actions.inviteDer.btn' | translate"
+      (click)="invite()"
+    ></button>
+  </div>
+</app-modal>

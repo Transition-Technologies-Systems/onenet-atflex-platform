@@ -1,0 +1,118 @@
+{
+  "dictionariesPage": {
+    "actions": {
+      "add": {
+        "type": {
+          "DER_TYPE": {
+            "title": "Dodaj typ zasobu"
+          },
+          "SCHEDULING_UNIT_TYPE": {
+            "title": "Dodaj typy SU"
+          },
+          "LOCALIZATION_TYPE": {
+            "title": "Dodaj lokalizację"
+          },
+          "KDM_MODEL": {
+            "title": "Dodaj model KDM"
+          }
+        },
+        "title": "Dodaj typ",
+        "btn": "Dodaj",
+        "saveBtn": "Zapisz",
+        "exitBtn": "Wyjście",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania typu"
+      },
+      "edit": {
+        "type": {
+          "DER_TYPE": {
+            "title": "Edytuj typ zasobu"
+          },
+          "SCHEDULING_UNIT_TYPE": {
+            "title": "Edytuj typy SU"
+          },
+          "LOCALIZATION_TYPE": {
+            "title": "Edytuj lokalizację"
+          },
+          "KDM_MODEL": {
+            "title": "Edytuj model KDM"
+          }
+        },
+        "title": "Edytuj typ",
+        "saveBtn": "Zapisz",
+        "exitBtn": "Wyjście",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas edytowania wybranego typu"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybrany typ z systemu?",
+        "success": "Wybrany typ został pomyślnie usunięty",
+        "error": "Wystąpił błąd podczas usuwania wybranego typu",
+        "localization_type": {
+          "question": "Czy na pewno chcesz usunąć wybraną lokalizację z systemu?",
+          "success": "Wybrana lokalizacja została pomyślnie usunięta",
+          "error": "Wystąpił błąd podczas usuwania wybranej lokalizacji"
+        },
+        "kdm_model": {
+          "question": "Czy na pewno chcesz usunąć wybrany model KDM z systemu?",
+          "success": "Wybrany model KDM został pomyślnie usunięty",
+          "error": "Wystąpił błąd podczas usuwania wybranego modelu"
+        }
+      }
+    },
+    "table": {
+      "actions": "Akcje",
+      "id": "ID",
+      "sderPoint": "Punkt SDER",
+      "descriptionEn": "Opis ANG",
+      "descriptionPl": "Opis PL",
+      "name": "Nazwa",
+      "type": "Rodzaj",
+      "products": "Produkty",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "createdDate": "Data utworzenia",
+      "delete": "Usuwanie",
+      "areaName": "Nazwa obszaru",
+      "lvModel": "Model nn",
+      "action": "Akcja",
+      "buttons": {
+        "addModel": "Dodaj model"
+      }
+    },
+    "title": {
+      "DER_TYPE": "Typy zasobów",
+      "SCHEDULING_UNIT_TYPE": "Typy SU",
+      "LOCALIZATION_TYPE": "Lokalizacje",
+      "KDM_MODEL": "Modele KDM"
+    },
+    "preview": "Podgląd",
+    "details": "Szczegóły",
+    "kdmModelsDialog": {
+      "addModel": {
+        "title": "Dodaj modele KDM do {{ areaName }}",
+        "timestamp": "Timestamp",
+        "fileName": "Nazwa pliku",
+        "action": "Akcja",
+        "delete": "Usuń"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybrany model dla tego timestampa z systemu?",
+        "success": "Wybrany model został pomyślnie usunięty",
+        "error": "Wystąpił błąd podczas usuwania wybranego modelu"
+      },
+      "upload": {
+        "success": "Plik wgrany prawidłowo",
+        "error": "Wystąpił błąd podczas wgrywania pliku"
+      }
+    }
+  },
+  "error": {
+    "kdmModel": {
+      "cannotCreateBecauseKdmModelWithThisAreaNameIsAlreadyExist": "Model KDM z tą nazwą nazwą obszaru już istnieje",
+      "cannotUpdateBecauseKdmModelWithThisAreaNameIsAlreadyExist": "Model KDM z tą nazwą nazwą obszaru już istnieje",
+      "cannotAddKdmModelTimestampFileBecauseWrongExtension": "Nie można wgrać tego pliku. Dozwolony tylko format .kdm",
+      "wrongKdmModelTimestampNumber": "Nieprawidłowy numer timestampa modelu KDM",
+      "kdmModelDoesNotExist": "Nie znaleziono modelu KDM"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{email.schedulingUnit.proposal.toFsp.new.title}">Flexibility Platform</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.schedulingUnit.proposal.greeting(${proposal.details.fspName})}">
+            Dear FSP,
+        </p>
+        <p th:text="#{email.schedulingUnit.proposal.toFsp.text1(${proposal.details.bspName}, ${proposal.details.derName}, ${proposal.details.schedulingUnitName})}">
+            BSP wants to add your DER to Scheduling Unit.
+        </p>
+        <p th:text="#{email.schedulingUnit.proposal.clickUrl}">
+            Click here to accept or reject an offer:
+        </p>
+        <p>
+            <a th:with="url=(@{|${baseUrl}/scheduling-units/unitProposalLink/?id=${proposal.id}&type=BSP|})" th:href="${url}"
+               th:text="#{email.schedulingUnit.proposal.link}" th:style="'color: blue;'">link</a>
+        </p>
+    </body>
+</html>

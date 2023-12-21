@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202201140858" author="">
+        <addColumn tableName="fsp_user_registration">
+            <column name="lang_key" type="varchar(2)" remarks="Default language set during registration of FSP" defaultValue="en">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

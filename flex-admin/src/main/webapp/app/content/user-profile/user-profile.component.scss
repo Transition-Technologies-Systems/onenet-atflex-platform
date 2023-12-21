@@ -1,0 +1,24 @@
+@import 'assets/scss/variables';
+
+.profile-change-password-panel {
+  ::ng-deep {
+    .p-accordion .p-accordion-header .p-accordion-header-link,
+    .p-accordion .p-accordion-header:not(.p-disabled).p-highlight:hover .p-accordion-header-link,
+    .p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link {
+      background-color: transparent;
+      border: none;
+      color: $modal-input-color;
+      padding-left: 0;
+    }
+
+    .p-accordion .p-accordion-content {
+      background-color: transparent;
+      border: none;
+      padding: 0;
+    }
+  }
+}
+
+.notification-object-title {
+  color: #05358f;
+}

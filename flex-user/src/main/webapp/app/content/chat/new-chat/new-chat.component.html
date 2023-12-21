@@ -1,0 +1,49 @@
+<app-modal [showFooter]="true" [showHeader]="false" [showConfirmAfterEsc]="false" [showCancelBtn]="false">
+  <div modal-content [formGroup]="form">
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.companies$ | async"
+              formControlName="company"
+              inputId="field-company"
+              aria-describedby="company-help"
+              [translateDictionaries]="true"
+              [sortDictionaries]="false"
+              optionValue="id"
+              optionLabel="name"
+              [optionObject]="true"
+            ></app-select>
+            <label for="field-company">{{ 'chat.newChat.company' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('company')?.touched">
+            <small id="company-help" class="p-error" *ngIf="form.get('company')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div modal-footer>
+    <button
+      type="button"
+      pButton
+      pRipple
+      [label]="'actions.cancel' | translate"
+      (click)="close()"
+      [ngClass]="'p-confirm-popup-reject'"
+      class="p-button-secondary"
+    ></button>
+    <button
+      appPreventDoubleClick
+      type="button"
+      pButton
+      [disabled]="form.invalid"
+      [label]="'chat.actions.startNewChat' | translate"
+      (click)="startNewChat()"
+      [ngClass]="'p-confirm-popup-accept'"
+    ></button>
+  </div>
+</app-modal>

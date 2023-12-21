@@ -1,0 +1,47 @@
+{
+  "kpi": {
+    "title": "KPI",
+    "filters": {
+      "type": "KPI",
+      "date": "Data"
+    },
+    "table": {
+      "id": "ID",
+      "type": "KPI",
+      "createdDate": "Data utworzenia",
+      "createdBy": "Utworzył",
+      "date": "Zadane parametry",
+      "generate": "Generowanie"
+    },
+    "actions": {
+      "generate": "Generuj"
+    },
+    "types": {
+      "ACTIVE_PARTICIPATION": "Aktywne uczestnictwo",
+      "NUMBER_OF_FSPS": "Liczba FSP",
+      "NUMBER_OF_TRANSACTIONS": "Liczba transakcji",
+      "VOLUME_OF_TRANSACTIONS": "Wolumen transakcji",
+      "VOLUME_OF_TRANSACTIONS_CLEARED_BIDS" : "Wolumen transakcji ofert rozliczonych",
+      "AVAILABLE_FLEXIBILITY" : "Dostępna elastyczność",
+      "PERCENTAGE_OF_SUCCESSFULLY_PREQUALIFIED_DERS" : "Procent zasobów prekwalifikowanych z powodzeniem",
+      "NUMBER_OF_DERS_WITH_AT_LEAST_ONE_FP" : "Liczba certyfikowanych zasobów posiadających potencjał elastyczności",
+      "CAPACITY_OF_CERTIFIED_DERS_WITH_AT_LEAST_ONE_FP" : "Wolumen prekwalifikowanych zasobów posiadających potencjał elastyczności",
+      "VOLUME_OF_BALANCING_SERVICE_OFFERS_UP_RESERVES" : "Wolumen usług bilansujących na rezerwy w górę",
+      "VOLUME_OF_BALANCING_SERVICE_OFFERS_UP_RESERVES_TRANSFERRED_TO_BM" : "Wolumen usług bilansujących na rezerwy w górę przekazane do RB",
+      "VOLUME_OF_BALANCING_SERVICE_OFFERS_DOWN_RESERVES" : "Wolumen usług bilansujących na rezerwy w dół",
+      "VOLUME_OF_BALANCING_SERVICE_OFFERS_DOWN_RESERVES_TRANSFERRED_TO_BM" : "Wolumen usług bilansujących na rezerwy w dół przekazane do RB",
+      "VOLUME_OF_BALANCING_ENERGY_OFFERS" : "Wolumen ofert na energię bilansującą",
+      "VOLUME_OF_BALANCING_ENERGY_OFFERS_TRANSFERRED_TO_BM" : "Wolumen ofert na energię bilansującą przesłaną do RB",
+      "REQUEST_FLEXIBILITY_POWER" : "Oczekiwana elastyczność (moc)",
+      "FLEX_VOLUME_OFFERED_VS_FLEX_REQUESTED_BY_DSO" : "Potencjał oferowany przez FSP vs potencjał oczekiwany przez OSD",
+      "NUMBER_AVOIDED_TECHNICAL_RESTRICTIONS" : "Liczba unikniętych ograniczeń technicznych",
+      "NUMBER_AVOIDED_TECHNICAL_RESTRICTIONS_VOL_VIOLATIONS" : "Liczba unikniętych ograniczeń technicznych (przeciążenie napięciowe)",
+      "NUMBER_OF_DER_AVAILABLE_FOR_BSP" : "Liczba zasobów dostępnych dla BSP",
+      "PERCENTAGE_RESOURCES_AVAILABLE_FOR_BALANCING_SERVICES" : "Procent zasobów dostępnych do usług bilansujących",
+      "TOTAL_CAPACITY_OF_DERS_AVAILABLE_FOR_BSP" : "Zsumowany wolumen zasobów dostępnych dla BSP",
+      "AVERAGE_RUNTIME_AGNO_ALGORITHM" : "Średni czas trwania obliczeń algorytmu AGNO",
+      "POWER_EXCHANGE_DEVIATION" : "Odchylenie w aktywacji mocy",
+      "ENERGY_EXCHANGE_DEVIATION" : "Odchylenie w aktywacji energii"
+    }
+  }
+}

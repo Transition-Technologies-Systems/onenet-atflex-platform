@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202107301019-1" author="">
+        <addColumn tableName="unit">
+            <column name="power" type="decimal(11,2)" remarks="Unit's power in kW"/>
+            <column name="direction_of_deviation" type="varchar(100)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202107301019-2" author="">
+        <sql>
+            update unit set power = 0
+        </sql>
+        <sql>
+            update unit set direction_of_deviation = 'UP'
+        </sql>
+    </changeSet>
+
+    <changeSet id="202107301019-3" author="">
+        <addNotNullConstraint tableName="unit" columnName="power" constraintName="UNIT_POWER_NOT_NULL"/>
+        <addNotNullConstraint tableName="unit" columnName="direction_of_deviation" constraintName="DIRECTION_OF_DEVIATION_NOTNULL"/>
+    </changeSet>
+
+</databaseChangeLog>

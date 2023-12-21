@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202301261000-delete-column" author="">
+        <dropColumn tableName="onenet_user" columnName="active"/>
+    </changeSet>
+
+    <changeSet id="202301261000-table" author="">
+        <createSequence incrementBy="1" sequenceName="active_onenet_user_seq" startValue="1" ordered="true"/>
+        <createTable tableName="active_onenet_user" remarks="Table with active onenet user for each flex user">
+            <column name="id" type="bigint" defaultValueSequenceNext="active_onenet_user_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="flex_platform_username" type="varchar(50)" remarks="Username in atFlex system">
+                <constraints nullable="false" />
+            </column>
+            <column name="onenet_user_id" type="bigint" remarks="Onenet user id">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202301261000-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="onenet_user_id" baseTableName="active_onenet_user"
+                                 constraintName="active_ons_user_id" referencedColumnNames="id" referencedTableName="onenet_user"/>
+        <createIndex tableName="active_onenet_user" indexName="idx_fk_active_ons_user_id">
+            <column name="onenet_user_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,191 @@
+<h1 class="title">{{ 'users.title' | translate }}</h1>
+<p-confirmPopup [baseZIndex]="20000"></p-confirmPopup>
+<div class="actions-box">
+  <button
+    appPreventDoubleClick
+    *appHasAuthority="'FLEX_ADMIN_USER_MANAGE'"
+    pButton
+    pRipple
+    type="button"
+    class="p-button-secondary"
+    [label]="'users.actions.add.btn' | translate"
+    (click)="add()"
+  ></button>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'users.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.firstName" pSortableColumn="firstName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'users.table.firstName' | translate }}
+            <p-sortIcon field="firstName"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.lastName" pSortableColumn="lastName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'users.table.lastName' | translate }}
+            <p-sortIcon field="lastName"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.login" pSortableColumn="login">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'users.table.login' | translate }}
+            <p-sortIcon field="login"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 220px" *ngIf="columnsState.roles">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'users.table.roles' | translate }}
+          </div>
+        </th>
+        <th *ngIf="columnsState.companyName" pSortableColumn="fsp.companyName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'users.table.companyName' | translate }}
+            <p-sortIcon field="fsp.companyName"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 240px" *ngIf="columnsState.email" pSortableColumn="email">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'users.table.email' | translate }}
+            <p-sortIcon field="email"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.phoneNumber" pSortableColumn="phoneNumber">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'users.table.phoneNumber' | translate }}
+            <p-sortIcon field="phoneNumber"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.activated" pSortableColumn="activated">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'users.table.activated' | translate }}
+            <p-sortIcon field="activated"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+      <tr class="filter-row">
+        <th style="flex: 0 0 46px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.firstName">
+          <p-columnFilter type="text" field="firstName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.lastName">
+          <p-columnFilter type="text" field="lastName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.login">
+          <p-columnFilter type="text" field="login" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 220px" *ngIf="columnsState.roles">
+          <p-columnFilter field="roles" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="roles"
+                [options]="dictionaries.roles"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.companyName">
+          <p-columnFilter type="text" field="companyName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 240px" *ngIf="columnsState.email">
+          <p-columnFilter type="text" field="email" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.phoneNumber">
+          <p-columnFilter type="text" field="phoneNumber" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.activated">
+          <p-columnFilter field="activated" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="activated"
+                [options]="dictionaries.boolean"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.actions">
+          <i *appHasAuthority="'FLEX_ADMIN_USER_MANAGE'" class="icon icon--edit c-pointer" (click)="edit(row)"></i>
+        </td>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.firstName">{{ row.firstName }}</td>
+        <td *ngIf="columnsState.lastName">{{ row.lastName }}</td>
+        <td *ngIf="columnsState.login">{{ row.login }}</td>
+        <td style="flex: 1 0 220px" *ngIf="columnsState.roles">
+          <span class="separated-comma" *ngFor="let role of row.roles; last as last">{{ 'RoleShort.' + role | translate }}</span>
+        </td>
+        <td *ngIf="columnsState.companyName">{{ row.companyName }}</td>
+        <td style="flex: 1 0 240px" *ngIf="columnsState.email">{{ row.email }}</td>
+        <td *ngIf="columnsState.phoneNumber">{{ row.phoneNumber }}</td>
+        <td *ngIf="columnsState.activated">
+          {{ 'Boolean.' + !!row.activated | translate }}
+        </td>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.delete">
+          <i *appHasAuthority="'FLEX_ADMIN_USER_DELETE'" class="icon icon--delete c-pointer" (click)="delete($event, row)"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

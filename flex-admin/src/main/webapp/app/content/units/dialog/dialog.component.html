@@ -1,0 +1,549 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'units.actions.' + mode + '.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button pButton pRipple type="button" [label]="'actions.cancel' | translate" class="p-button-secondary" (click)="close()"></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'units.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form" [form]="form" appValidatorContainer="unit">
+    <div class="fromgrid grid">
+      <div class="field col-12 mb-3">
+        <h4 class="mb-0" translate="units.form.fillsFsp"></h4>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6" *ngIf="mode === 'edit'">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="true">
+            <input id="field-id" type="text" pInputText formControlName="id" />
+            <label for="field-id">{{ 'units.table.id' | translate }}</label>
+          </span>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="data?.fspId">
+            <app-select
+              [options]="companies$ | async"
+              formControlName="fspId"
+              inputId="field-fspId"
+              aria-describedby="fspId-help"
+            ></app-select>
+            <label for="field-fspId">{{ 'units.form.fsp' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('fspId')?.touched">
+            <small id="fspId-help" class="p-error" *ngIf="form.get('fspId')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-name" type="text" pInputText formControlName="name" aria-describedby="name-help" />
+            <label for="field-name">{{ 'units.table.name' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('name')?.touched">
+            <small id="name-help" class="p-error" *ngIf="form.get('name')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="name-help" class="p-error" *ngIf="form.get('name')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [pTooltip]="'units.form.tooltip.directionOfDeviation' | translate">
+            <app-select
+              [options]="dictionaries.directions"
+              formControlName="directionOfDeviation"
+              inputId="field-directionOfDeviation"
+              aria-describedby="directionOfDeviation-help"
+            ></app-select>
+            <label for="field-directionOfDeviation">{{ 'units.table.directionOfDeviation' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('directionOfDeviation')?.touched">
+            <small id="directionOfDeviation-help" class="p-error" *ngIf="form.get('directionOfDeviation')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [pTooltip]="'units.form.tooltip.sourcePower' | translate">
+            <app-input-number
+              formControlName="sourcePower"
+              inputId="field-sourcePower"
+              [negative]="true"
+              [maxInteger]="11"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              aria-describedby="sourcePower-help"
+            >
+            </app-input-number>
+            <label for="field-sourcePower">{{ 'units.form.sourcePower' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('sourcePower')?.touched">
+            <small id="sourcePower-help" class="p-error" *ngIf="form.get('sourcePower')?.hasError('maxControl')">
+              {{ 'validate.maxControl' | translate: { field: 'units.table.connectionPower' | translate } }}
+            </small>
+            <small id="sourcePower-help" class="p-error" *ngIf="form.get('sourcePower')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [pTooltip]="'units.form.tooltip.connectionPower' | translate">
+            <app-input-number
+              formControlName="connectionPower"
+              inputId="field-connectionPower"
+              [min]="0.01"
+              [maxInteger]="11"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              aria-describedby="connectionPower-help"
+            >
+            </app-input-number>
+            <label for="field-connectionPower">{{ 'units.table.connectionPower' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('connectionPower')?.touched">
+            <small id="connectionPower-help" class="p-error" *ngIf="form.get('connectionPower')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="fromgrid grid">
+      <div class="field col-12 mb-0">
+        <h4 class="mb-0" translate="units.table.derType"></h4>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngFor="let type of dictionaries.types; index as index">
+      <div class="md:col-10 formgroup-inline d-flex d-flex-align-center">
+        <div class="field-checkbox mb-0">
+          <p-checkbox
+            [formControlName]="getTypeKey('has', type)"
+            [inputId]="'type-' + index"
+            [binary]="true"
+            (onChange)="changeTypeCheckbox(index, $event)"
+          ></p-checkbox>
+          <label style="width: 200px" [attr.for]="'type-' + index">{{ 'DerType.' + type.value | translate }}</label>
+          <span class="field-control" *ngIf="getTypeKey('derType', type) as controlKey">
+            <span class="p-float-label" [class.disabled]="form.get(controlKey)?.disabled">
+              <app-select
+                [optionObject]="true"
+                [options]="unitTypes[getTypeKey('', type)] || []"
+                [formControlName]="controlKey"
+                [attr.aria-describedby]="controlKey + '-help'"
+                optionLabel="nlsCode"
+                optionValue="id"
+              ></app-select>
+              <label [attr.for]="'field-' + controlKey">{{ 'units.table.derSubType' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get(controlKey)?.touched">
+              <small [attr.id]="controlKey + '-help'" class="p-error" *ngIf="form.get(controlKey)?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+        <ng-container *ngIf="getTypeKey('has', type) as controlKey">
+          <ng-container *ngIf="form.get(controlKey)?.touched">
+            <small [attr.id]="controlKey + '-help'" class="p-error" *ngIf="form.get(controlKey)?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validFrom"
+              inputId="field-validFrom"
+              [maxDate]="form.get('validTo')?.value"
+              [minDate]="currentDate"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validFrom-help"
+            ></app-calendar>
+            <label for="field-validFrom">{{ 'units.table.validFrom' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validFrom')?.touched">
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('beforeCurrentHour')">
+              {{ 'validate.beforeCurrentHour' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validTo"
+              inputId="field-validTo"
+              [minDate]="minValidTo"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validTo-help"
+            ></app-calendar>
+            <label for="field-validTo">{{ 'units.table.validTo' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validTo')?.touched">
+            <small id="validTo-help" class="p-error" *ngIf="form.get('validTo')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [pTooltip]="'units.table.ppeName' | translate">
+            <input id="field-ppe" type="text" pInputText formControlName="ppe" aria-describedby="ppe-help" preventSpecialCharacters />
+            <label for="field-ppe">{{ 'units.table.ppe' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('ppe')?.touched">
+            <small id="ppe-help" class="p-error" *ngIf="form.get('ppe')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="ppe-help" class="p-error" *ngIf="form.get('ppe')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid" [pTooltip]="hasSubportfolio ? ('units.form.tooltip.notAvailableWithSubportfolio' | translate) : null">
+        <label for="field-active">{{ 'units.table.active' | translate }}</label>
+        <div class="md:col-10 formgroup-inline" id="field-active">
+          <div class="field-radiobutton">
+            <p-radioButton [value]="true" formControlName="active" inputId="active-true"></p-radioButton>
+            <label for="active-true">{{ 'Boolean.true' | translate }}</label>
+          </div>
+          <div class="field-radiobutton">
+            <p-radioButton [value]="false" formControlName="active" inputId="active-false"></p-radioButton>
+            <label for="active-false">{{ 'Boolean.false' | translate }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <label for="field-aggregated">{{ 'units.table.aggregated' | translate }}</label>
+        <div id="field-aggregated" class="md:col-10 formgroup-inline">
+          <div class="field-radiobutton">
+            <p-radioButton [value]="true" formControlName="aggregated" inputId="aggregated-true"></p-radioButton>
+            <label for="aggregated-true">{{ 'Boolean.true' | translate }}</label>
+          </div>
+          <div class="field-radiobutton">
+            <p-radioButton [value]="false" formControlName="aggregated" inputId="aggregated-false"></p-radioButton>
+            <label for="aggregated-false">{{ 'Boolean.false' | translate }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div formArrayName="geoLocations">
+      <div class="grid" [formArrayName]="index" *ngFor="let geoLocation of geoLocations.controls; index as index">
+        <div class="field col-0 d-flex d-flex-align-center">
+          <button
+            appPreventDoubleClick
+            pButton
+            pRipple
+            type="button"
+            icon="icon icon--remove"
+            (click)="removeLocationPoint(index)"
+            class="p-button-rounded p-button-text"
+            [disabled]="geoLocations.controls.length === 1"
+            [pTooltip]="'units.form.removeLocationPoint' | translate"
+          ></button>
+        </div>
+        <div class="field col-3">
+          <span class="field-control">
+            <span class="p-float-label">
+              <app-input-number
+                formControlName="latitude"
+                [inputId]="'field-latitude-' + index"
+                [minFractionDigits]="3"
+                [maxFractionDigits]="3"
+                [min]="-90"
+                [max]="90"
+              >
+              </app-input-number>
+              <label [attr.for]="'field-latitude-' + index">{{ 'units.form.latitude' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('geoLocations.' + index + '.latitude') as control">
+              <small class="p-error" *ngIf="control.touched && control.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+        <div class="field col-3">
+          <span class="field-control">
+            <span class="p-float-label">
+              <app-input-number
+                formControlName="longitude"
+                [inputId]="'field-longitude-' + index"
+                [minFractionDigits]="3"
+                [maxFractionDigits]="3"
+                [min]="-180"
+                [max]="180"
+              >
+              </app-input-number>
+              <label [attr.for]="'field-longitude-' + index">{{ 'units.form.longitude' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('geoLocations.' + index + '.longitude') as control">
+              <small class="p-error" *ngIf="control.touched && control.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+        <div class="field col grid" *ngIf="isAggregated">
+          <div class="md:col-10 formgroup-inline d-flex d-flex-align-center">
+            <div class="field-checkbox">
+              <p-checkbox
+                formControlName="mainLocation"
+                [inputId]="'mainLocation-' + index"
+                [binary]="true"
+                (onChange)="changeMainLocation(index)"
+              ></p-checkbox>
+              <label [attr.for]="'mainLocation-' + index">{{ 'units.form.mainLocation' | translate }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        *ngIf="isAggregated"
+        class="p-button-secondary mb-3"
+        [label]="'units.actions.addLocationPoint.btn' | translate"
+        (click)="addLocationPoint()"
+      ></button>
+    </div>
+    <div class="fromgrid grid">
+      <div class="field col-12 mb-3">
+        <h4 class="mb-0" translate="units.form.fillsDso"></h4>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="pmin"
+              inputId="field-pmin"
+              [negative]="true"
+              [maxInteger]="10"
+              [minFractionDigits]="3"
+              [maxFractionDigits]="3"
+              aria-describedby="pmin-help"
+            >
+            </app-input-number>
+            <label for="field-pmin">{{ 'units.table.pMin' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('pmin')?.touched">
+            <small id="pmin-help" class="p-error" *ngIf="form.get('pmin')?.hasError('maxControl')">
+              {{ 'validate.maxControl' | translate: { field: 'units.form.sourcePower' | translate } }}
+            </small>
+            <small id="pmin-help" class="p-error" *ngIf="form.get('pmin')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="qmin"
+              inputId="field-qmin"
+              [negative]="true"
+              [maxInteger]="10"
+              [minFractionDigits]="3"
+              [maxFractionDigits]="3"
+              aria-describedby="qmin-help"
+            >
+            </app-input-number>
+            <label for="field-qmin">{{ 'units.table.qMin' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('qmin')?.touched">
+            <small id="qmin-help" class="p-error" *ngIf="form.get('qmin')?.hasError('maxControl')">
+              {{ 'validate.maxControl' | translate: { field: 'units.table.qMax' | translate } }}
+            </small>
+            <small id="qmin-help" class="p-error" *ngIf="form.get('qmin')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="qmax"
+              inputId="field-qmax"
+              [negative]="true"
+              [maxInteger]="10"
+              [minFractionDigits]="3"
+              [maxFractionDigits]="3"
+              aria-describedby="qmax-help"
+            >
+            </app-input-number>
+            <label for="field-qmax">{{ 'units.table.qMax' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('qmax')?.touched">
+            <small id="qmax-help" class="p-error" *ngIf="form.get('qmax')?.hasError('minControl')">
+              {{ 'validate.minControl' | translate: { field: 'units.table.qMin' | translate } }}
+            </small>
+            <small id="qmax-help" class="p-error" *ngIf="form.get('qmax')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span
+            class="p-float-label"
+            [class.disabled]="form.get('powerStationTypes')?.disabled"
+            [pTooltip]="'units.form.tooltip.editableForDso' | translate"
+          >
+            <app-select
+              [options]="dictionaries.localizationTypesForPowerStation$ | async"
+              [optionObject]="true"
+              optionValue="id"
+              optionLabel="name"
+              formControlName="powerStationTypes"
+              inputId="field-powerStationTypes"
+              aria-describedby="powerStationTypes-help"
+            ></app-select>
+            <label for="field-powerStationTypes">{{ 'units.table.powerStationTypes' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('powerStationTypes')?.touched">
+            <small id="powerStationTypes-help" class="p-error" *ngIf="form.get('powerStationTypes')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span
+            class="p-float-label"
+            [class.disabled]="form.get('couplingPointIdType')?.disabled"
+            [pTooltip]="'units.form.tooltip.editableForDso' | translate"
+          >
+            <app-select
+              [options]="dictionaries.localizationTypesForCoupling$ | async"
+              [optionObject]="true"
+              optionValue="id"
+              optionLabel="name"
+              formControlName="couplingPointIdType"
+              inputId="field-couplingPointIdType"
+              aria-describedby="couplingPointIdType-help"
+            ></app-select>
+            <label for="field-couplingPointIdType">{{ 'units.table.couplingPointIdTypes' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('couplingPointIdType')?.touched">
+            <small id="couplingPointIdType-help" class="p-error" *ngIf="form.get('couplingPointIdType')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span
+          class="p-float-label"
+          [class.disabled]="form.get('pointOfConnectionWithLvTypes')?.disabled"
+          [pTooltip]="'units.form.tooltip.editableForDso' | translate"
+        >
+          <app-select
+            [options]="dictionaries.pointsOfConnectionWithLv$ | async"
+            [optionObject]="true"
+            optionValue="id"
+            optionLabel="name"
+            formControlName="pointOfConnectionWithLvTypes"
+            inputId="field-pointOfConnectionWithLvTypes"
+            aria-describedby="pointOfConnectionWithLvTypes-help"
+          ></app-select>
+          <label for="field-pointOfConnectionWithLvTypes">{{ 'units.form.pointOfConnectionWithLv' | translate }}</label>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span
+            class="p-float-label"
+            [class.disabled]="form.get('code')?.disabled"
+            [pTooltip]="'units.form.tooltip.editableForDso' | translate"
+          >
+            <input id="field-code" type="text" pInputText formControlName="code" aria-describedby="code-help" />
+            <label for="field-code">{{ 'units.table.code' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('code')?.touched">
+            <small id="code-help" class="p-error" *ngIf="form.get('code')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="code-help" class="p-error" *ngIf="form.get('code')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid" [pTooltip]="certifiedAvailable ? null : (this.certifiedUnavailableTooltipMsg | translate)">
+        <label for="field-certified">{{ 'units.table.certified' | translate }}</label>
+        <div class="md:col-10 formgroup-inline" id="field-certified">
+          <div class="field-radiobutton">
+            <p-radioButton [value]="true" formControlName="certified" inputId="certified-true"></p-radioButton>
+            <label for="certified-true">{{ 'Boolean.true' | translate }}</label>
+          </div>
+          <div class="field-radiobutton">
+            <p-radioButton [value]="false" formControlName="certified" inputId="certified-false"></p-radioButton>
+            <label for="certified-false">{{ 'Boolean.false' | translate }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div modal-footer></div>
+</app-modal>

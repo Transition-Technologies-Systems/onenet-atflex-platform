@@ -1,0 +1,65 @@
+{
+  "subportfolio": {
+    "actions": {
+      "add": {
+        "btn": "Add new subportfolio",
+        "title": "Add subportfolio",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "There was an error adding the subportfolio"
+      },
+      "edit": {
+        "title": "Edit subportfolio: {{ name }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "An error occurred while editing the subportfolio"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected subportfolio from the system?",
+        "success": "The selected subportfolio has been successfully deleted",
+        "error": "An error occurred while deleting the selected subportfolio"
+      },
+      "export": {
+        "btn": "Export to file",
+        "allData": "Export data of all subportfolios",
+        "displayedData": "Export data of displayed subportfolios"
+      }
+    },
+    "filters": {
+      "creationDate": "Creation date",
+      "active": "Active",
+      "lastModified": "Last modified",
+      "certified": "Certified"
+    },
+    "form": {
+      "data": "Data",
+      "files": "Files",
+      "tooltip": {
+        "editableForDso": "This attribute can only be set by DSO"
+      }
+    },
+    "table": {
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "Subportfolio ID",
+      "name": "Name",
+      "numberOfDers": "Number of DERs",
+      "combinedPowerOfDers": "Combined power of DERs",
+      "couplingPointId": "Coupling point ID",
+      "mrid": "mRID",
+      "fspa": "FSPA",
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "validFrom": "Valid from",
+      "validTo": "Valid to",
+      "active": "Active",
+      "certified": "Certified",
+      "version": "Version",
+      "unitId": "DERs",
+      "units": "Allocated DERs",
+      "unitsDetails": "DER list",
+      "unitInformation": "{{ unit.name }}, connection power[kW]: {{ unit.connectionPower }}"
+    },
+    "title": "Subportfolio"
+  }
+}

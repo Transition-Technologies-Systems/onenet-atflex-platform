@@ -1,0 +1,67 @@
+@import 'assets/scss/variables';
+:host {
+  height: 100%;
+
+  ::ng-deep {
+    & ~ label {
+      padding-left: 24px;
+    }
+
+    .p-calendar-w-btn {
+      height: 44px;
+      width: 100%;
+    }
+
+    .p-button {
+      border: 2px solid $button-border-color;
+
+      &:hover,
+      &:active,
+      &:focus {
+        border-color: $button-border-color !important;
+      }
+    }
+
+    .no-border {
+      .p-inputtext,
+      button {
+        border: none;
+      }
+    }
+
+    .p-inputtext {
+      order: 2;
+      border: 2px solid $input-border-color;
+      border-left: none;
+      border-top-right-radius: 4px !important;
+      border-bottom-right-radius: 4px !important;
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      padding-left: 0;
+
+      &:focus,
+      &:active,
+      &:hover {
+        box-shadow: none !important;
+        outline: none !important;
+        border-color: $button-border-color !important;
+      }
+    }
+
+    .p-datepicker-trigger {
+      order: 1;
+      border-right: none;
+      border-top-left-radius: 4px !important;
+      border-bottom-left-radius: 4px !important;
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      background-color: $calendar-icon-background !important ;
+
+      &:focus {
+        box-shadow: none !important;
+        outline: none !important;
+        border-color: $button-border-color !important;
+      }
+    }
+  }
+}

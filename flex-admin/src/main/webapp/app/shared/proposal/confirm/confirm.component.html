@@ -1,0 +1,240 @@
+<p-dialog
+  *ngIf="!dialogConfig; else showModal"
+  [showHeader]="false"
+  [(visible)]="visible"
+  (onHide)="onClose()"
+  [style]="{ width: '50vw' }"
+  [closeOnEscape]="true"
+  [modal]="true"
+>
+  <ng-container *ngTemplateOutlet="confirmBody"></ng-container>
+  <ng-template pTemplate="footer">
+    <ng-container *ngTemplateOutlet="confirmActions"></ng-container>
+  </ng-template>
+</p-dialog>
+
+<ng-template #showModal>
+  <app-modal
+    [checkZIndex]="false"
+    [showFooter]="true"
+    [showHeader]="false"
+    [showCancelBtn]="false"
+    [closeOnEscape]="true"
+    [showConfirmAfterEsc]="false"
+  >
+    <div modal-content>
+      <ng-container *ngTemplateOutlet="confirmBody"></ng-container>
+    </div>
+    <div modal-footer>
+      <ng-container *ngTemplateOutlet="confirmActions"></ng-container>
+    </div>
+  </app-modal>
+</ng-template>
+
+<ng-template #confirmActions>
+  <button
+    pButton
+    pRipple
+    type="button"
+    [label]="'actions.cancel' | translate"
+    class="p-button-secondary"
+    (click)="close()"
+  ></button>
+  <button
+    appPreventDoubleClick
+    pButton
+    pRipple
+    type="button"
+    [disabled]="notNew"
+    [label]="'shared.proposal.confirm.reject.btn' | translate"
+    class="p-button-secondary"
+    (click)="reject()"
+  ></button>
+  <button
+    appPreventDoubleClick
+    pButton
+    pRipple
+    type="button"
+    [disabled]="notNew"
+    [label]="'shared.proposal.confirm.accept.btn' | translate"
+    (click)="confirm()"
+  ></button>
+</ng-template>
+
+<ng-template #confirmBody>
+  <form *ngIf="data" #confirmForm="ngForm">
+    <h4
+      [translate]="type === 'FSP' ? 'shared.proposal.confirm.questionFsp' : 'shared.proposal.confirm.question'"
+      [translateParams]="data.details"
+    ></h4>
+    <div class="formgrid grid" *ngIf="type === 'FSP'">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-fspName"
+              type="text"
+              pInputText
+              [ngModel]="data.details.fspName"
+              disabled
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label for="field-fspId">{{ 'shared.proposal.fspId' | translate }}</label>
+          </span>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-derName"
+              type="text"
+              pInputText
+              [ngModel]="data.details.derName"
+              disabled
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label for="field-fspId">{{ 'shared.proposal.unitId' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="type === 'BSP'">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-bspId"
+              type="text"
+              pInputText
+              [ngModel]="data.details.bspName"
+              disabled
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label for="field-bspId">{{ 'shared.proposal.bspId' | translate }}</label>
+          </span>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-schedulingUnit"
+              type="text"
+              pInputText
+              [ngModel]="data.details.schedulingUnitName"
+              disabled
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label for="field-schedulingUnit">{{ 'shared.proposal.schedulingUnit' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="type === 'FSP'">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-derType"
+              type="text"
+              pInputText
+              [ngModel]="getDerType(data.details)"
+              disabled
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label for="field-derType">{{ 'shared.proposal.derType' | translate }}</label>
+          </span>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              [ngModel]="data.details.derSourcePower"
+              inputId="field-derSourcePower"
+              [maxInteger]="11"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              [disabled]="true"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            </app-input-number>
+            <label for="field-derSourcePower">{{ 'shared.proposal.sourcePower' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6" *ngIf="type === 'FSP'">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              [ngModel]="data.details.derConnectionPower"
+              inputId="field-derConnectionPower"
+              [maxInteger]="11"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              [disabled]="true"
+              [ngModelOptions]="{ standalone: true }"
+            >
+            </app-input-number>
+            <label for="field-derConnectionPower">{{ 'shared.proposal.connectionPower' | translate }}</label>
+          </span>
+        </span>
+      </div>
+      <div class="field col-6" *ngIf="type === 'BSP'">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-type"
+              type="text"
+              pInputText
+              [ngModel]="data.details.schedulingUnitType.nlsCode | translate"
+              disabled
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <label for="field-type">{{ 'shared.proposal.type' | translate }}</label>
+          </span>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              inputId="field-createdDate"
+              [ngModel]="createdDate"
+              styleClass="no-border"
+              [disabled]="true"
+              [ngModelOptions]="{ standalone: true }"
+            ></app-calendar>
+            <label for="field-createdDate">{{ 'shared.proposal.createdDate' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="type === 'FSP'">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.schedulingUnits"
+              [(ngModel)]="schedulingUnitId"
+              name="schedulingUnitId"
+              inputId="field-schedulingUnitId"
+              aria-describedby="schedulingUnitId-help"
+              required
+              #schedulingUnitControl="ngModel"
+            ></app-select>
+            <label for="field-schedulingUnitId">{{ 'shared.proposal.schedulingUnit' | translate }}</label>
+          </span>
+        </span>
+        <ng-container *ngIf="schedulingUnitControl.touched">
+          <small id="schedulingUnitId-help" class="p-error" *ngIf="schedulingUnitControl.invalid">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </div>
+    </div>
+  </form>
+</ng-template>

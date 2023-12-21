@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202304121100-table" author="">
+        <createSequence incrementBy="1" sequenceName="user_email_config_seq" startValue="1" ordered="true"/>
+        <createTable tableName="user_email_config">
+            <column name="id" type="bigint" defaultValueSequenceNext="user_email_config_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint" remarks="The user id which is the owner of the config">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(100)" remarks="Email type">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enabled" type="boolean" defaultValue="true" remarks="Flag informing email notification is active">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202304121100-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_email_config"
+                                 constraintName="users_user_email_config_id" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>

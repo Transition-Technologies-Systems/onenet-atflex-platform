@@ -1,0 +1,179 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'dictionariesPage.actions.' + mode + '.type.' + dictionaryType + '.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'dictionariesPage.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form">
+    <div class="formgrid grid">
+      <div class="field col-6" *ngIf="mode === 'edit'">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="true">
+            <input id="field-id" type="text" pInputText formControlName="id" />
+            <label for="field-id">{{ 'dictionariesPage.table.id' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="isDerType">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="sderPoint"
+              inputId="field-sderPoint"
+              [maxInteger]="11"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              aria-describedby="sderPoint-help"
+            >
+            </app-input-number>
+            <label for="field-sderPoint">{{ 'dictionariesPage.table.sderPoint' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('sderPoint')?.touched">
+            <small id="sderPoint-help" class="p-error" *ngIf="form.get('sderPoint')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="isSuType">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-multiselect
+              [optionObject]="true"
+              optionValue="id"
+              [options]="dictionaries.products$ | async"
+              formControlName="products"
+              inputId="field-products"
+              aria-describedby="products-help"
+            ></app-multiselect>
+            <label for="field-products">{{ 'dictionariesPage.table.products' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('products')?.touched">
+            <small id="products-help" class="p-error" *ngIf="form.get('products')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="isKdmModel">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-areaName" type="text" pInputText formControlName="areaName" aria-describedby="areaName-help" />
+            <label for="field-areaName">{{ 'dictionariesPage.table.areaName' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('areaName')?.touched">
+            <small id="areaName-help" class="p-error" *ngIf="form.get('areaName')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="areaName-help" class="p-error" *ngIf="form.get('areaName')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6 grid" id="field-lvModel">
+        <div class="field-checkbox">
+          <p-checkbox
+            [binary]="true"
+            formControlName="lvModel"
+            inputId="field-lvModel"
+            [label]="'dictionariesPage.table.lvModel' | translate"
+          ></p-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="!isLocalizationType && !isKdmModel">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-descriptionEn" type="text" pInputText formControlName="descriptionEn" aria-describedby="descriptionEn-help" />
+            <label for="field-name">{{ 'dictionariesPage.table.descriptionEn' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('descriptionEn')?.touched">
+            <small id="descriptionEn-help" class="p-error" *ngIf="form.get('descriptionEn')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="descriptionEn-help" class="p-error" *ngIf="form.get('descriptionEn')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-descriptionPl" type="text" pInputText formControlName="descriptionPl" aria-describedby="descriptionPl-help" />
+            <label for="field-descriptionPl">{{ 'dictionariesPage.table.descriptionPl' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('descriptionPl')?.touched">
+            <small id="descriptionPl-help" class="p-error" *ngIf="form.get('descriptionPl')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="descriptionPl-help" class="p-error" *ngIf="form.get('descriptionPl')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="isDerType || isLocalizationType">
+      <div class="field col-6" *ngIf="isLocalizationType">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-name" type="text" pInputText formControlName="name" aria-describedby="name-help" />
+            <label for="field-name">{{ 'dictionariesPage.table.name' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('name')?.touched">
+            <small id="name-help" class="p-error" *ngIf="form.get('name')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="name-help" class="p-error" *ngIf="form.get('name')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="isDerType ? dictionaries.derTypes : dictionaries.localizationTypes"
+              formControlName="type"
+              inputId="field-type"
+              aria-describedby="type-help"
+            ></app-select>
+            <label for="field-type">{{ 'dictionariesPage.table.type' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('type')?.touched">
+            <small id="type-help" class="p-error" *ngIf="form.get('type')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div modal-footer></div>
+</app-modal>

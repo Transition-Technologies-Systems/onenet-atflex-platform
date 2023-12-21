@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202109081214-table" author="">
+        <createSequence incrementBy="1" sequenceName="scheduling_unit_file_seq" startValue="1" ordered="true"/>
+        <createTable tableName="scheduling_unit_file" remarks="Table with attached files to table scheduling_unit">
+            <column name="id" type="bigint" defaultValueSequenceNext="scheduling_unit_file_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="file_name" type="varchar(100)" remarks="File name with extension e.g. test.txt">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_extension" type="varchar(10)" remarks="File extension type e.g. DOC, DOCX, PDF, TXT, XLS, XLSX">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_zip_data" type="blob" remarks="File is kept in zip archive">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scheduling_unit_id" type="bigint" remarks="SchedulingUnit identifier from table scheduling_unit">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202109081214-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="scheduling_unit_id" baseTableName="scheduling_unit_file" constraintName="fk_scheduling_unit_file_id"
+                                 referencedColumnNames="id" referencedTableName="scheduling_unit"/>
+    </changeSet>
+
+    <changeSet id="202109081214-audit" author="">
+        <addColumn tableName="scheduling_unit_file">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

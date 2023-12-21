@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202202211320-table" author="">
+
+        <createTable tableName="unit_power_station_type" remarks="Join table for Unit and Power Station types">
+            <column name="unit_id" type="bigint" remarks="Unit identifier from table Unit">
+                <constraints nullable="false"/>
+            </column>
+            <column name="localization_type_id" type="bigint" remarks="Localization Type identifier from table localization_type">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="unit_id, localization_type_id" tableName="unit_power_station_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="unit_id" baseTableName="unit_power_station_type" constraintName="fk_unit_pst_unit_id"
+                                 referencedColumnNames="id" referencedTableName="unit"/>
+
+        <addForeignKeyConstraint baseColumnNames="localization_type_id" baseTableName="unit_power_station_type" constraintName="fk_unit_pst_local_type_id"
+                                 referencedColumnNames="id" referencedTableName="localization_type"/>
+    </changeSet>
+
+    <changeSet id="202202211320-data" author="" dbms="oracle">
+        <sql>
+            INSERT ALL
+            INTO unit_power_station_type (unit_id, localization_type_id) VALUES (id, 1)
+            SELECT * FROM unit where unit.power_station is not null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="202202211320-column" author="">
+        <dropColumn tableName="unit" columnName="power_station"/>
+    </changeSet>
+</databaseChangeLog>

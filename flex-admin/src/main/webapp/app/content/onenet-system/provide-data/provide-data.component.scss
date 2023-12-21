@@ -1,0 +1,7 @@
+.table-box i:hover {
+  cursor: pointer;
+}
+
+.table-box i.disabled:hover {
+  cursor: not-allowed;
+}

@@ -1,0 +1,82 @@
+{
+  "schedulingUnits": {
+    "actions": {
+      "add": {
+        "btn": "Add new scheduling unit",
+        "title": "Add scheduling unit",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "There was an error adding the scheduling unit"
+      },
+      "edit": {
+        "title": "Edit scheduling unit: {{ name }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "An error occurred while editing the scheduling unit"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected scheduling unit from the system?",
+        "success": "The selected scheduling unit has been successfully deleted",
+        "error": "An error occurred while deleting the selected scheduling unit"
+      },
+      "export": {
+        "btn": "Export to file",
+        "allData": "Export data of all scheduling units",
+        "displayedData": "Export data of displayed scheduling units"
+      },
+      "removeDers": {
+        "question": "Are you sure you want to remove following DERs from your scheduling unit?"
+      }
+    },
+    "filters": {
+      "product": "Product",
+      "creationDate": "Creation date",
+      "active": "Active",
+      "lastModified": "Last modified"
+    },
+    "form": {
+      "files": "Files",
+      "schedulingUnitData": "Data",
+      "details": "Scheduling unit details",
+      "derTabTitle": "DER: {{ name }}({{ fsp }})",
+      "acceptedDers": "Accepted DERs",
+      "tooltip": {
+        "certificationNotAvailable": "Only TSO can certify the scheduling unit"
+      }
+    },
+    "tabs": {
+      "list": "List of scheduling units",
+      "types": "Types of scheduling units"
+    },
+    "table": {
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "Scheduling unit ID",
+      "name": "Name",
+      "bsp": "BSP",
+      "schedulingUnitType": "Type",
+      "numberOfDers": "Number of DERs",
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "active": "Active",
+      "readyForTests": "Ready for tests",
+      "certified": "Certified",
+      "version": "Version",
+      "schedulingUnit": "Scheduling unit",
+      "couplingPoints": "Coupling points",
+      "primaryCouplingPoint": "Primary coupling point",
+      "createdBy": "Added by",
+      "lastModifiedBy": "Modified by",
+      "unitId": "DERs",
+      "units": "DERs",
+      "unitsDetails": "DERs list",
+      "typeName": "Type name",
+      "products": "Products",
+      "registered": {
+        "id": "ID"
+      }
+    },
+    "title": "Scheduling units",
+    "registerTitle": "Registered Scheduling units"
+  }
+}

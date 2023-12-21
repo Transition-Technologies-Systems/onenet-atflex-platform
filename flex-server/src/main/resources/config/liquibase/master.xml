@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+    <property name="now_in_utc" value="CURRENT_TIMESTAMP()" dbms="h2"/>
+    <property name="now_in_utc" value="sys_extract_utc(systimestamp)" dbms="oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="clobType" value="clob" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
+    <property name="uuidType" value="uuid" dbms="h2, oracle"/>
+
+    <!-- USED BY TEST CONTEXT -->
+    <include file="classpath:config/liquibase/changelog/test-context/000000000000_test_context.xml" relativeToChangelogFile="false" context="test"/>
+
+    <include file="classpath:config/liquibase/changelog/202101270801_added_entity_Users.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202101270802_added_entity_UserRole.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202101270803_added_entity_PersistentAuditEvents.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202101270804_added_entity_PersistentAuditEvtData.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202102120947_added_entity_Product.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202102230820_added_entity_FspUserRegistration.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202102230821_added_entity_FspUserRegistrationComment.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202102230822_added_entity_FspUserRegistrationFile.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202103081455_added_entity_UsersOnline.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202103181233_added_entity_Unit.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202103290855_added_entity_Fsp.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202103291402_added_entity_FlexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202103311607_added_Users_constraints_to_Product.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202104011602_added_entity_ProductFile.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202104091310_added_entity_Notification.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202104091311_added_entity_NotificationUser.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202104091312_added_entity_NotificationParam.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202104141617_added_Fsp_constraints_to_Users.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202104221330_added_column_deleted_Users.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202104231137_dropped_column_from_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202104231138_added_entity_UnitGeoLocation.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202104270918_modified_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202104281009_modified_entity_FspUserRegistration.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202104281622_modified_entity_Product.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202104300915_modified_entity_Product.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202105051345_modified_entity_FlexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202105051346_added_entity_FlexPotentialFile.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202105141222_modified_entity_User.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202105171100_modified_entity_User.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202105191503_modified_entity_Product_And_FlexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107010910_added_column_deleted_Fsp.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107081522_added_entities_UserScreenConfig.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107081530_added_entity_ScreenColumn.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107160839_modified_entity_Product.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107161251_modified_entity_FlexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107271053_drop_columns_in_product.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107280944_drop_column_in_product_file.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107271505_remove_email_uq_constraint_in_fps_user_registration.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107281413_drop_email_uq_constraint_in_users_table.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107301019_add_columns_to_unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107281500_added_entity_activityMonitor.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107281000_modified_entity_FlexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107190918_modified_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202107201050_added_entity_DerType.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202108031000_modified_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202108040900_drop_columns_in_flex_potential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202108041000_add_columns_to_flex_potential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202108091530_drop_column_in_flex_potential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202108181354_drop_column_in_product.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202108251419_modified_entity_activityMonitor.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202108271500_modified_entity_activityMonitor.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109010900_modified_entity_unitEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109020800_modified_entity_unitEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109031449_modified_entity_FspUserRegistration.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109060800_modified_entity_unitEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109060810_modified_entity_derTypeEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109060941_modified_entity_Fsp.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109061255_added_entity_SchedulingUnit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109080920_modified_entity_UnitEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109081200_modified_entity_ScreenColumn.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109081210_added_entity_SubportfolioEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109081214_added_entity_SchedulingUnitFile.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109081400_added_entity_SubportfolioFile.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109100905_modified_entity_SchedulingUnit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109131403_modified_entity_SchedulingUnit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109170910_added_entity_SchedulingUnitProposal.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109170911_modified_entity_Fsp.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202109211142_modified_entity_SchedulingUnit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110041430_modified_entity_UnitEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110061630_delete_records_in_activity_monitor.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110121500_modified_entity_SubportfolioEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110131137_add_column_to_Fsp.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110140906_modified_entity_FlexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110191213_modified_entity_FlexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110191008_modified_version_in_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110191527_modified_version_in_Product.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110201003_modified_version_in_FlexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110250904_add_columns_to_SchedulingUnit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110261100_modified entity_SubportfolioEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110270800_added_Unit_constraints_to_FlexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110270810_drop_column_in_flexPotential.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202110290812_drop_column_in_unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202111021556_added_unique_constraints.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202111041550_drop_column_in_subportfolio.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202111231220_added_entity_AuctionsSeries.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202111231225_added_entity_AuctionDayAhead.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202111231425_added_entity_AuctionCmvc.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202111251613_added_entity_AuctionOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202111291304_modified_entity_AuctionCmvc.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202112020943_modified_entity_Auctions.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202112021200_drop_null_constraint_in_AuctionDayAhead.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202112031207_drop_not_null_constraint_in_AuctionCmvcEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202112071600_added_entity_SchedulingUnitType.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202112081300_modified_entity_SchedulingUnit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202112091305_drop_table_SchedulingUnitFspBsp.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202112101430_add_column_to_SchedulingUnitProposal.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202112151650_add_column_to_AuctionDayAheadEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202112211440_add_column_to_FspEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202201140858_add_column_to_FspUserRegistration.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202201211200_add_uniqueConstraint_to_AuctionCmvc.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202201211409_reject_new_scheduling_proposals.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202201281400_add_columns_to_Product.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202181002_drop_null_constraint_in_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202181300_added_entity_LocalizationType.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202211020_modified_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202211320_modified_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202221200_modified_entity_Subportfolio.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202221252_add_column_to_DerType.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202221700_delete_capacity_auction.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202231006_modified_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202231200_modified_entity_AuctionCmvc.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202202280910_delete_column_in_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202203091113_delete_column_in_SchedulingUnitProposal.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202203151213_added_entity_SelfSchedule.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202204011528_add_column_to_SchedulingUnitProposal.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202204051411_add_column_to_SchedulingUnitProposal.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202204120000_add_column_to_AuctionOfferEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202204130939_added_Localization_constraints_to_SchedulingUnit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202204211316_modified_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202204251110_delete_column_in_Product.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202204251200_added_entity_ForecastedPrices.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205041200_added_entity_AuctionDayAheadOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205041220_added_entity_AuctionOfferDers.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205041300_modified_entity_AuctionOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205101630_modified_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205111700_modified_entity_SchedulingUnit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205131000_modify_entity_Notification.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205161124_modified_entity_Notification.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205171540_add_columns_to_FspUserRegistration.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205230900_add_not_null_constraint_in_SchedulingUnitType.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205231100_add_not_null_constraint_in_DerType.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205231600_add_columns_to_NotificationParam.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202205261000_add_column_to_Product.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206071439_modified_capacityAndEnergy_auction.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206061400_added_entity_AuctionOfferBandData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206081500_modified_entity_AuctionOfferDers.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206091100_modified_entity_AuctionDayAheadOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206091300_modified_entity_AuctionOfferBandData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206201500_delete_columns_in_AuctionOfferDers.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206211300_delete_DayAhead_old_offers_and_auctions.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206231200_added_columns_to_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206301000_fill_columns_in_Units.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206301300_modified_entity_AuctionDayAheadOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202206301400_add_not_null_constraint_in_AuctionDayAheadOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202207141130_reduce_coupling_points_type_in_UnitEntity_to_one_element.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202207151537_modified_entity_AuctionCmvcEntity.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202207211300_added_entity_AlgorithmEvaluation.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202208011300_set_status_in_AuctionOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202208021000_added_entity_AuctionDaOfferBandCommonPrice.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202208031400_delete_columns_in_AuctionDaOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202208041400_add_column_to_AuctionOfferBandData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202208111449_modified_entity_Unit.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202208121400_added_column_to_AuctionDayAheadOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202208181600_added_column_to_AuctionOfferBandData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202208301300_drop_table_DaOfferCommonPrice.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202209051600_drop_not_null_constraint_in_AuctionOfferBAndData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202210061230_modified_volume_AuctionOfferBandData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202210131533_drop_column_in_AuctionDaOffer.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202210111500_modified_entity_SelfScheduleFile.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202211101500_edit_entity_SelfScheduleFile.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202211020944_modified_entity_ForecastedPrices.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202212201417_moved_is_edited_flag_from_da_offer_to_band_data.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202301051000_added_column_to_AuctionDayAheadOfferEntity.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202301171000_set_volumes_verified_inAuctionDayAheadOffer.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202303151600_create_index_in_UnitSelfScheduleEntity.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202304031200_added_entity_KpiEntity.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202304031300_add_column_to_AuctionOfferBandData.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202304121100_added_entity_UserEmailConfig.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202304201700_added_entity_Settlement.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202305151300_truncate_kpi.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202305151400_added_KpiTypes.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202306021200_added_entity_Chat.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202306050800_added_entity_ChatMessage.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202306131200_add_column_to_Chat.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202306221100_drop_columns_in_Chat.xml" relativeToChangelogFile="false"/>
+
+    <!-- ALL VIEWS-->
+    <include file="classpath:config/liquibase/views.xml"/>
+</databaseChangeLog>

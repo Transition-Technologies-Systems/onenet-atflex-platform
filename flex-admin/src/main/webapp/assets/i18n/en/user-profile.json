@@ -1,0 +1,55 @@
+{
+  "userProfile": {
+    "title": "My profile",
+    "form": {
+      "firstName": "Name",
+      "lastName": "Last name",
+      "email": "E-mail address",
+      "phoneNumber": "Phone number",
+      "login": "Login",
+      "activated": "Active",
+      "role": "Role"
+    },
+    "changePassword": {
+      "title": "Change password",
+      "form": {
+        "currentPassword": "Current password",
+        "newPassword": "New password",
+        "repeatNewPassword": "Repeat new password"
+      }
+    },
+    "actions": {
+      "save": "Save changes",
+      "success": "Profile has been updated",
+      "error": "An error occured while updating the profile",
+      "changePasswordSuccess": "Password has been updated",
+      "changePasswordError": "Incorrect current password",
+      "updateEmailNotificationsSuccess": "E-mail notifications settings have been updated"
+    },
+    "notifications": {
+      "title": "E-mail notifications",
+      "saveBtn": "Save"
+    },
+    "notificationObjects": {
+      "FSP_REGISTRATION": "Registration",
+      "PRODUCT": "Product",
+      "UNIT": "DER",
+      "SUBPORTFOLIO": "Subportfolio",
+      "FLEXIBILITY_POTENTIAL": "Flexibility potential",
+      "SCHEDULING_UNIT": "Scheduling unit",
+      "FSP": "FSP"
+    },
+    "notificationActions": {
+      "CREATION": "Creation",
+      "EDITION": "Modification",
+      "ASSIGNMENT_TO_REGISTER": "Moved to register",
+      "APPLICATION_NOTIFICATION": "New application",
+      "APPLICATION_CONFIRAMTION_NOTIFICATION": "Application acceptance",
+      "CHANGE_NOTIFICATION": "Change of application status",
+      "ACCEPTED": "Registration acceptance",
+      "REJECTED": "Registration rejection",
+      "APPLICATION_WITHDRAWAL": "Application withdrawal",
+      "READY_FOR_TESTS_NOTIFICATION": "Readiness for tests"
+    }
+  }
+}

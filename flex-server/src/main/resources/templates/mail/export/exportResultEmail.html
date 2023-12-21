@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="${fileName}">File</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:utext="#{email.export.greeting}">
+    Dear user,
+    <br/>
+    generated file in attachments.
+</p>
+<p th:utext="#{email.export.content}">
+    Dear user,
+    <br/>
+    generated file in attachments.
+</p>
+</body>
+</html>

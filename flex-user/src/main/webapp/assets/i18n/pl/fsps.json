@@ -1,0 +1,62 @@
+{
+  "fsps": {
+    "actions": {
+      "add": {
+        "btn": "Dodaj nowy {{ roleName }}",
+        "title": "Dodaj {{ roleName }}",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania {{ role }}"
+      },
+      "edit": {
+        "title": "Edytuj {{ roleName }}: {{ representative.companyName }}",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas edycji {{ role }}"
+      },
+      "delete": {
+        "question": "Usunięcie wybranego {{ role }} spowoduje automatyczne usunięcie wszystkich jego użytkowników. Czy chcesz wykonać tę operację?",
+        "success": "Wybrany {{ role }} został pomyślnie usunięty",
+        "error": "Wystąpił błąd podczas usuwania wybranego {{ role }}"
+      },
+      "export": {
+        "btn": "Eksportuj do pliku",
+        "allData": "Eksportuj dane wszystkich {{ role }}",
+        "displayedData": "Eksportuj dane wyświetlonych {{ role }}"
+      }
+    },
+    "filters": {
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Data modyfikacji",
+      "validDate": "Data wygaśnięcia",
+      "active": "Aktywny"
+    },
+    "form": {
+      "validFrom": "Data wygaśnięcia od",
+      "validTo": "Data wygaśnięcia do",
+      "active": "Aktywny"
+    },
+    "table": {
+      "actions": "Akcje",
+      "delete": "Usuwanie",
+      "id": "Id FSP",
+      "bspId": "Id BSP",
+      "companyName": "Nazwa firmy",
+      "role": "Rola",
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "active": "Aktywny",
+      "agreementWithTso": "Umowa z TSO",
+      "validFrom": "Data wygaśnięcia od",
+      "validTo": "Data wygaśnięcia do",
+      "representative": {
+        "firstName": "Imię przedstawiciela",
+        "lastName": "Nazwisko przedstawiciela",
+        "email": "Adres e-mail przedstawiciela",
+        "phoneNumber": "Numer telefonu przedstawiciela"
+      }
+    },
+    "title": "FSP",
+    "titleBsp": "BSP"
+  }
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="202109170910-table" author="">
+        <createSequence incrementBy="1" sequenceName="sched_unit_proposal_seq" startValue="1" ordered="true"/>
+        <createTable tableName="scheduling_unit_proposal" remarks="Table with Proposals for adding Units to Scheduling Units">
+            <column name="id" type="bigint" remarks="Identity column" defaultValueSequenceNext="sched_unit_proposal_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="status" type="varchar(50)" remarks="Status of Proposal">
+                <constraints nullable="true" />
+            </column>
+            <column name="unit_id" type="bigint" remarks="Identity column of Unit">
+                <constraints nullable="true" />
+            </column>
+            <column name="scheduling_unit_id" type="bigint" remarks="Identity column of Scheduling Unit">
+                <constraints nullable="true" />
+            </column>
+            <column name="sender_id" type="bigint" remarks="User sender's identity column">
+                <constraints nullable="true" />
+            </column>
+            <column name="sender_role" type="varchar(50)" remarks="User sender's security role allowing adding new Proposals">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(50)" remarks="Type of Proposal">
+                <constraints nullable="false"/>
+            </column>
+            <column name="security_key" type="varchar(20)"
+                    remarks="Security key used to authenticate Proposal outside the system e.g via email" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202109170910-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="unit_id" baseTableName="scheduling_unit_proposal" constraintName="fk_prop_unit_id"
+                                 referencedColumnNames="id" referencedTableName="unit"/>
+
+        <addForeignKeyConstraint baseColumnNames="scheduling_unit_id" baseTableName="scheduling_unit_proposal" constraintName="fk_prop_sched_unit_id"
+                                 referencedColumnNames="id" referencedTableName="scheduling_unit"/>
+
+        <addForeignKeyConstraint baseColumnNames="sender_id" baseTableName="scheduling_unit_proposal" constraintName="fk_prop_sender_id"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+
+        <createIndex tableName="scheduling_unit_proposal" indexName="idx_fk_unit">
+            <column name="unit_id" type="bigint"/>
+        </createIndex>
+
+        <createIndex tableName="scheduling_unit_proposal" indexName="idx_fk_sched_unit">
+            <column name="scheduling_unit_id" type="bigint"/>
+        </createIndex>
+
+        <createIndex tableName="scheduling_unit_proposal" indexName="idx_fk_sched_sender">
+            <column name="sender_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="202109170910-audit" author="">
+        <addColumn tableName="scheduling_unit_proposal">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.product.edition.title}">Flexibility Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.product.greeting(${user.login})}">
+    Dear
+</p>
+<p th:text="#{email.product.edition.text1(${product.productDTO.fullName})}">
+    Following attributes of product have been updated
+</p>
+<ul>
+    <li th:if="${product.productDTO.locational != oldProduct.productDTO.locational}" th:text="#{email.product.edition.locational(${user.langKey == 'pl' ? (product.productDTO.locational ? 'tak' : 'nie') : (product.productDTO.locational ? 'yes' : 'no')})}">Locational</li>
+    <li th:if="${product.productDTO.minBidSize != oldProduct.productDTO.minBidSize}" th:text="#{email.product.edition.minBidSize(${product.productDTO.minBidSize})}">Minimal bid size</li>
+    <li th:if="${product.productDTO.maxBidSize != oldProduct.productDTO.maxBidSize}" th:text="#{email.product.edition.maxBidSize(${product.productDTO.maxBidSize})}">Maximal bid size</li>
+    <li th:if="${product.productDTO.maxFullActivationTime != oldProduct.productDTO.maxFullActivationTime}" th:text="#{email.product.edition.maxFullActivationTime(${product.productDTO.maxFullActivationTime})}">Maximal full activation time</li>
+    <li th:if="${product.productDTO.minRequiredDeliveryDuration != oldProduct.productDTO.minRequiredDeliveryDuration}" th:text="#{email.product.edition.minRequiredDeliveryDuration(${product.productDTO.minRequiredDeliveryDuration})}">Minimal required duration of delivery</li>
+    <li th:if="${product.productDTO.active != oldProduct.productDTO.active}" th:text="#{email.product.edition.active(${user.langKey == 'pl' ? (product.productDTO.active ? 'tak' : 'nie') : (product.productDTO.active ? 'yes' : 'no')})}">Active</li>
+    <li th:if="${product.productDTO.balancing != oldProduct.productDTO.balancing}" th:text="#{email.product.creation.balancing(${user.langKey == 'pl' ? (product.balancing ? 'tak' : 'nie') : (product.balancing ? 'yes' : 'no')})}">Balancing</li>
+    <li th:if="${product.productDTO.cmvc != oldProduct.productDTO.cmvc}" th:text="#{email.product.creation.cmvc(${user.langKey == 'pl' ? (product.cmvc ? 'tak' : 'nie') : (product.cmvc ? 'yes' : 'no')})}">Active</li>
+    <li th:if="${!#strings.equals(product.productDTO.validFrom, oldProduct.productDTO.validFrom)}" th:text="#{email.product.edition.validFrom(${validFrom})}">Valid from</li>
+    <li th:if="${!#strings.equals(product.productDTO.validTo, oldProduct.productDTO.validTo)}" th:text="#{email.product.edition.validTo(${validTo})}">Valid to</li>
+    <li th:if="${!#strings.equals(product.psoUser, oldProduct.psoUser)}" th:text="#{email.product.edition.pso(${product.psoUser})}">pSo</li>
+    <li th:if="${!#strings.equals(product.ssoUsers, oldProduct.ssoUsers)}" th:text="#{email.product.edition.sso(${product.ssoUsers})}">sSo</li>
+</ul>
+<p>
+    <a th:with="url=(@{|${baseUrl}/products?id=${product.productDTO.id}|})" th:href="${url}" th:text="#{email.product.edition.link}">
+        Link
+    </a>
+</p>
+<p>
+    <span th:text="#{email.product.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+</p>
+</body>
+</html>
+

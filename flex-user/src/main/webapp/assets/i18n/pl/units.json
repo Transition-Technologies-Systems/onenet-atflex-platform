@@ -1,0 +1,142 @@
+{
+  "units": {
+    "actions": {
+      "selfSchedule": {
+        "downloadTemplate": {
+          "btn": "Pobierz szablon planu pracy"
+        },
+        "import": {
+          "btn": "Importuj własny plan pracy",
+          "success": "Plik został pomyślnie zaimportowany",
+          "error": "Wystąpił nieoczekiwany błąd. Skontaktuj się z pomocą techniczną.",
+          "questionHeader": "Potwierdzenie",
+          "reimportQuestion": "Czy na pewno chcesz ponownie zaimportować plan pracy następujących jednostek:"
+        },
+        "delete": {
+          "question": "Czy na pewno chcesz usunąć wybrany plan pracy?",
+          "success": "Wybrany plan pracy został pomyślnie usunięty",
+          "error": "Wystąpił błąd podczas usuwania wybranego planu pracy"
+        }
+      },
+      "add": {
+        "btn": "Dodaj nowy zasób",
+        "title": "Dodaj zasób",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania zasobu"
+      },
+      "addLocationPoint": {
+        "btn": "Dodaj położenie następnego punktu zasobu"
+      },
+      "edit": {
+        "title": "Edytuj zasób: {{name}}",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas edytowania zasobu"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybrany zasób z systemu?",
+        "success": "Wybrany zasób został pomyślnie usunięty",
+        "error": "Wystąpił błąd podczas usuwania wybranego zasobu"
+      },
+      "export": {
+        "btn": "Eksportuj do pliku",
+        "allData": "Eksportuj dane wszystkich zasobów",
+        "displayedData": "Eksportuj dane zaznaczonych zasobów"
+      },
+      "inviteDer": {
+        "btn": "Zaproś zasób",
+        "title": "Zaproś zasób",
+        "saveBtn": "Wyślij zaproszenie",
+        "schedulingUnit": "Jednostka grafikowa"
+      }
+    },
+    "filters": {
+      "derType": "Typ zasobu",
+      "aggregated": "Zagregowany",
+      "creationDate": "Data utworzenia",
+      "active": "Aktywny",
+      "lastModified": "Ostatnia modyfikacja",
+      "certified": "Certyfikowany",
+      "unit": "DER"
+    },
+    "form": {
+      "fillsFsp": "Uzupełnia FSP/FSPA",
+      "fillsDso": "Uzupełnia DSO",
+      "sourcePower": "Moc źródłowa/odbioru [kW] (Pmax)",
+      "pointOfConnectionWithLv": "Punkt przyłączenia z siecią nn",
+      "unitData": "Informacje o zasobie",
+      "latitude": "Szerokość geograficzna",
+      "longitude": "Długość geograficzna",
+      "mainLocation": "Główna lokalizacja",
+      "removeLocationPoint": "Usuń punkt lokalizacji",
+      "tooltip": {
+        "directionOfDeviation": "Kierunek odchylenia od nominalnego punktu pracy",
+        "editableForDso": "Pole może zostać wypełnione tylko przez DSO",
+        "connectionPower": "Wpisz moc przyłączeniową z umowy przyłączeniowej",
+        "sourcePower": "Jeżeli zasób wytwarza energię, wpisz moc źródła z umowy przyłączeniowej/Jeżeli zasób jest jednostką odbiorczą, wpisz moc odbioru z umowy przyłączeniowej",
+        "certificationNotAvailable": "Przed certyfikacją zasobu pola Pmin[kW], Qmin[kvar], Qmax[kvar], kod POB, ID punktu sprzężenia i nr stacji zasilającej SN/nn powinny zostać uzupełnione",
+        "notAvailableWithSubportfolio": "Atrybut nie może zostać zmieniony z powodu połączenia z subportfolio"
+      }
+    },
+    "selfSchedule": {
+      "previewTitle": "Podgląd planów pracy",
+      "previewHour": "Godzina doby",
+      "previewPower": "Moc [kW]",
+      "table": {
+        "actions": "Akcje",
+        "delete": "Usuwanie",
+        "id": "ID",
+        "unit": "DER",
+        "selfScheduleDate": "Data planu pracy",
+        "createdBy": "Utworzył",
+        "fsp": "FSP/FSPA",
+        "createdDate": "Data utworzenia"
+      }
+    },
+    "tabs": {
+      "list": "Lista zasobów",
+      "selfSchedules": "Plany pracy"
+    },
+    "table": {
+      "actions": "Akcje",
+      "delete": "Usuwanie",
+      "id": "ID zasobu",
+      "name": "Nazwa",
+      "code": "Kod POB",
+      "location": "Lokalizacja",
+      "sourcePower": "Moc źródłowa/odbioru [kW]",
+      "sourcePowerInfo": "Moc źródłowa/odbioru",
+      "connectionPower": "Moc przyłączeniowa [kW]",
+      "pMin": "Pmin [kW]",
+      "qMin": "Qmin [kvar]",
+      "qMax": "Qmax [kvar]",
+      "directionOfDeviation": "Kierunek odchylenia",
+      "derType": "Typ",
+      "derSubType": "Podtyp",
+      "sder": "SDER",
+      "aggregated": "Zagregowany",
+      "fspId": "FSP",
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "validFrom": "Ważny od",
+      "validTo": "Ważny do",
+      "active": "Aktywny",
+      "certified": "Certyfikowany",
+      "version": "Wersja",
+      "subportfolio": "Subportfolio",
+      "schedulingUnit": "Jednostka grafikowa",
+      "ppe": "PPE",
+      "ppeName": "Punkt Poboru Energii",
+      "powerStationTypes": "Nr stacji zasilającej SN/nn",
+      "couplingPointIdTypes": "ID punktu sprzężenia",
+      "pointOfConnectionWithLvTypes": "Punkt przyłączenia z siecią nn"
+    },
+    "title": "Zasoby",
+    "warning": {
+      "noMainLocation": "Musisz wybrać główną lokalizację",
+      "chooseOneType": "Wybierz co najmniej jeden typ DER",
+      "maxOneGeoLocations": "Zasób niezagregowany umożliwia zdefiniowanie maksymalnie jednej lokalizacji"
+    }
+  }
+}

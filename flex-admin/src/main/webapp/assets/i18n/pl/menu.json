@@ -1,0 +1,45 @@
+{
+  "sidebar": {
+    "auctions": {
+      "title": "Aukcje",
+      "dayAhead": "Day-ahead",
+      "bidsEvaluation": "Ocena ofert",
+      "algorithmEvaluations": "Obliczenia algorytmów",
+      "cmVc": "Zarządzanie przeciążeniem i kontrola napięcia"
+    },
+    "users": "Użytkownicy",
+    "registration": "Rejestracje",
+    "dictionaries": {
+      "title": "Słowniki",
+      "children": {
+        "der": "Typy zasobów",
+        "su": "Typy SU",
+        "localization": "Lokalizacje",
+        "kdmModels": "Modele KDM"
+      }
+    },
+    "flexRegister": "Flex register",
+    "flexibilityPotentials": "Potencjał elastyczności",
+    "partnership": "Zaproszenia/propozycje partnerstwa",
+    "schedulingUnits": "Jednostki grafikowe",
+    "flexibilityPotentialsRegister": "Zarejestrowany potencjał elastyczności",
+    "schedulingUnitsRegister": "Zarejestrowane jednostki grafikowe",
+    "subportfolios": "Subportfolio",
+    "fsps": "FSP",
+    "bsps": "BSP",
+    "products": "Produkty",
+    "units": "Zasoby",
+    "chat": "Czat",
+    "oneNetSystem": {
+      "title": "ONS",
+      "children": {
+        "onsUsers": "Użytkownicy ONS",
+        "consumeData": "Odczyt danych",
+        "offeredServices": "Oferowane usługi",
+        "provideData": "Dostarcz dane"
+      }
+    },
+    "kpi": "KPI",
+    "activationsSettlements": "Aktywacje/rozliczenia"
+  }
+}

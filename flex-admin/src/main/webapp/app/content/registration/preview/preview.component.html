@@ -1,0 +1,91 @@
+<app-modal [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'fspRegistration.preview.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <p-confirmPopup [baseZIndex]="50000"></p-confirmPopup>
+      <ng-container *appHasAuthority="'FLEX_ADMIN_FSP_REGISTRATION_MANAGE'">
+        <ng-container *ngIf="!isClosed">
+          <ng-container *appHasAuthority="'FLEX_ADMIN_FSP_REGISTRATION_MANAGE'">
+            <ng-container *ngIf="isActiveActions && !isNewStatus">
+              <button
+                appPreventDoubleClick
+                pButton
+                pRipple
+                type="button"
+                *ngIf="hasRegistrationThread && isActivateAccount; else showRegistrationThreadBtn"
+                [label]="'fspRegistration.preview.actions.accept.btn' | translate: { value: roleName }"
+                (click)="accept($event)"
+              ></button>
+            </ng-container>
+            <ng-container *ngIf="isActiveActions">
+              <button
+                appPreventDoubleClick
+                pButton
+                pRipple
+                type="button"
+                [label]="'fspRegistration.preview.actions.reject.btn' | translate: { value: roleName }"
+                class="p-button-secondary"
+                (click)="reject($event)"
+              ></button>
+              <button
+                appPreventDoubleClick
+                pButton
+                pRipple
+                type="button"
+                *ngIf="!fspUserRegistration.readByAdmin"
+                [label]="'fspRegistration.preview.actions.markRead.btn' | translate"
+                class="p-button-secondary"
+                (click)="markRead($event)"
+              ></button>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.close' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content>
+    <app-chat-messages-container
+      [disabled]="isClosed"
+      [messages]="messages$"
+      [messagesHeader]="messagesHeader"
+      [receiverId]="config.data.fspUserId"
+      (sendMessage)="onSendMessage($event)"
+      (attchmentDownload)="onAtchmentDownload($event)"
+      sendPermission="FLEX_ADMIN_FSP_REGISTRATION_MANAGE"
+    >
+    </app-chat-messages-container>
+  </div>
+  <div modal-footer></div>
+</app-modal>
+
+<ng-template #messagesHeader>
+  <div class="chat-messages-header">
+    <div class="d-flex d-flex-space-between d-flex-align-center">
+      <h2 [innerHTML]="fullName"></h2>
+      <div class="right-information">
+        <p>{{ config.data.email }}</p>
+        <p>{{ config.data.phoneNumber }}</p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #showRegistrationThreadBtn>
+  <button
+    appPreventDoubleClick
+    pButton
+    pRipple
+    type="button"
+    *ngIf="!hasRegistrationThread"
+    [label]="'fspRegistration.preview.actions.preConfirm.btn' | translate"
+    (click)="preConfirm($event)"
+  ></button>
+</ng-template>

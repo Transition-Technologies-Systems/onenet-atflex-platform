@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202107281000" author="">
+        <addColumn tableName="flex_potential">
+            <column name="is_register" type="boolean" remarks="Is flex potential registered (pre-qualified)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+
+        <sql>
+            UPDATE flex_potential SET is_register = 1 WHERE product_preq = 1 AND static_grid_preq = 1;
+            UPDATE flex_potential SET is_register = 0 WHERE product_preq = 1 AND static_grid_preq = 0;
+            UPDATE flex_potential SET is_register = 0 WHERE product_preq = 0 AND static_grid_preq = 1;
+            UPDATE flex_potential SET is_register = 0 WHERE product_preq = 0 AND static_grid_preq = 0;
+        </sql>
+
+        <addNotNullConstraint tableName="flex_potential" columnName="is_register"/>
+    </changeSet>
+</databaseChangeLog>

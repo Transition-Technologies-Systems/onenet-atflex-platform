@@ -1,0 +1,304 @@
+<div class="formgrid grid">
+  <div class="col col-6">
+    <h1 class="title">{{ 'userProfile.title' | translate }}</h1>
+    <div [formGroup]="form" appValidatorContainer="user" class="app-modal">
+      <div class="formgrid grid">
+        <div class="field col col-8">
+          <span class="field-control">
+            <span class="p-float-label">
+              <input id="field-firstName" type="text" pInputText formControlName="firstName" aria-describedby="firstName-help" />
+              <label for="field-firstName">{{ 'userProfile.form.firstName' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('firstName')?.touched">
+              <small id="firstName-help" class="p-error" *ngIf="form.get('firstName')?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+              <small id="firstName-help" class="p-error" *ngIf="form.get('firstName')?.hasError('maxlength')">
+                {{ 'validate.maxlength' | translate: { value: 50 } }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col col-8">
+          <span class="field-control">
+            <span class="p-float-label">
+              <input id="field-lastName" type="text" pInputText formControlName="lastName" aria-describedby="lastName-help" />
+              <label for="field-lastName">{{ 'userProfile.form.lastName' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('lastName')?.touched">
+              <small id="lastName-help" class="p-error" *ngIf="form.get('lastName')?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+              <small id="lastName-help" class="p-error" *ngIf="form.get('lastName')?.hasError('maxlength')">
+                {{ 'validate.maxlength' | translate: { value: 50 } }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col col-8">
+          <span class="field-control">
+            <span class="p-float-label">
+              <input id="field-email" type="text" pInputText formControlName="email" aria-describedby="email-help" />
+              <label for="field-email">{{ 'userProfile.form.email' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('email')?.touched">
+              <small id="email-help" class="p-error" *ngIf="form.get('email')?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+              <small id="email-help" class="p-error" *ngIf="form.get('email')?.hasError('email')">
+                {{ 'validate.email' | translate }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col col-8">
+          <span class="field-control">
+            <span class="p-float-label">
+              <ngx-intl-tel-input
+                [cssClass]="'custom'"
+                [preferredCountries]="prefferedCountries"
+                [enableAutoCountrySelect]="false"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [searchCountryField]="searchCountryField"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]="selectedCountry"
+                [maxLength]="20"
+                [phoneValidation]="true"
+                inputId="field-phoneNumber"
+                name="phone"
+                formControlName="phoneNumber"
+                aria-describedby="phoneNumber-help"
+              ></ngx-intl-tel-input>
+              <label for="field-phoneNumber">{{ 'userProfile.form.phoneNumber' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('phoneNumber')?.touched">
+              <small id="phoneNumber-help" class="p-error" *ngIf="form.get('phoneNumber')?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+              <small
+                id="phoneNumber-help"
+                class="p-error"
+                *ngIf="form.get('phoneNumber')?.invalid && !form.get('phoneNumber')?.hasError('required')"
+              >
+                {{ 'validate.invalidPhoneNumber' | translate }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col col-8">
+          <span class="field-control">
+            <span class="p-float-label">
+              <input id="field-login" type="text" pInputText formControlName="login" aria-describedby="login-help" />
+              <label for="field-login">{{ 'userProfile.form.login' | translate }}</label>
+            </span>
+            <ng-container *ngIf="form.get('login')?.touched">
+              <small id="login-help" class="p-error" *ngIf="form.get('login')?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+              <small id="login-help" class="p-error" *ngIf="form.get('login')?.hasError('maxlength')">
+                {{ 'validate.maxlength' | translate: { value: 50 } }}
+              </small>
+              <small id="login-help" class="p-error" *ngIf="form.get('login')?.hasError('pattern')">
+                {{ 'error.user.patternLogin' | translate }}
+              </small>
+            </ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-active">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="activated"
+              inputId="field-activated"
+              [label]="'userProfile.form.activated' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="preview-data">
+        <div>
+          <div class="field">
+            <label>{{ 'userProfile.form.role' | translate }}</label>
+            <span *ngFor="let role of profileData.roles; let idx = index"
+              >{{ 'Role.' + role | translate }}
+              {{ idx !== profileData.roles.length - 1 ? ',' : '' }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          appPreventDoubleClick
+          pButton
+          pRipple
+          type="submit"
+          [label]="'userProfile.actions.save' | translate"
+          class="mb-3"
+          (click)="saveChanges()"
+          [disabled]="form.invalid"
+          [ngClass]="formModified ? '' : 'display-none'"
+        ></button>
+      </div>
+    </div>
+    <div class="app-modal mt-4 profile-change-password-panel">
+      <p-accordion>
+        <p-accordionTab [header]="'userProfile.changePassword.title' | translate | uppercase">
+          <div [formGroup]="changePasswordForm" appValidatorContainer="userPassword">
+            <div class="formgrid grid">
+              <div class="field col col-8">
+                <span class="field-control">
+                  <span class="p-float-label">
+                    <input
+                      id="field-currentPassword"
+                      type="password"
+                      pInputText
+                      formControlName="currentPassword"
+                      aria-describedby="currentPassword-help"
+                    />
+                    <label for="field-currentPassword">{{ 'userProfile.changePassword.form.currentPassword' | translate }}</label>
+                  </span>
+                  <ng-container *ngIf="changePasswordForm.get('currentPassword')?.touched">
+                    <small
+                      id="currentPassword-help"
+                      class="p-error"
+                      *ngIf="changePasswordForm.get('currentPassword')?.hasError('required')"
+                    >
+                      {{ 'validate.required' | translate }}
+                    </small>
+                    <small
+                      id="currentPassword-help"
+                      class="p-error"
+                      *ngIf="changePasswordForm.get('currentPassword')?.hasError('minlength')"
+                    >
+                      {{ 'validate.minlength' | translate: { value: 4 } }}
+                    </small>
+                    <small
+                      id="currentPassword-help"
+                      class="p-error"
+                      *ngIf="changePasswordForm.get('currentPassword')?.hasError('maxlength')"
+                    >
+                      {{ 'validate.maxlength' | translate: { value: 100 } }}
+                    </small>
+                  </ng-container>
+                </span>
+              </div>
+            </div>
+            <div class="formgrid grid">
+              <div class="field col col-8">
+                <span class="field-control">
+                  <span class="p-float-label">
+                    <input
+                      id="field-newPassword"
+                      type="password"
+                      pInputText
+                      formControlName="newPassword"
+                      aria-describedby="newPassword-help"
+                    />
+                    <label for="field-newPassword">{{ 'userProfile.changePassword.form.newPassword' | translate }}</label>
+                  </span>
+                  <ng-container *ngIf="changePasswordForm.get('newPassword')?.touched">
+                    <small id="newPassword-help" class="p-error" *ngIf="changePasswordForm.get('newPassword')?.hasError('required')">
+                      {{ 'validate.required' | translate }}
+                    </small>
+                    <small id="newPassword-help" class="p-error" *ngIf="changePasswordForm.get('newPassword')?.hasError('minlength')">
+                      {{ 'validate.minlength' | translate: { value: 4 } }}
+                    </small>
+                    <small id="newPassword-help" class="p-error" *ngIf="changePasswordForm.get('newPassword')?.hasError('maxlength')">
+                      {{ 'validate.maxlength' | translate: { value: 100 } }}
+                    </small>
+                  </ng-container>
+                </span>
+              </div>
+            </div>
+            <div class="formgrid grid">
+              <div class="field col col-8">
+                <span class="field-control">
+                  <span class="p-float-label">
+                    <input
+                      id="field-repeatNewPassword"
+                      type="password"
+                      pInputText
+                      formControlName="repeatNewPassword"
+                      aria-describedby="repeatNewPassword-help"
+                    />
+                    <label for="field-repeatNewPassword">{{ 'userProfile.changePassword.form.repeatNewPassword' | translate }}</label>
+                  </span>
+                  <ng-container *ngIf="changePasswordForm.get('repeatNewPassword')?.touched">
+                    <small
+                      id="repeatNewPassword-help"
+                      class="p-error"
+                      *ngIf="changePasswordForm.get('repeatNewPassword')?.hasError('required')"
+                    >
+                      {{ 'validate.required' | translate }}
+                    </small>
+                    <small
+                      id="repeatNewPassword-help"
+                      class="p-error"
+                      *ngIf="changePasswordForm.get('repeatNewPassword')?.hasError('isMatching')"
+                    >
+                      {{ 'validate.passwordDoNotMatching' | translate }}
+                    </small>
+                  </ng-container>
+                </span>
+              </div>
+            </div>
+            <div>
+              <button
+                appPreventDoubleClick
+                pButton
+                pRipple
+                type="submit"
+                [label]="'userProfile.changePassword.title' | translate"
+                class="mb-3"
+                (click)="saveNewPassword()"
+                [disabled]="changePasswordForm.invalid"
+              ></button>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+  <div class="col col-6" [formGroup]="emailNotificationsForm" *ngIf="initialEmailNotificationValue">
+    <h1 class="title">{{ 'userProfile.notifications.title' | translate }}</h1>
+    <ng-container *ngFor="let object of checkboxActions">
+      <div class="formgrid grid mb-2" *ngIf="checkCheckboxAndHeaderVisibility(object.roles)">
+        <h2 class="col notification-object-title">{{ 'userProfile.notificationObjects.' + object.object | translate }}</h2>
+      </div>
+      <div class="formgrid grid" *ngIf="checkCheckboxAndHeaderVisibility(object.roles)">
+        <ng-container *ngFor="let action of object.actions">
+          <div class="field col col-3">
+            <div class="field-checkbox" *ngIf="checkCheckboxAndHeaderVisibility(object.roles)">
+              <p-checkbox
+                [binary]="true"
+                [label]="'userProfile.notificationActions.' + action | translate"
+                [formControlName]="(action === 'APPLICATION_NOTIFICATION' ? 'NEW_' : '') + object.object + '_' + action"
+                (onChange)="checkboxValuesCheck()"
+              ></p-checkbox>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+    <button
+      appPreventDoubleClick
+      pButton
+      pRipple
+      [label]="'userProfile.notifications.saveBtn' | translate"
+      class="mb-3"
+      *ngIf="notificationsSaveBtnVisible"
+      (click)="saveEmailNotifications()"
+    ></button>
+  </div>
+</div>

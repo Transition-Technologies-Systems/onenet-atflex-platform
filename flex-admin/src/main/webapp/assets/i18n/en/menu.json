@@ -1,0 +1,45 @@
+{
+  "sidebar": {
+    "auctions": {
+      "title": "Auctions",
+      "dayAhead": "Day-ahead",
+      "bidsEvaluation": "Bids evaluation",
+      "algorithmEvaluations": "Algorithm calculations",
+      "cmVc": "Congestion Management & Voltage Control"
+    },
+    "users": "Users",
+    "registration": "Registration",
+    "dictionaries": {
+      "title": "Dictionaries",
+      "children": {
+        "der": "DERs' types",
+        "su": "SUs' types",
+        "localization": "Localizations",
+        "kdmModels": "KDM models"
+      }
+    },
+    "flexRegister": "Flex register",
+    "flexibilityPotentials": "Flexibility Potentials",
+    "partnership": "Partnership invitations/propositions",
+    "schedulingUnits": "Scheduling units",
+    "flexibilityPotentialsRegister": "Registered Flexibility potentials",
+    "schedulingUnitsRegister": "Registered Scheduling units",
+    "subportfolios": "Subportfolio",
+    "fsps": "FSP",
+    "bsps": "BSP",
+    "products": "Products",
+    "units": "DERs",
+    "chat": "Chat",
+    "oneNetSystem": {
+      "title": "ONS",
+      "children": {
+        "onsUsers": "ONS users",
+        "consumeData": "Consume data",
+        "offeredServices": "Offered services",
+        "provideData": "Provide data"
+      }
+    },
+    "kpi": "KPI",
+    "activationsSettlements": "Activations/settlements"
+  }
+}

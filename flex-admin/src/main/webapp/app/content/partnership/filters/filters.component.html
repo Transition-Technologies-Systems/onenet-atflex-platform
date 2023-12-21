@@ -1,0 +1,25 @@
+<app-filters [form]="filters" (getData)="filter()" state="scheduling-unit-filters">
+  <app-filter-container>
+    <app-filter
+      type="multi-select"
+      controlName="status"
+      name="partnership.table.status"
+      [translateDictionaries]="true"
+      [dictionaries]="dictionaries$.status"
+    ></app-filter>
+    <app-filter
+      type="multi-select"
+      controlName="sender"
+      name="partnership.filters.sender"
+      [translateDictionaries]="true"
+      [dictionaries]="dictionaries$.sender | async"
+    ></app-filter>
+    <app-filter
+      type="multi-select"
+      controlName="receiver"
+      name="partnership.filters.receiver"
+      [translateDictionaries]="true"
+      [dictionaries]="dictionaries$.receiver | async"
+    ></app-filter>
+  </app-filter-container>
+</app-filters>

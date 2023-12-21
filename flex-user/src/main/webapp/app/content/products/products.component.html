@@ -1,0 +1,317 @@
+<h1 class="title">{{ 'products.title' | translate }}</h1>
+<div class="actions-box">
+  <button
+    appPreventDoubleClick
+    pButton
+    pRipple
+    type="button"
+    [label]="'products.actions.export.btn' | translate"
+    (click)="exportMenu.toggle($event)"
+  ></button>
+</div>
+<div class="filters-box">
+  <app-products-filters [initFilters]="viewParameters.staticFilters" (filterData)="filterCollection($event)"></app-products-filters>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.fullName" pSortableColumn="fullName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.fullName' | translate }}
+            <p-sortIcon field="fullName"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.shortName" pSortableColumn="shortName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.shortName' | translate }}
+            <p-sortIcon field="shortName"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.locational" pSortableColumn="locational">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.locational' | translate }}
+            <p-sortIcon field="locational"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 130px" *ngIf="columnsState.minBidSize" pSortableColumn="minBidSize">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.minBidSize' | translate }}
+            <p-sortIcon field="minBidSize"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 130px" *ngIf="columnsState.maxBidSize" pSortableColumn="maxBidSize">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.maxBidSize' | translate }}
+            <p-sortIcon field="maxBidSize"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.bidSizeUnit" pSortableColumn="bidSizeUnit">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.bidSizeUnit' | translate }}
+            <p-sortIcon field="bidSizeUnit"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.direction" pSortableColumn="direction">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.direction' | translate }}
+            <p-sortIcon field="direction"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.maxFullActivationTime" pSortableColumn="maxFullActivationTime">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.maxFullActivationTime' | translate }}
+            <p-sortIcon field="maxFullActivationTime"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.minRequiredDeliveryDuration" pSortableColumn="minRequiredDeliveryDuration">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.minRequiredDeliveryDuration' | translate }}
+            <p-sortIcon field="minRequiredDeliveryDuration"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate" pSortableColumn="createdDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.createdDate' | translate }}
+            <p-sortIcon field="createdDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate" pSortableColumn="lastModifiedDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.lastModifiedDate' | translate }}
+            <p-sortIcon field="lastModifiedDate"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.active" pSortableColumn="active">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.active' | translate }}
+            <p-sortIcon field="active"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.balancing" pSortableColumn="balancing">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.balancing' | translate }}
+            <p-sortIcon field="balancing"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.cmvc" pSortableColumn="cmvc">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.cmvc' | translate }}
+            <p-sortIcon field="cmvc"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.validFrom" pSortableColumn="validFrom">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.validFrom' | translate }}
+            <p-sortIcon field="validFrom"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.validTo" pSortableColumn="validTo">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'products.table.validTo' | translate }}
+            <p-sortIcon field="validTo"></p-sortIcon>
+          </div>
+        </th>
+      </tr>
+      <tr class="filter-row">
+        <th style="flex: 0 0 46px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.fullName">
+          <p-columnFilter type="text" field="fullName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.shortName">
+          <p-columnFilter type="text" field="shortName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.locational"></th>
+        <th style="flex: 1 0 130px" *ngIf="columnsState.minBidSize">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="minBidSize"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 130px" *ngIf="columnsState.maxBidSize">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="maxBidSize"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.bidSizeUnit">
+          <p-columnFilter field="bidSizeUnit" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="bidSizeUnit"
+                [options]="dictionaries.units"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.direction">
+          <p-columnFilter field="direction" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="direction"
+                [options]="dictionaries.directions"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.maxFullActivationTime">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="maxFullActivationTime"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 160px" *ngIf="columnsState.minRequiredDeliveryDuration">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="minRequiredDeliveryDuration"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate">
+          <p-columnFilter type="date" field="createdDate" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="createdDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate">
+          <p-columnFilter type="date" field="lastModifiedDate" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="lastModifiedDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.active"></th>
+        <th *ngIf="columnsState.balancing"></th>
+        <th *ngIf="columnsState.cmvc"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.validFrom">
+          <p-columnFilter type="date" field="validFrom" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="validFrom" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.validTo">
+          <p-columnFilter type="date" field="validTo" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="validTo" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.actions">
+          <i class="icon icon--preview c-pointer" (click)="preview(row)"></i>
+        </td>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.fullName">{{ row.fullName }}</td>
+        <td *ngIf="columnsState.shortName">{{ row.shortName }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.locational">
+          {{ 'Boolean.' + !!row.locational | translate }}
+        </td>
+        <td style="flex: 1 0 130px" *ngIf="columnsState.minBidSize">{{ row.minBidSize | numeral: '0,0.0' }}</td>
+        <td style="flex: 1 0 130px" *ngIf="columnsState.maxBidSize">{{ row.maxBidSize | numeral: '0,0.0' }}</td>
+        <td *ngIf="columnsState.bidSizeUnit">
+          {{ row.bidSizeUnit ? ('VolumeUnit.' + row.bidSizeUnit | translate) : '' }}
+        </td>
+        <td *ngIf="columnsState.direction">
+          {{ row.direction ? ('Direction.' + row.direction | translate) : '' }}
+        </td>
+        <td style="flex: 1 0 160px" *ngIf="columnsState.maxFullActivationTime">
+          {{ row.maxFullActivationTime }}
+        </td>
+        <td style="flex: 1 0 160px" *ngIf="columnsState.minRequiredDeliveryDuration">
+          {{ row.minRequiredDeliveryDuration }}
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.createdDate">{{ row.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate">{{ row.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td *ngIf="columnsState.active">
+          {{ 'Boolean.' + !!row.active | translate }}
+        </td>
+        <td *ngIf="columnsState.balancing">
+          {{ 'Boolean.' + !!row.balancing | translate }}
+        </td>
+        <td *ngIf="columnsState.cmvc">
+          {{ 'Boolean.' + !!row.cmvc | translate }}
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.validFrom">{{ row.validFrom | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.validTo">{{ row.validTo | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>
+
+<p-menu #exportMenu [popup]="true" [model]="exportOptions()" appendTo="body"></p-menu>

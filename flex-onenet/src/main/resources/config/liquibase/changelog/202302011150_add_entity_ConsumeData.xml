@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202302011150-table" author="">
+        <createSequence sequenceName="consume_data_seq" incrementBy="1" startValue="1" ordered="true" />
+        <createTable tableName="consume_data" remarks="Table with consumed data for onenet users">
+            <column name="id" type="bigint" defaultValueSequenceNext="consume_data_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="title" type="varchar(50)" remarks="Consume data title" />
+            <column name="onenet_id" type="varchar(50)" remarks="Consume data id in the onenet system">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="business_object_id" type="varchar(50)" remarks="Business object id" />
+            <column name="business_object_code" type="varchar(50)" remarks="Business object code" />
+            <column name="data_supplier" type="varchar(50)" remarks="Data supplier username" />
+            <column name="description" type="varchar(50)" remarks="Consume data description" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202302011150-audit" author="">
+        <addColumn tableName="consume_data">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202101270804-table" author="">
+        <createTable tableName="persistent_audit_evt_data" remarks="Table with extended description of an audit event from table persistent_audit_events">
+            <column name="event_id" type="bigint" remarks="Event identifier from table persistent_audit_events">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(150)" remarks="Name of event">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)" remarks="Description of event"/>
+        </createTable>
+        <addPrimaryKey columnNames="event_id, name" tableName="persistent_audit_evt_data"/>
+    </changeSet>
+
+    <changeSet id="202101270804-indexes" author="">
+        <createIndex indexName="idx_persistent_audit_evt_data" tableName="persistent_audit_evt_data" unique="false">
+            <column name="event_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="202101270804-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="persistent_audit_evt_data" constraintName="fk_evt_pers_audit_evt_data"
+                                 referencedColumnNames="id" referencedTableName="persistent_audit_events"/>
+    </changeSet>
+</databaseChangeLog>

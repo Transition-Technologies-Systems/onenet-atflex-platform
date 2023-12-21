@@ -1,0 +1,5 @@
+<h1 class="title">{{ 'units.title' | translate }}</h1>
+<div class="actions-box" *appHasAuthority="'FLEX_ADMIN_SELF_SCHEDULE_VIEW'">
+  <p-selectButton [options]="getTabs()" [(ngModel)]="selectedTab" optionValue="type" (onChange)="changeTab()"></p-selectButton>
+</div>
+<router-outlet></router-outlet>

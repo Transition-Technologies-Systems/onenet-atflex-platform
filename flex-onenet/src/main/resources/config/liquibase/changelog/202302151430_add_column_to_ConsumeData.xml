@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202302151430-table" author="">
+        <addColumn tableName="consume_data">
+            <column name="data_supplier_company_name" type="varchar(50)" remarks="Data supplier company name" />
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,41 @@
+{
+  "shared": {
+    "proposal": {
+      "confirm": {
+        "title": "Propozycja zasobu",
+        "question": "Czy zgadzasz się dołączyć zasób {{ derName }} do {{ schedulingUnitName }}?",
+        "questionFsp": "Czy chcesz przyjąć ofertę od {{ fspName }}?",
+        "accept": {
+          "btn": "Zaakceptuj",
+          "success": "Zaakceptowano propozycję",
+          "error": "Wystąpił błąd podczas akceptacji propozycji"
+        },
+        "reject": {
+          "btn": "Odrzuć",
+          "success": "Propozycja została odrzucona",
+          "error": "Wystąpił błąd podczas odrzucania propozycji"
+        }
+      },
+      "btn": "Zaproponuj zasób",
+      "btnDer": "Zaproś Zasób",
+      "title": "Zaproponuj zasób",
+      "saveBtn": "Wyślij propozycję",
+      "subportfolio": "Subportfolio",
+      "fspId": "FSP",
+      "bspId": "BSP",
+      "unitId": "Zasób",
+      "derType": "Typ zasobu",
+      "product": "Produkt",
+      "type": "Typ",
+      "schedulingUnit": "Jednostka grafikowa",
+      "sourcePower": "Moc źródłowa/odbioru [kW]",
+      "connectionPower": "Moc przyłączeniowa [kW]",
+      "createdDate": "Data utworzenia",
+      "invalidKey": "Propozycja została już zaakceptowana/odrzucona",
+      "success": "Propozycja zasobu pomyślnie wysłana",
+      "error": "Wystąpił błąd podczas wysyłania propozycji zasobu",
+      "no-subportfolio": "Zasoby nieprzypisane do subportfolio"
+    },
+    "volumeTooltip": "Pasma dodatnie/Pasma ujemne"
+  }
+}

@@ -1,0 +1,36 @@
+<app-modal [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="d-flex d-justify-content-end w-100">
+    <div class="actions">
+      <button pButton pRipple type="button" [label]="'actions.close' | translate" class="p-button-secondary" (click)="close()"></button>
+    </div>
+  </div>
+  <div modal-content class="preview">
+    <ng-container *ngIf="isAlert; else showNotification">
+      <div *ngIf="alertModel.event && !alertModel.errorCode" [innerHTML]="'AlertEventShort.' + alertModel.event | translate"></div>
+      <div [innerHTML]="alertModel.errorCode | translate: alertModel.objectId"></div>
+      <div
+        class="mt-2"
+        *ngIf="alertModel.httpRequestUriPath"
+        translate="global.httpRequestUriPath"
+        [translateParams]="{ value: alertModel.httpRequestUriPath }"
+      ></div>
+      <div
+        *ngIf="alertModel.httpResponseStatus"
+        translate="global.httpResponseStatus"
+        [translateParams]="{ value: alertModel.httpResponseStatus }"
+      ></div>
+    </ng-container>
+
+    <ng-template #showNotification>
+      <span *ngIf="notificationModel?.eventType && showEventType" [innerHTML]="getNotification()"></span>
+
+      <div class="mt-3" *ngFor="let paramKey of paramsWithArray">
+        <span [innerHTML]="getNotification(paramKey)"></span>
+
+        <ul>
+          <li *ngFor="let value of params[paramKey]">{{ value.id }}: {{ value.value | translate }}</li>
+        </ul>
+      </div>
+    </ng-template>
+  </div>
+</app-modal>

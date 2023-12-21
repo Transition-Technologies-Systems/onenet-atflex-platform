@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{email.schedulingUnit.proposal.toBsp.cancelled.title}">
+            FSP FSP_NAME has cancelled proposition SCHEDULING_UNIT_PROPOSAL_ID
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.schedulingUnit.proposal.greeting(${proposal.details.bspName})}">
+            Dear BSP,
+        </p>
+        <p th:text="#{email.schedulingUnit.proposal.toBsp.cancelled.message(${proposal.details.fspName}, ${proposal.details.derName}, ${proposal.id})}">
+            FSP FSP_NAME has cancelled proposition of DER DER_NAME. ID of proposition: SCHEDULING_UNIT_PROPOSAL_ID
+        </p>
+    </body>
+</html>

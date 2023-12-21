@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202210061230" author="">
+            <modifyDataType tableName="auction_da_offer_band_data" columnName="volume" newDataType="decimal(22,3)"/>
+            <modifyDataType tableName="auction_da_offer_band_data" columnName="accepted_volume" newDataType="decimal(22,3)"/>
+    </changeSet>
+</databaseChangeLog>

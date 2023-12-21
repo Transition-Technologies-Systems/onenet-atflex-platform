@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202102230820-table" author="">
+        <createSequence incrementBy="1" sequenceName="fsp_user_reg_seq" startValue="1" ordered="true"/>
+        <createTable tableName="fsp_user_registration" remarks="Table with registration process of new FSP (Flexibility Service Provider) user candidate">
+            <column name="id" type="bigint" defaultValueSequenceNext="fsp_user_reg_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="fsp_user_id" type="bigint" remarks="Id of FSP user (from table Users) created during registration process">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_fsp_reg_fsp_user_id" />
+            </column>
+            <column name="first_name" type="varchar(50)" remarks="First name of candidate">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_name" type="varchar(50)" remarks="Last name of candidate">
+                <constraints nullable="false" />
+            </column>
+            <column name="company_name" type="varchar(254)" remarks="Company name of candidate">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="varchar(254)" remarks="Email address of candidate">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_fsp_user_reg_email" />
+            </column>
+            <column name="phone_number" type="varchar(20)" remarks="Phone number of candidate">
+                <constraints nullable="false" />
+            </column>
+            <column name="status" type="varchar(50)" remarks="Status registration process">
+                <constraints nullable="false" />
+            </column>
+            <column name="security_key" type="varchar(20)"
+                    remarks="Security key used to authenticate candidate outside the system e.g via email" />
+            <column name="read_by_admin" type="boolean" remarks="Is administrator up to date with the latest changes">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202102230820-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="fsp_user_registration" constraintName="fk_fsp_reg_fsp_user_id" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="202102230820-audit" author="">
+        <addColumn tableName="fsp_user_registration">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

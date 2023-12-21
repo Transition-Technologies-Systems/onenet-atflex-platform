@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202103291402-table" author="">
+        <createSequence incrementBy="1" sequenceName="flex_potential_seq" startValue="1" ordered="true" />
+        <createTable tableName="flex_potential" >
+            <column name="id" type="bigint" defaultValueSequenceNext="fsp_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint" remarks="Identity of product">
+                <constraints nullable="true"/>
+            </column>
+            <column name="unit_id" type="bigint" remarks="Identity of unit">
+                <constraints nullable="true"/>
+            </column>
+            <column name="fsp_id" type="bigint" remarks="Identity of FSP">
+                <constraints nullable="true"/>
+            </column>
+            <column name="volume" type="decimal(21,2)" remarks="Volume of flex potential">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volume_unit" type="varchar(255)" remarks="Unit of flex potential volume">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_from" type="datetime" remarks="Start date of flex potential validation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_to" type="datetime" remarks="End date of flex potential validation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" remarks="Is active flex potential">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_preq_needed" type="boolean" remarks="Product prequalification needed flag">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_preq" type="boolean" remarks="Product prequalification flag">
+                <constraints nullable="false"/>
+            </column>
+            <column name="static_grid_preq_needed" type="boolean" remarks="Static grid prequalification needed flag">
+                <constraints nullable="false"/>
+            </column>
+            <column name="static_grid_preq" type="boolean" remarks="Static grid prequalification flag">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210329140206-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="flex_potential" constraintName="fk_flex_potential_product_id"
+                                 referencedColumnNames="id" referencedTableName="product"/>
+
+        <addForeignKeyConstraint baseColumnNames="unit_id" baseTableName="flex_potential" constraintName="fk_flex_potential_unit_id" referencedColumnNames="id"
+                                 referencedTableName="unit"/>
+
+        <addForeignKeyConstraint baseColumnNames="fsp_id" baseTableName="flex_potential" constraintName="flex_potential_fsp_id"
+                                 referencedColumnNames="id" referencedTableName="fsp"/>
+    </changeSet>
+
+    <changeSet id="202103290855-audit" author="">
+        <addColumn tableName="flex_potential">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,37 @@
+<p-fileUpload
+  (click)="onTouched()"
+  (mouseleave)="onMouseleave()"
+  [customUpload]="true"
+  (onSelect)="onFileSelect($event)"
+  [showUploadButton]="false"
+  [showCancelButton]="false"
+  [accept]="acceptFormats"
+  [maxFileSize]="maxFileSize"
+  [files]="selectedFiles"
+  [fileLimit]="fileLimit ? fileLimit : 1000"
+  [multiple]="multiple"
+  [styleClass]="invalid && touched ? 'ng-invalid' : ''"
+  [disabled]="disabled || (!!fileLimit && totalFiles.length >= fileLimit)"
+  [chooseLabel]="(fileLimit === 1 ? 'fileUpload.chooseLabel' : 'fileUpload.chooseLabelMultiple') | translate"
+  [invalidFileSizeMessageSummary]="'fileUpload.invalidFileSizeMessageSummary' | translate"
+  [invalidFileSizeMessageDetail]="'fileUpload.invalidFileSizeMessageDetail' | translate"
+  [invalidFileTypeMessageSummary]="'fileUpload.invalidFileTypeMessageSummary' | translate"
+  [invalidFileLimitMessageDetail]="'fileUpload.invalidFileLimitMessageDetail' | translate"
+  [invalidFileLimitMessageSummary]="'fileUpload.invalidFileLimitMessageSummary' | translate"
+  [invalidFileTypeMessageDetail]="'fileUpload.invalidFileTypeMessageDetail' | translate"
+>
+  <ng-template let-file pTemplate="file"></ng-template>
+  <ng-template let-file pTemplate="content">
+    <div class="p-fileupload-row" *ngFor="let file of totalFiles; let i = index">
+      <div>
+        <p-button [label]="getFileName(file)" styleClass="p-button-link" (click)="downloadFile(file)"></p-button>
+      </div>
+      <div>
+        <button appPreventDoubleClick type="button" icon="pi pi-times" pButton (click)="removeFile($event, i)"></button>
+      </div>
+    </div>
+  </ng-template>
+</p-fileUpload>
+<small class="p-error" *ngIf="invalid && touched">
+  {{ customError ? (customError | translate) : ('validate.required' | translate) }}
+</small>

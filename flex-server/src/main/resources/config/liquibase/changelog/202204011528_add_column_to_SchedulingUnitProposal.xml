@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202204011528.1" author="">
+        <addColumn tableName="scheduling_unit_proposal">
+            <column name="sent_date" type="timestamp" remarks="Date of proposal sent">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="202204011528.2" author="">
+        <sql>
+            UPDATE scheduling_unit_proposal SET sent_date = created_date;
+        </sql>
+    </changeSet>
+    <changeSet id="202204011528.3" author="">
+        <addNotNullConstraint tableName="scheduling_unit_proposal" columnName="sent_date"/>
+    </changeSet>
+</databaseChangeLog>

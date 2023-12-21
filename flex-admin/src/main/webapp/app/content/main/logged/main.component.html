@@ -1,0 +1,57 @@
+<header class="d-flex">
+  <app-language-change></app-language-change>
+
+  <div class="badge-container" *appHasAuthority="'FLEX_ADMIN_VIEW_NOTIFICATION'">
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="icon icon--messages"
+      class="p-button-rounded p-button-text"
+      (click)="messagesPanel.toggle($event)"
+    ></button>
+    <i pBadge [value]="'' + ((unreadNotifications$ | async) || '0')"></i>
+  </div>
+
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="icon icon--user"
+    class="p-button-rounded p-button-text"
+    [pTooltip]="'actions.myProfile' | translate"
+    tooltipPosition="bottom"
+    [routerLink]="['/user-profile']"
+  ></button>
+  <h2>{{ userName }}</h2>
+  <button
+    pButton
+    pRipple
+    type="button"
+    icon="icon icon--logout"
+    class="p-button-rounded p-button-text"
+    (click)="logout()"
+    [pTooltip]="'actions.logout' | translate"
+  ></button>
+</header>
+<div id="wrapper-main-page">
+  <app-sidebar *ngIf="!hideSidebar"></app-sidebar>
+  <div id="container-fluid" [ngClass]="containerCustomClass">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<p-overlayPanel
+  #messagesPanel
+  appendTo="body"
+  [dismissable]="false"
+  [showCloseIcon]="true"
+  [baseZIndex]="900"
+  [autoZIndex]="false"
+  [style]="{ width: '80vw', 'max-width': '500px' }"
+  styleClass="notification-overlay"
+>
+  <ng-template pTemplate>
+    <app-notifications></app-notifications>
+  </ng-template>
+</p-overlayPanel>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202103311607-constraints" author="">
+
+        <addColumn tableName="product">
+            <column name="pso_user_id" type="bigint" remarks="User identifier from table users">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint baseColumnNames="pso_user_id" baseTableName="product" constraintName="fk_product_pso_user_id"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+
+
+        <createTable tableName="product_sso_user" remarks="Join table for users and product tables">
+            <column name="user_id" type="bigint" remarks="User identifier from table users">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint" remarks="Product identifier from table product">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="product_id, user_id" tableName="product_sso_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="product_sso_user" constraintName="fk_product_sso_user_product_id"
+                                 referencedColumnNames="id" referencedTableName="product"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="product_sso_user" constraintName="fk_product_sso_user_sso_id"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>

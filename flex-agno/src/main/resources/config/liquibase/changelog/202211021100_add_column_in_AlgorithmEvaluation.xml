@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202211021100-table" author="">
+        <addColumn tableName="algorithm_evaluation">
+            <column name="kdm_model_id" type="bigint" remarks="Kdm model id">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202211021100-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="kdm_model_id" baseTableName="algorithm_evaluation" constraintName="fk_alg_eval_kdm_model_id"
+                                 referencedColumnNames="id" referencedTableName="kdm_model"/>
+        <createIndex tableName="algorithm_evaluation" indexName="idx_fk_alg_eval_kdm_model_id">
+            <column name="kdm_model_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

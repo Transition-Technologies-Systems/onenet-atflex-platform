@@ -1,0 +1,48 @@
+{
+  "onsUsers": {
+    "title": "Użytkownicy ONS",
+    "actions": {
+      "add": {
+        "btn": "Dodaj",
+        "title": "Dodaj użytkownika OneNet System",
+        "saveBtn": "Zapisz",
+        "success": "Pomyślne dodano użytkownika OneNet System",
+        "error": "Brak połączenia z OneNet System. Skontaktuj się z pomocą techniczną.",
+        "wrongPassword": "Błędna nazwa użytkownika lub hasło. Proszę sprawdź swoje dane."
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybranego użytkownika OneNet System z systemu?",
+        "success": "Wybrany użytkownik OneNet System został pomyślnie usunięty",
+        "error": "Wystąpił błąd podczas usuwania wybranego użytkownika OneNet System"
+      },
+      "setActiveUser": {
+        "success": "Pomyślnie połączono z użytkownikiem OneNet System",
+        "error": "Nie można połączyć się z użytkownikiem OneNet System. Skontaktuj się z pomocą techniczną"
+      }
+    },
+    "table": {
+      "actions": "Akcje",
+      "id": "ID",
+      "username": "Nazwa użytkownika",
+      "onenetId": "ID użytkownika ONS",
+      "email": "E-mail",
+      "active": "Aktywny",
+      "delete": "Usuń"
+    },
+    "dialog": {
+      "id": "ID",
+      "username": "Nazwa użytkownika",
+      "password": "Hasło"
+    }
+  },
+  "error": {
+    "onenetUser": {
+      "wrongLogin": "Błędna nazwa użytkownika. Proszę sprawdź swoje dane",
+      "wrongPassword": "Błędne hasło. Proszę sprawdź swoje dane",
+      "unknownErrorConnectingToOnenetSystem": "Brak połączenia z OneNet System. Skontaktuj się z pomocą techniczną.",
+      "cannotAlterNotOwnedUser": "Nie można modyfikować wybranego użytkownika",
+      "cannotRemoveActiveUser": "Brak możliwości usunięcia aktywnego użytkownika.",
+      "userAlreadyAdded": "Użytkownik o takiej nazwie już istnieje"
+    }
+  }
+}

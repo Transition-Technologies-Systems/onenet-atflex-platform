@@ -1,0 +1,43 @@
+{
+  "activationsSettlements": {
+    "title": "Aktywacje/rozliczenia",
+    "table": {
+      "actions": "Akcje",
+      "id": "ID aktywacji",
+      "derName": "Zasób",
+      "offerId": "ID oferty",
+      "auctionName": "Nazwa aukcji",
+      "companyName": "Nazwa firmy",
+      "acceptedDeliveryPeriod": "Zaakceptowany okres dostawy",
+      "acceptedVolume": "Zaakceptowany wolumen",
+      "activatedVolume": "Aktywowany wolumen",
+      "settlementAmount": "Kwota rozliczeniowa [PLN]",
+      "tooltip": {
+        "acceptedVolumeCmvcTooltip": "Dotyczy całej oferty"
+      }
+    },
+    "dialog": {
+      "actions": {
+        "edit": {
+          "title": "Edytuj aktywację/rozliczenie: {{id}}",
+          "saveBtn": "Zapisz",
+          "success": "Zapis udany",
+          "error": "Wystąpił błąd podczas edytowania aktywacji/rozliczenia"
+        }
+      },
+      "previewData": "Dane"
+    },
+    "actions": {
+      "export": {
+        "btn": "Eksportuj dane",
+        "warningNoType": "Zaznacz przynajmniej jeden typ ofert"
+      }
+    },
+    "filters": {
+      "acceptedDeliveryPeriodFrom": "Data od",
+      "acceptedDeliveryPeriodTo": "Data do",
+      "cmvcBids": "Oferty CM&VC",
+      "daBids": "Oferty DA"
+    }
+  }
+}

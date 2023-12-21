@@ -1,0 +1,298 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'flexPotentials.actions.' + mode + '.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'flexPotentials.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form">
+    <div class="formgrid grid">
+      <div class="field col-6" *ngIf="mode === 'edit'">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="true">
+            <input id="field-id" type="text" pInputText formControlName="id" />
+            <label for="field-id">{{ 'flexPotentials.form.id' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="mode === 'edit' || form.get('productId')?.disable">
+            <app-select
+              [options]="dictionaries.products"
+              formControlName="productId"
+              inputId="field-productId"
+              aria-describedby="productId-help"
+            ></app-select>
+            <label for="field-productId">{{ 'flexPotentials.table.productId' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('productId')?.touched">
+            <small id="productId-help" class="p-error" *ngIf="form.get('productId')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+        <div class="preview-data" *ngIf="productData">
+          <app-product-preview [productData]="productData" [embeddedPreview]="true"></app-product-preview>
+        </div>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              *appHasRole="'!ROLE_FLEX_SERVICE_PROVIDER_AGGREGATED'"
+              [options]="dictionaries.units"
+              [setAsArray]="true"
+              formControlName="unitIds"
+              inputId="field-unitIds"
+              aria-describedby="unitIds-help"
+            ></app-select>
+            <app-multiselect
+              *appHasRole="'ROLE_FLEX_SERVICE_PROVIDER_AGGREGATED'"
+              [options]="dictionaries.units"
+              formControlName="unitIds"
+              inputId="field-unitIds"
+              aria-describedby="unitIds-help"
+            ></app-multiselect>
+            <label for="field-unitIds">{{ 'flexPotentials.table.unitId' | translate }}</label>
+          </span>
+        </span>
+        <ng-container *ngIf="form.get('unitIds')?.touched">
+          <small id="unitIds-help" class="p-error" *ngIf="form.get('unitIds')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="volume"
+              inputId="field-volume"
+              [minFractionDigits]="2"
+              [maxFractionDigits]="2"
+              aria-describedby="volume-help"
+            >
+            </app-input-number>
+            <label for="field-volume">{{ 'flexPotentials.table.volume' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('volume')?.touched">
+            <small id="volume-help" class="p-error" *ngIf="form.get('volume')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small
+              id="volume-help"
+              class="p-error"
+              *ngIf="
+                !form.get('volume')?.hasError('required') && (form.get('volume')?.hasError('min') || form.get('volume')?.hasError('max'))
+              "
+            >
+              {{ 'flexPotentials.validate.noInProductRange' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="true">
+            <app-select [options]="dictionaries.volumeUnits" formControlName="volumeUnit" inputId="field-volumeUnit"></app-select>
+            <label for="field-volumeUnit">{{ 'flexPotentials.table.volumeUnit' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-divisibility">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="divisibility"
+              inputId="field-divisibility"
+              [label]="'flexPotentials.form.divisibility' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validFrom"
+              inputId="field-validFrom"
+              [maxDate]="form.get('validTo')?.value"
+              [minDate]="minValidDate"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validFrom-help"
+            ></app-calendar>
+            <label for="field-validFrom">{{ 'flexPotentials.form.validFrom' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validFrom')?.touched">
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('beforeCurrentHour')">
+              {{ 'validate.beforeCurrentHour' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validTo"
+              inputId="field-validTo"
+              [minDate]="minValidTo"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validTo-help"
+            ></app-calendar>
+            <label for="field-validTo">{{ 'flexPotentials.form.validTo' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validTo')?.touched">
+            <small id="validTo-help" class="p-error" *ngIf="form.get('validTo')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="fullActivationTime"
+              inputId="field-fullActivationTime"
+              [maxlength]="5"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="0"
+              aria-describedby="fullActivationTime-help"
+            >
+            </app-input-number>
+            <label for="field-fullActivationTime">{{ 'flexPotentials.table.fullActivationTime' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('fullActivationTime')?.touched">
+            <small id="fullActivationTime-help" class="p-error" *ngIf="form.get('fullActivationTime')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small
+              id="fullActivationTime-help"
+              class="p-error"
+              *ngIf="form.get('fullActivationTime')?.hasError('min') || form.get('fullActivationTime')?.hasError('max')"
+            >
+              {{ 'flexPotentials.validate.noInProductRange' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="minDeliveryDuration"
+              inputId="field-minDeliveryDuration"
+              [maxlength]="5"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="0"
+              aria-describedby="minDeliveryDuration-help"
+            >
+            </app-input-number>
+            <label for="field-minDeliveryDuration">{{ 'flexPotentials.table.minDeliveryDuration' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('minDeliveryDuration')?.touched">
+            <small id="minDeliveryDuration-help" class="p-error" *ngIf="form.get('minDeliveryDuration')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small
+              id="minDeliveryDuration-help"
+              class="p-error"
+              *ngIf="form.get('minDeliveryDuration')?.hasError('min') || form.get('minDeliveryDuration')?.hasError('max')"
+            >
+              {{ 'flexPotentials.validate.noInProductRange' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-active">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="active"
+              inputId="field-active"
+              [label]="'flexPotentials.form.active' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-productPrequalification">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="productPrequalification"
+              inputId="field-productPrequalification"
+              [label]="'flexPotentials.table.productPrequalification' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-staticGridPrequalification">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="staticGridPrequalification"
+              inputId="field-staticGridPrequalification"
+              [label]="'flexPotentials.table.staticGridPrequalification' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'flexPotentials.form.files' | translate">
+        <app-file-upload
+          [disabled]="!!data.productPrequalification || !!data.staticGridPrequalification"
+          [files]="data.filesMinimal || []"
+          (download)="onDownloadFile($event)"
+          (fileSelected)="onChangeFileSelected($event)"
+          (removeFileChange)="onRemoveFileChange($event)"
+        ></app-file-upload>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+  <div modal-footer></div>
+</app-modal>

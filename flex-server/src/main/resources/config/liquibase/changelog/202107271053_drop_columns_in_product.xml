@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202107271053-1" author="">
+        <dropColumn tableName="product" columnName="prod_preq_needed"/>
+    </changeSet>
+
+    <changeSet id="202107271053-2" author="">
+        <dropColumn tableName="product" columnName="stat_grid_preq_needed"/>
+    </changeSet>
+
+    <changeSet id="202107271053-3" author="">
+        <dropColumn tableName="product" columnName="type"/>
+    </changeSet>
+
+    <changeSet id="202107271053-4" author="">
+        <dropColumn tableName="product" columnName="HAS_ASM_REPORT"/>
+    </changeSet>
+
+    <changeSet id="202107271053-5" author="">
+        <sql>
+            update PRODUCT p set p.BID_SIZE_UNIT = 'KWH' where p.BID_SIZE_UNIT = 'MW'
+        </sql>
+    </changeSet>
+
+    <changeSet id="202107271053-6" author="">
+        <sql>
+            delete from PRODUCT_FILE pf where pf.FILE_TYPE = 'DESIGN_ASM_REPORT'
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

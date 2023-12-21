@@ -1,0 +1,193 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'subportfolio.actions.' + mode + '.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button pButton pRipple type="button" [label]="'actions.cancel' | translate" class="p-button-secondary" (click)="close()"></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'subportfolio.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form" [form]="form" appValidatorContainer="subportfolio">
+    <div class="formgrid grid">
+      <div class="field col-6" *ngIf="mode === 'edit'">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="true">
+            <input id="field-id" type="text" pInputText formControlName="id" />
+            <label for="field-id">{{ 'subportfolio.table.id' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-name" type="text" pInputText formControlName="name" aria-describedby="name-help" />
+            <label for="field-name">{{ 'subportfolio.table.name' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('name')?.touched">
+            <small id="name-help" class="p-error" *ngIf="form.get('name')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="name-help" class="p-error" *ngIf="form.get('name')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-multiselect
+              [options]="dictionaries.units"
+              formControlName="unitIds"
+              inputId="field-unitIds"
+              aria-describedby="unitIds-help"
+            ></app-multiselect>
+            <label for="field-unitIds">{{ 'subportfolio.table.unitId' | translate }}</label>
+          </span>
+        </span>
+        <ng-container *ngIf="form.get('unitIds')?.touched">
+          <small id="unitIds-help" class="p-error" *ngIf="form.get('unitIds')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label" [pTooltip]="'subportfolio.form.tooltip.editableForDso' | translate">
+            <app-multiselect
+              [options]="dictionaries.localizationTypes$ | async"
+              [optionObject]="true"
+              optionValue="id"
+              optionLabel="name"
+              formControlName="couplingPointIdTypes"
+              inputId="field-couplingPointIdTypes"
+              aria-describedby="couplingPointIdTypes-help"
+            ></app-multiselect>
+            <label for="field-couplingPointIdTypes">{{ 'subportfolio.table.couplingPointId' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('couplingPointIdTypes')?.touched">
+            <small id="couplingPointIdTypes-help" class="p-error" *ngIf="form.get('couplingPointIdTypes')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [pTooltip]="'subportfolio.form.tooltip.editableForDso' | translate">
+            <input id="field-mrid" type="text" pInputText formControlName="mrid" aria-describedby="mrid-help" preventSpecialCharacters />
+            <label for="field-mrid">{{ 'subportfolio.table.mrid' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('mrid')?.touched">
+            <small id="mrid-help" class="p-error" *ngIf="form.get('mrid')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="mrid-help" class="p-error" *ngIf="form.get('mrid')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validFrom"
+              inputId="field-validFrom"
+              [maxDate]="form.get('validTo')?.value"
+              [minDate]="currentDate"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validFrom-help"
+            ></app-calendar>
+            <label for="field-validFrom">{{ 'subportfolio.table.validFrom' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validFrom')?.touched">
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('beforeCurrentHour')">
+              {{ 'validate.beforeCurrentHour' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validTo"
+              inputId="field-validTo"
+              [minDate]="minValidTo"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validTo-help"
+            ></app-calendar>
+            <label for="field-validTo">{{ 'subportfolio.table.validTo' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validTo')?.touched">
+            <small id="validTo-help" class="p-error" *ngIf="form.get('validTo')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <label for="field-active">{{ 'subportfolio.table.active' | translate }}</label>
+        <div class="md:col-10 formgroup-inline" id="field-active">
+          <div class="field-radiobutton">
+            <p-radioButton [value]="true" formControlName="active" inputId="active-true"></p-radioButton>
+            <label for="active-true">{{ 'Boolean.true' | translate }}</label>
+          </div>
+          <div class="field-radiobutton">
+            <p-radioButton [value]="false" formControlName="active" inputId="active-false"></p-radioButton>
+            <label for="active-false">{{ 'Boolean.false' | translate }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <label for="field-certified">{{ 'subportfolio.table.certified' | translate }}</label>
+        <div class="md:col-10 formgroup-inline" id="field-certified">
+          <div class="field-radiobutton">
+            <p-radioButton [value]="true" formControlName="certified" inputId="certified-true"></p-radioButton>
+            <label for="certified-true">{{ 'Boolean.true' | translate }}</label>
+          </div>
+          <div class="field-radiobutton">
+            <p-radioButton [value]="false" formControlName="certified" inputId="certified-false"></p-radioButton>
+            <label for="certified-false">{{ 'Boolean.false' | translate }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'subportfolio.form.files' | translate">
+        <app-file-upload
+          [disabled]="!!data.certified"
+          [files]="data.filesMinimal || []"
+          (download)="onDownloadFile($event)"
+          (fileSelected)="onChangeFileSelected($event)"
+          (removeFileChange)="onRemoveFileChange($event)"
+        ></app-file-upload>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+  <div modal-footer></div>
+</app-modal>

@@ -1,0 +1,144 @@
+<h1 class="title">{{ 'offeredServices.title' | translate }}</h1>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'offeredServices.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.title" pSortableColumn="title">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'offeredServices.table.title' | translate }}
+            <p-sortIcon field="title"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.onenetId" pSortableColumn="onenetId">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'offeredServices.table.onenetId' | translate }}
+            <p-sortIcon field="onenetId"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.businessObject" pSortableColumn="businessObject">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'offeredServices.table.businessObject' | translate }}
+            <p-sortIcon field="businessObject"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.serviceCode" pSortableColumn="serviceCode">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'offeredServices.table.serviceCode' | translate }}
+            <p-sortIcon field="serviceCode"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.fileSchema">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'offeredServices.table.fileSchema' | translate }}
+          </div>
+        </th>
+        <th *ngIf="columnsState.fileSchemaSample">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'offeredServices.table.fileSchemaSample' | translate }}
+          </div>
+        </th>
+        <th *ngIf="columnsState.description">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'offeredServices.table.description' | translate }}
+          </div>
+        </th>
+        <th *ngIf="columnsState.provide">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'offeredServices.table.provide' | translate }}
+          </div>
+        </th>
+      </tr>
+      <tr class="filter-row">
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.title">
+          <p-columnFilter type="text" field="title" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.onenetId">
+          <p-columnFilter type="text" field="onenetId" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.businessObject">
+          <p-columnFilter type="text" field="businessObject" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.serviceCode">
+          <p-columnFilter type="text" field="serviceCode" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.fileSchema"></th>
+        <th *ngIf="columnsState.fileSchemaSample"></th>
+        <th *ngIf="columnsState.description"></th>
+        <th *ngIf="columnsState.provide"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.title">{{ row.title ? row.title : '' }}</td>
+        <td *ngIf="columnsState.onenetId">{{ row.onenetId }}</td>
+        <td *ngIf="columnsState.businessObject">{{ row.businessObject }}</td>
+        <td *ngIf="columnsState.serviceCode">{{ row.serviceCode }}</td>
+        <td *ngIf="columnsState.fileSchema">
+          <i class="icon icon--download" (click)="downloadFile(row, false)"></i>
+        </td>
+        <td *ngIf="columnsState.fileSchemaSample">
+          <i class="icon icon--download" (click)="downloadFile(row, true)"></i>
+        </td>
+        <td *ngIf="columnsState.description">
+          <i class="icon icon--preview" (click)="preview(row)"></i>
+        </td>
+        <td *ngIf="columnsState.provide">
+          <button
+            pButton
+            pRipple
+            [label]="'offeredServices.table.provide' | translate"
+            (click)="provide(row)"
+            *appHasAuthority="'FLEX_ADMIN_PROVIDE_DATA_SEND'"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

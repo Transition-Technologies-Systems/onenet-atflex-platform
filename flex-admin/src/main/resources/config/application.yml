@@ -1,0 +1,200 @@
+eureka:
+  client:
+    enabled: true
+    service-url:
+      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+    healthcheck:
+      enabled: true
+    fetch-registry: true
+    register-with-eureka: true
+    instance-info-replication-interval-seconds: 10
+    registry-fetch-interval-seconds: 10
+  instance:
+    appname: flex-admin
+    prefer-ip-address: true
+    instanceId: flexAdmin:${spring.application.instance-id:${random.value}}
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+    status-page-url-path: ${management.endpoints.web.base-path}/info
+    health-check-url-path: ${management.endpoints.web.base-path}/health
+    metadata-map:
+      zone: primary # This is needed for the load balancer
+      profile: ${spring.profiles.active}
+      version: #project.version#
+      git-version: ${git.commit.id.describe:}
+      git-commit: ${git.commit.id.abbrev:}
+      git-branch: ${git.branch:}
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+# See http://cloud.spring.io/spring-cloud-netflix/spring-cloud-netflix.html
+zuul: # those values must be configured depending on the application specific needs
+  sensitive-headers: Cookie,Set-Cookie #see https://github.com/spring-cloud/spring-cloud-netflix/issues/3126
+  host:
+    max-total-connections: 60000
+    max-per-route-connections: 60000
+  prefix: /services
+  semaphore:
+    max-semaphores: 500
+
+# See https://github.com/Netflix/Hystrix/wiki/Configuration
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: ['configprops', 'env', 'health', 'info', 'jhimetrics', 'logfile', 'loggers', 'prometheus', 'threaddump']
+  endpoint:
+    health:
+      show-details: when_authorized
+      roles: 'ROLE_ADMIN'
+    jhimetrics:
+      enabled: true
+  info:
+    git:
+      mode: full
+  health:
+    mail:
+      enabled: false # When using the MailService, configure an SMTP server and set this to true
+  metrics:
+    export:
+      prometheus:
+        enabled: false
+    enable:
+      http: true
+      jvm: true
+      logback: true
+      process: true
+      system: true
+    distribution:
+      percentiles-histogram:
+        all: true
+      percentiles:
+        all: 0, 0.5, 0.75, 0.95, 0.99, 1.0
+    tags:
+      application: ${spring.application.name}
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+
+spring:
+  application:
+    name: flex-admin
+  devtools:
+    restart:
+      enabled: false
+      additional-exclude: static/**
+    livereload:
+      enabled: false # we use Webpack dev server + BrowserSync for livereload
+  jmx:
+    enabled: false
+  messages:
+    basename: i18n/messages
+    cache-duration: PT1S # 1 second, see the ISO 8601 standard
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    user:
+      name: admin
+      password: admin
+      roles:
+        - ADMIN
+        - USER
+  task:
+    execution:
+      thread-name-prefix: flexadmin-task-
+      pool:
+        core-size: 2
+        max-size: 50
+        queue-capacity: 10000
+    scheduling:
+      thread-name-prefix: flexadmin-scheduling-
+      pool:
+        size: 2
+  thymeleaf:
+    mode: HTML
+    cache: false
+  output:
+    ansi:
+      console-available: true
+  sleuth:
+    sampler:
+      probability: 1 # report 100% of traces
+  zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
+    base-url: http://localhost:9411
+    enabled: false
+    locator:
+      discovery:
+        enabled: true
+
+server:
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+    min-response-size: 1024
+  servlet:
+    session:
+      cookie:
+        http-only: true
+
+# Properties to be exposed on the /info management endpoint
+info:
+  # Comma separated list of profiles that will trigger the ribbon to show
+  display-ribbon-on-profiles: 'dev'
+
+# https://www.jhipster.tech/common-application-properties/
+jhipster:
+  clientApp:
+    name: 'Flexibility Platform - Admin App'
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
+        base64-secret: Y2M4MWQ3NzUwM2YxZmMyYjE5NDNlNTdkZmZhMjNkNDBlMWJhMzkzOTNkMjQ3MjVjNzk2NTMwZWE0MmY5MDU0OWRmZjc1ODYwODZjOTRlMWZlMmIzNWE5OWQ3YzVjYzExMjg0N2M2NWFkNzU3NDIzMGU3ZDI0YzY0N2UyZDdhYTA=
+        token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 2592000
+  http:
+    cache: # Used by the CachingHttpHeadersFilter
+      timeToLiveInDays: 1461
+  gateway:
+    rate-limiting:
+      enabled: false
+      limit: 100000
+      duration-in-seconds: 3600
+    authorized-microservices-endpoints: # Access Control Policy, if left empty for a route, all endpoints will be accessible
+      app1: /api,/v2/api-docs # recommended dev configuration
+  metrics:
+    logs: # Reports metrics in the logs
+      enabled: false
+      report-frequency: 60 # in seconds
+  logging:
+    use-json-format: false # By default, logs are not in Json format
+    logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+      enabled: false
+      host: localhost
+      port: 5000
+      queue-size: 512
+  swagger:
+    default-include-pattern: /api/.*
+    title: Flexibility Platform - Admin API
+    description: Flexibility Platform - Admin API documentation
+    version: 0.0.1
+    terms-of-service-url:
+    contact-name:
+    contact-url:
+    contact-email:
+    license: unlicensed
+    license-url:

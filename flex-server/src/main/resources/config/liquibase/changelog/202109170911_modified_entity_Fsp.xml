@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="202109170911" author="">
+        <createTable tableName="scheduling_unit_fsp_bsp" remarks="Table for ManyToMany relation in FSP table between records with role FSP/FSPA and BSP">
+            <column name="fsp_id" type="bigint" remarks="Identity of record from table FSP with role FSP/FSPA">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bsp_id" type="bigint" remarks="Identity of record from table FSP with role BSP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="fsp_id, bsp_id" tableName="scheduling_unit_fsp_bsp"/>
+
+        <addForeignKeyConstraint baseColumnNames="fsp_id" baseTableName="scheduling_unit_fsp_bsp" constraintName="fk_fsp_bsp_fsp_id" referencedColumnNames="id"
+                                 referencedTableName="fsp"/>
+
+        <addForeignKeyConstraint baseColumnNames="bsp_id" baseTableName="scheduling_unit_fsp_bsp" constraintName="fk_fsp_bsp_bsp_id" referencedColumnNames="id"
+                                 referencedTableName="fsp"/>
+    </changeSet>
+
+</databaseChangeLog>

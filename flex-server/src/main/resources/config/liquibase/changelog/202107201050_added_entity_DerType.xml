@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202107201250-table" author="">
+        <createSequence incrementBy="1" sequenceName="der_type_seq" startValue="100" ordered="true" />
+        <createTable tableName="der_type" remarks="De">
+            <column name="id" type="bigint" defaultValueSequenceNext="der_type_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description_en" type="varchar(100)" remarks="DER type description in English">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description_pl" type="varchar(100)" remarks="DER type description in Polish">>
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202107201250-audit" author="">
+        <addColumn tableName="der_type">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202107201250-data" author="">
+        <loadData file="config/liquibase/data/der_type.csv" separator=";" tableName="der_type"/>
+    </changeSet>
+</databaseChangeLog>

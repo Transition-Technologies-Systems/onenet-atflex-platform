@@ -1,0 +1,93 @@
+<app-modal [showFooter]="true" [showHeader]="false" [showConfirmAfterEsc]="false" [showCancelBtn]="false">
+  <div modal-content [formGroup]="form" *ngIf="form">
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="acceptedDeliveryPeriodFrom"
+              inputId="field-acceptedDeliveryPeriodFrom"
+              aria-describedby="acceptedDeliveryPeriodFrom-help"
+              [maxDate]="form.get('acceptedDeliveryPeriodTo')?.value"
+              [minDate]="minDateFrom"
+              (onChange)="updateMaxDateTo()"
+            ></app-calendar>
+            <label for="field-acceptedDeliveryPeriodFrom">{{
+              'activationsSettlements.filters.acceptedDeliveryPeriodFrom' | translate
+            }}</label>
+          </span>
+          <ng-container *ngIf="form.get('acceptedDeliveryPeriodFrom')?.touched">
+            <small
+              id="acceptedDeliveryPeriodFrom-help"
+              class="p-error"
+              *ngIf="form.get('acceptedDeliveryPeriodFrom')?.hasError('required')"
+            >
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="acceptedDeliveryPeriodTo"
+              inputId="field-acceptedDeliveryPeriodTo"
+              aria-describedby="acceptedDeliveryPeriodTo-help"
+              [minDate]="form.get('acceptedDeliveryPeriodFrom')?.value"
+              [maxDate]="maxDateTo"
+              (onChange)="updateMinDateFrom()"
+            ></app-calendar>
+            <label for="field-acceptedDeliveryPeriodTo">{{ 'activationsSettlements.filters.acceptedDeliveryPeriodTo' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('acceptedDeliveryPeriodTo')?.touched">
+            <small id="acceptedDeliveryPeriodTo-help" class="p-error" *ngIf="form.get('acceptedDeliveryPeriodTo')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline">
+          <div class="field-checkbox" *ngIf="!isBsp">
+            <p-checkbox
+              [binary]="true"
+              formControlName="cmvcBids"
+              inputId="field-cmvcBids"
+              [label]="'activationsSettlements.filters.cmvcBids' | translate"
+            ></p-checkbox>
+          </div>
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="daBids"
+              inputId="field-daBids"
+              [label]="'activationsSettlements.filters.daBids' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div modal-footer>
+    <button
+      type="button"
+      pButton
+      pRipple
+      [label]="'actions.cancel' | translate"
+      (click)="close()"
+      [ngClass]="'p-confirm-popup-reject'"
+      class="p-button-secondary"
+    ></button>
+    <button
+      appPreventDoubleClick
+      type="button"
+      pButton
+      [label]="'actions.export' | translate"
+      (click)="export()"
+      [ngClass]="'p-confirm-popup-accept'"
+    ></button>
+  </div>
+</app-modal>

@@ -1,0 +1,278 @@
+@import 'assets/scss/variables';
+@import 'assets/scss/mixins';
+
+#sidebar-wrapper {
+  background: $sidebar-background;
+  width: 85px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: width 300ms;
+  z-index: 90000;
+  @include user-select(none);
+
+  font-family: Roboto Condensed;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+
+  overflow: hidden;
+
+  .logo {
+    background-image: url('/assets/images/logo-small.png');
+    background-repeat: no-repeat;
+    background-position-x: 20px;
+    position: relative;
+    height: 20px;
+    width: 85px;
+    top: 50px;
+  }
+
+  .icon {
+    float: left;
+    width: 85px;
+    height: 100%;
+    display: block;
+    min-width: 85px;
+
+    i {
+      background-repeat: no-repeat;
+      background-position: center;
+      display: block;
+      height: 40px;
+      width: 80px;
+
+      @each $icon in $sidebar-icons {
+        &.#{$icon} {
+          background-image: url('/assets/images/menu/' + $icon + '.svg');
+        }
+      }
+    }
+  }
+
+  &.active {
+    width: 240px;
+
+    .logo {
+      background-image: url('/assets/images/logo.png');
+    }
+
+    .small-logo {
+      display: none;
+    }
+
+    .logo {
+      width: 240px;
+    }
+
+    #sidebar-ul {
+      li {
+        ul {
+          background-color: $sidebar-children-background;
+          &.opened {
+            display: block !important;
+            opacity: 1 !important;
+          }
+        }
+      }
+    }
+  }
+
+  #sidebar-navigation {
+    height: calc(100% - 110px);
+    position: relative;
+    width: 240px;
+    top: 50px;
+    margin: 40px 0 0 0;
+
+    max-width: 100%;
+
+    #sidebar-ul {
+      padding-bottom: 30px;
+      position: relative;
+      list-style: none;
+      padding: 0;
+
+      li {
+        clear: left;
+        width: 100%;
+        height: 28px;
+        position: relative;
+        list-style: none;
+        cursor: pointer;
+        margin: 0;
+        padding: 5px 0;
+        display: table;
+
+        ul {
+          display: none;
+          opacity: 0;
+          padding: 0;
+
+          li {
+            padding: 0px 0px 0px 30px;
+            height: 20px;
+            display: table;
+            width: 100%;
+
+            &.active {
+              border-left: 4px solid $sidebar-active-border-left-color;
+            }
+
+            a {
+              height: auto;
+              padding: 4px 0;
+              color: $sidebar-color;
+              line-height: 16px;
+              display: table-cell;
+              transition: all 0.3s;
+              vertical-align: middle;
+              max-width: 240px;
+              width: 100%;
+
+              min-height: 40px;
+              height: 100%;
+              display: flex;
+              align-items: center;
+
+              &.active {
+                color: $sidebar-children-color-active;
+              }
+            }
+
+            &:hover {
+              background-color: $sidebar-hover-background;
+            }
+          }
+        }
+
+        a {
+          color: $sidebar-color;
+          text-decoration: none;
+          display: table-cell;
+          vertical-align: middle;
+          transition: all 0.3s;
+          padding-right: 26px;
+          max-width: 240px;
+          width: 100%;
+
+          &.flex-center {
+            display: flex;
+            align-items: center;
+          }
+
+          span:not(.icon) {
+            transition: all 0.3s;
+          }
+        }
+
+        .arrow-sidebar {
+          position: absolute;
+          right: 10px;
+          opacity: 0;
+          width: 12px;
+          height: 6px;
+          top: calc(50% - 5px);
+          transition: all 0.3s;
+          @include image-set('/assets/images/icons/arrow_down');
+          background-size: contain;
+
+          &.opened {
+            transform: rotate(-180deg);
+            opacity: 1;
+          }
+        }
+
+        .sidebar-children {
+          height: 35px;
+          display: table;
+          width: 100%;
+          position: relative;
+
+          a:not(.active) {
+            color: $sidebar-color !important;
+          }
+
+          &.active {
+            background-color: $sidebar-hover-background;
+          }
+        }
+
+        &:hover {
+          &:not(.has-children),
+          .sidebar-children {
+            background-color: $sidebar-hover-background;
+          }
+
+          .arrow-sidebar {
+            opacity: 1;
+          }
+        }
+
+        &.active,
+        &.opened {
+          &:not(.has-children),
+          .sidebar-children {
+            background-color: $sidebar-hover-background;
+          }
+        }
+
+        &.active {
+          .icon {
+            border-left: 4px solid $sidebar-active-border-left-color;
+            i {
+              margin-left: -4px;
+            }
+          }
+
+          a {
+            color: $sidebar-color-active;
+          }
+        }
+      }
+    }
+  }
+}
+
+.count-container {
+  position: relative;
+
+  & .count {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+  }
+}
+
+:host ::ng-deep {
+  .p-badge {
+    background: red !important;
+  }
+
+  .p-scrollpanel {
+    &.sidebar {
+      .p-scrollpanel-bar {
+        opacity: 1;
+        background-color: lightblue;
+        &.p-scrollpanel-bar-x {
+          visibility: hidden;
+        }
+      }
+
+      &:not(.active) {
+        .p-scrollpanel-bar {
+          background-color: lightblue;
+          &.p-scrollpanel-bar-y {
+            visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+}

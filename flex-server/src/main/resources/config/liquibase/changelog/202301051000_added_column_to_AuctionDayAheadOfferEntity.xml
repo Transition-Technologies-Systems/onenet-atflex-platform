@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202301051000-add-column" author="">
+        <addColumn tableName="auction_da_offer">
+            <column name="verified_volumes_percent" type="NUMBER(3,0)" defaultValueNumeric="0" remarks="Percentage of verified volumes in offer">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202301051000-fill-verified-volumes-percent" author="">
+        <sql>
+            UPDATE auction_da_offer offer
+            SET verified_volumes_percent = (
+                SELECT count(*)
+                FROM auction_da_offer_ders offerDer
+                JOIN auction_da_offer_band_data band ON band.auction_offer_ders_id = offerDer.id
+                WHERE offerDer.offer_id = offer.id
+                AND band.is_edited=1
+            ) / (
+                SELECT
+                    CASE
+                        WHEN count(*) = 0 THEN 1 --warunek zapobiega wyrzuceniu błędu dzielenia przez zero w przypadku istnienia oferty bez pasm
+                        ELSE count(*)
+                    END
+                FROM auction_da_offer_ders offerDer
+                JOIN auction_da_offer_band_data band ON band.auction_offer_ders_id = offerDer.id
+                WHERE offerDer.offer_id = offer.id
+            ) * 100;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

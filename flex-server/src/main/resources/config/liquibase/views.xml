@@ -1,0 +1,15 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="creating-views" author="" runAlways="true">
+        <validCheckSum>ANY</validCheckSum>
+        <sqlFile path="changelog/views/auction_cmvc_view.sql" relativeToChangelogFile="true"  />
+        <sqlFile path="changelog/views/auction_day_ahead_view.sql" relativeToChangelogFile="true" />
+        <sqlFile path="changelog/views/auction_offer_view.sql" relativeToChangelogFile="true" />
+        <sqlFile path="changelog/views/offer_ders_view.sql" relativeToChangelogFile="true" />
+        <sqlFile path="changelog/views/settlement_view.sql" relativeToChangelogFile="true" />
+        <sqlFile path="changelog/views/kpi_view.sql" relativeToChangelogFile="true" />
+    </changeSet>
+</databaseChangeLog>

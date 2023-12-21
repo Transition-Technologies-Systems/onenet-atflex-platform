@@ -1,0 +1,27 @@
+<p-multiSelect
+  [options]="_options ? _options : []"
+  [(ngModel)]="value"
+  (onChange)="onChangeValue($event)"
+  [showHeader]="showHeader"
+  [styleClass]="styleClass"
+  (onFocus)="onFocus()"
+  (onBlur)="onBlur()"
+  [inputId]="inputId ? inputId : ''"
+  appendTo="body"
+  [baseZIndex]="50000"
+  [disabled]="disabled"
+  [optionValue]="optionValue"
+  [optionLabel]="optionLabel"
+  [dropdownIcon]="iconClass"
+  [maxSelectedLabels]="0"
+  [selectedItemsLabel]="'global.selectedItemsLabel' | translate"
+>
+  <ng-template pTemplate="item" let-item>
+    {{ translateDictionaries ? (item[optionLabel] | translate) : item[optionLabel] }}
+  </ng-template>
+  <ng-template let-value pTemplate="selectedItems">
+    <ng-container *ngIf="value">
+      {{ multiselect?.valuesAsString }}
+    </ng-container>
+  </ng-template>
+</p-multiSelect>

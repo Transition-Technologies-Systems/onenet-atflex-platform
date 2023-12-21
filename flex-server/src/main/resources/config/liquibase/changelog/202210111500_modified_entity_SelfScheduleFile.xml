@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202210111500-create-table-self_schedule_volume" author="" dbms="oracle">
+        <createTable tableName="unit_self_schedule_volume" remarks="Self schedule volumes table">
+            <column name="unit_self_schedule_id" type="bigint"
+                    remarks="Self schedule der identifier from table unit_self_schedule">
+                <constraints nullable="true"/>
+            </column>
+            <column name="hour_number" type="varchar(2)" remarks="The hour number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volume" type="decimal(22,3)" remarks="Self schedule volume">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="unit_self_schedule_id, hour_number" tableName="unit_self_schedule_volume"/>
+
+        <addForeignKeyConstraint baseColumnNames="unit_self_schedule_id" baseTableName="unit_self_schedule_volume"
+                                 constraintName="fk_uss_volume_uss_id"
+                                 referencedColumnNames="id" referencedTableName="self_schedule_file"/>
+    </changeSet>
+
+    <changeSet id="202210111500-delete-file-columns" author="" dbms="oracle">
+        <dropColumn tableName="self_schedule_file" columnName="file_name"/>
+        <dropColumn tableName="self_schedule_file" columnName="file_zip_data"/>
+        <dropColumn tableName="self_schedule_file" columnName="file_extension"/>
+    </changeSet>
+
+    <!--  dodanie defaultowych planow pracy dla usunietych plikow xlsx  -->
+    <changeSet id="202210111500-fill-volumes-table" author="" dbms="oracle">
+        <sql>
+            insert all
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '1', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '2', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '3', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '4', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '5', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '6', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '7', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '8', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '9', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '10', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '11', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '12', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '13', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '14', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '15', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '16', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '17', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '18', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '19', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '20', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '21', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '22', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '23', 10)
+            into unit_self_schedule_volume(unit_self_schedule_id,hour_number,volume) values (id, '24', 10)
+            SELECT * FROM self_schedule_file;
+        </sql>
+    </changeSet>
+
+    <changeSet id="202210111500-rename_table_and_sequence" author="" dbms="oracle">
+        <renameTable oldTableName="self_schedule_file" newTableName="unit_self_schedule"/>
+        <renameSequence oldSequenceName="self_schedule_seq" newSequenceName="unit_self_schedule_seq"/>
+    </changeSet>
+</databaseChangeLog>

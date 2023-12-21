@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.flexPotential.creation.title}">Flexibility Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.flexPotential.greeting(${user.login})}">
+    Dear
+</p>
+<p th:text="#{email.flexPotential.creation.text1(${#numbers.formatDecimal(flexPotential.id, 0, 0)})}">
+    Flex potential has been created with the following attributes
+</p>
+<ul>
+    <li th:text="#{email.flexPotential.creation.product(${flexPotential.product.shortName})}">Product</li>
+    <li th:text="#{email.flexPotential.creation.fsp(${fsp.companyName})}">FSP</li>
+    <li th:text="#{email.flexPotential.creation.ders(${ders})}">FSP DER</li>
+    <li th:text="#{email.flexPotential.creation.volume(${flexPotential.volume})}">Volume</li>
+    <li th:text="#{email.flexPotential.creation.volumeUnit(${flexPotential.volumeUnit})}">Volume unit</li>
+    <li th:text="#{email.flexPotential.creation.divisible(${user.langKey == 'pl' ? (flexPotential.divisibility ? 'tak' : 'nie') : (flexPotential.divisibility ? 'yes' : 'no')})}">Divisible</li>
+    <li th:text="#{email.flexPotential.creation.fullActivationTime(${flexPotential.fullActivationTime})}">Full activation time</li>
+    <li th:text="#{email.flexPotential.creation.minDurationOfDelivery(${flexPotential.minDeliveryDuration})}">Minimum duration of delivery</li>
+    <li th:text="#{email.flexPotential.creation.validFrom(${validFrom})}">Valid from</li>
+    <li th:text="#{email.flexPotential.creation.validTo(${validTo})}">Valid to</li>
+    <li th:text="#{email.flexPotential.creation.active(${user.langKey == 'pl' ? (flexPotential.active ? 'tak' : 'nie') : (flexPotential.active ? 'yes' : 'no')})}">Active</li>
+    <li th:text="#{email.flexPotential.creation.productPrequalification(${user.langKey == 'pl' ? (flexPotential.productPrequalification ? 'tak' : 'nie') : (flexPotential.productPrequalification ? 'yes' : 'no')})}">Product prequalification</li>
+    <li th:text="#{email.flexPotential.creation.staticGridPrequalification(${user.langKey == 'pl' ? (flexPotential.staticGridPrequalification ? 'tak' : 'nie') : (flexPotential.staticGridPrequalification ? 'yes' : 'no')})}">Static grid prequalification</li>
+</ul>
+<p>
+    <a th:with="url=(@{|${baseUrl}/flexibility-potentials?id=${flexPotential.id}|})" th:href="${url}" th:text="#{email.flexPotential.creation.link}">
+        Link
+    </a>
+</p>
+<p>
+    <span th:text="#{email.flexPotential.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+</p>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<span
+  [ngClass]="{
+    'p-inputnumber p-component': true,
+    'p-inputnumber-buttons-stacked': this.showButtons && this.buttonLayout === 'stacked',
+    'p-inputnumber-buttons-horizontal': this.showButtons && this.buttonLayout === 'horizontal',
+    'p-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'
+  }"
+>
+  <div
+    #input
+    [ngClass]="'p-inputnumber-input'"
+    [contentEditable]="contentEditable"
+    [attr.id]="inputId"
+    [attr.name]="inputId"
+    (blur)="onBlur($event)"
+    (focus)="onFocus($event)"
+    (input)="onInput($event)"
+    (keypress)="onKeyPress($event)"
+    (keydown)="onKeyDown($event)"
+    (paste)="onPaste($event)"
+    (dragover)="(false)"
+  ></div>
+</span>

@@ -1,0 +1,39 @@
+<app-modal
+  [showFooter]="false"
+  [showHeader]="true"
+  [confirmClosableActions]="confirmClosableActions"
+  [styleClass]="auctionType + ' ' + mode + '-bid-mode'"
+>
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'auctions.actions.bids.' + mode + '.title' | translate: titleParams }}</h2>
+    <div class="actions">
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'auctions.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+        [disabled]="saveDisabled"
+      ></button>
+    </div>
+  </div>
+  <div modal-content>
+    <app-auctions-bid
+      [type]="auctionType"
+      [isFromBids]="fromBids"
+      [auctionId]="auctionId"
+      [bidId]="bid?.id"
+      (closeAuctionBid)="close()"
+    ></app-auctions-bid>
+  </div>
+</app-modal>

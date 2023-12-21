@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{email.fspUserRegistration.title}">Flexibility Platform</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.fspUserRegistration.greeting(${user.login})}">
+            Dear
+        </p>
+        <p th:text="#{email.fspUserRegistration.fsp.inform.change(${fspUserReg.id})}">
+            There is a new change to your application
+        </p>
+        <p>
+            <a th:with="url=(@{|${baseUrl}/registration-thread|})" th:href="${url}"
+               th:text="#{email.fspUserRegistration.fsp.inform.change.link}" th:style="'color: blue;'">Click here to check the change</a>
+        </p>
+        <p>
+            <span th:text="#{email.fspUserRegistration.regards}">Regards, </span>
+            <br/>
+            <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+        </p>
+    </body>
+</html>

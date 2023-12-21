@@ -1,0 +1,5 @@
+<p-tabView [(activeIndex)]="tabIndex" (onChange)="onChange()">
+  <p-tabPanel [header]="'notifications.messagesTitle' | translate" (click)="tabIndex = 0"> </p-tabPanel>
+  <p-tabPanel [header]="'notifications.alertsTitle' | translate" (click)="tabIndex = 1"> </p-tabPanel>
+</p-tabView>
+<app-message-table [config]="tableConfig"></app-message-table>

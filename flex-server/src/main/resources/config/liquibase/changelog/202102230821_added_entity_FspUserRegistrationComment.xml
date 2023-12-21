@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202102230821-table" author="">
+        <createSequence incrementBy="1" sequenceName="fsp_u_reg_comm_seq" startValue="1" ordered="true" />
+        <createTable tableName="fsp_user_registration_comment" remarks="Table with added comments to new FSP (Flexibility Service Provider) user candidate registration process">
+            <column name="id" type="bigint" defaultValueSequenceNext="fsp_u_reg_comm_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="text" type="varchar(1000)" remarks="Comment text">
+                <constraints nullable="true" />
+            </column>
+            <column name="fsp_user_registration_id" type="bigint" remarks="Registration process identifier from table fsp_user_registration">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_id" type="bigint" remarks="User identifier from table users">
+                <constraints nullable="true" />
+            </column>
+            <column name="creation_source" type="varchar(50)"  remarks="Name of the source/process on the basis of which the comment was created">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202102230821-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="fsp_user_registration_id" baseTableName="fsp_user_registration_comment" constraintName="fsp_u_reg_comm_fsp_user_reg_id"
+                                 referencedColumnNames="id" referencedTableName="fsp_user_registration"/>
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="fsp_user_registration_comment" constraintName="fk_fsp_u_reg_comment_user_id"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="202102230821-audit" author="">
+        <addColumn tableName="fsp_user_registration_comment">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

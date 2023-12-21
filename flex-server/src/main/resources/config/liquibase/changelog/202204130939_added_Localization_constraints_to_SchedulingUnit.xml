@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202204130939-constraints" author="">
+
+        <addColumn tableName="scheduling_unit">
+            <column name="localization_type_id" type="bigint" remarks="Localization identifier from table localization_type">
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint baseColumnNames="localization_type_id" baseTableName="scheduling_unit" constraintName="fk_localization_type_id"
+                                 referencedColumnNames="id" referencedTableName="localization_type"/>
+
+
+        <createTable tableName="scheduling_unit_localization" remarks="Join table for scheduling unit and localization type tables">
+            <column name="scheduling_unit_id" type="bigint" remarks="SchedulingUnit identifier from table scheduling_unit">
+                <constraints nullable="false"/>
+            </column>
+            <column name="localization_type_id" type="bigint" remarks="Localization identifier from table localization_type">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="localization_type_id, scheduling_unit_id" tableName="scheduling_unit_localization"/>
+
+        <addForeignKeyConstraint baseColumnNames="localization_type_id" baseTableName="scheduling_unit_localization" constraintName="fk_sult_localization_type_id"
+                                 referencedColumnNames="id" referencedTableName="localization_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="scheduling_unit_id" baseTableName="scheduling_unit_localization" constraintName="fk_sult_scheduling_unit_id"
+                                 referencedColumnNames="id" referencedTableName="scheduling_unit"/>
+    </changeSet>
+
+</databaseChangeLog>

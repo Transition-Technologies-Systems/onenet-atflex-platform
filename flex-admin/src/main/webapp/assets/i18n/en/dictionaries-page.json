@@ -1,0 +1,118 @@
+{
+  "dictionariesPage": {
+    "actions": {
+      "add": {
+        "type": {
+          "DER_TYPE": {
+            "title": "Add DER type"
+          },
+          "SCHEDULING_UNIT_TYPE": {
+            "title": "Add SU type"
+          },
+          "LOCALIZATION_TYPE": {
+            "title": "Add localization"
+          },
+          "KDM_MODEL": {
+            "title": "Add KDM model"
+          }
+        },
+        "title": "Add type",
+        "btn": "Add",
+        "saveBtn": "Save",
+        "exitBtn": "Exit",
+        "success": "Saving successful",
+        "error": "There was an error adding the given type"
+      },
+      "edit": {
+        "type": {
+          "DER_TYPE": {
+            "title": "Edit DER type"
+          },
+          "SCHEDULING_UNIT_TYPE": {
+            "title": "Edit SU type"
+          },
+          "LOCALIZATION_TYPE": {
+            "title": "Edit localization"
+          },
+          "KDM_MODEL": {
+            "title": "Edit KDM model"
+          }
+        },
+        "title": "Edit type",
+        "saveBtn": "Save",
+        "exitBtn": "Exit",
+        "success": "Saving successful",
+        "error": "An error occurred while editing the selected type"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected type from the system?",
+        "success": "The selected type has been successfully removed",
+        "error": "An error occurred while deleting the selected type",
+        "localization_type": {
+          "question": "Are you sure to remove the selected localization from the system?",
+          "success": "The selected localization has been successfully removed",
+          "error": "An error occurred while deleting the selected localization"
+        },
+        "kdm_model": {
+          "question": "Are you sure to remove the selected KDM model from the system?",
+          "success": "The selected KDM model has been successfully removed",
+          "error": "An error occurred while deleting the selected model"
+        }
+      }
+    },
+    "table": {
+      "actions": "Actions",
+      "id": "ID",
+      "sderPoint": "SDER Point",
+      "descriptionEn": "Description EN",
+      "descriptionPl": "Description PL",
+      "name": "Name",
+      "type": "Type",
+      "products": "Products",
+      "lastModifiedDate": "Last modified",
+      "createdDate": "Creation date",
+      "delete": "Delete",
+      "areaName": "Name of area",
+      "lvModel": "LV model",
+      "action": "Action",
+      "buttons": {
+        "addModel": "Add model"
+      }
+    },
+    "title": {
+      "DER_TYPE": "DERs' types",
+      "SCHEDULING_UNIT_TYPE": "SUs' types",
+      "LOCALIZATION_TYPE": "Localizations",
+      "KDM_MODEL": "KDM models"
+    },
+    "preview": "Preview",
+    "details": "Details",
+    "kdmModelsDialog": {
+      "addModel": {
+        "title": "Add KDM models to {{ areaName }}",
+        "timestamp": "Timestamp",
+        "fileName": "File name",
+        "action": "Action",
+        "delete": "Delete"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected model for this timestamp from the system?",
+        "success": "The selected model has been successfully removed",
+        "error": "An error occurred while deleting the selected model"
+      },
+      "upload": {
+        "success": "Uploaded file successfully",
+        "error": "An error occured while uploading the file"
+      }
+    }
+  },
+  "error": {
+    "kdmModel": {
+      "cannotCreateBecauseKdmModelWithThisAreaNameIsAlreadyExist": "The KDM model with this area name already exists",
+      "cannotUpdateBecauseKdmModelWithThisAreaNameIsAlreadyExist": "The KDM model with this area name already exists",
+      "cannotAddKdmModelTimestampFileBecauseWrongExtension": "You cannot upload this file. Only .kdm format is permitted.",
+      "wrongKdmModelTimestampNumber": "Wrong KDM model timestamp number",
+      "kdmModelDoesNotExist": "KDM model not found"
+    }
+  }
+}

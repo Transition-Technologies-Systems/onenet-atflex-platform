@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202103081455-table" author="">
+        <createSequence sequenceName="users_online_seq" startValue="1" incrementBy="1" ordered="true"/>
+        <createTable tableName="users_online" remarks="Table with logged user token and ip address">
+            <column name="id" type="bigint" defaultValueSequenceNext="users_online_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint" remarks="User identifier from table users">
+                <constraints nullable="false" />
+            </column>
+            <column name="token" type="${clobType}" remarks="JWT token of logged user">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ip_address" type="varchar(50)" remarks="Logged user ip address">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202103081455-constraints" author="">
+        <addForeignKeyConstraint baseTableName="users_online" baseColumnNames="user_id" constraintName="fk_user_id_user_online" referencedTableName="users"
+                                 referencedColumnNames="id" />
+    </changeSet>
+
+    <changeSet id="202103081455-indexes" author="">
+        <createIndex tableName="users_online" indexName="idx_user_online_user_id">
+            <column name="user_id" type="bigint"/>
+        </createIndex>
+        <createIndex tableName="users_online" indexName="idx_users_online_uid_ip">
+            <column name="user_id" type="bigint"/>
+            <column name="ip_address" type="varchar(50)"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

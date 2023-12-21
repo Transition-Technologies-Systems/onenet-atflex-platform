@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202202231200-table" author="">
+
+        <createTable tableName="localization_auction_cmvc" remarks="Join table for Auction Cmvc and localizations">
+            <column name="auction_cmvc_id" type="bigint" remarks="Auction identifier from table auction_cmvc">
+                <constraints nullable="false"/>
+            </column>
+            <column name="localization_type_id" type="bigint" remarks="Localization Type identifier from table localization_type">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="auction_cmvc_id, localization_type_id" tableName="localization_auction_cmvc"/>
+
+        <addForeignKeyConstraint baseColumnNames="auction_cmvc_id" baseTableName="localization_auction_cmvc" constraintName="fk_la_cmvc_auction_id"
+                                 referencedColumnNames="id" referencedTableName="auction_cmvc"/>
+
+        <addForeignKeyConstraint baseColumnNames="localization_type_id" baseTableName="localization_auction_cmvc" constraintName="fk_la_cmvc_loc_id"
+                                 referencedColumnNames="id" referencedTableName="localization_type"/>
+    </changeSet>
+
+    <changeSet id="202202231200-data" author="" dbms="oracle"  >
+        <sql>
+            INSERT ALL
+            INTO localization_auction_cmvc (auction_cmvc_id, localization_type_id) VALUES (id, 2)
+            SELECT * FROM auction_cmvc where auction_cmvc.localization is not null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="202202231200-column" author="">
+        <dropColumn tableName="auction_cmvc" columnName="localization"/>
+    </changeSet>
+</databaseChangeLog>

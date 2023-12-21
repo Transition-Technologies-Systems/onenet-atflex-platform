@@ -1,0 +1,63 @@
+{
+  "products": {
+    "actions": {
+      "add": {
+        "btn": "Dodaj nowy produkt",
+        "title": "Dodaj produkt",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania produktu"
+      },
+      "edit": {
+        "title": "Edytuj produkt: {{ shortName }}",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas edytowania produktu"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybrany produkt z systemu?",
+        "success": "Wybrany produkt został pomyślnie usunięty",
+        "error": "Wystąpił błąd podczas usuwania wybranego produktu"
+      },
+      "export": {
+        "btn": "Eksportuj do pliku",
+        "allData": "Eksportuj dane wszystkich produktów",
+        "displayedData": "Eksportuj dane zaznaczonych produktów"
+      }
+    },
+    "filters": {
+      "locational": "Lokalizacyjny",
+      "active": "Aktywny"
+    },
+    "form": {
+      "prodData": "Produkt",
+      "details": "Szczegóły produktu",
+      "files": "Pliki",
+      "psoUserId": "pSo",
+      "ssoUserIds": "sSo"
+    },
+    "table": {
+      "actions": "Akcje",
+      "delete": "Usuwanie",
+      "id": "ID produktu",
+      "fullName": "Pełna nazwa",
+      "shortName": "Skrócona nazwa",
+      "locational": "Lokalizacyjny",
+      "minBidSize": "Minimalna wielkość oferty",
+      "maxBidSize": "Maksymalna wielkość oferty",
+      "bidSizeUnit": "Jednostka oferty",
+      "direction": "Kierunek",
+      "maxFullActivationTime": "Maksymalny czas pełnej aktywacji [s]",
+      "minRequiredDeliveryDuration": "Minimalny wymagany czas dostawy [min]",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "createdDate": "Data utworzenia",
+      "active": "Aktywny",
+      "balancing": "Bilansujący",
+      "cmvc": "CM&VC",
+      "validFrom": "Ważny od",
+      "validTo": "Ważny do",
+      "version": "Wersja"
+    },
+    "title": "Produkty"
+  }
+}

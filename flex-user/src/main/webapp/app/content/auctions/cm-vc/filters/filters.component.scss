@@ -1,0 +1,11 @@
+:host ::ng-deep {
+  .step-type-control {
+    min-width: 250px !important;
+    max-width: 100% !important;
+
+    .ng-select-container {
+      min-width: 250px !important;
+      max-width: 100% !important;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202212281630-table" author="">
+        <delete tableName="alg_evaluation_da_offers">
+            <where>algorithm_evaluation_id in (select id from algorithm_evaluation where kdm_model_id is null)</where>
+        </delete>
+        <delete tableName="alg_evaluation_cmvc_offers">
+            <where>algorithm_evaluation_id in (select id from algorithm_evaluation where kdm_model_id is null)</where>
+        </delete>
+        <delete tableName="algorithm_evaluation">
+            <where>kdm_model_id is null</where>
+        </delete>
+        <addNotNullConstraint tableName="algorithm_evaluation" columnName="kdm_model_id"/>
+    </changeSet>
+</databaseChangeLog>

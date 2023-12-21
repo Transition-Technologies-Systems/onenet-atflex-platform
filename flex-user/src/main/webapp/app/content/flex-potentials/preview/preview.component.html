@@ -1,0 +1,155 @@
+<app-modal [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose [(ngModel)]="versionId" (ngModelChange)="changeVersion()" (closePreview)="close()">
+      <div sub-title>
+        {{ 'flexPotentials.title' | translate }}
+      </div>
+      <div title>ID: {{ data.id }}</div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'flexPotentials.form.potentialData' | translate | uppercase" [selected]="true">
+        <div class="grid">
+          <div class="field md:col-12 lg:col-6">
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.id' | translate }}</label>
+                <span>{{ data.id }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.productId' | translate }}</label>
+                <span>{{ data.product.shortName }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.fspId' | translate }}</label>
+                <span>{{ data.fsp.representative.companyName }} ({{ 'RoleShort.' + data.fsp.role | translate }})</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.unitId' | translate }}</label>
+                <app-toogle-data
+                  *ngIf="data.units.length > 1; else showUnit"
+                  [header]="'flexPotentials.table.unitsDetails' | translate | uppercase"
+                  [selected]="true"
+                >
+                  <div class="field" *ngFor="let unit of data.units">
+                    <span>{{ unit?.name }}{{ unit?.sder ? '(SDER)' : '' }}</span>
+                  </div>
+                </app-toogle-data>
+
+                <ng-template #showUnit>
+                  <span *ngIf="data.units[0] as unit">{{ unit?.name }}{{ unit?.sder ? '(SDER)' : '' }}</span>
+                </ng-template>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.volume' | translate }}</label>
+                <span>{{ data.volume | number: '1.2':'pl' }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.volumeUnit' | translate }}</label>
+                <span>{{ 'VolumeUnit.' + data.volumeUnit | translate }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.divisibility' | translate }}</label>
+                <span>{{ 'Boolean.' + !!data.divisibility | translate }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.fullActivationTime' | translate }}</label>
+                <span>{{ data.fullActivationTime }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.minDeliveryDuration' | translate }}</label>
+                <span>{{ data.minDeliveryDuration }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.form.createdDate' | translate }}</label>
+                <span>{{ data.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.form.lastModifiedDate' | translate }}</label>
+                <span>{{ data.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.form.createdBy' | translate }}</label>
+                <span> {{ data.createdBy }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.form.lastModifiedBy' | translate }}</label>
+                <span> {{ data.lastModifiedBy }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.form.validFrom' | translate }}</label>
+                <span>{{ data.validFrom | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.form.validTo' | translate }}</label>
+                <span>{{ data.validTo | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.form.active' | translate }}</label>
+                <span>{{ 'Boolean.' + data.active | translate }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.productPrequalification' | translate }}</label>
+                <span>{{ 'Boolean.' + data.productPrequalification | translate }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'flexPotentials.table.staticGridPrequalification' | translate }}</label>
+                <span>{{ 'Boolean.' + data.staticGridPrequalification | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="field md:col-12 lg:col-6">
+            <div class="preview-data" *ngIf="data.product?.id">
+              <app-product-preview [productId]="data.product.id" [embeddedPreview]="true"></app-product-preview>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'flexPotentials.form.files' | translate | uppercase">
+        <div class="left-border-box">
+          <div class="download-file" *ngFor="let file of data.filesMinimal" (click)="onDownloadFile(file.fileId)">
+            {{ file.fileName }}
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</app-modal>

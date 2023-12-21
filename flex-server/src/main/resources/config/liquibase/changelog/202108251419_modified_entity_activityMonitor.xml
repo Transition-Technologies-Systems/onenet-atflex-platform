@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202108251419" author="">
+        <sql>
+            alter table activity_monitor add (col_new varchar(100));
+            update activity_monitor set col_new = to_char(object_id);
+            alter table activity_monitor drop column object_id;
+            alter table activity_monitor rename column col_new to object_id;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202205230900-fill-column" author="">
+        <sql>
+            UPDATE scheduling_unit_type
+            SET description_pl = description_en
+            WHERE description_pl IS NULL
+        </sql>
+    </changeSet>
+    <changeSet id="202205230900-constraint" author="">
+        <addNotNullConstraint tableName="scheduling_unit_type" columnName="description_pl"/>
+    </changeSet>
+</databaseChangeLog>

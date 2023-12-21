@@ -1,0 +1,77 @@
+{
+  "schedulingUnits": {
+    "actions": {
+      "add": {
+        "btn": "Dodaj nową jednostkę grafikową",
+        "title": "Dodaj jednostkę grafikową",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania jednostki grafikowej"
+      },
+      "edit": {
+        "title": "Edytuj jednostkę grafikową: {{ name }}",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas edytowania jednostki grafikową"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybraną jednostkę grafikową z systemu?",
+        "success": "Wybrana jednostka grafikowa została pomyślnie usunięta",
+        "error": "Wystąpił błąd podczas usuwania wybranej jednostki grafikowej"
+      },
+      "export": {
+        "btn": "Eksportuj do pliku",
+        "allData": "Eksportuj dane wszystkich jednostek grafikowych",
+        "displayedData": "Eksportuj dane wyświetlanych jednostek grafikowych"
+      },
+      "removeDers": {
+        "question": "Czy na pewno chcesz usunąć następujące zasoby z jednostki grafikowej?"
+      }
+    },
+    "filters": {
+      "product": "Produkt",
+      "creationDate": "Data utworzenia",
+      "active": "Aktywna",
+      "lastModified": "Ostatnia modyfikacja"
+    },
+    "form": {
+      "files": "Pliki",
+      "schedulingUnitData": "Dane",
+      "details": "Szczególy jednostki grafikowej",
+      "derTabTitle": "Zasób: {{ name }}({{ fsp }})",
+      "acceptedDers": "Zaakceptowane zasoby",
+      "tooltip": {
+        "certificationNotAvailable": "Nie można certyfikować jednostki grafikowej, jeśli nie zaznaczono jako gotowa do testów",
+        "certificationChangeLocked": "Zmiana certyfikacji Jednostki grafikowej będzie możliwa w dniu {{ value }}"
+      }
+    },
+    "table": {
+      "actions": "Działania",
+      "delete": "Usuń",
+      "id": "ID jednostki grafikowej",
+      "name": "Nazwa",
+      "bsp": "BSP",
+      "schedulingUnitType": "Typ",
+      "numberOfDers": "Liczba zasobów",
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "active": "Aktywna",
+      "readyForTests": "Gotowa do testów",
+      "certified": "Certyfikowana",
+      "version": "Wersja",
+      "schedulingUnit": "Jednostka grafikowa",
+      "couplingPoints": "Punkty sprzężenia",
+      "primaryCouplingPoint": "Główny punkt sprzężenia",
+      "createdBy": "Dodane przez",
+      "lastModifiedBy": "Zmodyfikowane przez",
+      "unitId": "Zasoby",
+      "units": "Zasoby",
+      "unitsDetails": "Lista zasobów",
+      "registered": {
+        "id": "ID"
+      }
+    },
+    "title": "Jednostki grafikowe",
+    "registerTitle": "Zarejestrowane jednostki grafikowe"
+  }
+}

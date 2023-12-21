@@ -1,0 +1,746 @@
+<div class="container">
+  <form [formGroup]="form" *ngIf="form" class="sticky-form">
+    <div class="formgrid grid">
+      <div class="field col-6" *ngIf="auctionType === 'CMVC'">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="fromBids">
+            <app-select
+              [optionObject]="true"
+              optionLabel="value"
+              optionValue="id"
+              [optionWithTooltip]="true"
+              [translateDictionaries]="true"
+              [options]="dictionaries.potentials"
+              formControlName="flexPotential"
+              inputId="field-flexPotential"
+              aria-describedby="flexPotential-help"
+              (ngModelChange)="checkSelectedPotential()"
+            ></app-select>
+            <label for="field-flexPotential">{{ 'auctions.offers.potential' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('flexPotential')?.touched">
+            <small id="flexPotential-help" class="p-error" *ngIf="form.get('flexPotential')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+        <div class="preview-data" *ngIf="form.get('flexPotential')?.value as flexPotential">
+          <app-flex-potentials-preview [flexPotentialId]="flexPotential?.id" [embeddedPreview]="true"></app-flex-potentials-preview>
+        </div>
+      </div>
+      <div class="field col-6" *ngIf="auctionType === 'DAY_AHEAD'">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="fromBids">
+            <app-select
+              [optionObject]="true"
+              optionLabel="value"
+              optionValue="id"
+              [optionWithTooltip]="true"
+              [translateDictionaries]="true"
+              [options]="dictionaries.potentials"
+              formControlName="schedulingUnit"
+              inputId="field-schedulingUnit"
+              aria-describedby="schedulingUnit-help"
+            ></app-select>
+            <label for="field-schedulingUnit">{{ 'auctions.offers.scheduluginUnitPotential' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('schedulingUnit')?.touched">
+            <small id="schedulingUnit-help" class="p-error" *ngIf="form.get('schedulingUnit')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+        <div class="preview-data" *ngIf="form.get('schedulingUnit')?.value as schedulingUnit">
+          <app-scheduling-units-preview [schedulingUnitId]="schedulingUnit?.id" [embeddedPreview]="true"></app-scheduling-units-preview>
+        </div>
+      </div>
+      <div class="field col-6" *ngIf="auctionType === 'DAY_AHEAD' && mode === 'add' && !!form.get('schedulingUnit')?.value">
+        <button
+          appPreventDoubleClick
+          pButton
+          pRipple
+          type="button"
+          [label]="'auctions.offers.downloadTemplateOfBid' | translate"
+          class="p-button-secondary"
+          (click)="downloadTemplate()"
+        ></button>
+        <p-fileUpload
+          [customUpload]="true"
+          (onSelect)="importBid($event)"
+          accept=".xlsx"
+          [chooseLabel]="'auctions.offers.importBid.title' | translate"
+          chooseIcon=""
+          [auto]="false"
+          mode="basic"
+          class="fileupload-button"
+        >
+        </p-fileUpload>
+      </div>
+    </div>
+    <ng-container *ngIf="auctionType === 'DAY_AHEAD' && !showBidsTable">
+      <div class="der-container" *ngFor="let derGroupControl of dersControls; index as index; trackBy: trackByFn">
+        <div class="formgrid grid" *ngIf="form.get('ders.' + index) as groupControl">
+          <div class="field col-6" *ngIf="getControl(groupControl, 'der') as control">
+            <span class="field-control d-flex">
+              <button
+                appPreventDoubleClick
+                pButton
+                pRipple
+                type="button"
+                icon="pi pi-times"
+                class="p-button-rounded p-button-outlined"
+                (click)="removeDer(index)"
+                [pTooltip]="'auctions.offers.removeDer' | translate"
+                tooltipPosition="right"
+                *ngIf="dersControls.length > 1"
+              ></button>
+              <span class="p-float-label" [class.disabled]="control?.disabled">
+                <app-select
+                  [optionObject]="true"
+                  optionLabel="name"
+                  optionValue="id"
+                  [options]="getAvailableDers(index)"
+                  [formControl]="control"
+                  inputId="field-der"
+                  aria-describedby="der-help"
+                  (change)="derChange(index)"
+                ></app-select>
+                <label for="field-der">{{ 'auctions.offers.der' | translate }}</label>
+              </span>
+            </span>
+            <ng-container *ngIf="control?.touched">
+              <small id="der-help" class="p-error" *ngIf="control?.hasError('required')">
+                {{ 'validate.required' | translate }}
+              </small>
+            </ng-container>
+          </div>
+          <div class="field col-3" *ngIf="getControl(groupControl, 'price') as control">
+            <ng-content *ngTemplateOutlet="priceField; context: { $implicit: control }"></ng-content>
+          </div>
+          <div class="field col-3" *ngIf="getControl(groupControl, 'volume') as control">
+            <ng-content *ngTemplateOutlet="volumeField; context: { $implicit: control }"></ng-content>
+          </div>
+        </div>
+      </div>
+      <div class="formgrid grid" *ngIf="dictionaries.ders.length">
+        <div class="field col">
+          <button
+            appPreventDoubleClick
+            pButton
+            pRipple
+            type="button"
+            *ngIf="dersControls.length !== dictionaries.ders.length"
+            [label]="'auctions.offers.addNextDer' | translate"
+            class="p-button-secondary"
+            (click)="addDersGroup()"
+          ></button>
+          <button
+            appPreventDoubleClick
+            pButton
+            pRipple
+            type="button"
+            *ngIf="getAvailableDers(-1).length"
+            [label]="'auctions.offers.addAllDers' | translate"
+            class="p-button-secondary"
+            (click)="addDersGroup(true)"
+          ></button>
+        </div>
+      </div>
+    </ng-container>
+    <div class="formgrid grid" *ngIf="auctionType !== 'DAY_AHEAD'">
+      <div class="field col">
+        <ng-content *ngTemplateOutlet="priceField; context: { $implicit: form.get('price') }"></ng-content>
+      </div>
+      <div class="field col">
+        <ng-content *ngTemplateOutlet="volumeField; context: { $implicit: form.get('volume') }"></ng-content>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-volumeDivisibility">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="volumeDivisibility"
+              inputId="field-volumeDivisibility"
+              [label]="'auctions.offers.volumeDivisibility' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-deliveryPeriodDivisibility">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="deliveryPeriodDivisibility"
+              inputId="field-deliveryPeriodDivisibility"
+              [label]="'auctions.offers.deliveryPeriodDivisibility' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-auctions-data-range-quarters
+      [form]="form"
+      prefix="auctions.offers"
+      [dateDiabled]="true"
+      [min]="minPeriodFrom"
+      [max]="maxPeriodTo"
+      dateControlName="deliveryPeriod"
+      dateToControlName="deliveryPeriodTo"
+      dateFromControlName="deliveryPeriodFrom"
+    ></app-auctions-data-range-quarters>
+
+    <div class="formgrid grid" *ngIf="showBidsTable">
+      <div class="field col-6">
+        <div class="col-12 formgroup-inline" id="field-commonPriceOfBid">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="commonPriceOfBid"
+              inputId="field-commonPriceOfBid"
+              [label]="'auctions.offers.commonsPriceOfBand' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="commonPriceOfBidControl.value">
+      <div class="field xl:col-3 lg:col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.hourNumbers"
+              formControlName="hourNumber"
+              inputId="field-hourNumber"
+              aria-describedby="hourNumber-help"
+            ></app-select>
+            <label for="field-hourNumber">{{ 'auctions.offers.hourNumber' | translate }}</label>
+          </span>
+        </span>
+      </div>
+      <div class="field xl:col-3 lg:col-6" *ngIf="dayAheadAuction?.type === 'ENERGY'">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [optionObject]="true"
+              [options]="dictionaries.bandNumbers"
+              formControlName="bandNumber"
+              inputId="field-bandNumber"
+              aria-describedby="bandNumber-help"
+            ></app-select>
+            <label for="field-bandNumber">{{ 'auctions.offers.bandNumber' | translate }}</label>
+          </span>
+        </span>
+      </div>
+      <div class="field xl:col-3 lg:col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="commonPrice"
+              inputId="field-commonPrice"
+              [negative]="true"
+              [maxInteger]="10"
+              [minFractionDigits]="3"
+              [maxFractionDigits]="3"
+              aria-describedby="commonPrice-help"
+            >
+            </app-input-number>
+            <label for="field-commonPrice">
+              {{ 'auctions.offers.priceCommon' | translate }}
+            </label>
+          </span>
+        </span>
+      </div>
+      <div class="field xl:col-3 lg:col-6 d-flex align-items-center">
+        <button
+          appPreventDoubleClick
+          pButton
+          pRipple
+          type="button"
+          [label]="'actions.apply' | translate"
+          [pTooltip]="'auctions.tooltip.applyCommonPrice' | translate"
+          class="p-button-secondary"
+          (click)="applyCommonPrice()"
+        ></button>
+      </div>
+    </div>
+
+    <ng-container *ngIf="mode === 'edit'">
+      <div class="formgrid grid" *ngIf="auctionType !== 'DAY_AHEAD'">
+        <div class="field col-6" *ngIf="form.get('acceptedVolume') as control">
+          <ng-content *ngTemplateOutlet="acceptedVolume; context: { $implicit: control }"></ng-content>
+        </div>
+      </div>
+      <ng-container *ngIf="!showBidsTable">
+        <div class="der-container" *ngFor="let derGroupControl of dersControls; index as index; trackBy: trackByFn">
+          <div class="formgrid grid" *ngIf="form.get('ders.' + index) as groupControl">
+            <div class="field col-6" *ngIf="getControl(groupControl, 'derDisabled') as control">
+              <span class="field-control">
+                <span class="p-float-label" [class.disabled]="true">
+                  <app-select
+                    [optionObject]="true"
+                    optionLabel="name"
+                    optionValue="id"
+                    [options]="dictionaries.ders"
+                    [formControl]="control"
+                    inputId="field-der"
+                    aria-describedby="der-help"
+                  ></app-select>
+                  <label for="field-der">{{ 'auctions.offers.der' | translate }}</label>
+                </span>
+              </span>
+            </div>
+            <div class="field col-6" *ngIf="getControl(groupControl, 'acceptedVolume') as control">
+              <ng-content *ngTemplateOutlet="acceptedVolume; context: { $implicit: control }"></ng-content>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <app-auctions-data-range-quarters
+        *ngIf="form.get('acceptedDeliveryPeriodFrom') as control"
+        [form]="form"
+        prefix="auctions.offers"
+        [disabled]="control.disabled"
+        [dateDiabled]="true"
+        [min]="form.get('deliveryPeriodFrom')?.value"
+        [max]="form.get('deliveryPeriodTo')?.value"
+        dateControlName="acceptedDeliveryPeriod"
+        dateToControlName="acceptedDeliveryPeriodTo"
+        dateFromControlName="acceptedDeliveryPeriodFrom"
+      ></app-auctions-data-range-quarters>
+    </ng-container>
+  </form>
+
+  <ng-template #acceptedVolume let-formControl>
+    <span class="field-control">
+      <span class="p-float-label" [class.disabled]="formControl.disabled">
+        <app-input-number
+          [formControl]="formControl"
+          inputId="field-acceptedVolume"
+          [max]="9999.99"
+          [minFractionDigits]="0"
+          [maxFractionDigits]="2"
+          aria-describedby="acceptedVolume-help"
+        >
+        </app-input-number>
+        <label for="field-acceptedVolume">
+          {{ 'auctions.offers.' + (autionOfferType === 'CAPACITY' ? 'acceptedVolumeKw' : 'acceptedVolumeKwh') | translate }}
+        </label>
+      </span>
+      <ng-container *ngIf="formControl.touched">
+        <small id="acceptedVolume-help" class="p-error" *ngIf="formControl.hasError('max')">
+          {{ 'validate.max' | translate: { value: formControl.parent?.get('volume')?.value } }}
+        </small>
+        <small id="acceptedVolume-help" class="p-error" *ngIf="formControl.hasError('required')">
+          {{ 'validate.required' | translate }}
+        </small>
+      </ng-container>
+    </span>
+  </ng-template>
+
+  <ng-template #priceField let-formControl>
+    <span class="field-control">
+      <span class="p-float-label">
+        <app-input-number
+          [formControl]="formControl"
+          inputId="field-price"
+          [min]="0"
+          [maxInteger]="5"
+          [minFractionDigits]="2"
+          [maxFractionDigits]="2"
+          aria-describedby="price-help"
+        >
+        </app-input-number>
+        <label for="field-price">
+          {{ 'auctions.offers.' + (autionOfferType === 'CAPACITY' ? 'price' : 'priceKwh') | translate }}
+        </label>
+      </span>
+      <ng-container *ngIf="formControl?.touched">
+        <small id="price-help" class="p-error" *ngIf="formControl?.hasError('required')">
+          {{ 'validate.required' | translate }}
+        </small>
+      </ng-container>
+    </span>
+  </ng-template>
+
+  <ng-template #volumeField let-formControl>
+    <span class="field-control">
+      <span class="p-float-label">
+        <app-input-number
+          [formControl]="formControl"
+          inputId="field-volume"
+          [minFractionDigits]="3"
+          [maxFractionDigits]="3"
+          aria-describedby="volume-help"
+          (onChange)="checkIsVolumeValid($event, formControl)"
+        >
+        </app-input-number>
+        <label for="field-volume">
+          {{ 'auctions.offers.' + (autionOfferType === 'CAPACITY' ? 'volume' : 'volumeKwh') | translate }}
+        </label>
+      </span>
+      <ng-container *ngIf="volumeRange.min > volumeRange.max">
+        <small id="volume-help" class="p-error">
+          {{ 'validate.invalidVolumeRange' | translate }}
+        </small>
+      </ng-container>
+      <ng-container *ngIf="formControl?.touched && volumeRange.min <= volumeRange.max">
+        <small id="volume-help" class="p-error" *ngIf="formControl?.hasError('required')">
+          {{ 'validate.required' | translate }}
+        </small>
+        <small id="volume-help" class="p-error" *ngIf="formControl?.hasError('min') || formControl?.hasError('max')">
+          {{ 'validate.valueNotInRange' | translate: { min: volumeRange.min, max: volumeRange.max } }}
+        </small>
+      </ng-container>
+    </span>
+  </ng-template>
+
+  <ng-container *ngIf="showBidsTable && form">
+    <p-table [value]="dersControls" dataKey="id" responsiveLayout="scroll">
+      <ng-template pTemplate="header">
+        <tr>
+          <th colspan="2" style="width: 200px"></th>
+          <th colspan="2" *ngFor="let hour of hours; trackBy: trackByFn" class="text-center">{{ hour }}</th>
+        </tr>
+        <tr>
+          <th colspan="2">{{ 'auctions.table.positiveBandsVolumeSum' | translate }}</th>
+          <th colspan="2" *ngFor="let hour of hours; trackBy: trackByFn" class="text-center">
+            {{ positiveBandsVolumeSum[hour] | numeral: '0,0.000' || 0 }}
+          </th>
+        </tr>
+        <tr>
+          <th colspan="2">{{ 'auctions.table.selfScheduleSum' | translate }}</th>
+          <th colspan="2" *ngFor="let hour of hours; trackBy: trackByFn" class="text-center">
+            {{ selfScheduleSum[hour] | numeral: '0,0.000' || 0 }}
+          </th>
+        </tr>
+        <tr>
+          <th colspan="2">{{ 'auctions.table.negativeBandsVolumeSum' | translate }}</th>
+          <th colspan="2" *ngFor="let hour of hours; trackBy: trackByFn" class="text-center">
+            {{ negativeBandsVolumeSum[hour] | numeral: '0,0.000' || 0 }}
+          </th>
+        </tr>
+        <tr>
+          <th colspan="2"></th>
+          <ng-container *ngFor="let hour of hours; trackBy: trackByFn">
+            <th [pTooltip]="'auctions.offers.onlyVolume' | translate" tooltipPosition="top">{{ 'auctions.table.volume' | translate }}</th>
+            <th [pTooltip]="'auctions.offers.onlyPrice' | translate" tooltipPosition="top">{{ 'auctions.table.price' | translate }}</th>
+          </ng-container>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-row let-index="rowIndex">
+        <tr>
+          <td class="sticky-ders l-0" #dersSelect>
+            <div class="formgrid grid" *ngIf="form.get('ders.' + index) as groupControl">
+              <div class="field col" *ngIf="getControl(groupControl, 'der') as control">
+                <span class="field-control d-flex">
+                  <button
+                    appPreventDoubleClick
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-outlined"
+                    (click)="removeDer(index)"
+                    [pTooltip]="'auctions.offers.removeDer' | translate"
+                    tooltipPosition="right"
+                    *ngIf="
+                      (dersControls.length > 1 && !control.disabled && isOfferPendingOrNotEdit && !isClosedAuction) ||
+                      (dersControls.length > 1 && isClosedAuction && canSetAcceptedVolume)
+                    "
+                  ></button>
+                  <span class="p-float-label" [class.disabled]="control?.disabled">
+                    <app-select
+                      [optionObject]="true"
+                      optionLabel="name"
+                      optionValue="id"
+                      [options]="getAvailableDers(index)"
+                      [formControl]="control"
+                      inputId="field-der"
+                      aria-describedby="der-help"
+                      (onChange)="derChange(index)"
+                    ></app-select>
+                    <label class="noselect" for="field-der">{{ 'auctions.offers.der' | translate }}</label>
+                  </span>
+                </span>
+                <ng-container *ngIf="control?.touched">
+                  <small id="der-help" class="p-error" *ngIf="control?.hasError('required')">
+                    {{ 'validate.required' | translate }}
+                  </small>
+                </ng-container>
+                <ng-container *ngIf="control?.value !== null && control?.value?.pmin !== null && control?.value?.sourcePower !== null">
+                  <small
+                    ><small id="der-help">
+                      {{
+                        'auctions.offers.limitPowerForBid'
+                          | translate: { unit: getUnit('volume'), Pmin: control?.value?.pmin, Pmax: control?.value?.sourcePower }
+                      }}
+                    </small></small
+                  >
+                </ng-container>
+              </div>
+            </div>
+          </td>
+          <td class="p-0 sticky-ders" [style.left.px]="dersSelect.offsetWidth - 20">
+            <p-table [value]="row.controls.bandData.controls" dataKey="id">
+              <ng-template pTemplate="body" let-bandDataItem let-bandIndex="rowIndex">
+                <tr>
+                  <td class="noselect nested-column-field" [ngClass]="{ 'nested-column-border': bandIndex !== 0 }">
+                    <ng-container *ngIf="bandDataItem.controls.bandNumber.value; else selfScheduleTemplate">
+                      <div class="d-flex align-items-center">
+                        <span>{{ bandDataItem.controls.bandNumber.value > 0 ? '+' : '' }}{{ bandDataItem.controls.bandNumber.value }}</span>
+                        <button
+                          appPreventDoubleClick
+                          *ngIf="
+                            autionOfferType !== 'CAPACITY' &&
+                            !isEmptySelfSchedule[index] &&
+                            isOfferPendingOrNotEdit &&
+                            !isClosedAuction &&
+                            !!row.controls.der.value &&
+                            ((bandIndex === 0 && MAX_BAND_NUMBER > bandDataItem.controls.bandNumber.value) ||
+                              (bandIndex === row.controls.bandData.controls.length - 1 &&
+                                bandDataItem.controls.bandNumber.value > -MAX_BAND_NUMBER))
+                          "
+                          pButton
+                          pRipple
+                          type="button"
+                          icon="pi pi-plus"
+                          class="ml-2 p-button-rounded p-button-text"
+                          (click)="addDersBand(bandDataItem.value, index)"
+                          [pTooltip]="'auctions.offers.addNewDerBand' | translate"
+                          tooltipPosition="bottom"
+                        ></button>
+                        <button
+                          appPreventDoubleClick
+                          *ngIf="
+                            isOfferPendingOrNotEdit &&
+                            autionOfferType !== 'CAPACITY' &&
+                            !isEmptySelfSchedule[index] &&
+                            ((isClosedAuction && canSetAcceptedVolume) || !isClosedAuction) &&
+                            !!row.controls.der.value &&
+                            bandDataItem.controls.bandNumber.value !== 1 &&
+                            bandDataItem.controls.bandNumber.value !== -1
+                          "
+                          pButton
+                          pRipple
+                          type="button"
+                          icon="pi pi-times"
+                          class="ml-2 p-button-rounded p-button-text"
+                          (click)="removeDersBand(bandDataItem.value, index, bandIndex)"
+                          [pTooltip]="'auctions.offers.removeDerBand' | translate"
+                          tooltipPosition="bottom"
+                        ></button>
+                      </div>
+                    </ng-container>
+                    <ng-template #selfScheduleTemplate> {{ 'auctions.offers.selfSchedule' | translate }} </ng-template>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </td>
+          <ng-container *ngFor="let hour of hours; let i = index; trackBy: trackByFn">
+            <td class="p-0" colspan="2">
+              <p-table tableStyleClass="w-100" [value]="row.controls.bandData.controls" dataKey="id">
+                <ng-template pTemplate="body" let-bandDataItem let-bandIndex="rowIndex">
+                  <tr>
+                    <td
+                      class="nested-column-field"
+                      [ngClass]="{ 'nested-column-border': bandIndex !== 0 }"
+                      [class.accepted]="
+                        isClosedAuction &&
+                        bandDataItem.controls.data.controls[i].controls.volume.value !== null &&
+                        bandDataItem.controls.data.controls[i].controls.isEdited.value &&
+                        bandDataItem.controls.data.controls[i].controls.bandNumber.value !== 0
+                      "
+                      [class.changed]="
+                        isClosedAuction &&
+                        bandDataItem.controls.data.controls[i].controls.volume.value !== null &&
+                        bandDataItem.controls.data.controls[i].controls.acceptedVolume.value !==
+                          bandDataItem.controls.data.controls[i].controls.volume.value &&
+                        bandDataItem.controls.data.controls[i].controls.isEdited.value &&
+                        bandDataItem.controls.data.controls[i].controls.bandNumber.value !== 0
+                      "
+                      [class.deleted]="
+                        isClosedAuction &&
+                        bandDataItem.controls.data.controls[i].controls.acceptedVolume.value === null &&
+                        bandDataItem.controls.data.controls[i].controls.volume.value !== null &&
+                        bandDataItem.controls.data.controls[i].controls.isEdited.value &&
+                        bandDataItem.controls.data.controls[i].controls.bandNumber.value !== 0
+                      "
+                      [pTooltip]="getChangedTooltipInformation(bandDataItem.controls.data.controls[i], 'volume')"
+                    >
+                      <ng-container *ngIf="isClosedAuction && bandDataItem.controls.bandNumber.value !== 0; else nonClosedVolumeTemplate">
+                        <ng-content
+                          *ngTemplateOutlet="
+                            tableVolumeField;
+                            context: { $implicit: bandDataItem.controls.data.controls[i].controls.acceptedVolume, index: index }
+                          "
+                        ></ng-content>
+                      </ng-container>
+                      <ng-template #nonClosedVolumeTemplate>
+                        <ng-content
+                          *ngTemplateOutlet="
+                            tableVolumeField;
+                            context: {
+                              $implicit: bandDataItem.controls.data.controls[i].controls.volume,
+                              index: index,
+                              modelChange: null
+                            }
+                          "
+                        ></ng-content>
+                      </ng-template>
+                    </td>
+                    <td
+                      class="nested-column-field"
+                      [ngClass]="{ 'nested-column-border': bandIndex !== 0 }"
+                      [class.accepted]="
+                        isClosedAuction &&
+                        bandDataItem.controls.data.controls[i].controls.price.value !== null &&
+                        bandDataItem.controls.data.controls[i].controls.isEdited.value &&
+                        bandDataItem.controls.data.controls[i].controls.bandNumber.value !== 0
+                      "
+                      [class.changed]="
+                        isClosedAuction &&
+                        bandDataItem.controls.data.controls[i].controls.price.value !== null &&
+                        bandDataItem.controls.data.controls[i].controls.acceptedPrice.value !==
+                          bandDataItem.controls.data.controls[i].controls.price.value &&
+                        bandDataItem.controls.data.controls[i].controls.isEdited.value &&
+                        bandDataItem.controls.data.controls[i].controls.bandNumber.value !== 0
+                      "
+                      [class.deleted]="
+                        isClosedAuction &&
+                        bandDataItem.controls.data.controls[i].controls.acceptedPrice.value === null &&
+                        bandDataItem.controls.data.controls[i].controls.price.value !== null &&
+                        bandDataItem.controls.data.controls[i].controls.isEdited.value &&
+                        bandDataItem.controls.data.controls[i].controls.bandNumber.value !== 0
+                      "
+                      [pTooltip]="getChangedTooltipInformation(bandDataItem.controls.data.controls[i], 'price')"
+                    >
+                      <ng-container *ngIf="isClosedAuction && bandDataItem.controls.bandNumber.value !== 0; else nonClosedPriceTemplate">
+                        <ng-content
+                          *ngTemplateOutlet="
+                            tablePriceField;
+                            context: { $implicit: bandDataItem.controls.data.controls[i].controls.acceptedPrice, index: index }
+                          "
+                        ></ng-content>
+                      </ng-container>
+                      <ng-template #nonClosedPriceTemplate>
+                        <ng-content
+                          *ngTemplateOutlet="
+                            tablePriceField;
+                            context: { $implicit: bandDataItem.controls.data.controls[i].controls.price, index: index }
+                          "
+                        ></ng-content>
+                      </ng-template>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="formgrid grid mt-2" *ngIf="dictionaries.ders.length">
+      <div class="field col">
+        <ng-container *ngIf="isOfferPendingOrNotEdit && !isClosedAuction">
+          <button
+            appPreventDoubleClick
+            pButton
+            pRipple
+            type="button"
+            *ngIf="dersControls.length !== dictionaries.ders.length"
+            [label]="'auctions.offers.addNextDer' | translate"
+            class="p-button-secondary"
+            (click)="addDersGroup()"
+          ></button>
+          <button
+            appPreventDoubleClick
+            pButton
+            pRipple
+            type="button"
+            *ngIf="getAvailableDers(-1).length"
+            [label]="'auctions.offers.addAllDers' | translate"
+            class="p-button-secondary"
+            (click)="addDersGroup(true)"
+          ></button>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #tablePriceField let-formControl let-index="index">
+    <div [pTooltip]="(isEmptySelfSchedule[index] ? 'auctions.table.noSsTooltip' : '') | translate">
+      <span class="field-control">
+        <span class="p-float-label no-label" [class.disabled]="formControl.disabled" [style.height.px]="20">
+          <ng-container *ngIf="renderInputNumbers(formControl)">
+            <app-input-number-contenteditable
+              [formControl]="formControl"
+              [contentEditable]="formControl.enabled"
+              inputId="field-price-table"
+              [negative]="true"
+              [maxInteger]="10"
+              [minFractionDigits]="3"
+              [maxFractionDigits]="3"
+              aria-describedby="price-help-table"
+            >
+            </app-input-number-contenteditable>
+          </ng-container>
+        </span>
+        <ng-container *ngIf="formControl?.touched">
+          <small id="price-help-table" class="p-error" *ngIf="formControl.hasError('max')">
+            {{ 'validate.max' | translate: { value: formControl.parent?.get('price')?.value || 0 } }}
+          </small>
+          <small id="price-help-table" class="p-error" *ngIf="formControl?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template #tableVolumeField let-formControl let-index="index" let-modelChange="modelChange">
+    <div [pTooltip]="(isEmptySelfSchedule[index] ? 'auctions.table.noSsTooltip' : '') | translate">
+      <span class="field-control">
+        <span class="p-float-label no-label" [class.disabled]="formControl.disabled" [style.height.px]="20">
+          <ng-container *ngIf="renderInputNumbers(formControl)">
+            <app-input-number-contenteditable
+              [formControl]="formControl"
+              [contentEditable]="formControl.enabled"
+              inputId="field-volume-table"
+              (ngModelChange)="modelChange ? modelChange($event) : undefined"
+              [maxInteger]="9"
+              [minFractionDigits]="3"
+              [maxFractionDigits]="3"
+              aria-describedby="volume-help-table"
+            >
+            </app-input-number-contenteditable>
+          </ng-container>
+        </span>
+
+        <ng-container *ngIf="formControl && formControl.touched">
+          <small id="volume-help-table" class="p-error" *ngIf="formControl.hasError('max')">
+            {{ 'validate.max' | translate: { value: formControl.parent?.get('volume')?.value || 0 } }}
+          </small>
+          <small id="volume-help-table" class="p-error" *ngIf="formControl?.hasError('bandHourNoFilled')">
+            {{ 'validate.bandHourNoFilled' | translate }}
+          </small>
+          <small id="volume-help-table" class="p-error" *ngIf="formControl?.hasError('timestampNoFilled')">
+            {{ 'validate.timestampNoFilled' | translate }}
+          </small>
+          <small id="volume-help-table" class="p-error" *ngIf="formControl?.hasError('limitExceed')">
+            {{ 'validate.limitExceed' | translate }}
+          </small>
+          <small id="volume-help-table" class="p-error" *ngIf="formControl?.hasError('disabledValue')">
+            {{ 'validate.zeroIsDisabledValue' | translate }}
+          </small>
+          <small id="volume-help-table" class="p-error" *ngIf="formControl?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </span>
+    </div>
+  </ng-template>
+</div>

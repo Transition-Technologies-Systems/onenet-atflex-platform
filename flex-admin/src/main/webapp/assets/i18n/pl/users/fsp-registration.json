@@ -1,0 +1,62 @@
+{
+  "fspRegistration": {
+    "preview": {
+      "title": "Podgląd aplikacji",
+      "actions": {
+        "accept": {
+          "btn": "Zaakceptuj {{ value }}",
+          "question": "Czy na pewno akceptujesz wskazany {{ value }}?",
+          "success": "Wniosek o rejestrację na Platformie Elastyczności \"{{ id }}\" został przyjęty",
+          "error": "Wystąpił błąd podczas akceptowania aplikacji na Platformie Elastyczności"
+        },
+        "markRead": {
+          "btn": "Oznacz jako przeczytane",
+          "question": "Czy na pewno chcesz oznaczyć aplikację Flexibility Platform jako przeczytaną?",
+          "success": "Oznaczono aplikację na Platformie Elastyczności jako przeczytaną",
+          "error": "Wystąpił błąd podczas oznaczania aplikacji na platformie Flexibility jako przeczytanej"
+        },
+        "preConfirm": {
+          "btn": "Utwórz wątek rejestracyjny",
+          "question": "Czy na pewno chcesz utworzyć wątek rejestracyjny?",
+          "success": "Utworzono wątek rejestracyjny na Platformie Elastyczności",
+          "error": "Wystąpił błąd podczas tworzenia wątku rejestracyjnego na Platformie Elastyczności"
+        },
+        "reject": {
+          "btn": "Odrzuć {{ value }}",
+          "question": "Czy jesteś pewien odrzucenia wskazanego {{ value }}?",
+          "success": "Wniosek o rejestrację na Platformie Elastyczności \"{{ id }}\" został odrzucony",
+          "error": "Wystąpił błąd podczas odrzucania aplikacji na Platformie Elastyczności"
+        },
+        "withdraw": {
+          "btn": "Wycofaj swoją aplikację",
+          "question": "Czy jesteś pewien, że wniosek o rejestrację na Platformie Elastyczności został wycofany?",
+          "success": "Wniosek o rejestrację na Platformie Elastyczności \"{{ id }}\" został wycofany przez wnioskodawcę",
+          "error": "Wystąpił błąd podczas wycofywania aplikacji na Platformie Elastyczności"
+        }
+      },
+      "messages": {
+        "init": "Nowy wniosek o rejestrację na Platformie Flexbility \"{{ id }}\": <br/>Imię: {{ firstName }}, Nazwisko: {{ lastName }}, Nazwa firmy: {{ companyName }}, adres e-mail: {{ email }}, numer telefonu: {{ phoneNumber }} ",
+        "READ_BY_ADMIN": "Wniosek o rejestrację na Platformie Elastyczności przeczytał {{ createdBy }}",
+        "ACCEPTED_BY_ADMIN": "Wniosek o rejestrację na Platformie Elastyczności został przyjęty",
+        "REJECTED_BY_ADMIN": "Wniosek o rejestrację na Platformie Elastyczności został odrzucony",
+        "WITHDRAWN_BY_USER": "Wniosek o rejestrację na Platformie Elastyczności został wycofany",
+        "FILE_ADDED": "Dodano plik"
+      }
+    },
+    "title": "Rejestracja",
+    "tabs": {
+      "active": "Aktywne aplikacje",
+      "inactive": "Nieaktywne aplikacje"
+    },
+    "table": {
+      "actions": "Akcje",
+      "applicationId": "ID aplikacji",
+      "name": "Imię",
+      "lastName": "Nazwisko",
+      "companyName": "Nazwa firmy",
+      "creationDate": "Data utworzenia",
+      "lastUpdate": "Ostatnia modyfikacja",
+      "applicationStatus": "Status aplikacji"
+    }
+  }
+}

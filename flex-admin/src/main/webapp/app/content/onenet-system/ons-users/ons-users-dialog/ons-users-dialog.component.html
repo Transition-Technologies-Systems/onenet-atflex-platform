@@ -1,0 +1,70 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'onsUsers.actions.' + mode + '.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button pButton pRipple type="button" [label]="'actions.cancel' | translate" class="p-button-secondary" (click)="close()"></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'onsUsers.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form" [form]="form" appValidatorContainer="onsUser">
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-username"
+              type="text"
+              pInputText
+              formControlName="username"
+              aria-describedby="username-help"
+              autocomplete="new-username"
+            />
+            <label for="field-username">{{ 'onsUsers.dialog.username' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('username')?.touched">
+            <small id="username-help" class="p-error" *ngIf="form.get('username')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="username-help" class="p-error" *ngIf="form.get('username')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 255 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-password"
+              type="password"
+              pInputText
+              formControlName="password"
+              aria-describedby="password-help"
+              autocomplete="new-password"
+            />
+            <label for="field-password">{{ 'onsUsers.dialog.password' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('password')?.touched">
+            <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('minlength')">
+              {{ 'validate.minlength' | translate: { value: 4 } }}
+            </small>
+            <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 100 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div modal-footer></div>
+</app-modal>

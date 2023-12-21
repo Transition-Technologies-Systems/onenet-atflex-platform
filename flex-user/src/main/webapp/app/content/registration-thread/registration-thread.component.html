@@ -1,0 +1,35 @@
+<div class="d-flex d-justify-content-end">
+  <ng-container *appHasAuthority="'FLEX_USER_FSP_REGISTRATION_MANAGE'">
+    <button
+      appPreventDoubleClick
+      pButton
+      pRipple
+      type="button"
+      *ngIf="!isClosed"
+      class="p-button-secondary"
+      [label]="'registrationThread.actions.withdraw.btn' | translate"
+      (click)="withdraw($event)"
+    ></button>
+  </ng-container>
+  <p-confirmPopup></p-confirmPopup>
+</div>
+<div class="chat-messages">
+  <app-chat-messages-container
+    [disabled]="isClosed"
+    [messages]="messages$"
+    [messagesHeader]="messagesHeader"
+    [receiverNotId]="fspUserRegistration.fspUserId"
+    (sendMessage)="onSendMessage($event)"
+    (attchmentDownload)="onAtchmentDownload($event)"
+    sendPermission="FLEX_USER_FSP_REGISTRATION_MANAGE"
+  >
+  </app-chat-messages-container>
+</div>
+
+<ng-template #messagesHeader>
+  <div class="chat-messages-header">
+    <div class="d-flex d-flex-space-between d-flex-align-center">
+      <h2>{{ 'registrationThread.title' | translate }}</h2>
+    </div>
+  </div>
+</ng-template>

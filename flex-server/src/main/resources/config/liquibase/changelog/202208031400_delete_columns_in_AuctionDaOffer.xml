@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202208031400-migrate-data" author="">
+        <sql>
+            INSERT INTO da_offer_band_common_price (auction_offer_id, band_number, common_price)
+            SELECT DISTINCT da_offer.id, band_data.band_number, da_offer.common_price
+            FROM auction_da_offer da_offer
+            JOIN auction_da_offer_ders offer_ders ON offer_ders.offer_id = da_offer.id
+            JOIN auction_da_offer_band_data band_data ON band_data.auction_offer_ders_id = offer_ders.id
+            WHERE band_data.band_number != 0
+            AND da_offer.common_price IS NOT NULL;
+        </sql>
+    </changeSet>
+
+    <changeSet id="202208031400-delete-columns" author="">
+        <dropColumn tableName="auction_da_offer" columnName="bid_common_price"/>
+        <dropColumn tableName="auction_da_offer" columnName="common_price"/>
+    </changeSet>
+</databaseChangeLog>

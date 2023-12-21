@@ -1,0 +1,39 @@
+::ng-deep .notification-overlay {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  z-index: 2000;
+  margin-top: 0;
+
+  .table-box {
+    margin-top: 0;
+  }
+
+  .p-overlaypanel-content {
+    padding: 0;
+
+    .p-tabview-panels {
+      padding: 0 !important;
+      border: none !important;
+    }
+  }
+
+  &:after,
+  &:before {
+    display: none;
+  }
+
+  .not-read {
+    td {
+      background: #e3fed6;
+    }
+  }
+
+  .p-overlaypanel-close {
+    top: 0;
+  }
+
+  .mark-as-read-button {
+    padding: 15px 0 0 15px;
+  }
+}

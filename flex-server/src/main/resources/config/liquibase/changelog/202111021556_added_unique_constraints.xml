@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202111021556" author="">
+        <dropUniqueConstraint tableName="USERS" constraintName="ux_user_login"/>
+        <addUniqueConstraint tableName="USERS" columnNames="login, deleted" constraintName="ux_user_login_deleted"/>
+        <addUniqueConstraint tableName="UNIT" columnNames="name" constraintName="ux_unit_name"/>
+        <addUniqueConstraint tableName="SUBPORTFOLIO" columnNames="name" constraintName="ux_subportfolio_name"/>
+        <addUniqueConstraint tableName="SCHEDULING_UNIT" columnNames="name" constraintName="ux_scheduling_unit"/>
+        <addUniqueConstraint tableName="PRODUCT" columnNames="full_name" constraintName="ux_product_full_name"/>
+        <addUniqueConstraint tableName="PRODUCT" columnNames="short_name" constraintName="ux_product_short_name"/>
+    </changeSet>
+</databaseChangeLog>

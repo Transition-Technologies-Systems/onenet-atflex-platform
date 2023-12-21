@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202107161251" author="">
+        <addColumn tableName="flex_potential">
+            <column name="full_activation_time" type="smallint" remarks="Maximum time for full activation of Flex potential (related with Product)">
+                <constraints nullable="true" />
+            </column>
+            <column name="min_delivery_duration" type="smallint" remarks="Minimum required duration of Flex potential (related with Product)">
+                <constraints nullable="true" />
+            </column>
+            <column name="aggregated" type="boolean" defaultValueBoolean="true" remarks="Is flex potential aggregated (related with Product)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <sql>UPDATE FLEX_POTENTIAL SET full_activation_time = '60'</sql>
+        <sql>UPDATE FLEX_POTENTIAL SET min_delivery_duration = '60'</sql>
+
+        <addNotNullConstraint tableName="flex_potential" columnName="full_activation_time"/>
+        <addNotNullConstraint tableName="flex_potential" columnName="min_delivery_duration"/>
+    </changeSet>
+</databaseChangeLog>

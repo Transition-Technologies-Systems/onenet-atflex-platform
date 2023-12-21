@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202302081130-table" author="">
+        <createTable tableName="onenet_user_consume_data" remarks="Join table for onenet user and consume data tables">
+            <column name="onenet_user_id" type="bigint" remarks="Onenet user identifier from table onenet_user">
+                <constraints nullable="false" />
+            </column>
+            <column name="consume_data_id" type="bigint" remarks="Consume data identifier from table consume_data">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="onenet_user_consume_data" columnNames="onenet_user_id, consume_data_id" />
+        <addForeignKeyConstraint baseTableName="onenet_user_consume_data" baseColumnNames="onenet_user_id" constraintName="fk_ont_usr_cns_dt_usr_id"
+                                 referencedTableName="onenet_user" referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="onenet_user_consume_data" baseColumnNames="consume_data_id" constraintName="fk_ont_usr_cns_dt_data_id"
+                                 referencedTableName="consume_data" referencedColumnNames="id" />
+    </changeSet>
+    
+    <changeSet id="202302081130-indexes" author="">
+        <createIndex tableName="onenet_user_consume_data" indexName="idx_ont_usr_cns_dt_usr_id">
+            <column name="onenet_user_id" type="bigint" />
+        </createIndex>
+        <createIndex tableName="onenet_user_consume_data" indexName="idx_ont_usr_cns_dt_data_id">
+            <column name="consume_data_id" type="bigint" />
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

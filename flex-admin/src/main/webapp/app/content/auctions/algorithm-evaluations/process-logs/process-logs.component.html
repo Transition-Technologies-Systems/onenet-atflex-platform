@@ -1,0 +1,19 @@
+<app-modal [handyScroll]="true" [showFooter]="true" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header>
+    <h2>{{ 'algorithmEvaluations.table.processLogs' | translate }}</h2>
+  </div>
+  <div modal-content class="preview-data">
+    <p-accordion [multiple]="true">
+      <p-accordionTab *ngFor="let log of data" [header]="log.fileName" [selected]="true">
+        <ng-template pTemplate="content">
+          <div class="log-content">
+            <div class="log" *ngFor="let line of log.content; index as index">
+              <span class="line">{{ index + 1 }}</span>
+              <span class="content">{{ line }}</span>
+            </div>
+          </div>
+        </ng-template>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</app-modal>

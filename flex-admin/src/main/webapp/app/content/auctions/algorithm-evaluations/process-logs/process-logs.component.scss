@@ -1,0 +1,14 @@
+.log-content {
+  background: rgba(0, 0, 0, 0.02);
+
+  .log {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+
+    .line {
+      background: rgba(0, 0, 0, 0.03);
+      text-align: right;
+      padding: 0 10px;
+    }
+  }
+}

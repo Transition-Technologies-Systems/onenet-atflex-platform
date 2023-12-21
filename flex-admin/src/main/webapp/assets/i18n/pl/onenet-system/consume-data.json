@@ -1,0 +1,14 @@
+{
+  "consumeData": {
+    "title": "Odczyt danych",
+    "table": {
+      "id": "ID",
+      "title": "Tytuł",
+      "onenetId": "ID ONS",
+      "businessObject": "Obiekt biznesowy",
+      "dataSupplier": "Dostawca danych",
+      "description": "Opis",
+      "file": "Plik"
+    }
+  }
+}

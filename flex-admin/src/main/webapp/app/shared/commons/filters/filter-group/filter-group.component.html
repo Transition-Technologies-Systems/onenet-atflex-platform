@@ -1,0 +1,3 @@
+<div class="filter-group-btn" [class.active]="(activeGroup$ | async) === key" (click)="changeGroup()">
+  <ng-content></ng-content>
+</div>

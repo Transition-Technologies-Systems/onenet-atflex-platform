@@ -1,0 +1,68 @@
+#wrapper-unlogged-page {
+  background-image: url('/assets/images/background.svg');
+  justify-content: center;
+  background-size: cover;
+  align-items: center;
+  display: flex;
+  height: 100%;
+
+  .box {
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(72, 191, 227, 0.6);
+    border-radius: 4px;
+
+    width: 40vw;
+    max-width: 500px;
+    min-height: 200px;
+
+    padding: 40px 20px;
+
+    min-width: 400px;
+    max-width: 100%;
+    margin: 20px 0;
+
+    h1,
+    h2 {
+      font-family: Open Sans;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 36px;
+      line-height: 49px;
+      text-align: center;
+      color: #000000;
+      margin: 0;
+    }
+
+    h2 {
+      margin: 0 0 20px 0;
+    }
+
+    #login-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      width: 60%;
+      max-width: 90%;
+      min-width: 280px;
+      margin: 0 auto;
+
+      .p-float-label {
+        width: 100%;
+      }
+
+      .actions {
+        margin: 15px 0 0 0;
+        white-space: pre;
+        height: 36px;
+      }
+    }
+
+    .manuals {
+      white-space: pre;
+      margin: 0 auto 15px auto;
+      height: 36px;
+      width: 100% !important;
+    }
+  }
+}

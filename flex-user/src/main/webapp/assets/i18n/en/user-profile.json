@@ -1,0 +1,53 @@
+{
+  "userProfile": {
+    "title": "My profile",
+    "form": {
+      "firstName": "Name",
+      "lastName": "Last name",
+      "email": "E-mail address",
+      "phoneNumber": "Phone number",
+      "login": "Login",
+      "activated": "Active",
+      "role": "Role",
+      "organization": "Organization"
+    },
+    "changePassword": {
+      "title": "Change password",
+      "form": {
+        "currentPassword": "Current password",
+        "newPassword": "New password",
+        "repeatNewPassword": "Repeat new password"
+      }
+    },
+    "actions": {
+      "save": "Save changes",
+      "success": "Profile has been updated",
+      "error": "An error occured while updating the profile",
+      "changePasswordSuccess": "Password has been updated",
+      "changePasswordError": "Incorrect current password",
+      "updateEmailNotificationsSuccess": "E-mail notifications settings have been updated"
+    },
+    "notifications": {
+      "title": "E-mail notifications",
+      "saveBtn": "Save"
+    },
+    "notificationObjects": {
+      "UNIT": "DER",
+      "SUBPORTFOLIO": "Subportfolio",
+      "FLEXIBILITY_POTENTIAL": "Flexibility potential",
+      "SCHEDULING_UNIT": "Scheduling unit",
+      "UNIT_ACTIVATION_REMINDER": "Activation",
+      "FSP": "FSP"
+    },
+    "notificationActions": {
+      "CREATION": "Creation",
+      "EDITION": "Modification",
+      "CERTIFICATION": "Certification",
+      "CERTIFICATION_LOSS": "Certification loss",
+      "ASSIGNMENT_TO_REGISTER": "Moved to register",
+      "STATUS_CHANGE": "Change of status",
+      "DAY_AHEAD": "Day-ahead",
+      "CMVC": "CM&VC"
+    }
+  }
+}

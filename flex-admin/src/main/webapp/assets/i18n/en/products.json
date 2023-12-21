@@ -1,0 +1,101 @@
+{
+  "products": {
+    "actions": {
+      "forecastedPrices": {
+        "downloadTemplate": {
+          "btn": "Download forecasted prices template"
+        },
+        "import": {
+          "btn": "Import forecasted prices",
+          "success": "Forecasted prices have been successfully imported",
+          "error": "An unexpected error has occurred. Contact technical support.",
+          "questionHeader": "Confirmation",
+          "reimportQuestion": "Are you sure you want to import forecasted prices for following products again:"
+        },
+        "delete": {
+          "question": "Are you sure to remove the selected forecasted prices from the system?",
+          "success": "The selected forecasted prices has been successfully deleted",
+          "error": "An error occurred while deleting the selected forecasted prices"
+        }
+      },
+      "add": {
+        "btn": "Add new product",
+        "title": "Add product",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "There was an error adding the product"
+      },
+      "edit": {
+        "title": "Edit product: {{ shortName }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "An error occurred while editing the product"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected product from the system?",
+        "success": "The selected product has been successfully deleted",
+        "error": "An error occurred while deleting the selected product"
+      },
+      "export": {
+        "btn": "Export to file",
+        "allData": "Export data of all products",
+        "displayedData": "Export data of displayed products"
+      }
+    },
+    "filters": {
+      "locational": "Is locational",
+      "active": "Active",
+      "product": "Product"
+    },
+    "form": {
+      "prodData": "Product",
+      "details": "Product details",
+      "asmReport": "ASM Report",
+      "files": "Files",
+      "psoUserId": "pSo",
+      "ssoUserIds": "sSo"
+    },
+    "forecastedPrices": {
+      "previewTitle": "Preview forecasted prices",
+      "previewHour": "Day's hour",
+      "previewPrice": "Price [PLN/MWh]",
+      "table": {
+        "actions": "Actions",
+        "delete": "Delete",
+        "id": "ID",
+        "product": "Product",
+        "productFullName": "Product",
+        "forecastedPricesDate": "Date of forecasted prices",
+        "createdBy": "Added by",
+        "createdDate": "Creation date"
+      }
+    },
+    "tabs": {
+      "list": "List of products",
+      "forecastedPrices": "Forecasted prices"
+    },
+    "table": {
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "Product ID",
+      "fullName": "Full name",
+      "shortName": "Short name",
+      "locational": "Is locational",
+      "minBidSize": "Min bid size",
+      "maxBidSize": "Max bid size",
+      "bidSizeUnit": "Bid size unit",
+      "direction": "Direction",
+      "maxFullActivationTime": "Maximum full activation time [sec]",
+      "minRequiredDeliveryDuration": "Minimum required duration of delivery [min]",
+      "lastModifiedDate": "Last modified",
+      "createdDate": "Creation date",
+      "active": "Active",
+      "balancing": "Balancing",
+      "cmvc": "CM&VC",
+      "validFrom": "Valid from",
+      "validTo": "Valid to",
+      "version": "Version"
+    },
+    "title": "Products"
+  }
+}

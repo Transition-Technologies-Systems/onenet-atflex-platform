@@ -1,0 +1,247 @@
+{
+  "auctions": {
+    "actions": {
+      "add": {
+        "btn": "Dodaj nową aukcję",
+        "title": "Dodaj aukcję",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania aukcji"
+      },
+      "bids": {
+        "add": {
+          "btn": "Dodaj nową ofertę",
+          "tooltip": "Dodaj ofertę",
+          "title": "Dodaj ofertę: Aukcja {{ auctionName }}",
+          "saveBtn": "Zapisz",
+          "success": "Zapis udany",
+          "error": "Wystąpił błąd podczas dodawania stawki"
+        },
+        "edit": {
+          "title": "Edytuj ofertę: {{ bidId }}; Aukcja {{ auctionName }}",
+          "saveBtn": "Zapisz",
+          "success": "Zapis udany",
+          "error": "Wystąpił błąd podczas edycji oferty"
+        },
+        "delete": {
+          "question": "Czy na pewno chcesz usunąć wybraną ofertę z systemu?",
+          "success": "Wybrana oferta została pomyślnie usunięta",
+          "error": "Wystąpił błąd podczas usuwania wybranej oferty"
+        }
+      },
+      "bidsEvaluation": {
+        "noSelected": "Nie masz zaznaczonych żadnych ofert",
+        "export": {
+          "btn": "Eksportuj oferty"
+        },
+        "markAGNO": {
+          "accepted": {
+            "btn": "Oznacz AGNO - zaakceptowana",
+            "success": "Akcja \"oznacz AGNO - zaakceptowana\" została pomyślnie wykonana na zaznaczonych ofertach",
+            "error": "Wystąpił błąd podczas wykonywania akcji \"oznacz AGNO - zaakceptowane\" na zaznaczonych ofertach"
+          },
+          "rejected": {
+            "btn": "Oznacz AGNO - odrzucona",
+            "success": "Akcja \"oznacz AGNO - odrzucona\" została pomyślnie wykonana na zaznaczonych ofertach",
+            "error": "Wystąpił błąd podczas wykonywania akcji \"oznacz AGNO - odrzucona\" na zaznaczonych ofertach"
+          }
+        },
+        "markGIA": {
+          "accepted": {
+            "btn": "Oznacz GIA - zaakceptowana",
+            "success": "Akcja \"oznacz GIA - zaakceptowana\" została pomyślnie wykonana na zaznaczonych ofertach",
+            "error": "Wystąpił błąd podczas wykonywania akcji \"oznacz GIA - zaakceptowane\" na zaznaczonych ofertach"
+          },
+          "rejected": {
+            "btn": "Oznacz GIA - odrzucona",
+            "success": "Akcja \"oznacz GIA - odrzucona\" została pomyślnie wykonana na zaznaczonych ofertach",
+            "error": "Wystąpił błąd podczas wykonywania akcji \"oznacz GIA - odrzucona\" na zaznaczonych ofertach"
+          }
+        },
+        "sentToBM": {
+          "btn": "Wyślij do RB",
+          "success": "Akcja \"Wyślij do RB\" została pomyślnie wykonana na zaznaczonych ofertach",
+          "error": "Wystąpił błąd podczas wykonywania akcji \"Wyślij do RB\" na zaznaczonych ofertach"
+        }
+      },
+      "edit": {
+        "title": "Edytuj aukcję: {{ name }}",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "successWithEnd": "Data ostatniej aukcji została zmodyfikowana i nowe aukcje nie będą generowane",
+        "error": "Wystąpił błąd podczas edycji aukcji"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybraną aukcję z systemu?",
+        "success": "Usunięto obiekt aukcji serii",
+        "successWithEnd": "Data ostatniej aukcji została zmodyfikowana i nowe aukcje nie będą generowane",
+        "error": "Wystąpił błąd podczas usuwania wybranej aukcji"
+      }
+    },
+    "cmvc": {
+      "tabs": {
+        "auctions": "Aukcje",
+        "myOffers": "Moje oferty"
+      }
+    },
+    "dayAhead": {
+      "tabs": {
+        "energyAuctions": "Aukcje energii",
+        "capacityAuctions": "Aukcje mocy",
+        "seriesAuctions": "Serie aukcji",
+        "myOffers": "Moje oferty"
+      }
+    },
+    "filters": {
+      "product": "Produkt",
+      "gateOpeningTime": "Czas otwarcia bramki",
+      "gateClosureTime": "Czas zamknięcia bramki",
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "deliveryDate": "Data dostawy"
+    },
+    "offers": {
+      "fspPotentialInfo": "ID: {{ id }}/ Produkt: {{ productName }}/ Wolumen: {{ volume }} {{ volumeUnit }}/ Czas pełnej aktywacji: {{ fullActivationTime }} s/ Minimalny czas dostawy: {{ minDeliveryDuration }} min",
+      "bspPotentialInfo": "ID: {{ id }}/ Nazwa: {{ name }}/ Typ: {{ type }}/ Zasoby: {{ dersData }}",
+      "id": "ID oferty",
+      "addNextDer": "Dodaj kolejny zasób",
+      "addAllDers": "Dodaj wszystkie zasoby",
+      "addNewDerBand": "Dodaj kolejne pasmo",
+      "removeDerBand": "Usuń pasmo",
+      "selfSchedule": "PP",
+      "removeDer": "Usuń DER",
+      "actions": "Działania",
+      "delete": "Usuń",
+      "bidDate": "Data aukcji",
+      "auctionId": "ID aukcji",
+      "auctionName": "Nazwa aukcji",
+      "product": "Produkt",
+      "companyName": "Nazwa firmy",
+      "flexPotential": "FSPA/FSP",
+      "schedulingUnit": "BSP",
+      "potential": "Potencjał",
+      "scheduluginUnitPotential": "Jednostka grafikowa",
+      "potentialFromFlex": "Potencjał",
+      "potentialFromSU": "Potencjał",
+      "bidStatus": "Status oferty",
+      "status": "Status aukcji",
+      "schedulingUnitOrPotential": "Jednostka grafikowa/Potencjał",
+      "auctionStatus": "Status aukcji",
+      "der": "Zasób",
+      "onlyPrice": "Cena",
+      "price": "Cena [PLN/kW]",
+      "priceKwh": "Cena [PLN/kWh]",
+      "onlyVolume": "Wolumen",
+      "volume": "Wolumen",
+      "volumeKwh": "Wolumen [kWh]",
+      "volumeDivisibility": "Podzielność wolumenu",
+      "commonPriceOfBid": "Wspólna cena oferty",
+      "commonsPriceOfBand": "Wspólna cena pasma",
+      "hourNumber": "Godzina",
+      "bandNumber": "Pasmo",
+      "priceCommon": "Cena",
+      "deliveryPeriod": "Okres dostawy",
+      "deliveryPeriodFrom": "Okres dostawy od",
+      "deliveryPeriodTo": "Okres dostawy do",
+      "deliveryPeriodDivisibility": "Podzielność okresu dostawy",
+      "acceptedVolume": "Zaakceptowany wolumen",
+      "acceptedVolumeKw": "Zaakceptowany wolumen [kW]",
+      "acceptedVolumeKwh": "Zaakceptowany wolumen [kWh]",
+      "acceptedDeliveryPeriod": "Zaakceptowany okres dostawy",
+      "acceptedDeliveryPeriodFrom": "Zaakceptowany okres dostawy od",
+      "acceptedDeliveryPeriodTo": "Zaakceptowany okres dostawy do",
+      "downloadTemplateOfBid": "Pobierz szablon oferty",
+      "limitPowerForBid": "Limit[{{unit}}]: {{Pmin}} — {{Pmax}}>",
+      "importBid": {
+        "title": "Zaimportuj ofertę",
+        "success": "Oferta została pomyślnie zaimportowana",
+        "error": "Wystąpił nieoczekiwany błąd. Skontaktuj się z pomocą techniczną."
+      },
+      "tooltip": {
+        "ders": "Zasoby",
+        "potential": "Potencjał"
+      }
+    },
+    "preview": {
+      "product": "Dane produktu",
+      "data": "Atrybuty aukcji",
+      "offers": "Przesłane oferty",
+      "capacityOffers": "Przesłane oferty na moc",
+      "energyOffers": "Przesłane oferty na energię"
+    },
+    "table": {
+      "offerDayAheadTooltip": "Jednostka grafikowa: {{ potentialName }} (ID: {{ potentialId }}), Wolumen: {{ volume }} {{ volumeUnit }}, Cena: {{ price }} {{ priceUnit }}",
+      "offerCmvcTooltip": "Potencjał: {{ potentialId }}, Wolumen: {{ volume }} {{ volumeUnit }}, Cena: {{ price }} {{ priceUnit }}",
+      "actions": "Działania",
+      "delete": "Usuń",
+      "id": "ID",
+      "status": "Status aukcji",
+      "offers": "Moje oferty",
+      "name": "Nazwa aukcji",
+      "product": "Produkt",
+      "localization": "Lokalizacja",
+      "deliveryDate": "Data dostawy",
+      "deliveryDateFrom": "Data dostawy od",
+      "deliveryDateTo": "Data dostawy do",
+      "gateOpeningTime": "Czas otwarcia bramki",
+      "gateClosureTime": "Czas zamknięcia bramki",
+      "minDesiredPower": "Minimalna wymagana moc",
+      "maxDesiredPower": "Maksymalna wymagana moc",
+      "volume": "W",
+      "positiveBandsVolumeSum": "Jednostka grafikowa pasmo +",
+      "selfScheduleSum": "Plan pracy jednostki grafikowej",
+      "negativeBandsVolumeSum": "Jednostka grafikowa pasmo - ",
+      "price": "C",
+      "type": "Typ aukcji",
+      "firstAuctionDate": "Data pierwszej aukcji",
+      "lastAuctionDate": "Data ostatniej aukcji",
+      "maxDesiredCapacity": "Maksymalna wymagana moc",
+      "maxDesiredEnergy": "Maksymalna wymagana energia",
+      "minDesiredCapacity": "Minimalna wymagana moc",
+      "minDesiredEnergy": "Minimalna wymagana energia",
+      "energyGateOpeningTime": "Czas otwarcia bramki - energia",
+      "energyGateClosureTime": "Czas zamknięcia bramki - energia",
+      "capacityGateOpeningTime": "Czas otwarcia bramki - moc",
+      "capacityGateClosureTime": "Czas zamknięcia bramki - moc",
+      "energyAvailability": "Dostawa - energia",
+      "capacityAvailability": "Dostawa - moc",
+      "energyAvailabilityFrom": "Dostawa od - energia",
+      "energyAvailabilityTo": "Dostawa do - energia",
+      "capacityAvailabilityFrom": "Dostawa od - moc",
+      "capacityAvailabilityTo": "Dostawa do - moc",
+      "availability": "Dostawa",
+
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "createdBy": "Utworzone przez",
+      "lastModifiedBy": "Zmodyfikowane przez",
+      "noSsTooltip": "Plan pracy nie został zaimportowany"
+    },
+    "title": {
+      "CMVC": "Zarządzanie przeciążeniem i kontrola napięcia",
+      "DAY_AHEAD": "Day-ahead",
+      "bidsEvaluation": "Ocena ofert"
+    },
+    "tooltip": {
+      "applyCommonPrice": "Upewnij się, że wszystkie wymagane wolumeny są uzupełnione przed zastosowaniem",
+      "changedValue": "Pierwotna wartość: {{ value }} {{ unit }}"
+    }
+  },
+  "error": {
+    "dayAhead": {
+      "offer": {
+        "notSetPriceInAllNonZeroBands": "Nie ustawiono ceny w niezerowych pasmach",
+        "import": {
+          "incoherent": {
+            "self": {
+              "schedule": "Niespójny plan pracy"
+            }
+          },
+          "wrong": {
+            "file": "Oferta nie została zaimportowana. Sprawdź poprawność szablonu."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202306021200-table" author="">
+        <createSequence incrementBy="1" sequenceName="chat_seq" startValue="1" ordered="true"/>
+        <createTable tableName="chat" remarks="Chat table">
+            <column name="id" type="bigint" defaultValueSequenceNext="chat_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="recipient_type" type="varchar(50)" remarks="Type of entity with which chat is initiated">
+                <constraints nullable="false"/>
+            </column>
+            <column name="initiator_type" type="varchar(50)" remarks="Type of entity initiating the chat">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient_user_id" type="bigint" remarks="Id of the user with whom chat is initiated">
+                <constraints nullable="true"/>
+            </column>
+            <column name="recipient_company_id" type="bigint" remarks="Id of the company with which chat is initiated">
+                <constraints nullable="true"/>
+            </column>
+            <column name="initiator_company_id" type="bigint" remarks="Id of the company initiating the chat">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202306021200-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="recipient_user_id" baseTableName="chat"
+                                 constraintName="chat_recipient_user_id" referencedColumnNames="id" referencedTableName="users"/>
+        <addForeignKeyConstraint baseColumnNames="recipient_company_id" baseTableName="chat"
+                                 constraintName="chat_recipient_company_id" referencedColumnNames="id" referencedTableName="fsp"/>
+        <addForeignKeyConstraint baseColumnNames="initiator_company_id" baseTableName="chat"
+                                 constraintName="chat_initiator_company_id" referencedColumnNames="id" referencedTableName="fsp"/>
+    </changeSet>
+
+    <changeSet id="202306021200-audit" author="">
+        <addColumn tableName="chat">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

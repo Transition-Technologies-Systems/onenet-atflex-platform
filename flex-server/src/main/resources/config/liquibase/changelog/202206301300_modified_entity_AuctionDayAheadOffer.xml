@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202206301300-add-columns" author="">
+        <addColumn tableName="auction_da_offer">
+            <column name="price" type="decimal(21,2)" remarks="Value of common_price if set, else average of all introduced prices"/>
+            <column name="volume_from" type="decimal(21,2)" remarks="Beginning of volume range for scheduling unit"/>
+            <column name="volume_to" type="decimal(21,2)" remarks="End of volume range for scheduling unit"/>
+            <column name="accepted_volume_from" type="decimal(21,2)" remarks="Beginning of volume range accepted in bid evaluation process"/>
+            <column name="accepted_volume_to" type="decimal(21,2)" remarks="End of volume range accepted in bid evaluation process"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

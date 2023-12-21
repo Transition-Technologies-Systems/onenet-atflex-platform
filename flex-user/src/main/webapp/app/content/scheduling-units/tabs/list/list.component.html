@@ -1,0 +1,266 @@
+<div class="filters-box">
+  <app-scheduling-unit-filters
+    [isRegister]="isRegister"
+    [initFilters]="viewParameters.staticFilters"
+    (filterData)="filterCollection($event)"
+  ></app-scheduling-unit-filters>
+</div>
+<div class="actions-box">
+  <button
+    appPreventDoubleClick
+    pButton
+    pRipple
+    type="button"
+    [label]="'schedulingUnits.actions.export.btn' | translate"
+    (click)="exportMenu.toggle($event)"
+  ></button>
+  <ng-container *ngIf="!isRegister">
+    <button
+      appPreventDoubleClick
+      *appHasAuthority="'FLEX_USER_SCHEDULING_UNIT_MANAGE'"
+      pButton
+      pRipple
+      type="button"
+      class="p-button-secondary"
+      [label]="'schedulingUnits.actions.add.btn' | translate"
+      (click)="add()"
+    ></button>
+  </ng-container>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th [attr.style]="isRegister ? 'flex: 0 0 46px' : 'flex: 0 0 100px'" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.name" pSortableColumn="name">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.name' | translate }}
+            <p-sortIcon field="name"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.bsp" pSortableColumn="bspId">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.bsp' | translate }}
+            <p-sortIcon field="bspId"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.schedulingUnitType" pSortableColumn="schedulingUnitType">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.schedulingUnitType' | translate }}
+            <p-sortIcon field="schedulingUnitType"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px; max-width: 140px" *ngIf="columnsState.couplingPoints" pSortableColumn="couplingPoints.name">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.couplingPoints' | translate }}
+            <p-sortIcon field="couplingPoints.name"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.primaryCouplingPoint" pSortableColumn="primaryCouplingPoint.name">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.primaryCouplingPoint' | translate }}
+            <p-sortIcon field="primaryCouplingPoint.name"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 160px; max-width: 160px" *ngIf="columnsState.units">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.units' | translate }}
+          </div>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.numberOfDers && !isRegister" pSortableColumn="numberOfDers">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.numberOfDers' | translate }}
+            <p-sortIcon field="numberOfDers"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate" pSortableColumn="createdDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.createdDate' | translate }}
+            <p-sortIcon field="createdDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate" pSortableColumn="lastModifiedDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.lastModifiedDate' | translate }}
+            <p-sortIcon field="lastModifiedDate"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.createdBy && isRegister" pSortableColumn="createdBy">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.createdBy' | translate }}
+            <p-sortIcon field="createdBy"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.lastModifiedBy && isRegister" pSortableColumn="lastModifiedBy">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.lastModifiedBy' | translate }}
+            <p-sortIcon field="lastModifiedBy"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.active && !isRegister" pSortableColumn="active">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.active' | translate }}
+            <p-sortIcon field="active"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.readyForTests && !isRegister" pSortableColumn="readyForTests">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.readyForTests' | translate }}
+            <p-sortIcon field="readyForTests"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 144px" *ngIf="columnsState.certified && !isRegister" pSortableColumn="certified">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'schedulingUnits.table.certified' | translate }}
+            <p-sortIcon field="certified"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete && !isRegister"></th>
+      </tr>
+      <tr class="filter-row">
+        <th [attr.style]="isRegister ? 'flex: 0 0 46px' : 'flex: 0 0 100px'" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.name">
+          <p-columnFilter type="text" field="name" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.bsp">
+          <p-columnFilter type="text" field="bspRepresentativeCompanyName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.schedulingUnitType"></th>
+        <th style="flex: 1 0 140px; max-width: 140px" *ngIf="columnsState.couplingPoints"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.primaryCouplingPoint"></th>
+        <th style="flex: 1 0 160px; max-width: 160px" *ngIf="columnsState.units"></th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.numberOfDers && !isRegister">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="numberOfDers"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate">
+          <p-columnFilter type="date" field="createdDate" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="createdDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate">
+          <p-columnFilter type="date" field="lastModifiedDate" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="lastModifiedDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.createdBy && isRegister">
+          <p-columnFilter type="text" field="createdBy" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 150px" *ngIf="columnsState.lastModifiedBy && isRegister">
+          <p-columnFilter type="text" field="lastModifiedBy" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.active && !isRegister"></th>
+        <th *ngIf="columnsState.readyForTests && !isRegister"></th>
+        <th style="flex: 1 0 144px" *ngIf="columnsState.certified && !isRegister"></th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete && !isRegister"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr [class.certified]="row.certified" [class.no-certified]="!row.certified">
+        <td [attr.style]="isRegister ? 'flex: 0 0 46px' : 'flex: 0 0 100px'" *ngIf="columnsState.actions">
+          <ng-container *ngIf="!isRegister">
+            <i *appHasAuthority="'FLEX_USER_SCHEDULING_UNIT_MANAGE'" class="icon icon--edit c-pointer" (click)="edit(row)"></i>
+          </ng-container>
+          <i class="icon icon--preview c-pointer" (click)="preview(row)"></i>
+        </td>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.name">{{ row.name }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.bsp">{{ row.bsp?.representative?.companyName }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.schedulingUnitType">{{ row.schedulingUnitType?.nlsCode | translate }}</td>
+        <td style="flex: 1 0 140px; max-width: 140px" *ngIf="columnsState.couplingPoints">
+          <app-tooltip>
+            <div class="text-ellipsis">
+              {{ getCouplingPoints(row) }}
+            </div>
+          </app-tooltip>
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.primaryCouplingPoint">{{ row.primaryCouplingPoint?.name }}</td>
+        <td style="flex: 1 0 160px; max-width: 160px" *ngIf="columnsState.units">
+          <app-tooltip>
+            <div class="text-ellipsis">
+              {{ getUnits(row.units) }}
+            </div>
+          </app-tooltip>
+        </td>
+        <td style="flex: 1 0 150px" *ngIf="columnsState.numberOfDers && !isRegister">
+          {{ row.numberOfDers }}({{ row.numberOfDersProposals }})
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.createdDate">{{ row.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 170px" *ngIf="columnsState.lastModifiedDate">{{ row.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td *ngIf="columnsState.createdBy && isRegister">{{ row.createdBy }}</td>
+        <td style="flex: 1 0 150px" *ngIf="columnsState.lastModifiedBy && isRegister">{{ row.lastModifiedBy }}</td>
+        <td *ngIf="columnsState.active && !isRegister">
+          {{ 'Boolean.' + !!row.active | translate }}
+        </td>
+        <td *ngIf="columnsState.readyForTests && !isRegister">
+          {{ 'Boolean.' + !!row.readyForTests | translate }}
+        </td>
+        <td style="flex: 1 0 144px" *ngIf="columnsState.certified && !isRegister">
+          {{ 'Boolean.' + !!row.certified | translate }}
+        </td>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.delete && !isRegister">
+          <i *appHasAuthority="'FLEX_USER_SCHEDULING_UNIT_DELETE'" class="icon icon--delete c-pointer" (click)="delete($event, row)"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>
+
+<p-menu #exportMenu [popup]="true" [model]="exportOptions()" appendTo="body"></p-menu>

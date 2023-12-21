@@ -1,0 +1,22 @@
+<app-filters [form]="filters" (getData)="filter()" state="subportfolio-filters">
+  <app-filter-container>
+    <app-filter type="date-range" controlName="createdDate" name="subportfolio.filters.creationDate"></app-filter>
+    <app-filter type="date-range" controlName="lastModifiedDate" name="subportfolio.filters.lastModified"></app-filter>
+    <app-filter
+      [showHeader]="false"
+      type="multi-select"
+      controlName="active"
+      name="subportfolio.filters.active"
+      [translateDictionaries]="true"
+      [dictionaries]="dictionaries$.boolean | async"
+    ></app-filter>
+    <app-filter
+      [showHeader]="false"
+      type="multi-select"
+      controlName="certified"
+      name="subportfolio.table.certified"
+      [translateDictionaries]="true"
+      [dictionaries]="dictionaries$.boolean | async"
+    ></app-filter>
+  </app-filter-container>
+</app-filters>

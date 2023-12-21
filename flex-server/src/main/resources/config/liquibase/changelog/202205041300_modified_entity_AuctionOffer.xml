@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+
+    <changeSet id="202205051100-sql" author="">
+        <!--przeniesienie ofert dotyczacych aukcji DA do nowej tabeli-->
+        <sql>insert into auction_da_offer
+            (id, auction_day_ahead_id, scheduling_unit_id, status, type, volume_divisibility, delivery_period_from,
+            delivery_period_to,
+            delivery_period_divisibility, accepted_delivery_period_from, accepted_delivery_period_to, created_by,
+            created_date,
+            last_modified_by, last_modified_date)
+            select id, auction_day_ahead_id, scheduling_unit_id, status, type, volume_divisibility,
+            delivery_period_from, delivery_period_to,
+            delivery_period_divisibility, accepted_delivery_period_from, accepted_delivery_period_to, created_by,
+            created_date,
+            last_modified_by, last_modified_date from auction_offer where auction_day_ahead_id is not null
+        </sql>
+        <!--przeniesienie derow skladanaych w ofertach DA do nowej tabeli z derami-->
+        <sql>insert into auction_da_offer_ders(unit_id, offer_id, price, volume, accepted_volume)
+            select unit_id, id, price, volume, accepted_volume from auction_offer where unit_id is not null
+        </sql>
+        <sql>
+            delete from auction_offer
+            where auction_day_ahead_id is not null
+        </sql>
+    </changeSet>
+    <changeSet id="202205051100-column" author="">
+        <dropColumn tableName="auction_offer" columnName="auction_day_ahead_id"/>
+        <dropColumn tableName="auction_offer" columnName="scheduling_unit_id"/>
+        <dropColumn tableName="auction_offer" columnName="unit_id"/>
+    </changeSet>
+    <changeSet id="202205051100-table" author="">
+        <renameTable oldTableName="auction_offer" newTableName="auction_cmvc_offer"/>
+    </changeSet>
+</databaseChangeLog>

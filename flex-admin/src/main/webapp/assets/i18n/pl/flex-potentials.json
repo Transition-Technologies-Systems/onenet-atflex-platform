@@ -1,0 +1,82 @@
+{
+  "flexPotentials": {
+    "actions": {
+      "add": {
+        "btn": "Dodaj nowy potencjał elastyczności",
+        "title": "Dodaj potencjał elastyczności",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania potencjału elastyczności"
+      },
+      "edit": {
+        "title": "Edytuj potencjał elastyczności: {{id}}",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas edytowania potencjału elastyczności"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybrany potencjał elastyczności z systemu?",
+        "success": "Wybrany potencjał elastyczności został pomyślnie usunięty",
+        "error": "Wystąpił błąd podczas usuwania wybranego potencjału elastyczności"
+      },
+      "export": {
+        "btn": "Eksportuj do pliku",
+        "allData": "Eksportuj dane wszystkich potencjałów elastyczności",
+        "displayedData": "Eksportuj dane zaznaczonych potencjałów elastyczności"
+      },
+      "import": {
+        "btn": "Importuj z pliku",
+        "success": "Plik został pomyślnie zaimportowany",
+        "error": "Wystąpił nieoczekiwany błąd. Skontaktuj się z pomocą techniczną."
+      }
+    },
+    "filters": {
+      "der": "Zasób",
+      "validDate": "Ważność"
+    },
+    "form": {
+      "potentialData": "Dane potencjału",
+      "details": "Szczególy potencjału",
+      "id": "Identyfikator potencjału elastyczności",
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "createdBy": "Dodane przez",
+      "lastModifiedBy": "Zmodyfikowane przez",
+      "validFrom": "Ważny od",
+      "validTo": "Ważny do",
+      "active": "Aktywny",
+      "files": "Pliki",
+      "divisibility": "Podzielny"
+    },
+    "table": {
+      "actions": "Akcje",
+      "delete": "Usuwanie",
+      "id": "Id",
+      "productId": "Produkt",
+      "fspId": "FSP/FSPA",
+      "unitId": "Zasoby",
+      "unitsDetails": "Lista zasobów",
+      "schedulingUnit": "Jednostka grafikowa",
+      "volume": "Wolumen",
+      "volumeUnit": "Jednostka wolumenu",
+      "divisibility": "Podzielny",
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "createdBy": "Dodane przez",
+      "lastModifiedBy": "Zmodyfikowane przez",
+      "validFrom": "Ważność od",
+      "validTo": "Ważność do",
+      "active": "Aktywny",
+      "productPrequalification": "Wstępna prekwalifikacja produktu",
+      "staticGridPrequalification": "Wstępna prekwalifikacja statyczna sieci",
+      "version": "Wersja",
+      "fullActivationTime": "Czas pełnej aktywacji [s]",
+      "minDeliveryDuration": "Minimalny czas dostawy [min]"
+    },
+    "title": "Potencjał elastyczności",
+    "registerTitle": "Zarejestrowany potencjał elastyczności",
+    "validate": {
+      "noInProductRange": "Wartość nie mieści się w zakresie atrybutu produktu"
+    }
+  }
+}

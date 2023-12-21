@@ -1,0 +1,247 @@
+{
+  "auctions": {
+    "actions": {
+      "add": {
+        "btn": "Add new auction",
+        "title": "Add auction",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "There was an error adding the auction"
+      },
+      "bids": {
+        "add": {
+          "btn": "Add new bid",
+          "tooltip": "Add bid",
+          "title": "Add bid: Auction {{ auctionName }}",
+          "saveBtn": "Save",
+          "success": "Saving successful",
+          "error": "There was an error adding the bid"
+        },
+        "edit": {
+          "title": "Edit bid: {{ bidId }}; Auction {{ auctionName }}",
+          "saveBtn": "Save",
+          "success": "Saving successful",
+          "error": "An error occurred while editing the bid"
+        },
+        "delete": {
+          "question": "Are you sure to remove the selected bid from the system?",
+          "success": "The selected bid has been successfully removed",
+          "error": "An error occurred while deleting the selected bid"
+        }
+      },
+      "bidsEvaluation": {
+        "noSelected": "You do not have any offers selected",
+        "export": {
+          "btn": "Export bids"
+        },
+        "markAGNO": {
+          "accepted": {
+            "btn": "Mark AGNO - accepted",
+            "success": "The action \"mark AGNO - accepted\" was successfully done on the marked offers",
+            "error": "There was an error while doing the action \"mark AGNO - accepted\" on the marked offers"
+          },
+          "rejected": {
+            "btn": "Mark AGNO - rejected",
+            "success": "The action \"mark AGNO - rejected\" was successfully done on the marked offers",
+            "error": "There was an error while doing the action \"mark AGNO - rejected\" on the marked offers"
+          }
+        },
+        "markGIA": {
+          "accepted": {
+            "btn": "Mark GIA - accepted",
+            "success": "The action \"mark GIA - accepted\" was successfully done on the marked offers",
+            "error": "There was an error while doing the action \"mark GIA - accepted\" on the marked offers"
+          },
+          "rejected": {
+            "btn": "Mark GIA - rejected",
+            "success": "The action \"mark GIA - accepted\" was successfully done on the marked offers",
+            "error": "There was an error while doing the action \"mark GIA - accepted\" on the marked offers"
+          }
+        },
+        "sentToBM": {
+          "btn": "Sent to BM",
+          "success": "The action \"sent to BM\" was successfully done on the marked offers",
+          "error": "There was an error while doing the action \"sent to BM\" on the marked offers"
+        }
+      },
+      "edit": {
+        "title": "Edit auction: {{ name }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "successWithEnd": "Last auction date has been modified and new auctions will not generate",
+        "error": "An error occurred while editing the auction"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected auction from the system?",
+        "success": "Series auction object has been deleted",
+        "successWithEnd": "Last auction date has been modified and new auctions will not generate",
+        "error": "An error occurred while deleting the selected auction"
+      }
+    },
+    "cmvc": {
+      "tabs": {
+        "auctions": "Auctions",
+        "myOffers": "My offers"
+      }
+    },
+    "dayAhead": {
+      "tabs": {
+        "energyAuctions": "Energy auctions",
+        "capacityAuctions": "Capacity auctions",
+        "seriesAuctions": "Series auctions",
+        "myOffers": "My offers"
+      }
+    },
+    "filters": {
+      "product": "Product",
+      "gateOpeningTime": "Gate opening time",
+      "gateClosureTime": "Gate closure time",
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "deliveryDate": "Delivery date"
+    },
+    "offers": {
+      "fspPotentialInfo": "ID: {{ id }}/ Product: {{ productName }}/ Volume: {{ volume }} {{ volumeUnit }}/ Full activation time: {{ fullActivationTime }} sec/ Minimum duration of delivery: {{ minDeliveryDuration }} min",
+      "bspPotentialInfo": "ID: {{ id }}/ Name: {{ name }}/ Type: {{ type }}/ DERs: {{ dersData }}",
+      "id": "Bid ID",
+      "addNextDer": "Add next DER",
+      "addAllDers": "Add all DERs",
+      "addNewDerBand": "Add new band",
+      "removeDerBand": "Remove band",
+      "selfSchedule": "SS",
+      "removeDer": "Remove DER",
+      "actions": "Actions",
+      "delete": "Delete",
+      "auctionId": "Auction ID",
+      "auctionName": "Auction name",
+      "product": "Product",
+      "companyName": "Company name",
+      "bidDate": "Bid date",
+      "flexPotential": "FSPA/FSP",
+      "schedulingUnit": "BSP",
+      "potential": "Potential",
+      "scheduluginUnitPotential": "Scheduling unit",
+      "potentialFromFlex": "Potential",
+      "potentialFromSU": "Potential",
+      "status": "Status",
+      "bidStatus": "Bid status",
+      "schedulingUnitOrPotential": "Scheduling unit/Potential",
+      "auctionStatus": "Auction status",
+      "der": "DER",
+      "onlyPrice": "Price",
+      "price": "Price [PLN/kW]",
+      "priceKwh": "Price [PLN/kWh]",
+      "onlyVolume": "Volume",
+      "volume": "Volume",
+      "volumeKwh": "Volume [kWh]",
+      "volumeDivisibility": "Volume divisibility",
+      "commonPriceOfBid": "Common price of bid",
+      "commonsPriceOfBand": "Common price of band",
+      "hourNumber": "Timestamp",
+      "bandNumber": "Band",
+      "priceCommon": "Price",
+      "deliveryPeriod": "Delivery period",
+      "deliveryPeriodFrom": "Delivery period from",
+      "deliveryPeriodTo": "Delivery period to",
+      "deliveryPeriodDivisibility": "Delivery period divisibility",
+      "acceptedVolume": "Accepted volume",
+      "acceptedVolumeKw": "Accepted volume [kW]",
+      "acceptedVolumeKwh": "Accepted volume [kWh]",
+      "acceptedDeliveryPeriod": "Accepted delivery period",
+      "acceptedDeliveryPeriodFrom": "Accepted delivery period from",
+      "acceptedDeliveryPeriodTo": "Accepted delivery period to",
+      "downloadTemplateOfBid": "Download template of bid",
+      "limitPowerForBid": "Limit[{{unit}}]: {{Pmin}} — {{Pmax}}",
+      "importBid": {
+        "title": "Import bid",
+        "success": "Bid has been imported successfully",
+        "error": "An unexpected error has occurred. Contact technical support."
+      },
+      "tooltip": {
+        "ders": "DERs",
+        "potential": "Potential"
+      }
+    },
+    "preview": {
+      "product": "Product data",
+      "data": "Auction attributes",
+      "offers": "Submitted offers",
+      "capacityOffers": "Submitted capacity offers",
+      "energyOffers": "Submitted energy offers"
+    },
+    "table": {
+      "offerDayAheadTooltip": "Scheduling unit: {{ potentialName }} (ID: {{ potentialId }}), Volume: {{ volume }} {{ volumeUnit }}, Price: {{ price }} {{ priceUnit }}",
+      "offerCmvcTooltip": "Potential: {{ potentialId }}, Volume: {{ volume }} {{ volumeUnit }}, Price: {{ price }} {{ priceUnit }}",
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "ID",
+      "status": "Auction status",
+      "offers": "My offers",
+      "name": "Auction name",
+      "product": "Product",
+      "localization": "Localization",
+      "deliveryDate": "Delivery date",
+      "deliveryDateFrom": "Delivery date time from",
+      "deliveryDateTo": "Delivery date time to",
+      "gateOpeningTime": "Gate opening time",
+      "gateClosureTime": "Gate closure time",
+      "minDesiredPower": "Min desired power",
+      "maxDesiredPower": "Max desired power",
+      "volume": "V",
+      "price": "P",
+      "positiveBandsVolumeSum": "Scheduling unit band +",
+      "selfScheduleSum": "Scheduling unit's self-schedule",
+      "negativeBandsVolumeSum": "Scheduling unit band -",
+      "type": "Auction type",
+      "firstAuctionDate": "First auction date",
+      "lastAuctionDate": "Last auction date",
+      "maxDesiredCapacity": "Max desired capacity",
+      "maxDesiredEnergy": "Max desired energy",
+      "minDesiredCapacity": "Min desired capacity",
+      "minDesiredEnergy": "Min desired energy",
+      "energyGateOpeningTime": "Gate opening time - energy",
+      "energyGateClosureTime": "Gate closure time - energy",
+      "capacityGateOpeningTime": "Gate opening time - capacity",
+      "capacityGateClosureTime": "Gate closure time - capacity",
+      "energyAvailability": "Delivery - energy",
+      "energyAvailabilityFrom": "Delivery from - energy",
+      "energyAvailabilityTo": "Delivery to - energy",
+      "capacityAvailability": "Delivery - capacity",
+      "capacityAvailabilityFrom": "Delivery from - capacity",
+      "capacityAvailabilityTo": "Delivery to - capacity",
+      "availability": "Delivery",
+
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "createdBy": "Created by",
+      "lastModifiedBy": "Modified by",
+      "noSsTooltip": "Self-schedule has not been imported"
+    },
+    "title": {
+      "CMVC": "Congestion Management & Voltage Control",
+      "DAY_AHEAD": "Day-ahead",
+      "bidsEvaluation": "Bids evaluation"
+    },
+    "tooltip": {
+      "applyCommonPrice": "Be sure to fill all needed volumes before applying",
+      "changedValue": "Original value: {{ value }} {{ unit }}"
+    }
+  },
+  "error": {
+    "dayAhead": {
+      "offer": {
+        "notSetPriceInAllNonZeroBands": "Price not set in all non-zero bands",
+        "import": {
+          "incoherent": {
+            "self": {
+              "schedule": "Incoherent self-schedule"
+            }
+          },
+          "wrong": {
+            "file": "Bid has not been imported. Check correctness of the template."
+          }
+        }
+      }
+    }
+  }
+}

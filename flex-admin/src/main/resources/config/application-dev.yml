@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: dev
+    include:
+      - swagger
+      # Uncomment to activate TLS for the dev profile
+      #- tls
+  devtools:
+    restart:
+      enabled: true
+  jackson:
+    serialization:
+      indent-output: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 11MB
+
+server:
+  port: 8080
+  compression:
+    enabled: false
+
+logging:
+  path: C:/flexibility-platform/log/flex-admin
+  level:
+    ROOT: DEBUG
+    io.github.jhipster: DEBUG
+    pl.com.tt.flex.admin: DEBUG
+
+management:
+  metrics:
+    export:
+      # Prometheus is the default metrics backend
+      prometheus:
+        enabled: true
+        step: 60
+
+application:
+  websocket-address: ws://localhost:8080

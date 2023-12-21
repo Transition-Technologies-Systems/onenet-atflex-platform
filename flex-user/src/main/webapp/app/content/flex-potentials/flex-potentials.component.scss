@@ -1,0 +1,18 @@
+:host ::ng-deep .p-fileupload-basic {
+  .p-messages {
+    display: none;
+  }
+}
+
+tr {
+  &.preq {
+    > td {
+      background: #e3fed6 !important;
+    }
+  }
+  &.no-preq {
+    > td {
+      background: #f7f7bf !important;
+    }
+  }
+}

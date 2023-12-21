@@ -1,0 +1,210 @@
+@import 'assets/scss/mixins';
+@import 'assets/scss/variables';
+
+::ng-deep {
+  app-filter-group + app-filter-group {
+    margin-left: 5px;
+  }
+}
+
+.filters {
+  margin-bottom: 15px;
+  .filters-header {
+    display: flex;
+    flex-direction: row-reverse;
+
+    .filters-toogle {
+      cursor: pointer;
+      display: flex;
+      padding: 0 15px;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 10;
+      border-bottom: 0px;
+      margin: 0 10px;
+
+      .icon--arrows {
+        width: 10px;
+        margin-left: 4px;
+      }
+    }
+
+    .filters-groups {
+      margin-left: 35px;
+
+      &.hidden {
+        visibility: hidden;
+      }
+    }
+
+    .filters-additional {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+  }
+
+  .filters-container {
+    background-color: $filters-background;
+    box-shadow: $filters-box-shadow;
+    border-radius: 10px;
+    position: relative;
+
+    .content {
+      &.hidden {
+        display: none;
+      }
+    }
+
+    h3 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      padding: 15px 20px 0;
+    }
+
+    .filters-content {
+      padding: 5px 20px 15px 20px;
+
+      &.hidden {
+        visibility: hidden;
+      }
+
+      .filter-tabs {
+        &:not(:empty) {
+          padding-bottom: 10px;
+        }
+
+        .tab {
+          transition: all 0.2s ease-in-out 0s;
+          border-bottom: 4px solid #c4cdcf;
+          padding: 4px 40px 4px 0;
+          display: inline-block;
+          color: #626e73;
+          font-weight: 700;
+          cursor: pointer;
+
+          &.active,
+          &:hover {
+            border-bottom: 4px solid #25778e;
+            color: #25778e;
+          }
+        }
+      }
+
+      .filters-body {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+
+        .filters-container-wrap {
+          flex-wrap: wrap;
+        }
+
+        .filter-actions-wrap {
+          flex-direction: row;
+          padding: 5px;
+        }
+
+        .filter {
+          display: flex;
+          padding-right: 15px;
+          margin: 5px 0;
+          align-items: center;
+          vertical-align: bottom;
+          transition: all 0.2s ease-in-out 0s;
+          color: #686868;
+          padding: 0 5px;
+
+          .both-calendar {
+            ::ng-deep input {
+              min-width: 160px;
+            }
+          }
+
+          app-calendar + app-calendar {
+            margin-left: 5px;
+          }
+
+          app-calendar {
+            ::ng-deep {
+              .p-calendar-w-btn {
+                height: 36px;
+              }
+            }
+          }
+
+          ::ng-deep {
+            .field-checkbox {
+              display: flex;
+            }
+
+            .static-filter-calendar .p-inputtext {
+              padding-top: 6px;
+              font-family: Roboto Condensed;
+              color: #05358f;
+              font-style: normal;
+              font-weight: bold;
+              font-size: 16px;
+              line-height: 16px;
+            }
+
+            .p-multiselect,
+            .p-dropdown {
+              min-width: 120px;
+              height: 36px;
+              min-height: 36px !important;
+              border: 2px solid $input-border-color;
+
+              .p-multiselect-label {
+                padding-top: 8px !important;
+              }
+            }
+          }
+
+          app-checkbox {
+            min-width: auto !important;
+            width: auto !important;
+          }
+
+          label {
+            margin-bottom: 0px !important;
+            margin-right: 4px;
+            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            font-family: Roboto Condensed;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            text-transform: uppercase;
+
+            color: #05358f;
+          }
+
+          input {
+            max-width: 160px;
+          }
+
+          &.date-range {
+            padding-right: 0px;
+
+            .filter-from,
+            .filter-to {
+              padding-right: 15px;
+              display: flex;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .row-style {
+    .filters-body {
+      flex-direction: column;
+    }
+  }
+}

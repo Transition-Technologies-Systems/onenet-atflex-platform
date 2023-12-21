@@ -1,0 +1,47 @@
+{
+  "kpi": {
+    "title": "KPI",
+    "filters": {
+      "type": "KPI",
+      "date": "Date"
+    },
+    "table": {
+      "id": "ID",
+      "type": "KPI",
+      "createdDate": "Creation date",
+      "createdBy": "Created by",
+      "date": "Set parameters",
+      "generate": "Generate"
+    },
+    "actions": {
+      "generate": "Generate"
+    },
+    "types": {
+      "ACTIVE_PARTICIPATION": "Active participation",
+      "NUMBER_OF_FSPS": "Number of FSPs",
+      "NUMBER_OF_TRANSACTIONS": "Number of transactions",
+      "VOLUME_OF_TRANSACTIONS": "Volume of transactions",
+      "VOLUME_OF_TRANSACTIONS_CLEARED_BIDS" : "Volume of transactions - cleared bids",
+      "AVAILABLE_FLEXIBILITY" : "Available flexibility",
+      "PERCENTAGE_OF_SUCCESSFULLY_PREQUALIFIED_DERS" : "Percentage of successfully prequalified distributed energy resources",
+      "NUMBER_OF_DERS_WITH_AT_LEAST_ONE_FP" : "Number of certified DERs for at least one flexibility product",
+      "CAPACITY_OF_CERTIFIED_DERS_WITH_AT_LEAST_ONE_FP" : "Capacity of certified DERs for at least one flexibility product",
+      "VOLUME_OF_BALANCING_SERVICE_OFFERS_UP_RESERVES" : "Volume of balancing service offers for UP reserves",
+      "VOLUME_OF_BALANCING_SERVICE_OFFERS_UP_RESERVES_TRANSFERRED_TO_BM" : "Volume of balancing service offers for UP reserves transferred to BM",
+      "VOLUME_OF_BALANCING_SERVICE_OFFERS_DOWN_RESERVES" : "Volume of balancing service offers for DOWN reserves",
+      "VOLUME_OF_BALANCING_SERVICE_OFFERS_DOWN_RESERVES_TRANSFERRED_TO_BM" : "Volume of balancing service offers for DOWN reserves transferred to BM",
+      "VOLUME_OF_BALANCING_ENERGY_OFFERS" : "Volume of balancing energy offers",
+      "VOLUME_OF_BALANCING_ENERGY_OFFERS_TRANSFERRED_TO_BM" : "Volume of balancing energy offers transferred to BM",
+      "REQUEST_FLEXIBILITY_POWER" : "Requested flexibility (power)",
+      "FLEX_VOLUME_OFFERED_VS_FLEX_REQUESTED_BY_DSO" : "Flex volume offered by FSP vs Flex request by DSO",
+      "NUMBER_AVOIDED_TECHNICAL_RESTRICTIONS" : "Number of avoided technical restrictions",
+      "NUMBER_AVOIDED_TECHNICAL_RESTRICTIONS_VOL_VIOLATIONS" : "Number of avoided technical restrictions (voltage violations)",
+      "NUMBER_OF_DER_AVAILABLE_FOR_BSP" : "Number of DERs available for BSPs",
+      "PERCENTAGE_RESOURCES_AVAILABLE_FOR_BALANCING_SERVICES" : "Percentage of resources available for balancing",
+      "TOTAL_CAPACITY_OF_DERS_AVAILABLE_FOR_BSP" : "Total capacity of DER available for BSP",
+      "AVERAGE_RUNTIME_AGNO_ALGORITHM" : "Average runtime of aggregated network offer algorithm",
+      "POWER_EXCHANGE_DEVIATION" : "Power exchange deviation",
+      "ENERGY_EXCHANGE_DEVIATION" : "Energy exchange deviation"
+    }
+  }
+}

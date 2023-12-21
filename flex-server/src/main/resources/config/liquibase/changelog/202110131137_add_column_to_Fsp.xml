@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202110131137" author="">
+        <addColumn tableName="FSP">
+            <column name="company_name" type="varchar(254)" remarks="Company name of FSP" defaultValue="COMPANY_NAME_DEFAULT"/>
+        </addColumn>
+
+        <sql>
+            update FSP fsp set fsp.company_name = (select u.company_name from USERS u where u.id = fsp.owner_id)
+        </sql>
+
+        <addUniqueConstraint tableName="FSP" columnNames="company_name" constraintName="ux_company_name"/>
+        <addNotNullConstraint tableName="FSP" columnName="company_name" />
+
+        <dropColumn tableName="users" columnName="company_name"/>
+    </changeSet>
+</databaseChangeLog>

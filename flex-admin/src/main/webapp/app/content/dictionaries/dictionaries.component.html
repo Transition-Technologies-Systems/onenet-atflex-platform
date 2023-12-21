@@ -1,0 +1,236 @@
+<h1 class="title">{{ 'dictionariesPage.title.' + dictionaryType | translate }}</h1>
+<p-confirmPopup [baseZIndex]="20000"></p-confirmPopup>
+<div class="actions-box">
+  <button
+    appPreventDoubleClick
+    *appHasAuthority="'FLEX_ADMIN_PRODUCT_MANAGE'"
+    pButton
+    pRipple
+    type="button"
+    class="p-button-secondary"
+    [label]="'dictionariesPage.actions.add.btn' | translate"
+    (click)="add()"
+  ></button>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 0 0 80px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.name" pSortableColumn="name">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.name' | translate }}
+            <p-sortIcon field="name"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.areaName" pSortableColumn="areaName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.areaName' | translate }}
+            <p-sortIcon field="areaName"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.type" pSortableColumn="type">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.type' | translate }}
+            <p-sortIcon field="type"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.sderPoint" pSortableColumn="sderPoint">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.sderPoint' | translate }}
+            <p-sortIcon field="sderPoint"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.lvModel" pSortableColumn="lvModel">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.lvModel' | translate }}
+            <p-sortIcon field="lvModel"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.descriptionEn" pSortableColumn="descriptionEn">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.descriptionEn' | translate }}
+            <p-sortIcon field="descriptionEn"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.descriptionPl" pSortableColumn="descriptionPl">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.descriptionPl' | translate }}
+            <p-sortIcon field="descriptionPl"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.products" pSortableColumn="products">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.products' | translate }}
+            <p-sortIcon field="products"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate" pSortableColumn="createdDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.createdDate' | translate }}
+            <p-sortIcon field="createdDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.lastModifiedDate" pSortableColumn="lastModifiedDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.lastModifiedDate' | translate }}
+            <p-sortIcon field="lastModifiedDate"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 120px" *ngIf="columnsState.action">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'dictionariesPage.table.action' | translate }}
+          </div>
+        </th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+      <tr class="filter-row">
+        <th style="flex: 0 0 80px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.name">
+          <p-columnFilter type="text" field="name" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.areaName">
+          <p-columnFilter type="text" field="areaName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.type">
+          <p-columnFilter field="type" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="type"
+                [options]="isDerType ? dictionaries.derTypes : dictionaries.localizationTypes"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.sderPoint">
+          <p-columnFilter type="text" field="sderPoint" matchMode="equals"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.lvModel">
+          <p-columnFilter field="lvModel" matchMode="in" [showMenu]="false">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-multiselect
+                inputId="lvModel"
+                [options]="dictionaries.boolean"
+                [ngModel]="value"
+                styleClass="multiselect-filter-row"
+                iconClass="icon icon--expand-white"
+                (onChange)="filter($event.value)"
+              ></app-multiselect>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.descriptionEn">
+          <p-columnFilter type="text" field="descriptionEn" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.descriptionPl">
+          <p-columnFilter type="text" field="descriptionPl" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 200px" *ngIf="columnsState.products"></th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.createdDate">
+          <p-columnFilter type="date" field="createdDate" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="createdDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.lastModifiedDate">
+          <p-columnFilter type="date" field="lastModifiedDate" matchMode="gte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="lastModifiedDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th style="flex: 1 0 120px" *ngIf="columnsState.action"></th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td style="flex: 0 0 80px" *ngIf="columnsState.actions">
+          <i *appHasAuthority="getPermission('MANAGE')" class="icon icon--edit c-pointer" (click)="edit(row)"></i>
+          <i class="icon icon--preview c-pointer" (click)="preview(row)"></i>
+        </td>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td style="flex: 1 0 200px" *ngIf="columnsState.name">{{ row.name }}</td>
+        <td style="flex: 1 0 200px" *ngIf="columnsState.areaName">{{ row.areaName }}</td>
+        <td style="flex: 1 0 200px" *ngIf="columnsState.type">
+          {{ (isDerType ? 'DerType.' : 'LocalizationType.') + row.type | translate }}
+        </td>
+        <td *ngIf="columnsState.sderPoint">{{ row.sderPoint }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.lvModel">{{ 'Boolean.' + row.lvModel | translate }}</td>
+        <td style="flex: 1 0 200px" *ngIf="columnsState.descriptionEn">{{ row.descriptionEn }}</td>
+        <td style="flex: 1 0 200px" *ngIf="columnsState.descriptionPl">{{ row.descriptionPl }}</td>
+        <td style="flex: 1 0 200px" *ngIf="columnsState.products">
+          <div [pTooltip]="getProductValues(row)" class="text-ellipsis" style="max-width: 200px">
+            {{ getProductValues(row) }}
+          </div>
+        </td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.createdDate">{{ row.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.lastModifiedDate">{{ row.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td style="flex: 1 0 120px" *ngIf="columnsState.action">
+          <button
+            appPreventDoubleClick
+            pButton
+            pRipple
+            [label]="'dictionariesPage.table.buttons.addModel' | translate"
+            (click)="addKdmModelForArea(row)"
+          ></button>
+        </td>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.delete">
+          <i *appHasAuthority="getPermission('DELETE')" class="icon icon--delete c-pointer" (click)="delete($event, row)"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

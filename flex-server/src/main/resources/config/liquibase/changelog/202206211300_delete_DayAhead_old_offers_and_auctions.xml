@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202206201500-delete-table-data" author="" dbms="oracle">
+        <sql>
+            DELETE FROM auction_da_offer_band_data;
+            DELETE FROM auction_da_offer_ders;
+            DELETE FROM auction_da_offer;
+            DELETE FROM auction_day_ahead;
+            DELETE FROM auctions_series;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202206301000-fill-columns" author="">
+        <sql>
+            UPDATE unit SET p_min = 0 WHERE p_min IS NULL;
+            UPDATE unit SET q_min = 0 WHERE q_min IS NULL;
+            UPDATE unit SET q_max = 100 WHERE q_max IS NULL;
+        </sql>
+    </changeSet>
+</databaseChangeLog>

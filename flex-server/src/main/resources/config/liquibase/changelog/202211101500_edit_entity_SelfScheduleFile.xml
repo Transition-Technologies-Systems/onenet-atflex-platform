@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+
+    <changeSet id="202211101500-add-not-null-constraint" author="" dbms="oracle">
+        <addNotNullConstraint tableName="unit_self_schedule_volume" columnName="unit_self_schedule_id"/>
+    </changeSet>
+
+    <!-- H2 changeSet - Blad H2 w testach: Reason: liquibase.exception.DatabaseException: Kolumna "UNIT_SELF_SCHEDULE_ID" nie może zawierać wartości pustej  -->
+    <changeSet id="202211101500-create-table-self_schedule_volume" author="" dbms="h2">
+        <createTable tableName="unit_self_schedule_volume" remarks="Self schedule volumes table">
+            <column name="unit_self_schedule_id" type="bigint"
+                    remarks="Self schedule der identifier from table unit_self_schedule">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hour_number" type="varchar(2)" remarks="The hour number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volume" type="decimal(22,3)" remarks="Self schedule volume">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="unit_self_schedule_id, hour_number" tableName="unit_self_schedule_volume"/>
+
+        <addForeignKeyConstraint baseColumnNames="unit_self_schedule_id" baseTableName="unit_self_schedule_volume"
+                                 constraintName="fk_uss_volume_uss_id"
+                                 referencedColumnNames="id" referencedTableName="self_schedule_file"/>
+    </changeSet>
+
+    <changeSet id="202211101500-delete-file-columns" author="" dbms="h2">
+        <dropColumn tableName="self_schedule_file" columnName="file_name"/>
+        <dropColumn tableName="self_schedule_file" columnName="file_zip_data"/>
+        <dropColumn tableName="self_schedule_file" columnName="file_extension"/>
+    </changeSet>
+
+    <changeSet id="202211101500-rename_table_and_sequence" author="" dbms="h2">
+        <renameTable oldTableName="self_schedule_file" newTableName="unit_self_schedule"/>
+    </changeSet>
+</databaseChangeLog>

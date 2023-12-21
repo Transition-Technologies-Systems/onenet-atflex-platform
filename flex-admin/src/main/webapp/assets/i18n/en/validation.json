@@ -1,0 +1,335 @@
+{
+  "error": {
+    "emailExists": "The given e-mail already exists in system",
+    "badCredentials": "Bad credentials",
+    "objectModifiedByAnotherUser": "The object has been modified by another user - make the modification on the latest version",
+    "unexpectedError": "An unexpected error occured",
+    "userIsNotActivated": "Your account is inactive",
+    "userLoginNotFound": "User login not found",
+    "userEmailNotFound": "User e-mail not found",
+    "bidsEvaluation": {
+      "cannotExportBecauseOffersNotFoundForGivenDeliveryDate": "There are no offers for the given delivery date",
+      "cannotExportBecauseNoTypeOfBidsSelected": "You haven't selected any type of bids",
+      "cannotAcceptAlreadyAcceptedOrRejectedOffer": "Could not accept/reject the offer again.",
+      "cannotChangeStatusAuctionNotClosed": "Cannot change offer status while auction is open",
+      "cannotAcceptNotAllVolumesAreVerified": "Cannot accept offer if not all volumes are verified"
+    },
+    "user": {
+      "cannotSetPasswordDueToIncorrectLength": "Password must contain at least 4 characters",
+      "cannotDeleteBecauseUserIsFspOwner": "User cannot be deleted because it is the owner of FSP",
+      "patternLogin": "This field can only contain letters, digits and e-mail addresses.",
+      "userExists": "User with this login already exists in the system",
+      "cannotDeleteBecauseUserHasActiveProduct": "This user cannot be removed because they have an active product",
+      "cannotChangeUserFspBecauseUserIsFspOwner": "The user cannot be edited FSP because he is the owner of the FSP",
+      "cannotActivateFspUserWhichFspIsNotActivated": "The user cannot be activated because its FSP is not active",
+      "emailExists": "The given e-mail already exists in system",
+      "uniqueUserEmail": "The given e-mail already exists in system",
+      "uniqueUserLogin": "User with this login already exists in the system",
+      "cannotChangeEmailForExistingUser": "E-mail address cannot be changed for existing user"
+    },
+    "flexPotential": {
+      "newFlexibilityPotentialHasBeenAddedBeforeSavingThisOne": "New flexibility potential has been added before saving this one",
+      "cannotBeActiveBecauseDateNowIsNotBetweenValidFromToDates": "Flexibility potential cannot be active before period of validity. It will change automatically to active at the beginning of period of validity.",
+      "fpExceedsTheExpiryDateOfTheUnit": "The potential exceeds the expiry date of DER",
+      "fpVolumeIsNotBetweenMinMaxProductBidSize": "The potential's volume is not between the product's 'Min bid size' and 'Max bid size'",
+      "cannotDeleteActive": "The potential should be deactivated before removal.",
+      "cannotImportWrongFileExtension": "The specified file cannot be imported. Available format: xlsx",
+      "cannotImportInvalidHeaders": "The loaded file should be in the form of a file exported from the system.",
+      "cannotImportIncorrectDataToImport": "The loaded file contains invalid data",
+      "productIsNotActive": "Product is not active",
+      "fpExceedsTheExpiryDateOfTheProduct": "The potential exceeds the expiry date of the product",
+      "unitIsNotActive": "DER is not active",
+      "cannotMoveEmptyFlexPotentialToFlexRegister": "Cannot move Flex Potential with no DERs to flex register",
+      "atLeastOneDerTypeMustBeSelectedForDer": "At least one DER must be selected for DER",
+      "selectedDerTypeReceptionIsNotReceptionType": "Selected subtype for Reception field is not 'Reception' type",
+      "selectedDerTypeEnergyStorageIsNotEnergyStorageType": "Selected subtype for Energy storage field is not 'Energy storage' type",
+      "selectedDerTypeGenerationIsNotGenerationType": "Selected subtype for Generation field is not 'Generation' type",
+      "nothingToExport": "No objects to export."
+    },
+    "unit": {
+      "fieldPowerStationHasIncorrectLocalizationType": "Field \"Power station MV/LV number\" has incorrect localization type",
+      "cannotBeActiveBecauseDateNowIsNotBetweenValidFromToDates": "DER cannot be active before period of validity. It will change automatically to active at the beginning of period of validity.",
+      "maxOneGeoLocations": "A non-aggregate DER allows you to define up to one location",
+      "cannotDeactivateBecauseOfActiveFlexPotentials": "It is not possible to deactivate an DER related to active potentials",
+      "cannotDeleteBecauseOfJoinedFlexPotentials": "All potentials provided by the DER indicated must be removed before removing the DER",
+      "cannotDeleteBecauseOfJoinedChilds": "All potentials provided by the DER indicated must be removed before removing the DER",
+      "uniqueUnitName": "This name already exists in the system",
+      "cannotDeactivateBecauseOfJoinedSubportfolios": "It is not possible to deactivate an DER related to subportfolios",
+      "cannotRemoveCertificationBecauseOfJoinedSubportfolios": "It is not possible to remove certification from a DER related to subportfolios",
+      "cannotRemoveCertificationWhileAssignedToReadyForTestsSU": "It is not possible to remove certification from a DER assigned to scheduling unit with status \"Ready for tests\"",
+      "nothingToExport": "No objects to export."
+    },
+    "product": {
+      "cannotBeActiveBecauseDateNowIsNotBetweenValidFromToDates": "Product cannot be active before period of validity. It will change automatically to active at the beginning of period of validity.",
+      "cannotDeactivateBecauseOfActiveFlexPotentials": "It is not possible to deactivate an product related to active potentials",
+      "cannotDeleteBecauseOfJoinedFlexPotentials": "All potentials provided by the product must be removed before removing the product",
+      "uniqueProductShortName": "This short name already exists in the system",
+      "uniqueProductFullName": "This full name already exists in the system",
+      "userHasNoAuthorityToModifyUnitCertified": "User hasn't authority to modyfify DER certified",
+      "cannotModifyFullNameBecauseIsOngoingAuctionWithThisProduct": "There is an ongoing auction with this product. Wait until it is closed",
+      "oneOfBalancingAndCmvcShouldBeMarked": "One of balancing and CM&VC should be marked",
+      "nothingToExport": "No objects to export."
+    },
+    "fsp": {
+      "cannotDeactivateBecauseOfActiveFlexPotentials": "The service provider's FSP cannot be deactivated",
+      "cannotDeleteBecauseOfJoinedFlexPotentials": "All potentials provided by the FSP must be removed before removing the FSP",
+      "nothingToExport": "No objects to export."
+    },
+    "derType": {
+      "cannotDeleteBecauseDerTypeIsUsedByUnit": "DER type cannot be deleted, because it's used by DER"
+    },
+    "schedulingUnitType": {
+      "cannotDeleteBecauseSchedulingUnitTypeIsUsedBySchedulingUnit": "Scheduling unit type cannot be deleted, because it's used by Scheduling Unit",
+      "cannotCreateBecauseSchedulingUnitTypeWithThisDescriptionAlreadyExist": "Scheduling unit type cannot be created, because scheduling unit type with this description already exist",
+      "cannotUpdateBecauseSchedulingUnitTypeWithThisDescriptionAlreadyExist": "Scheduling unit type cannot be updated, because scheduling unit type with this description already exist"
+    },
+    "schedulingUnit": {
+      "cannotDeleteActive": "You cannot remove an active scheduling unit.",
+      "uniqueScheduligUnitName": "The name already exists in the system",
+      "cannotChangeSchedulingUnitTypeBecauseItIsMarkedAsReadyForTests": "Cannot change SchedulingUnit type because it is marked as ready for tests",
+      "cannotChangeSchedulingUnitTypeBecauseSomeDERIsAlreadyJoinedToIt": "Cannot change SchedulingUnit type of scheduling unit because of existing connection with DER",
+      "userHasNoAuthorityToModifySchedulingUnitCertified": "User is not authorized to modify field 'certified'",
+      "schedulingUnitCannotBeCertifiedIfItIsNotMarkedAsReadyForTests": "Scheduling unit cannot be certified if it is not marked as ready for tests",
+      "cannotRemoveBecauseSchedulingUnitHasJoinedDERs": "Cannot remove because Scheduling Unit has joined DERs",
+      "cannotRemoveBecauseSchedulingUnitHasProposalsDERs": "Cannot remove because Scheduling Unit has proposals DERs",
+      "cannotRemoveDersFromSuMarkedAsReadyForTests": "Cannot remove DERs from scheduling unit marked as Ready for tests",
+      "cannotRemoveDersFromSuMarkedAsCertified": "Cannot remove DERs from from scheduling unit marked as Certified",
+      "cannotMoveEmptySchedulingUnitToFlexRegister": "Cannot move scheduling unit with no DERs to flex register",
+      "cannotRemoveCertificationFromSuWithOpenAuctionOffer": "Cannot remove certification because scheduling unit is used in auction offer with status \"Pending\" or \"Volumes Verified\"",
+      "cannotRemoveCertificationFromSuWithOngoingDelivery": "Cannot remove certification because delivery period of an auction the scheduling unit is used in has not yet passed",
+      "nothingToExport": "No objects to export."
+    },
+    "schedulingUnitProposal": {
+      "unitIsAlreadyJoinedToSchedulingUnit": "The DER is already attached to the scheduling unit",
+      "fspOwnerOfProposedUnitHasAlreadyJoinedOtherUnitsToAnotherBsp": "FSP owner has already joined other DERs to another BSP",
+      "fspaUnitIsNotJoinedToAnySubportfolio": "FSPA DER is not joined to any subportfolio",
+      "someUnitFromSubportfolioOfProposedUnitIsAlreadyJoinedToAnotherBSP": "Some DER from subportfolio of proposed DER is already joined to another BSP",
+      "someUnitFromSubportfolioOfProposedUnitIsAlreadyJoinedToAnotherSchedulingUnitOfProposedBSP": "Some DER from subportfolio of proposed DER is already joined to another scheduling unit belonging to proposed BSP",
+      "proposalAlreadyExists": "Proposal already exists",
+      "cannotCreateOrAcceptSchedulingUnitProposalBecauseSchedulingUnitIsMarkedAsReadyForTests": "Cannot create/accept DER proposals because Scheduling Unit is marked as ready for tests",
+      "cannotResendBecauseOfWrongCurrentStatus": "Cannot resend because of wrong current status",
+      "cannotCreatePropositionBecauseAlreadyExistsFromOppositeSide": "Proposition already exists. Check your \"Propositions\" tab in \"Partnership invitations/propositions\" window",
+      "cannotCreateInvitationBecauseAlreadyExistsFromOppositeSide": "Invitation already exists. Check your \"Invitations\" tab in \"Partnership invitations/propositions\" window",
+      "cannotJoinDerToSuBecauseDerIsNotLinkedWithAllProductThatAreInSuType": "DER cannot be joined to SchedulingUnit because DER is not linked with all the Products that are in the SchedulingUnit type"
+    },
+    "subportfolio": {
+      "cannotDeleteActive": "You cannot remove an active subportfolio.",
+      "uniqueSubportfolioName": "The name already exists in the system",
+      "cannotAddDersNotBelongingToAnotherFspa": "Cannot add DERs that belong to another FSPA",
+      "cannotAddDersInSchedulingUnit": "Cannot add DERs already assigned to a scheduling unit",
+      "cannotDeleteSubportfolioContainingDers": "Cannot delete subportfolio containing DERs",
+      "cannotCertifySubportfolioWithoutDers": "Cannot certify subportfolio without DERs",
+      "nothingToExport": "No objects to export."
+    },
+    "auctionSeries": {
+      "capacityGateClosureTimeIsBeforeCapacityGateOpeningTime": "Capacity gate closure time is before capacity gate opening time",
+      "capacityMinDesiredIsGreaterThanCapacityMaxDesired": "Capacity min desired is greater than capacity max desired",
+      "capacityMinDesiredIsLessThanProductMinBidSize": "Capacity min desired is less than product min bid size",
+      "capacityMaxDesiredIsGreaterThanProductMaxBidSize": "Capacity min desired is greater than product max bid size",
+      "energyGateClosureTimeIsBeforeEnergyGateOpeningTime": "Energy gate closure time is before energy gate opening time",
+      "energyMinDesiredIsGreaterThanEnergyMaxDesired": "Energy min desired is greater than energy max desired",
+      "energyMinDesiredIsLessThanProductMinBidSize": "Energy min desired is less than product min bid size",
+      "energyMaxDesiredIsGreaterThanProductMaxBidSize": "Energy max desired is greater than product max bid size",
+      "lastAuctionDateIsBeforeFirstAuctionDate": "Last auction date is before first auction date",
+      "firstAuctionDateIsBeforeProductValidFrom": "First auction date is before product valid from date",
+      "lastAuctionDateIsAfterProductValidTo": "Last auction date is after product valid to date",
+      "firstAuctionDayMayStartTomorrowAtTheEarliest": "The first auctions may start tomorrow at the earliest",
+      "energyAvailabilityToIsBeforeEnergyAvailabilityFrom": "'Energy availability to' is before 'energy availability from'",
+      "capacityAvailabilityToIsBeforeCapacityAvailabilityFrom": "'Capacity availability to' is before 'capacity availability from'",
+      "requiredFieldsAreNotCompleted": "Required fields are not completed",
+      "capacityGateTimeAndEnergyGateTimeIsOverlapped": "Capacity gate time and energy gate time is overlapped",
+      "cannotModifyProductInAuctionSeries": "Cannot modify product in auction series",
+      "cannotModifyAuctionTypeInAuctionSeries": "Cannot modify auction type in auction series",
+      "cannotModifyFirstAuctionDateBecauseDayAheadAuctionHaveAlreadyStarted": "Cannot modify first auction date, because Day Ahead auctions have already started",
+      "gateOpeningTimeMustBeLater": "The earliest gate opening time is 01:15:00",
+      "cannotModifyLastAuctionDateBecauseExistsAuctionsAfterGivenDate": "Cannot modify last auction date, because exists auctions after given date",
+      "capacitySeriesHasProductWithWrongDirection": "Allowed product direction in Capacity Series: DOWN, UP",
+      "energySeriesHasProductWithWrongDirection": "Allowed product direction in Energy Series: UNDEFINED"
+    },
+    "dayAhead": {
+      "offer": {
+        "cannotCreateOfferBecauseAuctionIsNotOpen": "Can't create offer beacause auction is not open",
+        "cannotModifyOfferBecauseAuctionIsNotOpen": "Can't modify offer beacause auction is not open",
+        "cannotChangeSchedulingUnitInSubmittedOffer": "Cannot change scheduling unit in already submitted offer",
+        "cannotChangeBspNameNorSchedulingUnitInSubmittedOffer": "Cannot change BSP name nor scheduling unit in submitted offer",
+        "notAllRequiredHoursHaveBeenTyped": "Not all required hours have been typed",
+        "notSetVolumeInAllBands": "Not set volume in all bands",
+        "acceptedVolumeHigherThanVolume": "The volume cannot be higher than the original",
+        "bandZeroMustHaveVolumeFromSelfSchedule": "The zero band volumes do not match the DER self-schedules",
+        "cannotDeleteOfferBecauseItsUsedInCalculations": "Can't delete offer because it's used in calculations",
+        "notSetRequiredBandsInEnergyOffer": "Please fill at least one band of any DER in empty timestamp or remove this empty timestamp.",
+        "derLimitExceededInAtLeastOneTimestamp": "Volume limit exceeded in at least one timestamp",
+        "userHasNoPrivilegesToEditBid": "You have no privileges to edit bid"
+      }
+    },
+    "auctionCmvc": {
+      "deliveryDateToBeforeDeliveryDateFrom": "Delivery start date must be before the finish date",
+      "gateClosureTimeBeforeGateOpeningTime": "Gate opening date must be before gate closure date",
+      "maxDesiredPowerIsBiggerThanMinDesiredPower": "Maximum delivered power cannot be grater than the minimum",
+      "gateClosureTimeIsAfterDeliveryDateFrom": "Gate closing date cannot be after the delivery start date",
+      "productIsInactiveOrDateValidToExpired": "The product is inactive or expired",
+      "cannotDeleteOpenAuction": "The auction should not be active before removal",
+      "cannotDeleteClosedAuction": "The auction should not be closed before removal",
+      "auctionNameNotUnique": "Auction has not been added. Detected simultaneous addition of the auction for the same product.",
+      "offer": {
+        "cannotCreateOfferBecauseAuctionIsNotOpen": "Can't create offer beacause auction is not open",
+        "cannotModifyOfferBecauseAuctionIsNotOpen": "Cant't modify offer beacuse auction is not open",
+        "volumeOfOfferCannotBeGraterThanVolumeOfPotential": "Volume of offer can't be grater than volume of potential",
+        "cannotChangeFlexPotentialInSubmittedOffer": "Cannot change flex potential in already submitted offer",
+        "cannotChangeFspNameNorFlexPotentialInSubmittedOffer": "Cannot change FSP name nor flex potential in already submitted offer",
+        "modificationOfOfferIsOnlyAllowedIfOfferStatusIsPending": "Modification of offer is only allowed if offer status is pending",
+        "acceptedVolumeOfOfferCannotExceedTheRange": "Accepted volume of offer cannot exceed the range",
+        "deliveryPeriodHasInvalidMinute": "Delivery period has an incorrect minute",
+        "acceptedDeliveryPeriodHasInvalidMinute": "Accepted delivery period has an incorrect minute",
+        "acceptedDeliverPeriodFromToAreOverlapped": "Accepted delivery from must be before accepted delivery to"
+      }
+    },
+    "cannotAddBid": {
+      "offer": {
+        "cannotAddBid": "Unable to add offer"
+      }
+    },
+    "validation": {
+      "schedulingUnitProposal": "Cannot create proposal to scheduling unit marked as ready for tests"
+    },
+    "auction": {
+      "offer": {
+        "import": {
+          "templateIncorrect": "Invalid file. Possible cause of error: <br> 1. File has incorrect structure, which could not be read <br> 2. File contains incorrect offer ID <br> 3. File is correct, but proper mechanism of import has not been chosen",
+          "noOffersToImport": "No offers to import",
+          "couldNotFindMatchingId": "Could not find matching ID",
+          "couldNotIdentifyNameOfStatus": "Could not identify name of status",
+          "notAllowedToChangeAcceptedVolume": "Not allowed to change accepted value",
+          "notAllowedToChangeAcceptedDeliveryPeriod": "Not allowed to change accepted delivery period",
+          "wrongFormatOfAcceptedVolume": "Wrong format of \"Accepted volume\" ",
+          "wrongFormatOfAcceptedDeliveryPeriod": "Wrong format of \"Accepted delivery period\"",
+          "acceptedDeliveryPeriodCannotExceedTheDeliveryPeriodRange": "Accepted delivery period cannot exceed the delivery period range",
+          "acceptedDeliveryPeriodCannotHaveZeroLength": " You cannot set the same hours for Accepted delivery period. Accepted delivery period must be at least one hour long.",
+          "acceptedVolumeCannotBeGreaterThanVolumeOfOffer": "Accepted volume cannot be greater than volume of offer",
+          "importSuVolumeCannotBeGreaterThanInitialSuVolumeOfOffer": "Accepted volume of scheduling unit cannot be higher(up bands) or lower(down bands) than initial value",
+          "couldNotImportBecauseAuctionIsOpen": "Could not import because auction is open",
+          "cannotImportDaBecauseFindInvalidSchedulingUnitVolume": "Wrong format of \"Scheduling unit volume\"",
+          "cannotImportDaBecauseFindInvalidSchedulingUnitPrice": "Wrong format of \"Scheduling unit price\"",
+          "cannotChangeSchedulingUnitPrice": "Could not change \"Scheduling unit prices\"",
+          "cannotChangeSelfScheduleVolumes": "Could not change \"Self schedule volumes\"",
+          "cannotImportBidWithStatusAcceptedOrRejected": "Cannot import offers with status \"Accepted\" or \"Rejected\"",
+          "couldNotImportBecauseNotAllowedStatusChange": "Cannot change status of offer, when it is already \"Accepted\" or \"Rejected\"",
+          "idNotSpecified": "The imported file does not contain bid ID",
+          "other": "Undefined error appeared",
+          "nothingChanged": "No changes have been detected. Nothing was updated",
+          "incoherentSelfSchedule": "Incoherent self-schedule",
+          "noValidTimestamps": "The file was not imported. At least one hour with volume and price filled in required.",
+          "activePowerOutOfRange": "Value of preset power exceeds technical limits of grid model. Limit: {{pmin}}kW - {{pmax}}kW, preset power {{activePower}}kW.",
+          "notUpdatedDerPresent": "{{derNames}} has not updated volumes. Please check offer {{offerIds}} and make needed adjustments.",
+          "severalNotUpdatedDersPresent": "{{derNames}} have not updated volumes. Please check offer {{offerIds}} and make needed adjustments.",
+          "canOnlyImportDaOfferWithStatusVolumesVerified": "Imported offer must have \"Volumes Verified\" status",
+          "acceptedVolumeCannotBeLowerThanZero": "Accepted volume cannot be lower than 0",
+          "volumeInBandCannotBeModifiedIfHigherBandExists": "Value in lower band cannot be reduced, if higher band exists."
+        }
+      }
+    },
+    "selfSchedule": {
+      "templateIncorrect": "Self-schedules has not been imported due to error in file: {{files}}. Check correctness of the template",
+      "importUncertifiedDer": "Can't import self-schedule for uncertified DER. Error in files: {{files}}",
+      "precisionTooHigh": "The self-schedule value can have up to 3 decimal places. Error in files: {{files}}",
+      "derExceedsTechnicalLimits": "Could not import self-schedules, because values of self-schedule of {{files}} do not fall between DERs Pmin and Pmax",
+      "dersExceedTechnicalLimits": "Could not import self-schedules, because values of self-schedules of {{files}} do not fall between DERs Pmin and Pmax",
+      "notAllowedToImportSelfScheduleWithPastOrCurrentDate": "You are not allowed to import self-schedule with past or current date. Incorrect files: {{files}}",
+      "cannotDeleteBecauseSelfScheduledDayHasAlreadyStartedOrEnded": "You are not allowed to delete self-schedule with past or current date",
+      "cannotDeleteBecauseSelfScheduleUsedInOffer": "Can't delete because self schedule is already used in auction offer",
+      "cannotImportIfAdminUsedFspsTemplate": "Import failed. You used user's template. Please use template for administrator. Wrong files: {{files}}",
+      "cannotImportIfFspUsedAdminsTemplate": "Import failed. This template is not permitted for your role. Please use template for users. Wrong files: {{files}}",
+      "SAVING_THE_SAME_SELF_SCHEDULES": "You cannot import the same DER ({{files}}) few times on the same date. Please check correctness of the template"
+    },
+    "forecastedPrices": {
+      "templateIncorrect": "Forecasted prices has not been imported due to error in file: {{files}}. Check correctness of the template",
+      "notAllowedToImportForecastedPricesWithPastOrCurrentDate": "You are not allowed to import forecasted prices with past or current date",
+      "cannotDeleteForecastedPricesBecauseForecastDayHasAlreadyStartedOrEnded": "You are not allowed to delete forecasted prices with past or current date",
+      "SAVING_THE_SAME_FORECASTED_PRICES": "You cannot import the same product({{files}}) few times on the same date. Please check correctness of the template"
+    },
+    "agnoAlgorithm": {
+      "cannotFindForecastedPrices": "Forecasted prices have not been imported",
+      "agnoAlgorithmCannotBeRunBecauseNoBidsHaveBeenSubmitted": "The algorithm cannot be run because no bids have been submitted",
+      "agnoAlgorithmCannotBeRunSelectedOffersIsNotCompatibleWithSelectedAlgorithmType": "The algorithm cannot be started because the selected offers are not suitable for the selected algorithm",
+      "agnoAlgorithmCannotBeRunBecauseLackingKdmModelForTimestamp": "Lacking KDM model for timestamp {{value}}. Please upload file for this timestamp",
+      "cannotCancelNotRunningAlgorithm": "You cannot cancel finished evaluation",
+      "comparison": {
+        "oneOfferPerCouplingPointAllowed": "One bid allowed per connection point"
+      },
+      "agnoAlgorithmCannotBeRunBecauseDerWasNotFoundInChosenKdmModel": "{{value}} cannot be found in chosen KDM model. Adjust its localization attributes or choose other KDM model.",
+      "agnoAlgorithmCannotBeRunBecauseDersWereNotFoundInChosenKdmModel": "{{value}} cannot be found in chosen KDM model. Adjust their localization attributes or choose other KDM model.",
+      "pbcmDanoAlgorithmCannotBeRunBecauseDerCannotBeFoundInChosenKdmModelDespiteHavingConnectionWithPocWithLv": "{{value}} has point of connection with LV, but cannot be found in chosen KDM model. Adjust its localization attributes or choose other KDM model.",
+      "pbcmDanoAlgorithmCannotBeRunBecauseDersCannotBeFoundInChosenKdmModelDespiteHavingConnectionWithPocWithLv": "{{value}} have points of connection with LV, but cannot be found in chosen KDM model. Adjust their localization attributes or choose other KDM model."
+    },
+    "algorithm": {
+      "import": {
+        "couldNotParseBecauseNoFilesFound": "Couldn't parse beacuse no files found",
+        "notUpdatedDerPresent": "{{derNames}} has not updated volumes. Please check offer {{offerIds}} and make needed adjustments.",
+        "severalNotUpdatedDersPresent": "{{derNames}} have not updated volumes. Please check offer {{offerIds}} and make needed adjustments."
+      }
+    },
+    "api": {
+      "unknownErrorConnectingToOnenetSystem": "Error connecting with OneNet System. Contact technical support.",
+      "couldNotSendAFile": "File not uploaded. Onenet system was unable to handle the request."
+    },
+    "kdmModel": {
+      "nodesLabelNotFound": "Import failed. Lacking \"WEZLY\" label.",
+      "nodesContentNotFound": "Import failed. Lacking contents of \"WEZLY\".",
+      "missingDots": "Import failed. Lacking dots in \"WEZLY\".",
+      "missingCommas": "Import failed. Lacking comas in \"WEZLY\".",
+      "branchesLabelNotFound": "Import failed. Lacking \"GALEZIE\" label.",
+      "branchesContentNotFound": "Import failed. Lacking contents of \"GALEZIE\".",
+      "genLabelsNotFound": "Import failed. Lacking labels of columns of \"*Gen.\" section.",
+      "genMissingLabel": "Import failed. Lacking {{ value }} label in \"*Gen.\" section.",
+      "genContentNotFound": "Import failed. Lacking contents of \"*Gen.\".",
+      "genMissingColumns": "Import failed. Lack of connection between \"*Gen.\" and \"Węzeł\" in \"*Gen.\" section exists.",
+      "receptionLabelsNotFound": "Import failed. Lacking labels of columns of \"*Odbiór\" section.",
+      "receptionMissingLabel": "Import failed. Lacking {{ value }} label in \"*Odbiór\" section.",
+      "receptionContentNotFound": "Import failed. Lacking contents of \"*Odbiór\".",
+      "receptionMissingColumns": "Import failed. Lack of connection between \"*Odbiór\" and \"Węzeł\" in \"*Odbiór\" section exists.",
+      "cannotDeleteBecauseKdmModelIsUsedInAlgorithmEvaluation": "Cannot remove KDM model, because of attachment to algorithm calculations."
+    },
+    "kpi": {
+      "emptyDataForGivenParameters": "No data available for the given parameters",
+      "requiredToSetDateFilters": "Required filters have not been completed: \"Date from\", \"Date to\""
+    },
+    "activationSettlements": {
+      "SAVING_THE_SAME_ACTIVATION_SETTLEMENTS": "You cannot import the same activation object ({{files}}) few times during one import. Please check correctness of the template",
+      "templateIncorrect": "Activation objects have not been imported due to error in files: {{files}}. Check correctness of the template.",
+      "nothingChanged": "Nothing has been updated",
+      "nothingToExport": "No data to export"
+    },
+    "chat": {
+      "alreadyExists": "Chat already exists"
+    }
+  },
+  "validate": {
+    "invalidDate": "Invalid date",
+    "dateAfter": "Date value should be after {{ value }}",
+    "dateBefore": "Date value should be before {{ value }}",
+    "invalidRange": "Invalid range",
+    "invalidPhoneNumber": "Invalid phone number",
+    "required": "Field is required",
+    "zeroIsDisabledValue": "Value cannot be zero",
+    "requiredOne": "Mark at least one of these attributes",
+    "unique": "The value must be unique",
+    "notNull": "Field can not be empty",
+    "withoutSpace": "Spaces are not allowed",
+    "maxlength": "The maximum number of characters is {{ value }}",
+    "minlength": "The minimum number of characters is {{ value }}",
+    "max": "The maximum value is {{ value }}",
+    "min": "The minimum value is {{ value }}",
+    "email": "The value entered is not an email address",
+    "passwordDoNotMatching": "Entered passwords should be identical",
+    "requiredRangeDate": "You need to set a date range",
+    "dateRangeInclude": "The date range is not in the {{name}} field",
+    "maxControl": "This value should be equal or lower than {{ field }}",
+    "minControl": "This value should be equal or higher than {{ field }}",
+    "valueNotInRange": "Value should be set between {{min}} and {{max}}",
+    "invalidVolumeRange": "You are not allowed to bid in this auction",
+    "beforeCurrentHour": "Date and hour should be equal or higher than current date and hour",
+    "bandHourNoFilled": "Fill at least one band",
+    "timestampNoFilled": "Fill at least one timestamp",
+    "limitExceed": "Limit exceeded"
+  }
+}

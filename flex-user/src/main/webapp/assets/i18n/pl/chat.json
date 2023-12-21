@@ -1,0 +1,14 @@
+{
+  "chat": {
+    "title": "Czat",
+    "newChat": {
+      "company": "Firma"
+    },
+    "actions": {
+      "startNewChat": "Rozpocznij nowy czat"
+    },
+    "messages": {
+      "read": "Przeczytano"
+    }
+  }
+}

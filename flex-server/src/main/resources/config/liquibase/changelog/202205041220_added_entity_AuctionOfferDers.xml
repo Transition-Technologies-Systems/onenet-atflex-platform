@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202205041220-table" author="">
+        <createSequence incrementBy="1" sequenceName="auction_da_offer_ders_seq" startValue="1" ordered="true"/>
+        <createTable tableName="auction_da_offer_ders" remarks="Auction Day Ahead Offer Ders">
+            <column name="id" type="bigint" defaultValueSequenceNext="auction_da_offer_ders_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="unit_id" type="bigint" remarks="Unit id">
+                <constraints nullable="true"/>
+            </column>
+            <column name="offer_id" type="bigint" remarks="Offer id">
+                <constraints nullable="true"/>
+            </column>
+            <column name="price" type="decimal(21,2)" remarks="Offer price">
+                <constraints nullable="false"/>
+            </column>
+            <column name="volume" type="decimal(21,2)" remarks="Offer volume">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accepted_volume" type="decimal(21,2)" remarks="Accepted offer volume">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202205041220-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="unit_id" baseTableName="auction_da_offer_ders"
+                                 constraintName="au_da_offer_ders_unit_id" referencedColumnNames="id" referencedTableName="unit"/>
+        <createIndex tableName="auction_da_offer_ders" indexName="idx_fk_au_da_offer_d_unit_id">
+            <column name="unit_id" type="bigint"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="offer_id" baseTableName="auction_da_offer_ders"
+                                 constraintName="au_da_offer_ders_offer_id" referencedColumnNames="id" referencedTableName="auction_da_offer"/>
+        <createIndex tableName="auction_da_offer_ders" indexName="idx_fk_au_offer_d_offer_id">
+            <column name="offer_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="202205041220-audit" author="">
+        <addColumn tableName="auction_da_offer_ders">
+            <column name="created_by" type="varchar(50)" defaultValue="system"
+                    remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"
+                    remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

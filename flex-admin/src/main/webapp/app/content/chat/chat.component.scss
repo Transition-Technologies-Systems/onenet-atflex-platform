@@ -1,0 +1,130 @@
+@import 'assets/scss/variables';
+
+.chat-grid {
+  height: calc(100vh - 48px - 51px);
+  max-width: 100vw;
+  flex-wrap: nowrap;
+  overflow: auto;
+
+  .search-box {
+    display: flex;
+    flex: 0.35;
+    min-width: 250px;
+    justify-content: space-between;
+    flex-direction: column;
+    background: #ecf1fa;
+    padding: 0;
+    margin: 0;
+
+    .companies {
+      overflow: auto;
+      margin: 0 2px;
+
+      .company {
+        font-family: Roboto Condensed;
+        font-style: normal;
+        font-size: 16px;
+        line-height: 20px;
+        color: #05358f;
+        padding: 8px;
+        border-radius: 4px;
+        border: 2px solid transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+
+        .name {
+          font-weight: bold;
+          font-size: 12px;
+          min-width: 110px;
+        }
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          font-size: small;
+          min-width: 110px;
+          text-align: end;
+
+          .lastMessage {
+            font-style: italic;
+          }
+        }
+
+        &:hover {
+          border: 2px solid #6b9def;
+        }
+
+        &.active {
+          border: 2px solid #05358f;
+          background-color: #6b9def;
+        }
+
+        &.unread {
+          background-color: lightgreen;
+        }
+      }
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      padding: 41px 8px 10px 8px;
+
+      .search {
+        border-bottom: 2px solid #05358f;
+        input {
+          border: 0px;
+          padding: 5px 0px;
+          color: #05358f;
+          background: transparent;
+          width: calc(100% - 24px);
+
+          &:focus {
+            box-shadow: none !important;
+          }
+        }
+
+        &:after {
+          top: 6px;
+          height: 24px;
+          position: relative;
+          content: url('/assets/images/icons/magnifier.svg');
+        }
+      }
+    }
+  }
+
+  .chat-box {
+    padding: 0;
+    flex: 1;
+    min-width: 300px;
+    border: $chat-message-border;
+
+    .title {
+      padding: 0 15px;
+    }
+  }
+
+  .chat-box,
+  .search-box {
+    overflow-y: auto;
+  }
+
+  .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  ::ng-deep .chat-messages-container {
+    .messages {
+      height: calc(100vh - 208px);
+      max-height: 100vh !important;
+    }
+  }
+}

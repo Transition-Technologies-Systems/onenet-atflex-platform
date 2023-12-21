@@ -1,0 +1,79 @@
+<app-modal [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose (closePreview)="close()">
+      <div title>{{ 'dictionariesPage.preview' | translate }}</div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'dictionariesPage.details' | translate | uppercase" [selected]="true">
+        <div>
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.id' | translate }}</label>
+            <span>{{ data.id }}</span>
+          </div>
+        </div>
+        <div *ngIf="dictionaryType === 'LOCALIZATION_TYPE'">
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.name' | translate }}</label>
+            <span>{{ data.name }}</span>
+          </div>
+        </div>
+        <div *ngIf="dictionaryType === 'KDM_MODEL'">
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.areaName' | translate }}</label>
+            <span>{{ data.areaName }}</span>
+          </div>
+        </div>
+        <div *ngIf="dictionaryType === 'DER_TYPE' || dictionaryType === 'LOCALIZATION_TYPE'">
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.type' | translate }}</label>
+            <span>{{ (dictionaryType === 'DER_TYPE' ? 'DerType.' : 'LocalizationType.') + data.type | translate }}</span>
+          </div>
+        </div>
+        <div *ngIf="dictionaryType === 'DER_TYPE'">
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.sderPoint' | translate }}</label>
+            <span>{{ data.sderPoint }}</span>
+          </div>
+        </div>
+        <div *ngIf="dictionaryType === 'KDM_MODEL'">
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.lvModel' | translate }}</label>
+            <span>{{ 'Boolean.' + data.lvModel | translate }}</span>
+          </div>
+        </div>
+        <div *ngIf="dictionaryType !== 'LOCALIZATION_TYPE' && dictionaryType !== 'KDM_MODEL'">
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.descriptionEn' | translate }}</label>
+            <span>{{ data.descriptionEn }}</span>
+          </div>
+        </div>
+        <div *ngIf="dictionaryType !== 'LOCALIZATION_TYPE' && dictionaryType !== 'KDM_MODEL'">
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.descriptionPl' | translate }}</label>
+            <span>{{ data.descriptionPl }}</span>
+          </div>
+        </div>
+        <div *ngIf="dictionaryType === 'SCHEDULING_UNIT_TYPE'">
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.products' | translate }}</label>
+            <span>{{ getProductValues(data) }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.createdDate' | translate }}</label>
+            <span>{{ data.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'dictionariesPage.table.lastModifiedDate' | translate }}</label>
+            <span>{{ data.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</app-modal>

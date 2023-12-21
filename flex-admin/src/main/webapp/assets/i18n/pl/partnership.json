@@ -1,0 +1,45 @@
+{
+  "partnership": {
+    "title": "Zaproszenia/propozycje partnerstwa",
+    "actions": {
+      "cancel": {
+        "tooltip": "Anuluj",
+        "question": "Czy na pewno chcesz anulować zaproszenie?",
+        "success": "Pomyślnie anulowano zaproszenie",
+        "error": "Wystąpił błąd podczas anulowania zaproszenia"
+      },
+      "resend": {
+        "tooltip": "Wyślij ponownie",
+        "question": "Czy na pewno chcesz ponownie wysłać zaproszenie?",
+        "success": "Pomyślnie ponownie wysłano zaproszenie",
+        "error": "Wystąpił błąd podczas ponownego wysyłania zaproszenia"
+      }
+    },
+    "filters": {
+      "status": "Status",
+      "sender": "Nadawca",
+      "receiver": "Odbiorca"
+    },
+    "tabs": {
+      "invitation": "Zaproszenia",
+      "request": "Propozycje"
+    },
+    "status": {
+      "NEW": "Oczekiwanie",
+      "ACCEPTED": "Zaakceptowane",
+      "REJECTED": "Odrzucone",
+      "CANCELLED": "Anulowane",
+      "CONNECTED_WITH_OTHER": "Połączenie z inną jednostką grafikową"
+    },
+    "table": {
+      "actions": "Akcje",
+      "status": "Status",
+      "sender": "Nadawca",
+      "receiver": "Odbiorca",
+      "schedulingUnit": "Jednostka grafikowa",
+      "der": "Zasób",
+      "sentDate": "Data wysłania",
+      "lastModifiedDate": "Data odbioru"
+    }
+  }
+}

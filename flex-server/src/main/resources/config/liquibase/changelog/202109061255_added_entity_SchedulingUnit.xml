@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <changeSet id="202109061255-table" author="">
+        <createSequence incrementBy="1" sequenceName="scheduling_unit_seq" startValue="1" ordered="true"/>
+        <createTable tableName="scheduling_unit" remarks="Table with group of Units for selected Product and FSP">
+            <column name="id" type="bigint" remarks="Identity column" defaultValueSequenceNext="scheduling_unit_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)" remarks="Name of Scheduling Unit">
+                <constraints nullable="false" unique="true" uniqueConstraintName="ux_scheduling_name"/>
+            </column>
+            <column name="active" type="boolean" remarks="Is Scheduling Unit activated">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number_of_ders" type="integer" remarks="Quantity of joined Units">
+                <constraints nullable="true"/>
+            </column>
+            <column name="version" type="bigint" remarks="Number of Scheduling Unit version">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_version" type="boolean" remarks="Is the latest version of that Scheduling Unit">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="bigint" remarks="Scheduling Unit parent identity">
+                <constraints nullable="true"/>
+            </column>
+            <column name="product_id" type="bigint" remarks="Identity of Product">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bsp_id" type="bigint" remarks="Identity of Fsp with role BSP (Balancing Service Provider)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202109061255-constraints" author="">
+        <addColumn tableName="unit">
+            <column name="scheduling_unit_id" type="bigint" remarks="Identity of record from scheduling_unit table">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="scheduling_unit_id" baseTableName="unit" constraintName="fk_sched_unit_unit_id" referencedColumnNames="id"
+                                 referencedTableName="scheduling_unit"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="scheduling_unit" constraintName="fk_sched_unit_product_id"
+                                 referencedColumnNames="id" referencedTableName="product"/>
+
+        <addForeignKeyConstraint baseColumnNames="bsp_id" baseTableName="scheduling_unit" constraintName="fk_sched_unit_bsp_id" referencedColumnNames="id"
+                                 referencedTableName="fsp"/>
+    </changeSet>
+
+    <changeSet id="202109061255-audit" author="">
+        <addColumn tableName="scheduling_unit">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

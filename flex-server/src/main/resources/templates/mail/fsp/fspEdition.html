@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.fsp.edition.title}">Flexibility Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.fsp.greeting(${user.login})}">
+    Dear
+</p>
+<p th:if="${fspCompany != null}" th:text="#{email.fsp.edition.text1(${fspCompany})}">
+    Following attributes of product have been updated
+</p>
+<p th:if="${bspCompany != null}" th:text="#{email.fsp.edition.bsp.text1(${bspCompany})}">
+    Following attributes of product have been updated
+</p>
+<ul>
+    <li th:if="${companyName != null}" th:text="#{email.fsp.edition.companyName(${companyName})}">Company name: </li>
+    <li th:if="${firstName != null}" th:text="#{email.fsp.edition.firstName(${firstName})}">First name: </li>
+    <li th:if="${lastName != null}" th:text="#{email.fsp.edition.lastName(${lastName})}">Last name: </li>
+    <li th:if="${phoneNumber != null}" th:text="#{email.fsp.edition.phoneNumber(${phoneNumber})}">Phone number: </li>
+    <li th:if="${email != null}" th:text="#{email.fsp.edition.email(${email})}">Email: </li>
+    <li th:if="${validFrom != null}" th:text="#{email.fsp.edition.validFrom(${validFrom})}">Valid from: </li>
+    <li th:if="${validTo != null}" th:text="#{email.fsp.edition.validTo(${validTo})}">Valid to: </li>
+    <li th:if="${agreementWithTso != null}" th:text="#{email.fsp.edition.agreementWithTso(${agreementWithTso})}">Agreement with TSO: </li>
+    <li th:if="${active != null}" th:text="#{email.fsp.edition.active(${active})}">Active: </li>
+</ul>
+<p>
+    <a th:if="${fsp_id != null}" th:with="url=(@{|${baseUrl}/fsps?id=${fsp_id}|})" th:href="${url}" th:text="#{email.fsp.edition.link}">
+        Link
+    </a>
+    <a th:if="${bsp_id != null}" th:with="url=(@{|${baseUrl}/bsps?id=${bsp_id}|})" th:href="${url}" th:text="#{email.fsp.edition.bsp.link}">
+        Link
+    </a>
+</p>
+<p>
+    <span th:text="#{email.product.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+</p>
+</body>
+</html>

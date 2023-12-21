@@ -1,0 +1,24 @@
+<app-filters [form]="filters" (getData)="filter()" state="scheduling-unit-filters">
+  <app-filter-container>
+    <app-filter
+      type="multi-select"
+      controlName="schedulingUnitTypeId"
+      name="schedulingUnits.table.schedulingUnitType"
+      [translateDictionaries]="true"
+      optionLabel="nlsCode"
+      optionValue="id"
+      [dictionaries]="dictionaries$.schedulingUnitTypes | async"
+    ></app-filter>
+    <app-filter type="date-range" controlName="createdDate" name="schedulingUnits.filters.creationDate"></app-filter>
+    <app-filter type="date-range" controlName="lastModifiedDate" name="schedulingUnits.filters.lastModified"></app-filter>
+    <app-filter
+      *ngIf="!isRegister"
+      [showHeader]="false"
+      type="multi-select"
+      controlName="active"
+      name="schedulingUnits.filters.active"
+      [translateDictionaries]="true"
+      [dictionaries]="dictionaries$.boolean | async"
+    ></app-filter>
+  </app-filter-container>
+</app-filters>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202211020944-create-table-forecasted_prices_price" author="">
+        <createTable tableName="forecasted_prices_price" remarks="Product forecasted prices table">
+            <column name="forecasted_price_product_id" type="bigint"
+                    remarks="Forecasted prices product identifier from table forecasted_prices_file">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hour_number" type="varchar(2)" remarks="The hour number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="decimal(22,2)" remarks="Forecasted price">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="forecasted_price_product_id, hour_number" tableName="forecasted_prices_price"/>
+
+        <addForeignKeyConstraint baseColumnNames="forecasted_price_product_id" baseTableName="forecasted_prices_price"
+                                 constraintName="fk_fpp_prices_fpp_id"
+                                 referencedColumnNames="id" referencedTableName="forecasted_prices_file"/>
+    </changeSet>
+
+    <changeSet id="202211020944-delete-file-columns" author="">
+        <dropColumn tableName="forecasted_prices_file" columnName="file_name"/>
+        <dropColumn tableName="forecasted_prices_file" columnName="file_zip_data"/>
+        <dropColumn tableName="forecasted_prices_file" columnName="file_extension"/>
+    </changeSet>
+
+    <!--  dodanie defaultowych planow pracy dla usunietych plikow xlsx  -->
+    <changeSet id="202211020944-fill-volumes-table" author="" dbms="oracle">
+        <sql>
+            insert all
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '1', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '2', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '3', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '4', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '5', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '6', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '7', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '8', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '9', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '10', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '11', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '12', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '13', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '14', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '15', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '16', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '17', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '18', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '19', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '20', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '21', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '22', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '23', 10)
+            into forecasted_prices_price(forecasted_price_product_id,hour_number,price) values (id, '24', 10)
+            SELECT * FROM forecasted_prices_file;
+        </sql>
+    </changeSet>
+
+    <changeSet id="202211020944-rename_table_and_sequence" author="" dbms="oracle">
+        <renameTable oldTableName="forecasted_prices_file" newTableName="forecasted_prices"/>
+        <renameSequence oldSequenceName="forecasted_prices_seq" newSequenceName="forecasted_prices_product_seq"/>
+    </changeSet>
+    <!--H2 nie obsluguje zmiany nazwy sekwencji-->
+    <changeSet id="202211020944-rename_table" author="" dbms="h2">
+        <renameTable oldTableName="forecasted_prices_file" newTableName="forecasted_prices"/>
+    </changeSet>
+</databaseChangeLog>

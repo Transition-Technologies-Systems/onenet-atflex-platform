@@ -1,0 +1,82 @@
+{
+  "flexPotentials": {
+    "actions": {
+      "add": {
+        "btn": "Add new Flexibility Potential",
+        "title": "Add Flexibility Potential",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "There was an error adding the flexibility potential"
+      },
+      "edit": {
+        "title": "Edit Flexibility Potential: {{ id }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "An error occurred while editing the flexibility potential"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected flexibility potential from the system?",
+        "success": "The selected flexibility potential has been successfully removed",
+        "error": "An error occurred while deleting the selected flexibility potential"
+      },
+      "export": {
+        "btn": "Export to file",
+        "allData": "Export data of all flexibility potentials",
+        "displayedData": "Export data of displayed flexibility potentials"
+      },
+      "import": {
+        "btn": "Import from file",
+        "success": "File has been successfully imported",
+        "error": "An unexpected error has occurred. Contact technical support."
+      }
+    },
+    "filters": {
+      "der": "DER",
+      "validDate": "Valid"
+    },
+    "form": {
+      "potentialData": "Potential Data",
+      "details": "Potential details",
+      "id": "Flexibility Potential Id",
+      "validFrom": "Valid from",
+      "validTo": "Valid to",
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "createdBy": "Added by",
+      "lastModifiedBy": "Modified by",
+      "active": "Active",
+      "files": "Files",
+      "divisibility": "Divisible"
+    },
+    "table": {
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "ID",
+      "productId": "Product",
+      "fspId": "FSP/FSPA",
+      "unitId": "DERS",
+      "unitsDetails": "DER list",
+      "schedulingUnit": "Scheduling unit",
+      "volume": "Volume",
+      "volumeUnit": "Volume unit",
+      "divisibility": "Divisible",
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "createdBy": "Added by",
+      "lastModifiedBy": "Modified by",
+      "validFrom": "Valid from",
+      "validTo": "Valid to",
+      "active": "Active",
+      "productPrequalification": "Product prequalification",
+      "staticGridPrequalification": "Static grid prequalification",
+      "version": "Version",
+      "fullActivationTime": "Full activation time [sec]",
+      "minDeliveryDuration": "Minimum duration of delivery [min]"
+    },
+    "title": "Flexibility Potentials",
+    "registerTitle": "Registered Flexibility potentials",
+    "validate": {
+      "noInProductRange": "Value does not fit in range of product's attribute"
+    }
+  }
+}

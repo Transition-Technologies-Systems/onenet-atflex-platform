@@ -1,0 +1,360 @@
+{
+  "auctions": {
+    "actions": {
+      "sendViaEmail": {
+        "menuItem": "Wyślij e-mail",
+        "success": "E-mail z plikiem został wysłany na adres: {{ email }}"
+      },
+      "add": {
+        "btn": "Dodaj nową aukcję",
+        "title": "Dodaj aukcję",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania aukcji"
+      },
+      "bids": {
+        "add": {
+          "btn": "Dodaj nową ofertę",
+          "tooltip": "Dodaj ofertę",
+          "title": "Dodaj ofertę: Aukcja {{ auctionName }}",
+          "saveBtn": "Zapisz",
+          "success": "Zapis udany",
+          "error": "Wystąpił błąd podczas dodawania stawki"
+        },
+        "edit": {
+          "title": "Edytuj ofertę: {{ bidId }}; Aukcja {{ auctionName }}",
+          "saveBtn": "Zapisz",
+          "success": "Zapis udany",
+          "error": "Wystąpił błąd podczas edycji oferty"
+        },
+        "delete": {
+          "question": "Czy na pewno chcesz usunąć wybraną ofertę z systemu?",
+          "success": "Wybrana oferta została pomyślnie usunięta",
+          "error": "Wystąpił błąd podczas usuwania wybranej oferty"
+        }
+      },
+      "bidsEvaluation": {
+        "noSelected": "Nie masz zaznaczonych żadnych ofert",
+        "export": {
+          "btn": "Eksportuj oferty",
+          "warningNoType": "Zaznacz przynajmniej jeden typ ofert"
+        },
+        "exportTSO": {
+          "btn": "Eksportuj oferty(TSO)",
+          "warningNoType": "Zaznacz przynajmniej jeden typ ofert"
+        },
+        "exportDSO": {
+          "btn": "Eksportuj oferty(DSO)",
+          "warningNoType": "Zaznacz przynajmniej jeden typ ofert"
+        },
+        "agnoAlgorithm": {
+          "btn": "Uruchom algorytm czyste AGNO"
+        },
+        "pbcmAlgorithm": {
+          "btn": "Uruchom algorytm AGNO dla rezerw (PRMB)"
+        },
+        "danoAlgorithm": {
+          "btn": "Uruchom algorytm AGNO dla DGIA (DANO)"
+        },
+        "runAlgorithm": {
+          "btn": "Rozpocznij",
+          "kdmModelId": "Wybierz obszar",
+          "kdmLvModel": "Model nn",
+          "noDeliveryDate": "Przefiltruj po dacie dostawy",
+          "success": "Algorytm został uruchomiony",
+          "error": "Nie udało się uruchomić algorytmu"
+        },
+        "import": {
+          "btn": "Zaimportuj wyniki",
+          "success": "Wszystkie oferty zostały zaimportowane poprawnie",
+          "partialSuccess": "Zaimportowane oferty: {{ importedBids }} <br> Niezaimportowane oferty: {{ notImportedBids }}",
+          "failed": "Niezaimportowane oferty: {{ notImportedBids }}",
+          "error": "Wystąpił nieoczekiwany błąd. Skontaktuj się z pomocą techniczną."
+        },
+        "importAGNO": {
+          "btn": "Zaimportuj wyniki RB (AGNO)",
+          "success": "Wszystkie oferty zostały zaimportowane poprawnie",
+          "partialSuccess": "Zaimportowane oferty: {{ importedBids }} <br> Niezaimportowane oferty: {{ notImportedBids }}",
+          "failed": "Wszystkie oferty nie zostały zaimportowane",
+          "error": "Nie zaktualizowano danych, sprawdź poprawność importowanego pliku.",
+          "websocket": {
+            "error": "Dezagregacja {{ id }} zakończona niepowodzeniem.",
+            "success": "Dezagregacja {{ id }} zakończona sukcesem.",
+            "CONNECTION_TO_ALGORITHM_SERVICE_LOST": "Błąd algorytmu {{ id }}. Utracono połączenie z modułem obliczeniowym."
+          }
+        },
+        "importDANO": {
+          "btn": "Zaimportuj wyniki RB (PBCM, DANO)"
+        },
+        "importCMVC": {
+          "btn": "Zaimportuj wyniki CM&VC"
+        },
+        "accepted": {
+          "btn": "Akceptuj",
+          "success": "Akcja \"akceptuj\" została pomyślnie wykonana na zaznaczonych ofertach",
+          "error": "Wystąpił błąd podczas wykonywania akcji \"akceptuj\" na zaznaczonych ofertach"
+        },
+        "rejected": {
+          "btn": "Odrzuć",
+          "success": "Akcja \"odrzuć\" została pomyślnie wykonana na zaznaczonych ofertach",
+          "error": "Wystąpił błąd podczas wykonywania akcji \"odrzuć\" na zaznaczonych ofertach"
+        },
+        "importUpdatedOffers": {
+          "btn": "Zaimportuj zaktualizowane oferty"
+        }
+      },
+      "edit": {
+        "title": "Edytuj aukcję: {{ name }}",
+        "saveBtn": "Zapisz",
+        "success": "Zapis udany",
+        "successWithEnd": "Data ostatniej aukcji została zmodyfikowana i nowe aukcje nie będą generowane",
+        "error": "Wystąpił błąd podczas edycji aukcji"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć wybraną aukcję z systemu?",
+        "successWithEnd": "Data ostatniej aukcji została zmodyfikowana i nowe aukcje nie będą generowane",
+        "success": "Usunięto obiekt aukcji serii",
+        "error": "Wystąpił błąd podczas usuwania wybranej aukcji"
+      }
+    },
+    "export": {
+      "cmvcBids": "Oferty CM&VC",
+      "balancingEnergyBids": "Oferty bilansujące(DA) - energia",
+      "balancingCapacityBids": "Oferty bilansujące(DA) - moc"
+    },
+    "dayAhead": {
+      "tabs": {
+        "energyAuctions": "Aukcje energii",
+        "capacityAuctions": "Aukcje mocy",
+        "seriesAuctions": "Serie aukcji"
+      }
+    },
+    "filters": {
+      "product": "Produkt",
+      "gateOpeningTime": "Czas otwarcia bramki",
+      "gateClosureTime": "Czas zamknięcia bramki",
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "deliveryDate": "Data dostawy"
+    },
+    "offers": {
+      "fspPotentialInfo": "ID: {{ id }}/ Produkt: {{ productName }}/ Wolumen: {{ volume }} {{ volumeUnit }}/ Czas pełnej aktywacji: {{ fullActivationTime }} s/ Minimalny czas dostawy: {{ minDeliveryDuration }} min",
+      "bspPotentialInfo": "ID: {{ id }}/ Nazwa: {{ name }}/ Typ: {{ type }}/ Zasoby: {{ dersData }}",
+      "canOnlySet": "Wartość może być równa tylko {{ value }}",
+      "addNextDer": "Dodaj kolejny zasób",
+      "addAllDers": "Dodaj wszystkie zasoby",
+      "addNewDerBand": "Dodaj kolejne pasmo",
+      "removeDerBand": "Usuń pasmo",
+      "selfSchedule": "PP",
+      "removeDer": "Usuń DER",
+      "actions": "Działania",
+      "delete": "Usuń",
+      "bidDate": "Data aukcji",
+      "id": "ID oferty",
+      "auctionId": "ID aukcji",
+      "auctionName": "Nazwa aukcji",
+      "product": "Produkt",
+      "companyName": "Nazwa firmy",
+      "schedulingUnitOrPotential": "Jednostka grafikowa/Potencjał",
+      "flexPotential": "FSPA/FSP",
+      "schedulingUnit": "BSP",
+      "potential": "Potencjał",
+      "scheduluginUnitPotential": "Jednostka grafikowa",
+      "potentialFromFlex": "Potencjał",
+      "potentialFromSU": "Potencjał",
+      "status": "Status",
+      "auctionStatus": "Status aukcji",
+      "bidStatus": "Status oferty",
+      "der": "Zasób",
+      "onlyPrice": "Cena",
+      "price": "Cena [PLN/kW]",
+      "priceKwh": "Cena [PLN/kWh]",
+      "onlyVolume": "Wolumen",
+      "volume": "Wolumen",
+      "volumeKwh": "Wolumen [kWh]",
+      "volumeDivisibility": "Podzielność wolumenu",
+      "commonPriceOfBid": "Wspólna cena oferty",
+      "commonsPriceOfBand": "Wspólna cena pasma",
+      "hourNumber": "Godzina",
+      "bandNumber": "Pasmo",
+      "priceCommon": "Cena",
+      "deliveryPeriod": "Okres dostawy",
+      "deliveryPeriodFrom": "Okres dostawy od",
+      "deliveryPeriodTo": "Okres dostawy do",
+      "deliveryPeriodDivisibility": "Podzielność okresu dostawy",
+      "acceptedVolume": "Zaakceptowany wolumen",
+      "acceptedVolumeKw": "Zaakceptowany wolumen [kW]",
+      "acceptedVolumeKwh": "Zaakceptowany wolumen [kWh]",
+      "acceptedDeliveryPeriod": "Zaakceptowany okres dostawy",
+      "acceptedDeliveryPeriodFrom": "Zaakceptowany okres dostawy od",
+      "acceptedDeliveryPeriodTo": "Zaakceptowany okres dostawy do",
+      "downloadTemplateOfBid": "Pobierz szablon oferty",
+      "limitPowerForBid": "Limit[{{unit}}]: {{Pmin}} — {{Pmax}}",
+      "importBid": {
+        "title": "Zaimportuj ofertę",
+        "success": "Oferta została pomyślnie zaimportowana",
+        "error": "Wystąpił nieoczekiwany błąd. Skontaktuj się z pomocą techniczną."
+      },
+      "tooltip": {
+        "ders": "Zasoby",
+        "potential": "Potencjał"
+      }
+    },
+    "preview": {
+      "product": "Dane produktu",
+      "data": "Atrybuty aukcji",
+      "offers": "Przesłane oferty",
+      "capacityOffers": "Przesłane oferty na moc",
+      "energyOffers": "Przesłane oferty na energię"
+    },
+    "table": {
+      "offerDayAheadTooltip": "Firma: {{ companyName }}, Jednostka grafikowa: {{ potentialName }} (ID: {{ potentialId }}), Wolumen: {{ volume }} {{ volumeUnit }}, Cena: {{ price }} {{ priceUnit }}",
+      "offerCmvcTooltip": "Firma: {{ companyName }}, Potencjał: {{ potentialId }}, Wolumen: {{ volume }} {{ volumeUnit }}, Cena: {{ price }} {{ priceUnit }}",
+      "actions": "Działania",
+      "delete": "Usuń",
+      "id": "ID",
+      "status": "Status aukcji",
+      "offers": "Oferty",
+      "name": "Nazwa aukcji",
+      "product": "Produkt",
+      "localization": "Lokalizacja",
+      "deliveryDate": "Data dostawy",
+      "deliveryDateFrom": "Data dostawy od",
+      "deliveryDateTo": "Data dostawy do",
+      "gateOpeningTime": "Czas otwarcia bramki",
+      "gateClosureTime": "Czas zamknięcia bramki",
+      "minDesiredPower": "Minimalna wymagana moc",
+      "maxDesiredPower": "Maksymalna wymagana moc",
+      "volume": "W",
+      "positiveBandsVolumeSum": "Jednostka grafikowa pasmo +",
+      "selfScheduleSum": "Plan pracy jednostki grafikowej",
+      "negativeBandsVolumeSum": "Jednostka grafikowa pasmo - ",
+      "price": "C",
+      "type": "Typ aukcji",
+      "firstAuctionDate": "Data pierwszej aukcji",
+      "lastAuctionDate": "Data ostatniej aukcji",
+      "maxDesiredCapacity": "Maksymalna wymagana moc",
+      "maxDesiredEnergy": "Maksymalna wymagana energia",
+      "minDesiredCapacity": "Minimalna wymagana moc",
+      "minDesiredEnergy": "Minimalna wymagana energia",
+      "energyGateOpeningTime": "Czas otwarcia bramki - energia",
+      "energyGateClosureTime": "Czas zamknięcia bramki - energia",
+      "capacityGateOpeningTime": "Czas otwarcia bramki - moc",
+      "capacityGateClosureTime": "Czas zamknięcia bramki - moc",
+      "energyAvailability": "Dostawa - energia",
+      "capacityAvailability": "Dostawa - moc",
+      "energyAvailabilityFrom": "Dostawa od - energia",
+      "energyAvailabilityTo": "Dostawa do - energia",
+      "capacityAvailabilityFrom": "Dostawa od - moc",
+      "capacityAvailabilityTo": "Dostawa do - moc",
+      "availability": "Dostawa",
+      "createdDate": "Data utworzenia",
+      "lastModifiedDate": "Ostatnia modyfikacja",
+      "createdBy": "Utworzone przez",
+      "lastModifiedBy": "Zmodyfikowane przez",
+      "noSsTooltip": "Plan pracy nie został zaimportowany"
+    },
+    "title": {
+      "CMVC": "Zarządzanie przeciążeniem i kontrola napięcia",
+      "DAY_AHEAD": "Day-ahead",
+      "bidsEvaluation": "Ocena ofert"
+    },
+    "tooltip": {
+      "applyCommonPrice": "Upewnij się, że wszystkie wymagane wolumeny są uzupełnione przed zastosowaniem",
+      "changedValue": "Pierwotna wartość: {{ value }} {{ unit }}"
+    }
+  },
+  "algorithmEvaluations": {
+    "title": "Obliczenia algorytmów",
+    "actions": {
+      "generateResults": {
+        "btn": "Wygeneruj wyniki",
+        "success": "Operacja zakończona pomyślnie",
+        "error": "Wystąpił nieoczekiwany błąd"
+      },
+      "parseResult": {
+        "success": "Wyniki zostały pomyślnie wklejone",
+        "error": "Wystąpił błąd podczas wklejania wyników"
+      },
+      "cancelEvaluation": {
+        "btn": "Anuluj",
+        "question": "Jesteś pewny że chcesz przerwać proces obliczania?",
+        "success": "Obliczanie zostało prawidłowo przerwane",
+        "error": "Nie można przerwać zakończonego obliczania"
+      },
+      "exportEvaluation": {
+        "btn": "Eksportuj oferty"
+      }
+    },
+    "table": {
+      "id": "ID obliczeń",
+      "typeOfAlgorithm": "Typ algorytmu",
+      "deliveryDate": "Data dostawy",
+      "kdmModelName": "Obszar",
+      "bids": "Oferty",
+      "createdDate": "Data utworzenia",
+      "endDate": "Data zakończenia",
+      "inputFiles": "Pliki wejściowe",
+      "outputFiles": "Pliki wyjściowe",
+      "processLogs": "Przebieg procesu",
+      "status": "Status",
+      "parseResults": "Wklej wyniki"
+    },
+    "tooltip": {
+      "bidId": "Id oferty",
+      "schedulingUnit": "Jednostka grafikowa",
+      "bidStatus": "Status oferty"
+    }
+  },
+  "AlgorithmStatus": {
+    "EVALUATING": "Obliczanie",
+    "KDM_MODEL_UPDATING": "Aktualizowanie modelu KDM",
+    "KDM_MODEL_NOT_ACQUIRED": "Nie otrzymano modelu KDM",
+    "COMPLETED": "Zakończone",
+    "FAILURE": "Błąd algorytmu",
+    "TECHNICAL_FAILURE": "Błąd techniczny",
+    "CANCELLED": "Anulowane"
+  },
+  "AlgorithmType": {
+    "PBCM": "AGNO dla rezerw (PRMB)",
+    "BM": "Czyste AGNO",
+    "DANO": "AGNO dla DGIA (DANO)",
+    "SETO": "SETO",
+    "DISAGGREGATION": "Dezagregacja AGNO"
+  },
+  "error": {
+    "dayAhead": {
+      "offer": {
+        "notSetPriceInAllNonZeroBands": "Nie ustawiono ceny w niezerowych pasmach",
+        "import": {
+          "incoherent": {
+            "self": {
+              "schedule": "Niespójny plan pracy"
+            }
+          },
+          "wrong": {
+            "file": "Oferta nie została zaimportowana. Sprawdź poprawność szablonu."
+          }
+        },
+        "update": {
+          "import": {
+            "wrong": {
+              "file": "Nie zaktualizowano danych, sprawdź poprawność importowanego pliku."
+            }
+          }
+        },
+        "selectedDerIsNotJoinedToSchedulingUnit": "Nie można przeprowadzić akcji ze względu na zmianę w strukturze jednostki grafikowej."
+      }
+    },
+    "agnoAlgorithm": {
+      "chooseOnlyCapacityRelatedBids": "Wybierz tylko oferty dotyczące aukcji mocy",
+      "chooseOnlyEnergyRelatedBids": "Wybierz tylko oferty dotyczące aukcji energii",
+      "cannotFoundLogFiles": "Nie znaleziono plików zawierających przebieg procesu",
+      "cannotFoundInputFiles": "Nie znaleziono plików wejściowych",
+      "cannotFoundOutputFiles": "Nie znaleziono plików wyjściowych"
+    },
+    "cmvc": {
+      "sameDates": "Czas zamknięcia bramki nie może być taki sam jak czas jej otwarcia"
+    }
+  }
+}

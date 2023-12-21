@@ -1,0 +1,1 @@
+export const ROLES_WITH_FSP = ['ROLE_FLEX_SERVICE_PROVIDER'];

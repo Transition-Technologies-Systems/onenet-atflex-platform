@@ -1,0 +1,22 @@
+{
+  "sidebar": {
+    "auctions": {
+      "title": "Aukcje",
+      "dayAhead": "Day-ahead",
+      "cmVc": "Zarządzanie przeciążeniem i kontrola napięcia"
+    },
+    "users": "Użytkownicy",
+    "registration": "Rejestracja",
+    "schedulingUnits": "Jednostki grafikowe",
+    "partnership": "Zaproszenia/propozycje partnerstwa",
+    "schedulingUnitsRegister": "Zarejestrowane jednostki grafikowe",
+    "flexibilityPotentialsRegister": "Zarejestrowany potencjał elastyczności",
+    "flexibilityPotentials": "Potencjał elastyczności",
+    "subportfolios": "Subportfolio",
+    "products": "Produkty",
+    "units": "Zasoby",
+    "bsps": "BSP",
+    "chat": "Czat",
+    "activationsSettlements": "Aktywacje/rozliczenia"
+  }
+}

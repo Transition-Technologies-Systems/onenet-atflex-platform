@@ -1,0 +1,45 @@
+{
+  "partnership": {
+    "title": "Partnership invitations/propositions",
+    "actions": {
+      "cancel": {
+        "tooltip": "Cancel",
+        "question": "Are you sure you want to cancel invitation?",
+        "success": "Successfully cancel invitation",
+        "error": "There was an error canceling the invitation"
+      },
+      "resend": {
+        "tooltip": "Resend",
+        "question": "Are you sure you want to resend invitation?",
+        "success": "Successfully resent invitation",
+        "error": "There was an error resending the invitation"
+      }
+    },
+    "filters": {
+      "status": "Status",
+      "sender": "Sender",
+      "receiver": "Receiver"
+    },
+    "tabs": {
+      "invitation": "Invitations",
+      "request": "Propositions"
+    },
+    "status": {
+      "NEW": "Waiting",
+      "ACCEPTED": "Accepted",
+      "REJECTED": "Rejected",
+      "CANCELLED": "Cancelled",
+      "CONNECTED_WITH_OTHER": "Connected with other"
+    },
+    "table": {
+      "actions": "Actions",
+      "status": "Status",
+      "sender": "Sender",
+      "receiver": "Receiver",
+      "schedulingUnit": "Scheduling unit",
+      "der": "DER",
+      "sentDate": "Sending date",
+      "lastModifiedDate": "Receiving date"
+    }
+  }
+}

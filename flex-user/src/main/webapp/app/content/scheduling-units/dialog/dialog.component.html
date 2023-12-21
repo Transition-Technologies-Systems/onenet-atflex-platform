@@ -1,0 +1,186 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'schedulingUnits.actions.' + mode + '.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button pButton pRipple type="button" [label]="'actions.cancel' | translate" class="p-button-secondary" (click)="close()"></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'schedulingUnits.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form" [form]="form" appValidatorContainer="schedulingUnit">
+    <div class="formgrid grid">
+      <div class="field col-6" *ngIf="mode === 'edit'">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="true">
+            <input id="field-bspId" type="text" pInputText formControlName="bspName" aria-describedby="bspId-help" />
+            <label for="field-bspId">{{ 'schedulingUnits.table.bsp' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('bspId')?.touched">
+            <small id="bspId-help" class="p-error" *ngIf="form.get('bspId')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-name" type="text" pInputText formControlName="name" aria-describedby="name-help" />
+            <label for="field-name">{{ 'schedulingUnits.table.name' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('name')?.touched">
+            <small id="name-help" class="p-error" *ngIf="form.get('name')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="name-help" class="p-error" *ngIf="form.get('name')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="mode === 'edit'">
+            <app-select
+              [options]="dictionaries.schedulungUnitTypes$ | async"
+              [optionWithPrompt]="true"
+              formControlName="schedulingUnitType"
+              inputId="field-schedulingUnitType"
+              aria-describedby="schedulingUnitType-help"
+              [optionObject]="true"
+              optionLabel="nlsCode"
+              optionValue="id"
+            ></app-select>
+            <label for="field-schedulingUnitTypeId">{{ 'schedulingUnits.table.schedulingUnitType' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('schedulingUnitTypeId')?.touched">
+            <small id="schedulingUnitTypeId-help" class="p-error" *ngIf="form.get('schedulingUnitTypeId')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6" *ngIf="mode === 'edit'">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="data.certified || data.readyForTests || !acceptedDersAvailable">
+            <app-multiselect
+              [options]="ders"
+              formControlName="acceptedDers"
+              inputId="field-acceptedDers"
+              aria-describedby="acceptedDers-help"
+              optionLabel="name"
+              optionValue="id"
+            ></app-multiselect>
+            <label for="field-acceptedDers">{{ 'schedulingUnits.form.acceptedDers' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <ng-container *ngIf="mode === 'edit'">
+      <div class="formgrid grid">
+        <div class="field col-6" [pTooltip]="getCouplingPoints()">
+          <span class="field-control">
+            <span class="p-float-label" [class.disabled]="true">
+              <app-multiselect
+                [options]="data.couplingPoints || []"
+                [optionObject]="true"
+                optionValue="id"
+                optionLabel="name"
+                formControlName="couplingPoints"
+                inputId="field-couplingPoints"
+                aria-describedby="couplingPoints-help"
+              ></app-multiselect>
+              <label for="field-couplingPoints">{{ 'schedulingUnits.table.couplingPoints' | translate }}</label>
+            </span>
+          </span>
+        </div>
+        <div class="field col-6">
+          <span class="field-control">
+            <span class="p-float-label" [class.disabled]="form.get('primaryCouplingPoint')?.disabled">
+              <app-select
+                [options]="getSelectedLocalizations()"
+                [optionObject]="true"
+                optionValue="id"
+                optionLabel="name"
+                formControlName="primaryCouplingPoint"
+                inputId="field-primaryCouplingPoint"
+                aria-describedby="primaryCouplingPoint-help"
+              ></app-select>
+              <label for="field-primaryCouplingPoint">{{ 'schedulingUnits.table.primaryCouplingPoint' | translate }}</label>
+            </span>
+          </span>
+        </div>
+      </div>
+    </ng-container>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-active">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="active"
+              inputId="field-active"
+              [label]="'schedulingUnits.table.active' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="mode === 'edit'">
+      <div class="field col grid">
+        <label for="field-readyForTests">{{ 'schedulingUnits.table.readyForTests' | translate }}</label>
+        <div class="md:col-10 formgroup-inline" id="field-readyForTests">
+          <div class="field-radiobutton">
+            <p-radioButton [value]="true" formControlName="readyForTests" inputId="readyForTests-true"></p-radioButton>
+            <label for="readyForTests-true">{{ 'Boolean.true' | translate }}</label>
+          </div>
+          <div class="field-radiobutton">
+            <p-radioButton [value]="false" formControlName="readyForTests" inputId="readyForTests-false"></p-radioButton>
+            <label for="readyForTests-false">{{ 'Boolean.false' | translate }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="field col grid">
+        <div
+          class="w-330"
+          [pTooltip]="certifiedAvailable ? null : ('schedulingUnits.form.tooltip.certificationNotAvailable' | translate)"
+        >
+          <div class="field col-12 grid">
+            <label for="field-certified">{{ 'schedulingUnits.table.certified' | translate }}</label>
+            <div class="md:col-6 formgroup-inline" id="field-certified">
+              <div class="field-radiobutton">
+                <p-radioButton [value]="true" formControlName="certified" inputId="certified-true"></p-radioButton>
+                <label for="certified-true">{{ 'Boolean.true' | translate }}</label>
+              </div>
+              <div class="field-radiobutton">
+                <p-radioButton [value]="false" formControlName="certified" inputId="certified-false"></p-radioButton>
+                <label for="certified-false">{{ 'Boolean.false' | translate }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'schedulingUnits.form.files' | translate">
+        <app-file-upload
+          [files]="data.filesMinimal || []"
+          (download)="onDownloadFile($event)"
+          (fileSelected)="onChangeFileSelected($event)"
+          (removeFileChange)="onRemoveFileChange($event)"
+        ></app-file-upload>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+  <div modal-footer></div>
+</app-modal>

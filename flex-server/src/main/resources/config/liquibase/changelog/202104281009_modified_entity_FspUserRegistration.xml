@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202104281009-constraints" author="">
+        <dropForeignKeyConstraint baseTableName="fsp_user_registration" constraintName="fk_fsp_reg_fsp_user_id"/>
+
+        <addForeignKeyConstraint baseColumnNames="fsp_user_id" baseTableName="fsp_user_registration" constraintName="fk_fsp_reg_fsp_user_id"
+                                 referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+
+</databaseChangeLog>

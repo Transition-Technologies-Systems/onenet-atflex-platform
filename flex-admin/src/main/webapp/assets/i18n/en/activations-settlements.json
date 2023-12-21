@@ -1,0 +1,50 @@
+{
+  "activationsSettlements": {
+    "title": "Activations/settlements",
+    "table": {
+      "actions": "Actions",
+      "id": "Activation ID",
+      "derName": "DER",
+      "offerId": "Bid ID",
+      "auctionName": "Auction name",
+      "companyName": "Company name",
+      "acceptedDeliveryPeriod": "Accepted delivery period",
+      "acceptedVolume": "Accepted volume",
+      "activatedVolume": "Activated volume",
+      "settlementAmount": "Settlement amount [PLN]",
+      "tooltip": {
+        "acceptedVolumeCmvcTooltip": "Concerns whole bid"
+      }
+    },
+    "dialog": {
+      "actions": {
+        "edit": {
+          "title": "Edit activation/settlement: {{id}}",
+          "saveBtn": "Save",
+          "success": "Saving successful",
+          "error": "An error occurred while editing the activation/settlement"
+        }
+      },
+      "previewData": "Data"
+    },
+    "actions": {
+      "import": {
+        "btn": "Import updated activation objects",
+        "success": "File has been successfully imported",
+        "error": "An unexpected error has occurred. Contact technical support.",
+        "questionHeader": "Confirmation",
+        "reimportQuestion": "Are you sure you want to import activated volumes and settlement amounts for the following activation objects again:"
+      },
+      "export": {
+        "btn": "Export data",
+        "warningNoType": "Mark at least one type of bids"
+      }
+    },
+    "filters": {
+      "acceptedDeliveryPeriodFrom": "Date from",
+      "acceptedDeliveryPeriodTo": "Date to",
+      "cmvcBids": "CM&VC bids",
+      "daBids": "DA bids"
+    }
+  }
+}

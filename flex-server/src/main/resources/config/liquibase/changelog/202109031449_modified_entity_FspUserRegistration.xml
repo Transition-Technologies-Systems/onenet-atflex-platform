@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202109031449" author="">
+        <addColumn tableName="fsp_user_registration">
+            <column name="user_target_role" type="varchar(50)" remarks="Target role of the registered user">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <sql>UPDATE fsp_user_registration SET user_target_role = 'ROLE_FLEX_SERVICE_PROVIDER'</sql>
+        <addNotNullConstraint tableName="fsp_user_registration" columnName="user_target_role"/>
+    </changeSet>
+
+
+</databaseChangeLog>

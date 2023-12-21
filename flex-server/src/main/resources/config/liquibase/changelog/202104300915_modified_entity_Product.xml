@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202104300915" author="">
+
+        <dropColumn tableName="product" columnName="min_duration"/>
+        <dropColumn tableName="product" columnName="max_duration"/>
+
+        <addColumn tableName="product">
+            <column name="max_duration_from" type="datetime" remarks="Start date of maximum duration">
+                <constraints nullable="false" />
+            </column>
+            <column name="max_duration_to" type="datetime" remarks="End date of maximum duration">
+                <constraints nullable="false" />
+            </column>
+            <column name="min_duration_from" type="datetime" remarks="Start date of minimum duration">
+                <constraints nullable="false" />
+            </column>
+            <column name="min_duration_to" type="datetime" remarks="End date of minimum duration">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

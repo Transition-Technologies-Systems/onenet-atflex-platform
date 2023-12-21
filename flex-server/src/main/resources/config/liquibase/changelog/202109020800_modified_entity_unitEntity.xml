@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202108271500" author="">
+        <addColumn tableName="unit">
+            <column name="source_power" type="decimal(11,2)" remarks="Source power/receiving power [kW]">
+                <constraints nullable="true"/>
+            </column>
+            <column name="connection_power" type="decimal(11,2)" remarks="Connection power [kW]">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
+</databaseChangeLog>

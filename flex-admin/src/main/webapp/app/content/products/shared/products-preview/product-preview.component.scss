@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  .name {
+    margin: 1rem 0;
+  }
+
+  .name:first-of-type {
+    margin-top: 0;
+  }
+}

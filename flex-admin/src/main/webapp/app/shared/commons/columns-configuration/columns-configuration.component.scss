@@ -1,0 +1,12 @@
+:host ::ng-deep .p-multiselect {
+  position: absolute;
+  height: 1px;
+  max-height: 1px;
+  min-height: 1px;
+  width: 1px;
+  right: 0;
+
+  .p-multiselect-trigger-icon {
+    display: none;
+  }
+}

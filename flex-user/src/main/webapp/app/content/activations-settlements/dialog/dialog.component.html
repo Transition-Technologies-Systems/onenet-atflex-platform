@@ -1,0 +1,61 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'activationsSettlements.dialog.actions.' + mode + '.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button pButton pRipple type="button" [label]="'actions.cancel' | translate" class="p-button-secondary" (click)="close()"></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'activationsSettlements.dialog.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form" [form]="form" appValidatorContainer="activationSettlement">
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="activatedVolume"
+              inputId="field-activatedVolume"
+              [correctValue]="false"
+              [maxInteger]="10"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="3"
+              aria-describedby="activatedVolume-help"
+            >
+            </app-input-number>
+            <label for="field-activatedVolume">{{
+              ('activationsSettlements.table.activatedVolume' | translate) + ' [' + data.unit + ']'
+            }}</label>
+          </span>
+          <ng-container *ngIf="form.get('activatedVolume')?.touched">
+            <small id="activatedVolume-help" class="p-error" *ngIf="form.get('activatedVolume')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="settlementAmount"
+              inputId="field-settlementAmount"
+              [correctValue]="false"
+              [maxInteger]="10"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="2"
+              aria-describedby="settlementAmount-help"
+            >
+            </app-input-number>
+            <label for="field-settlementAmount">{{ 'activationsSettlements.table.settlementAmount' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</app-modal>

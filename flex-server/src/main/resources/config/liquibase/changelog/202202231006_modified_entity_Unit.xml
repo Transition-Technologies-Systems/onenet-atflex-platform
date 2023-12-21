@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202202231006" author="">
+
+        <addColumn tableName="unit">
+            <column name="der_type_reception_id" type="bigint" remarks="Identity of DerType with RECEPTION type">
+                <constraints nullable="true"/>
+            </column>
+            <column name="der_type_energy_storage_id" type="bigint" remarks="Identity of DerType with ENERGY_STORAGE type">
+                <constraints nullable="true"/>
+            </column>
+            <column name="der_type_generation_id" type="bigint" remarks="Identity of DerType with GENERATION type">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202202231006-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="der_type_reception_id" baseTableName="unit" constraintName="fk_unit_der_type_recept_id"
+                                 referencedColumnNames="id" referencedTableName="der_type"/>
+        <createIndex tableName="unit" indexName="idx_fk_unit_der_type_recept">
+            <column name="der_type_reception_id" type="bigint"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="der_type_energy_storage_id" baseTableName="unit" constraintName="fk_unit_der_type_en_stor_id"
+                                 referencedColumnNames="id" referencedTableName="der_type"/>
+        <createIndex tableName="unit" indexName="idx_fk_unit_der_type_en_stor">
+            <column name="der_type_energy_storage_id" type="bigint"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="der_type_generation_id" baseTableName="unit" constraintName="fk_unit_der_type_gener_id"
+                                 referencedColumnNames="id" referencedTableName="der_type"/>
+        <createIndex tableName="unit" indexName="idx_fk_unit_der_type_gener">
+            <column name="der_type_generation_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

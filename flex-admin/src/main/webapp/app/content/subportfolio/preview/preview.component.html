@@ -1,0 +1,113 @@
+<app-modal [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose [(ngModel)]="versionId" (ngModelChange)="changeVersion()" (closePreview)="close()">
+      <div sub-title>
+        {{ 'subportfolio.title' | translate }}
+      </div>
+      <div title>
+        {{ data.name }}
+      </div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'subportfolio.form.data' | translate | uppercase" [selected]="true">
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.id' | translate }}</label>
+            <span>{{ data.id }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.name' | translate }}</label>
+            <span>{{ data.name }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.numberOfDers' | translate }}</label>
+            <span>{{ data.numberOfDers }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.combinedPowerOfDers' | translate }}</label>
+            <span>{{ data.combinedPowerOfDers }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.couplingPointId' | translate }}</label>
+            <span>{{ getCouplingPointIdTypes(data) }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.mrid' | translate }}</label>
+            <span>{{ data.mrid }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.fspa' | translate }}</label>
+            <span>{{ data.fspa.representative.companyName }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.units' | translate }}</label>
+            <app-toogle-data [header]="'subportfolio.table.unitsDetails' | translate | uppercase" [selected]="true">
+              <div class="field" *ngFor="let unit of data.units">
+                <span translate="subportfolio.table.unitInformation" [translateParams]="{ unit: unit }"></span>
+              </div>
+            </app-toogle-data>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.createdDate' | translate }}</label>
+            <span>{{ data.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.lastModifiedDate' | translate }}</label>
+            <span>{{ data.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.validFrom' | translate }}</label>
+            <span>{{ data.validFrom | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.validTo' | translate }}</label>
+            <span>{{ data.validTo | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.active' | translate }}</label>
+            <span>{{ 'Boolean.' + data.active | translate }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'subportfolio.table.certified' | translate }}</label>
+            <span>{{ 'Boolean.' + data.certified | translate }}</span>
+          </div>
+        </div>
+      </p-accordionTab>
+      <p-accordionTab [header]="'subportfolio.form.files' | translate | uppercase">
+        <div class="left-border-box">
+          <div class="download-file" *ngFor="let file of data.filesMinimal" (click)="onDownloadFile(file.fileId)">
+            {{ file.fileName }}
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</app-modal>

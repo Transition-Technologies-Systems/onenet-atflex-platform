@@ -1,0 +1,274 @@
+<app-modal [showCancelBtn]="false" [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose [versions]="[]" [(ngModel)]="versionId" (ngModelChange)="changeVersion()" (closePreview)="close()">
+      <div sub-title>
+        {{ 'schedulingUnits.title' | translate }}
+      </div>
+      <div title>
+        {{ data.name }}
+      </div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'schedulingUnits.form.schedulingUnitData' | translate | uppercase" [selected]="true">
+        <div>
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.id' | translate }}</label>
+            <span>{{ data.id }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.name' | translate }}</label>
+            <span>{{ data.name }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.bsp' | translate }}</label>
+            <span>{{ data.bsp.representative.companyName }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.schedulingUnitType' | translate }}</label>
+            <span>{{ data.schedulingUnitType.nlsCode | translate }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.couplingPoints' | translate }}</label>
+            <span>{{ getCouplingPoints() }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.primaryCouplingPoint' | translate }}</label>
+            <span>{{ data.primaryCouplingPoint ? data.primaryCouplingPoint.name : '' }}</span>
+          </div>
+        </div>
+        <div *ngIf="isRegister">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.unitId' | translate }}</label>
+            <app-toogle-data
+              *ngIf="data.units.length > 1; else showUnit"
+              [header]="'schedulingUnits.table.unitsDetails' | translate | uppercase"
+              [selected]="true"
+            >
+              <div class="field" *ngFor="let unit of data.units">
+                <span>{{ unit?.name }}({{ unit.sourcePower }} kW)</span>
+              </div>
+            </app-toogle-data>
+
+            <ng-template #showUnit>
+              <span *ngIf="data.units[0] as unit">{{ unit?.name }}({{ unit.sourcePower }} kW)</span>
+            </ng-template>
+          </div>
+        </div>
+        <div *ngIf="!isRegister">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.numberOfDers' | translate }}</label>
+            <span>{{ data.numberOfDers }}({{ data.numberOfDersProposals }})</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.createdDate' | translate }}</label>
+            <span>{{ data.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div>
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.lastModifiedDate' | translate }}</label>
+            <span>{{ data.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div *ngIf="isRegister">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.createdBy' | translate }}</label>
+            <span> {{ data.createdBy }}</span>
+          </div>
+        </div>
+        <div *ngIf="isRegister">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.lastModifiedBy' | translate }}</label>
+            <span> {{ data.lastModifiedBy }}</span>
+          </div>
+        </div>
+        <div *ngIf="!isRegister">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.active' | translate }}</label>
+            <span>{{ 'Boolean.' + !!data.active | translate }}</span>
+          </div>
+        </div>
+        <div *ngIf="!isRegister">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.readyForTests' | translate }}</label>
+            <span>{{ 'Boolean.' + !!data.readyForTests | translate }}</span>
+          </div>
+        </div>
+        <div *ngIf="!isRegister">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.certified' | translate }}</label>
+            <span>{{ 'Boolean.' + !!data.certified | translate }}</span>
+          </div>
+        </div>
+      </p-accordionTab>
+
+      <p-accordionTab *ngIf="!isRegister" [header]="'schedulingUnits.form.files' | translate | uppercase">
+        <div class="left-border-box">
+          <div class="download-file" *ngFor="let file of data.filesMinimal" (click)="onDownloadFile(file.fileId)">
+            {{ file.fileName }}
+          </div>
+        </div>
+      </p-accordionTab>
+
+      <ng-container *ngIf="!isRegister">
+        <ng-container *ngFor="let fsp of fspWithDers">
+          <p-accordionTab
+            *ngFor="let der of getDersForFsp(fsp)"
+            [header]="'schedulingUnits.form.derTabTitle' | translate: getDerData(der, fsp) | uppercase"
+            [selected]="false"
+          >
+            <ng-container *ngIf="dersData[der.id] as derData">
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.id' | translate }}</label>
+                  <span>{{ derData.id }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.fspId' | translate }}</label>
+                  <span>{{ derData.fsp.representative.companyName }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.name' | translate }}</label>
+                  <span>{{ derData.name }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.code' | translate }}</label>
+                  <span>{{ derData.code }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.sourcePower' | translate }}</label>
+                  <span>{{ derData.sourcePower }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.connectionPower' | translate }}</label>
+                  <span>{{ derData.connectionPower }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.directionOfDeviation' | translate }}</label>
+                  <span>{{
+                    derData.directionOfDeviation ? ('DirectionOfDeviationType.' + derData.directionOfDeviation | translate) : ''
+                  }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.derType' | translate }}</label>
+                  <span>{{ derData.derType ? (derData.derType.nlsCode | translate) : '' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.sder' | translate }}</label>
+                  <span>{{ 'Boolean.' + !!derData.sder | translate }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.validFrom' | translate }}</label>
+                  <span>{{ derData.validFrom | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.validTo' | translate }}</label>
+                  <span>{{ derData.validTo | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.ppe' | translate }}</label>
+                  <span>{{ derData.ppe }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.powerStationTypes' | translate }}</label>
+                  <span>{{ derData.powerStationTypes | printDictionary: 'name' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.couplingPointIdTypes' | translate }}</label>
+                  <span>{{ derData.couplingPointIdTypes | printDictionary: 'name' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.pointOfConnectionWithLvTypes' | translate }}</label>
+                  <span>{{ derData.pointOfConnectionWithLvTypes | printDictionary: 'name' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.active' | translate }}</label>
+                  <span>{{ 'Boolean.' + derData.active | translate }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.aggregated' | translate }}</label>
+                  <span>{{ 'Boolean.' + derData.aggregated | translate }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.certified' | translate }}</label>
+                  <span>{{ 'Boolean.' + derData.certified | translate }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.createdDate' | translate }}</label>
+                  <span>{{ derData.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'units.table.lastModifiedDate' | translate }}</label>
+                  <span>{{ derData.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+                </div>
+              </div>
+
+              <div *ngFor="let location of derData.geoLocations">
+                <div class="field">
+                  <label>{{ 'units.form.latitude' | translate }}</label>
+                  <span>{{ location.latitude }}</span>
+                  <label>{{ 'units.form.longitude' | translate }}</label>
+                  <span>{{ location.longitude }}</span>
+                  <label>{{ 'units.form.mainLocation' | translate }}</label>
+                  <span>{{ 'Boolean.' + location.mainLocation | translate }}</span>
+                </div>
+              </div>
+            </ng-container>
+          </p-accordionTab>
+        </ng-container>
+      </ng-container>
+    </p-accordion>
+  </div>
+</app-modal>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202111231225-table" author="">
+        <createSequence incrementBy="1" sequenceName="auction_day_ahead_seq" startValue="1" ordered="true"/>
+        <createTable tableName="auction_day_ahead" remarks="Auctions table">
+            <column name="id" type="bigint" defaultValueSequenceNext="auction_day_ahead_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)" remarks="Auction name">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint" remarks="Product id associated with the auction">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(50)" remarks="Auction status">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auctions_series_id" type="bigint" remarks="Auctions series id associated with the auction">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auction_day" type="datetime" remarks="Auction day">
+                <constraints nullable="false"/>
+            </column>
+            <column name="auction_type" type="varchar(50)" remarks="Auction type">
+                <constraints nullable="false"/>
+            </column>
+            <column name="energy_gate_opening_time" type="datetime" remarks="Gate opening time only for energy">
+                <constraints nullable="true"/>
+            </column>
+            <column name="energy_gate_closure_time" type="datetime" remarks="Gate closure time only for energy">
+                <constraints nullable="true"/>
+            </column>
+            <column name="capacity_gate_opening_time" type="datetime" remarks="Gate opening time only for capacity">
+                <constraints nullable="true"/>
+            </column>
+            <column name="capacity_gate_closure_time" type="datetime" remarks="Gate closure time only for capacity">
+                <constraints nullable="true"/>
+            </column>
+            <column name="min_desired_capacity" type="decimal(21,2)" remarks="Minimal desired capacity">
+                <constraints nullable="true"/>
+            </column>
+            <column name="max_desired_capacity" type="decimal(21,2)" remarks="Maximum desired capacity">
+                <constraints nullable="true"/>
+            </column>
+            <column name="min_desired_energy" type="decimal(21,2)" remarks="Minimal desired energy">
+                <constraints nullable="true"/>
+            </column>
+            <column name="max_desired_energy" type="decimal(21,2)" remarks="Maximum desired energy">
+                <constraints nullable="true"/>
+            </column>
+            <column name="energy_availability_from" type="datetime" remarks="Beginning of availability interval only for energy">
+                <constraints nullable="true"/>
+            </column>
+            <column name="energy_availability_to" type="datetime" remarks="Ending of availability interval only for energy">
+                <constraints nullable="true"/>
+            </column>
+            <column name="capacity_availability_from" type="datetime" remarks="Beginning of availability interval only for capacity">
+                <constraints nullable="true"/>
+            </column>
+            <column name="capacity_availability_to" type="datetime" remarks="Ending of availability interval only for capacity">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202111231225-audit" author="">
+        <addColumn tableName="auction_day_ahead">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202111231225-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="auctions_series_id" baseTableName="auction_day_ahead"
+                                 constraintName="au_day_ahead_series_id" referencedColumnNames="id" referencedTableName="auctions_series"/>
+        <createIndex tableName="auction_day_ahead" indexName="idx_fk_au_day_ahead_series_id">
+            <column name="auctions_series_id" type="bigint"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="auction_day_ahead"
+                                 constraintName="au_da_prod_id" referencedColumnNames="id" referencedTableName="product"/>
+        <createIndex tableName="auction_day_ahead" indexName="idx_fk_au_da_prod_id">
+            <column name="product_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

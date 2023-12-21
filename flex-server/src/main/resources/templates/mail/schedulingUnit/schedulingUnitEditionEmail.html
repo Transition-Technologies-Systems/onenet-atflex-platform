@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+<head>
+    <title th:text="#{email.schedulingUnit.edition.title}">Flexibility Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="#{email.schedulingUnit.greeting(${user.login})}">
+    Dear
+</p>
+<p th:text="#{email.schedulingUnit.edition.text1(${schedulingUnitName})}">
+    Scheduling unit has been created with the following attributes
+</p>
+<ul>
+    <li th:if="${bsp != null}" th:text="#{email.schedulingUnit.creation.bsp(${bsp})}">BSP: </li>
+    <li th:if="${type != null}" th:text="#{email.schedulingUnit.creation.type(${type})}">Type: </li>
+    <li th:if="${active != null}" th:text="#{email.schedulingUnit.creation.active(${active})}">Active: </li>
+    <li th:if="${readyForTests != null}" th:text="#{email.schedulingUnit.creation.readyForTests(${readyForTests})}">Ready for tests: </li>
+    <li th:if="${certified != null}" th:text="#{email.schedulingUnit.creation.certified(${certified})}">Certified: </li>
+</ul>
+<p>
+    <a th:with="url=(@{|${baseUrl}/scheduling-units?id=${schedulingUnitId}|})" th:href="${url}" th:text="#{email.schedulingUnit.edition.link}">
+        Link
+    </a>
+</p>
+<p>
+    <span th:text="#{email.schedulingUnit.regards}">Regards, </span>
+    <br/>
+    <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+</p>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<app-filters *ngIf="tab !== 'series-auctions'" [form]="filters" (getData)="filter()" state="auctions-da-filters">
+  <app-filter-container>
+    <app-filter
+      [showHeader]="false"
+      type="multi-select"
+      controlName="productId"
+      name="auctions.filters.product"
+      [dictionaries]="dictionaries.products$ | async"
+    ></app-filter>
+    <app-filter type="date" controlName="deliveryDate" name="auctions.table.deliveryDate"></app-filter>
+    <app-filter type="date-time" controlName="gateDate.from" name="auctions.filters.gateOpeningTime"></app-filter>
+    <app-filter type="date-time" controlName="gateDate.to" name="auctions.filters.gateClosureTime"></app-filter>
+  </app-filter-container>
+</app-filters>
+<app-filters *ngIf="tab === 'series-auctions'" [form]="filters" (getData)="filter()" state="auctions-da-filters">
+  <app-filter-container>
+    <app-filter type="date-range" controlName="createdDate" name="auctions.filters.createdDate"></app-filter>
+    <app-filter type="date-range" controlName="lastModifiedDate" name="auctions.filters.lastModifiedDate"></app-filter>
+  </app-filter-container>
+</app-filters>

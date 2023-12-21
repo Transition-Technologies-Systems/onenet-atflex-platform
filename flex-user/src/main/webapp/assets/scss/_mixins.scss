@@ -1,0 +1,146 @@
+@import './_variables';
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin font-size($size) {
+  font-size: $size + px;
+  font-size: ($size / 14) + rem;
+}
+
+@mixin line-height($height) {
+  line-height: $height + px;
+  line-height: ($height / 14) + rem;
+}
+
+@mixin text-shadow($x, $y, $blur, $color) {
+  text-shadow: $x $y $blur $color;
+}
+
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+  -moz-user-select: $select;
+  -ms-user-select: $select;
+  user-select: $select;
+}
+
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin transition($transition...) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
+}
+
+@mixin truncate($truncation-boundary) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin const-width($width) {
+  width: $width;
+  min-width: $width;
+  max-width: $width;
+}
+
+@mixin laptop-max {
+  @media (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin laptop-min {
+  @media (min-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin css-triangle($color, $direction, $size: 6px, $position: absolute, $round: false) {
+  @include pseudo($pos: $position);
+  width: 0;
+  height: 0;
+
+  @if $round {
+    border-radius: 3px;
+  }
+
+  @if $direction==down {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+    margin-top: 0 - round($size / 2.5);
+  } @else if $direction==up {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+    margin-bottom: 0 - round($size / 2.5);
+  } @else if $direction==right {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+    margin-right: -$size;
+  } @else if $direction==left {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+    margin-left: -$size;
+  }
+}
+
+@function z($name) {
+  @if index($z-indexes, $name) {
+    @return (length($z-indexes) - index($z-indexes, $name))+1;
+  } @else {
+    @return null;
+  }
+}
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+  $src: null;
+
+  $extmods: (
+    eot: '?',
+    svg: '#' + str-replace($name, ' ', '_'),
+  );
+
+  $formats: (
+    otf: 'opentype',
+    ttf: 'truetype',
+  );
+
+  @each $ext in $exts {
+    $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+    $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+    $src: append($src, url(quote($path + '.' + $extmod)) format(quote($format)), comma);
+  }
+
+  @font-face {
+    font-family: quote($name);
+    font-style: $style;
+    font-weight: $weight;
+    src: $src;
+  }
+}
+
+@mixin image-set($path, $ext: png, $sep: '@') {
+  background-size: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(quote($path + '.' + $ext));
+  background-image: image-set(url(quote($path + '.' + $ext)) 1x, url(quote($path + $sep + '2x.' + $ext)) 2x);
+  background-image: -webkit-image-set(url(quote($path + '.' + $ext)) 1x, url(quote($path + $sep + '2x.' + $ext)) 2x);
+}

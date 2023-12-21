@@ -1,0 +1,166 @@
+<app-modal [handyScroll]="true" [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose [(ngModel)]="versionId" (ngModelChange)="changeVersion()" (closePreview)="close()">
+      <div sub-title>
+        {{ 'auctions.title.' + type | translate }}
+      </div>
+      <div title>ID: {{ data.id }}</div>
+      <div actions>
+        <ng-container *appHasAuthority="'FLEX_ADMIN_AUCTIONS_CMVC_OFFER_CREATE'">
+          <button
+            appPreventDoubleClick
+            pButton
+            pRipple
+            type="button"
+            *ngIf="data.status === 'OPEN' && data?.canAddBid"
+            class="p-button-secondary"
+            [label]="'auctions.actions.bids.add.btn' | translate"
+            (click)="addBid()"
+          ></button>
+        </ng-container>
+      </div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <p-accordion [multiple]="true">
+          <p-accordionTab [header]="'auctions.preview.product' | translate | uppercase" [selected]="true">
+            <ng-container *ngIf="productData">
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.id' | translate }}</label>
+                  <span>{{ productData.id }} </span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.fullName' | translate }}</label>
+                  <span>{{ productData.fullName }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.shortName' | translate }}</label>
+                  <span>{{ productData.shortName }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.locational' | translate }}</label>
+                  <span>{{ 'Boolean.' + productData.locational | translate }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.direction' | translate }}</label>
+                  <span>{{ productData.direction ? ('Direction.' + productData.direction | translate) : '' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.minBidSize' | translate }}</label>
+                  <span>{{ productData.minBidSize }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.maxBidSize' | translate }}</label>
+                  <span>{{ productData.maxBidSize }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.maxFullActivationTime' | translate }}</label>
+                  <span>
+                    {{ productData.maxFullActivationTime }}
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.minRequiredDeliveryDuration' | translate }}</label>
+                  <span>
+                    {{ productData.minRequiredDeliveryDuration }}
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+      <div class="field col-6">
+        <p-accordion [multiple]="true">
+          <p-accordionTab [header]="'auctions.preview.data' | translate | uppercase" [selected]="true">
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.id' | translate }}</label>
+                <span>{{ data.id }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.status' | translate }}</label>
+                <span>{{ 'AuctionStatus.' + data.status | translate }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.name' | translate }}</label>
+                <span>{{ data.name }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.localization' | translate }}</label>
+                <span>{{ formatLoalizations(data) }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.deliveryDate' | translate }}</label>
+                <span>{{ formatDeliveryDate(data) }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.gateOpeningTime' | translate }}</label>
+                <span>{{ data.gateOpeningTime | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.gateClosureTime' | translate }}</label>
+                <span>{{ data.gateClosureTime | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.minDesiredPower' | translate }}</label>
+                <span>{{ data.minDesiredPower }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.maxDesiredPower' | translate }}</label>
+                <span>{{ data.maxDesiredPower }}</span>
+              </div>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+    <p-accordion *appHasAuthority="'FLEX_ADMIN_AUCTIONS_CMVC_OFFER_VIEW'">
+      <p-accordionTab [header]="'auctions.preview.offers' | translate | uppercase" [selected]="true">
+        <ng-template pTemplate="content">
+          <app-auctions-offers
+            type="preview"
+            [auction]="this.data"
+            [auctionType]="auctionType"
+            [auctionCmvcId]="data.id"
+          ></app-auctions-offers>
+        </ng-template>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</app-modal>

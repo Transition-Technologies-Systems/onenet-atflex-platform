@@ -1,0 +1,79 @@
+{
+  "title": "atFlex Platform",
+  "euInfo": "This project has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 957739",
+  "subtitle": "",
+  "actions": {
+    "cancel": "Cancel",
+    "close": "Close",
+    "export": "Export",
+    "logout": "Logout",
+    "return": "Return",
+    "search": "Search",
+    "send": "Send",
+    "ok": "OK",
+    "yes": "Yes",
+    "no": "No",
+    "myProfile": "My profile",
+    "apply": "Apply"
+  },
+  "confirm": {
+    "confirmBtn": "Yes",
+    "rejectBtn": "No",
+    "title": "Confirmation",
+    "questionCloseModal": "Do you want to save progress?"
+  },
+  "docsDownload": {
+    "documents": "Registration documents",
+    "info": "Documents required in the FSP registration process"
+  },
+  "field": {
+    "chatMessage": "Enter your message",
+    "chooseVersion": "The version number"
+  },
+  "fileUpload": {
+    "chooseLabelMultiple": "Choose files",
+    "chooseLabel": "Choose file",
+    "invalidFileSizeMessageSummary": "{0}: Invalid file size, ",
+    "invalidFileSizeMessageDetail": "maximum upload size is {0}.",
+    "invalidFileTypeMessageSummary": "{0}: Invalid file type, ",
+    "invalidFileLimitMessageDetail": "limit is {0} at most.",
+    "invalidFileLimitMessageSummary": "Maximum number of files exceeded, ",
+    "invalidFileTypeMessageDetail": "allowed file types: {0}."
+  },
+  "labels": {
+    "none": "None"
+  },
+  "filters": {
+    "show": "Show filters",
+    "hide": "Hide filters",
+    "filter": "Filter",
+    "clear": "Clear"
+  },
+  "global": {
+    "selectedItemsLabel": "{0} items selected",
+    "httpRequestUriPath": "Request URL: {{ value }}",
+    "httpResponseStatus": "Request status: {{ value }}",
+    "offerReminder": "You are obliged to bid in auction"
+  },
+  "invalidForm": "Please complete all required fields",
+  "notifications": {
+    "messagesTitle": "Messages",
+    "alertsTitle": "Alerts",
+    "createdDate": "Received date",
+    "eventType": "Message",
+    "event": "Message",
+    "markAllAsRead": "Mark all as read"
+  },
+  "pagination": {
+    "viewElementsOnThePage": "{{ from }} - {{ to }} of {{ total }}"
+  },
+  "pendingProcessing": "Processing ...",
+  "tip": {
+    "chatAddAttachment": "Add attachment"
+  },
+  "warning": {
+    "fileTypeInvalid": "File {{name}} has an illegal extension",
+    "fileMaxSize": "The {{name}} file is too large, maximum file size is 10 MB",
+    "chatNoMessage": "You can't send an empty message"
+  }
+}

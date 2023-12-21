@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202208111449-table" author="">
+
+        <createTable tableName="unit_point_of_connection_type" remarks="Join table for Unit and Point of Connection with LV types">
+            <column name="unit_id" type="bigint" remarks="Unit identifier from table Unit">
+                <constraints nullable="false"/>
+            </column>
+            <column name="localization_type_id" type="bigint" remarks="Localization Type identifier from table localization_type">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="unit_id, localization_type_id" tableName="unit_point_of_connection_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="unit_id" baseTableName="unit_point_of_connection_type" constraintName="fk_unit_pclv_unit_id"
+                                 referencedColumnNames="id" referencedTableName="unit"/>
+
+        <addForeignKeyConstraint baseColumnNames="localization_type_id" baseTableName="unit_point_of_connection_type" constraintName="fk_unit_pclv_local_type_id"
+                                 referencedColumnNames="id" referencedTableName="localization_type"/>
+    </changeSet>
+</databaseChangeLog>

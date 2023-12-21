@@ -1,0 +1,18 @@
+{
+  "login": {
+    "username": "Login",
+    "password": "Password",
+    "email": "E-mail",
+    "logIn": "Log in",
+    "registration": "Registration",
+    "invalid": "Wrong login or password",
+    "forgotPassword": {
+      "title": "Password recovery",
+      "btn": "Forgot your password?",
+      "reset": "Reset",
+      "success": "Password reset link sent to the indicated e-mail address",
+      "error": "An error occurred while retrieving the password - contact service"
+    },
+    "alreadyLoggedIn": "You are already logged in"
+  }
+}

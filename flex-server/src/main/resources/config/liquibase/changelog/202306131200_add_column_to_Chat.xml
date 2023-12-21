@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202306131200-column" author="">
+        <addColumn tableName="chat">
+            <column name="initiator_user_id" type="bigint" remarks="Id of the user initiating the chat">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202306131200-constraints" author="">
+        <dropNotNullConstraint tableName="chat" columnName="initiator_company_id"/>
+        <addForeignKeyConstraint baseColumnNames="initiator_user_id" baseTableName="chat"
+                                 constraintName="chat_initiator_user_id" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+</databaseChangeLog>

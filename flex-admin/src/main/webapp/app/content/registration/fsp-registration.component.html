@@ -1,0 +1,63 @@
+<h1 class="title">{{ 'fspRegistration.title' | translate }}</h1>
+<div class="actions-box">
+  <p-selectButton [options]="getTabs()" [(ngModel)]="selectedTab" optionValue="type" (onChange)="getCollection()"></p-selectButton>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [value]="data"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngIf="columnsState.actions" [ngStyle]="{ width: '40px' }"></th>
+        <th *ngIf="columnsState.id">{{ 'fspRegistration.table.applicationId' | translate }}</th>
+        <th *ngIf="columnsState.firstName">{{ 'fspRegistration.table.name' | translate }}</th>
+        <th *ngIf="columnsState.lastName">{{ 'fspRegistration.table.lastName' | translate }}</th>
+        <th *ngIf="columnsState.companyName">{{ 'fspRegistration.table.companyName' | translate }}</th>
+        <th *ngIf="columnsState.createdDate">{{ 'fspRegistration.table.creationDate' | translate }}</th>
+        <th *ngIf="columnsState.lastModifiedDate">{{ 'fspRegistration.table.lastUpdate' | translate }}</th>
+        <th *ngIf="columnsState.status">{{ 'fspRegistration.table.applicationStatus' | translate }}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr [class.not-read]="(!row.readByAdmin && correctStatusForColor(row.status)) || !row.readByAdmin">
+        <td *ngIf="columnsState.actions">
+          <i class="icon icon--preview c-pointer" (click)="preview(row)"></i>
+        </td>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.firstName">{{ row.firstName }}</td>
+        <td *ngIf="columnsState.lastName">{{ row.lastName }}</td>
+        <td *ngIf="columnsState.companyName">{{ row.companyName }}</td>
+        <td *ngIf="columnsState.createdDate">{{ row.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td *ngIf="columnsState.lastModifiedDate">{{ row.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td *ngIf="columnsState.status">{{ 'FspUserRegistrationStatus.' + row.status | translate: { value: getRoleName(row) } }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

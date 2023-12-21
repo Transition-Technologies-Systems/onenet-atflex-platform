@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202109081210-table" author="">
+        <createSequence incrementBy="1" sequenceName="subportfolio_seq" startValue="1" ordered="true"/>
+        <createTable tableName="subportfolio" remarks="">
+            <column name="id" type="bigint" defaultValueSequenceNext="subportfolio_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)" remarks="Name of subportfolio">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number_of_ders" type="varchar(100)" remarks="Number of ders assigned to subportfolio">
+                <constraints nullable="false"/>
+            </column>
+            <column name="combined_power_of_ders" type="decimal(11,2)" remarks="Number of ders assigned to subportfolio">
+                <constraints nullable="false"/>
+            </column>
+            <column name="coupling_point_id" type="varchar(10)" remarks="Energy transformer coupling point id">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mrid" type="varchar(10)" remarks="Energy transformer mRID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record">
+                <constraints nullable="true"/>
+            </column>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record">
+                <constraints nullable="true"/>
+            </column>
+            <column name="valid_from" type="datetime"
+                    remarks="Start date of subportfolio validation (subportfolio can be valid for a specified period of time)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid_to" type="datetime" remarks="End date of subportfolio validation (subportfolio can be valid for a specified period of time)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="bigint" remarks="Subportfolio parent identity">
+                <constraints nullable="true"/>
+            </column>
+            <column name="active" type="boolean" remarks="Is active subportfolio">
+                <constraints nullable="false"/>
+            </column>
+            <column name="certified" type="boolean" remarks="Is certified subportfolio">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="bigint" remarks="Number of subportfolio version">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_version" type="boolean" remarks="Is the latest version of that Subportfolio">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="202109081210-constraints" author="">
+        <addColumn tableName="subportfolio">
+            <column name="fspa_id" type="bigint" remarks="Identity of FSPA">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="unit">
+            <column name="subportfolio_id" type="bigint" remarks="Identity of record from subportfolio table">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="fspa_id" baseTableName="subportfolio" constraintName="fk_fspa_id" referencedColumnNames="id"
+                                 referencedTableName="fsp"/>
+        <addForeignKeyConstraint baseColumnNames="subportfolio_id" baseTableName="unit" constraintName="fk_subportfolio_id" referencedColumnNames="id"
+                                 referencedTableName="subportfolio"/>
+    </changeSet>
+</databaseChangeLog>

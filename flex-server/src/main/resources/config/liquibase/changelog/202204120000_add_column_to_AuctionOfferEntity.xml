@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202204120000-column" author="">
+        <addColumn tableName="auction_offer">
+            <column name="unit_id" type="bigint" remarks="Unit id">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202204120000-constraint" author="">
+        <addForeignKeyConstraint baseColumnNames="unit_id" baseTableName="auction_offer"
+                                 constraintName="au_offer_unit_id" referencedColumnNames="id" referencedTableName="unit"/>
+        <createIndex tableName="auction_offer" indexName="idx_fk_au_offer_unit_id">
+            <column name="unit_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

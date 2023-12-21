@@ -1,0 +1,209 @@
+<app-modal [handyScroll]="true" [showFooter]="true" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header>
+    <h2>{{ 'algorithmEvaluations.table.bids' | translate }}</h2>
+  </div>
+  <div modal-content class="preview-data fix-bids-modal-content-width">
+    <div class="table-box">
+      <app-columns-configuration
+        [columns]="columns"
+        [(ngModel)]="activeColumns"
+        (ngModelChange)="onActiveColumnsChange()"
+      ></app-columns-configuration>
+      <p-table
+        *ngIf="data$ | async as data"
+        [lazy]="true"
+        [value]="data"
+        [scrollable]="true"
+        [columns]="activeColumns"
+        [sortField]="viewParameters.sortField"
+        [sortOrder]="viewParameters.sortOrder"
+        [filters]="viewParameters.dynamicFilters"
+        (onLazyLoad)="loadCollection($event)"
+        responsiveLayout="scroll"
+        appStickyTable
+        tableStyleClass="evaluation-offers-preview-table"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th *ngIf="columnsState.id" pSortableColumn="id">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.id' | translate }}
+                <p-sortIcon field="id"></p-sortIcon>
+              </div>
+            </th>
+            <th style="flex: 1 0 110px" *ngIf="columnsState.auctionId" pSortableColumn="auctionId">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.auctionId' | translate }}
+                <p-sortIcon field="auctionId"></p-sortIcon>
+              </div>
+            </th>
+            <th style="flex: 1 0 160px" *ngIf="columnsState.auctionName" pSortableColumn="auctionName">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.auctionName' | translate }}
+                <p-sortIcon field="auctionName"></p-sortIcon>
+              </div>
+            </th>
+            <th style="flex: 1 0 120px; max-width: 120px" *ngIf="columnsState.product" pSortableColumn="productName">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.product' | translate }}
+                <p-sortIcon field="productName"></p-sortIcon>
+              </div>
+            </th>
+            <th style="flex: 1 0 150px; max-width: 150px" *ngIf="columnsState.companyName" pSortableColumn="companyName">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.companyName' | translate }}
+                <p-sortIcon field="companyName"></p-sortIcon>
+              </div>
+            </th>
+            <th *ngIf="columnsState.status" pSortableColumn="status">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.status' | translate }}
+                <p-sortIcon field="status"></p-sortIcon>
+              </div>
+            </th>
+            <ng-container *appHasAuthority="'FLEX_ADMIN_VIEW_PRICES'">
+              <th style="flex: 1 0 130px; max-width: 130px" *ngIf="columnsState.onlyPrice" pSortableColumn="price">
+                <div class="flex justify-content-between align-items-center">
+                  {{ 'auctions.offers.onlyPrice' | translate }}
+                  <p-sortIcon field="price"></p-sortIcon>
+                </div>
+              </th>
+            </ng-container>
+            <th style="flex: 1 0 130px; max-width: 130px" *ngIf="columnsState.onlyVolume">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.onlyVolume' | translate }}
+              </div>
+            </th>
+            <th style="flex: 1 0 130px" *ngIf="columnsState.volumeDivisibility" pSortableColumn="volumeDivisibility">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.volumeDivisibility' | translate }}
+                <p-sortIcon field="volumeDivisibility"></p-sortIcon>
+              </div>
+            </th>
+            <th style="flex: 1 0 180px" *ngIf="columnsState.deliveryPeriod" pSortableColumn="deliveryPeriodFrom,deliveryPeriodTo">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.deliveryPeriod' | translate }}
+                <p-sortIcon field="deliveryPeriodFrom,deliveryPeriodTo"></p-sortIcon>
+              </div>
+            </th>
+            <th style="flex: 1 0 140px" *ngIf="columnsState.deliveryPeriodDivisibility" pSortableColumn="deliveryPeriodDivisibility">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.deliveryPeriodDivisibility' | translate }}
+                <p-sortIcon field="deliveryPeriodDivisibility"></p-sortIcon>
+              </div>
+            </th>
+            <th style="flex: 1 0 146px; max-width: 146px" *ngIf="columnsState.acceptedVolume">
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.acceptedVolume' | translate }}
+              </div>
+            </th>
+            <th
+              style="flex: 1 0 180px"
+              *ngIf="columnsState.acceptedDeliveryPeriod"
+              pSortableColumn="acceptedDeliveryPeriodFrom,acceptedDeliveryPeriodTo"
+            >
+              <div class="flex justify-content-between align-items-center">
+                {{ 'auctions.offers.acceptedDeliveryPeriod' | translate }}
+                <p-sortIcon field="acceptedDeliveryPeriodFrom,acceptedDeliveryPeriodTo"></p-sortIcon>
+              </div>
+            </th>
+          </tr>
+          <tr class="filter-row">
+            <th *ngIf="columnsState.id"></th>
+            <th style="flex: 1 0 110px" *ngIf="columnsState.auctionId">
+              <p-columnFilter
+                type="numeric"
+                locale="pl-PL"
+                [minFractionDigits]="0"
+                [maxFractionDigits]="3"
+                field="auctionId"
+                matchMode="equals"
+              ></p-columnFilter>
+            </th>
+            <th style="flex: 1 0 160px" *ngIf="columnsState.auctionName">
+              <p-columnFilter type="text" field="auctionName" matchMode="contains"></p-columnFilter>
+            </th>
+            <th style="flex: 1 0 120px; max-width: 120px" *ngIf="columnsState.product">
+              <p-columnFilter type="text" field="productName" matchMode="contains"></p-columnFilter>
+            </th>
+            <th style="flex: 1 0 150px; max-width: 150px" *ngIf="columnsState.companyName">
+              <p-columnFilter type="text" field="companyName" matchMode="contains"></p-columnFilter>
+            </th>
+            <th *ngIf="columnsState.status">
+              <p-columnFilter field="status" matchMode="in" [showMenu]="false">
+                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                  <app-multiselect
+                    inputId="status"
+                    [options]="dictionaries.statuses"
+                    [ngModel]="value"
+                    styleClass="multiselect-filter-row"
+                    iconClass="icon icon--expand-white"
+                    (onChange)="filter($event.value)"
+                  ></app-multiselect>
+                </ng-template>
+              </p-columnFilter>
+            </th>
+            <ng-container *appHasAuthority="'FLEX_ADMIN_VIEW_PRICES'">
+              <th style="flex: 1 0 130px; max-width: 130px" *ngIf="columnsState.onlyPrice"></th>
+            </ng-container>
+            <th style="flex: 1 0 130px; max-width: 130px" *ngIf="columnsState.onlyVolume"></th>
+            <th style="flex: 1 0 130px" *ngIf="columnsState.volumeDivisibility"></th>
+            <th style="flex: 1 0 180px" *ngIf="columnsState.deliveryPeriod"></th>
+            <th style="flex: 1 0 140px" *ngIf="columnsState.deliveryPeriodDivisibility"></th>
+            <th style="flex: 1 0 146px; max-width: 146px" *ngIf="columnsState.acceptedVolume"></th>
+            <th style="flex: 1 0 180px" *ngIf="columnsState.acceptedDeliveryPeriod"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td *ngIf="columnsState.id">{{ row.id }}</td>
+            <td style="flex: 1 0 110px" *ngIf="columnsState.auctionId">{{ row.auctionId }}</td>
+            <td style="flex: 1 0 160px" *ngIf="columnsState.auctionName">{{ row.auctionName }}</td>
+            <td style="flex: 1 0 120px; max-width: 120px" *ngIf="columnsState.product">{{ row.productName }}</td>
+            <td style="flex: 1 0 150px; max-width: 150px" *ngIf="columnsState.companyName">
+              <app-tooltip>
+                <div #textFromContent class="text-ellipsis">
+                  {{ row.companyName }} ({{ row.role ? ('RoleShort.' + row.role | translate) : '' }})
+                </div>
+              </app-tooltip>
+            </td>
+            <td *ngIf="columnsState.status">{{ row.status ? ('AuctionOfferStatus.' + row.status | translate) : '' }}</td>
+            <ng-container *appHasAuthority="'FLEX_ADMIN_VIEW_PRICES'">
+              <td style="flex: 1 0 130px; max-width: 130px" *ngIf="columnsState.onlyPrice">
+                <app-tooltip>
+                  <div class="text-ellipsis" *ngIf="row.offerCategory === 'DAY_AHEAD'; else showValue">
+                    {{ row.price }} {{ getUnit('price', row) }}
+                  </div>
+                </app-tooltip>
+                <ng-template #showValue> {{ row.price }} {{ getUnit('price', row) }} </ng-template>
+              </td>
+            </ng-container>
+            <td style="flex: 1 0 130px; max-width: 130px" *ngIf="columnsState.onlyVolume">
+              <app-tooltip>
+                <div class="text-ellipsis"  *ngIf="row.offerCategory === 'DAY_AHEAD'; else showValue">
+                  {{ row.volume }} {{ getUnit('volume', row) }}
+                </div>
+              </app-tooltip>
+              <ng-template #showValue> {{ row.volume }} {{ getUnit('volume', row) }} </ng-template>
+            </td>
+            <td style="flex: 1 0 130px" *ngIf="columnsState.volumeDivisibility">{{ 'Boolean.' + !!row.volumeDivisibility | translate }}</td>
+            <td style="flex: 1 0 180px" *ngIf="columnsState.deliveryPeriod">{{ formatDeliveryDate(row) }}</td>
+            <td style="flex: 1 0 140px" *ngIf="columnsState.deliveryPeriodDivisibility">
+              {{ 'Boolean.' + !!row.deliveryPeriodDivisibility | translate }}
+            </td>
+            <td style="flex: 1 0 146px; max-width: 146px" *ngIf="columnsState.acceptedVolume">
+              <app-tooltip>
+                <div class="text-ellipsis"  *ngIf="row.offerCategory === 'DAY_AHEAD'; else showValue">
+                  {{ row.acceptedVolume }} {{ getUnit('volume', row) }}
+                </div>
+              </app-tooltip>
+              
+              <ng-template #showValue> {{ row.acceptedVolume }} {{ getUnit('volume', row) }} </ng-template>
+            </td>
+            <td style="flex: 1 0 180px" *ngIf="columnsState.acceptedDeliveryPeriod">{{ formatAcceptedDeliveryDate(row) }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</app-modal>

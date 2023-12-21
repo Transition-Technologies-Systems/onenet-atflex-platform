@@ -1,0 +1,26 @@
+<app-modal [showFooter]="true" [showHeader]="false" [showConfirmAfterEsc]="false" [showCancelBtn]="false">
+  <div modal-content>
+    <h4>{{ 'schedulingUnits.actions.removeDers.question' | translate }}</h4>
+
+    <ul *ngFor="let der of ders">
+      <li>{{ der.name }}</li>
+    </ul>
+  </div>
+  <div modal-footer>
+    <button
+      type="button"
+      pButton
+      [label]="'actions.no' | translate"
+      (click)="close(false)"
+      [ngClass]="'p-confirm-popup-reject p-button-sm'"
+      class="p-button-text"
+    ></button>
+    <button
+      type="button"
+      pButton
+      [label]="'actions.yes' | translate"
+      (click)="close(true)"
+      [ngClass]="'p-confirm-popup-accept p-button-sm'"
+    ></button>
+  </div>
+</app-modal>

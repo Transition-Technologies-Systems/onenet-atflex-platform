@@ -1,0 +1,12 @@
+<app-multiselect
+  [options]="columns"
+  [translateDictionaries]="true"
+  [(ngModel)]="value"
+  (ngModelChange)="onChangeValue($event)"
+  optionLabel="header"
+  optionValue="field"
+></app-multiselect>
+
+<div class="columns-configuration" (click)="open()">
+  <i class="icon icon--hidde-columns"></i>
+</div>

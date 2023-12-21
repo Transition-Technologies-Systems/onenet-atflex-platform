@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{email.fspUserRegistration.title}">Flexibility Platform</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.fspUserRegistration.greeting(${fspUserReg.userName})}">
+            Dear
+        </p>
+        <p th:text="#{email.fspUserRegistration.fsp.accountActivation.text1(${fspUserReg.fspUser.login})}">
+            Your account has been created, please click on the URL below to activate it and set the password:
+        </p>
+        <p>
+            <a th:with="url=(@{|${baseUrl}/account/activate?key=${fspUserReg.fspUser.activationKey}|})" th:href="${url}"
+               th:text="#{email.fspUserRegistration.fsp.accountActivation.text2}" th:style="'color: blue;'">Activate user</a>
+        </p>
+        <p>
+            <span th:text="#{email.fspUserRegistration.regards}">Regards, </span>
+            <br/>
+            <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+        </p>
+    </body>
+</html>

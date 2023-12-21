@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202210241430-table" author="">
+        <createSequence incrementBy="1" sequenceName="kdm_model_timestamp_file_seq" startValue="1" ordered="true"/>
+        <createTable tableName="kdm_model_timestamp_file" remarks="Table with attached files to table kdm_model">
+            <column name="id" type="bigint" defaultValueSequenceNext="kdm_model_timestamp_file_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="timestamp" type="varchar(2)" remarks="The hour number">
+                <constraints nullable="false"/>
+            </column>
+            <column name="file_type" type="varchar(50)" remarks="File type e.g. REGULAR, REPORT, PAYMENTS">
+                <constraints nullable="false" />
+            </column>
+            <column name="file_name" type="varchar(100)" remarks="File name with extension e.g. test.txt">
+                <constraints nullable="false" />
+            </column>
+            <column name="file_extension" type="varchar(10)" remarks="File extension type e.g. DOC, DOCX, PDF, TXT, XLS, XLSX">
+                <constraints nullable="false" />
+            </column>
+            <column name="file_zip_data" type="blob" remarks="File is kept in zip archive">
+                <constraints nullable="false" />
+            </column>
+            <column name="kdm_model_id" type="bigint" remarks="Kdm model identifier from table kdm_model">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202210241430-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="kdm_model_id" baseTableName="kdm_model_timestamp_file" constraintName="fk_kdm_mod_time_file_id" referencedColumnNames="id"
+                                 referencedTableName="kdm_model"/>
+    </changeSet>
+
+    <changeSet id="202210241430-audit" author="">
+        <addColumn tableName="kdm_model_timestamp_file">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

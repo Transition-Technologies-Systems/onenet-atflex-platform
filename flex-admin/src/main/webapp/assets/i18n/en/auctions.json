@@ -1,0 +1,359 @@
+{
+  "auctions": {
+    "actions": {
+      "sendViaEmail": {
+        "menuItem": "Send via e-mail",
+        "success": "E-mail with the file has been sent to: {{ email }}"
+      },
+      "add": {
+        "btn": "Add new auction",
+        "title": "Add auction",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "There was an error adding the auction"
+      },
+      "bids": {
+        "add": {
+          "btn": "Add new bid",
+          "tooltip": "Add bid",
+          "title": "Add bid: Auction {{ auctionName }}",
+          "saveBtn": "Save",
+          "success": "Saving successful",
+          "error": "There was an error adding the bid"
+        },
+        "edit": {
+          "title": "Edit bid: {{ bidId }}; Auction {{ auctionName }}",
+          "saveBtn": "Save",
+          "success": "Saving successful",
+          "error": "An error occurred while editing the bid"
+        },
+        "delete": {
+          "question": "Are you sure to remove the selected bid from the system?",
+          "success": "The selected bid has been successfully removed",
+          "error": "An error occurred while deleting the selected bid"
+        }
+      },
+      "bidsEvaluation": {
+        "noSelected": "You do not have any offers selected",
+        "export": {
+          "btn": "Export bids",
+          "warningNoType": "Mark at least one type of bids"
+        },
+        "exportTSO": {
+          "btn": "Export bids(TSO)",
+          "warningNoType": "Mark at least one type of bids"
+        },
+        "exportDSO": {
+          "btn": "Export bids(DSO)",
+          "warningNoType": "Mark at least one type of bids"
+        },
+        "agnoAlgorithm": {
+          "btn": "Start pure AGNO algorithm"
+        },
+        "pbcmAlgorithm": {
+          "btn": "Start AGNO for reserves algorithm (PBCM)"
+        },
+        "danoAlgorithm": {
+          "btn": "Start AGNO for DGIA algorithm (DANO)"
+        },
+        "runAlgorithm": {
+          "btn": "Start",
+          "kdmModelId": "Choose area",
+          "kdmLvModel": "LV model",
+          "noDeliveryDate": "Filter by delivery date",
+          "success": "The algorithm has been started",
+          "error": "Failed to run the algorithm"
+        },
+        "import": {
+          "btn": "Import results",
+          "success": "All bids have been imported properly",
+          "partialSuccess": "Imported bids: {{ importedBids }} <br> Not imported bids: {{ notImportedBids }}",
+          "failed": "Not imported bids: {{ notImportedBids }}",
+          "error": "An unexpected error has occurred. Contact technical support."
+        },
+        "importAGNO": {
+          "btn": "Import RB results (AGNO)",
+          "success": "All bids have been imported properly",
+          "partialSuccess": "Imported bids: {{ importedBids }} <br> Not imported bids: {{ notImportedBids }}",
+          "failed": "All bids have not been imported",
+          "error": "Data has not been updated, please check correctness of imported file",
+          "websocket": {
+            "error": "Disaggregation {{ id }} failed.",
+            "success": "Disaggregation {{ id }} completed successfully.",
+            "CONNECTION_TO_ALGORITHM_SERVICE_LOST": "{{ id }} algorithm error. Lost connection with calculating module."
+          }
+        },
+        "importDANO": {
+          "btn": "Import RB results (PBCM, DANO)"
+        },
+        "importCMVC": {
+          "btn": "Import CM&VC results"
+        },
+        "accepted": {
+          "btn": "Accepted",
+          "success": "The action \"accepted\" was successfully done on the marked offers",
+          "error": "There was an error while doing the action \"accepted\" on the marked offers"
+        },
+        "rejected": {
+          "btn": "Rejected",
+          "success": "The action \"rejected\" was successfully done on the marked offers",
+          "error": "There was an error while doing the action \"rejected\" on the marked offers"
+        },
+        "importUpdatedOffers": {
+          "btn": "Import updated offer"
+        }
+      },
+      "edit": {
+        "title": "Edit auction: {{ name }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "successWithEnd": "Last auction date has been modified and new auctions will not generate",
+        "error": "An error occurred while editing the auction"
+      },
+      "delete": {
+        "question": "Are you sure to remove the selected auction from the system?",
+        "success": "Series auction object has been deleted",
+        "successWithEnd": "Last auction date has been modified and new auctions will not generate",
+        "error": "An error occurred while deleting the selected auction"
+      }
+    },
+    "export": {
+      "cmvcBids": "CM&VC bids",
+      "balancingEnergyBids": "Balancing(DA) Energy bids",
+      "balancingCapacityBids": "Balancing(DA) Capacity bids"
+    },
+    "dayAhead": {
+      "tabs": {
+        "energyAuctions": "Energy auctions",
+        "capacityAuctions": "Capacity auctions",
+        "seriesAuctions": "Series auctions"
+      }
+    },
+    "filters": {
+      "product": "Product",
+      "gateOpeningTime": "Gate opening time",
+      "gateClosureTime": "Gate closure time",
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "deliveryDate": "Delivery date"
+    },
+    "offers": {
+      "fspPotentialInfo": "ID: {{ id }}/ Product: {{ productName }}/ Volume: {{ volume }} {{ volumeUnit }}/ Full activation time: {{ fullActivationTime }} sec/ Minimum duration of delivery: {{ minDeliveryDuration }} min",
+      "bspPotentialInfo": "ID: {{ id }}/ Name: {{ name }}/ Type: {{ type }}/ DERs: {{ dersData }}",
+      "canOnlySet": "Value can only be equal {{ value }}",
+      "addNextDer": "Add next DER",
+      "addAllDers": "Add all DERs",
+      "addNewDerBand": "Add new band",
+      "removeDerBand": "Remove band",
+      "selfSchedule": "SS",
+      "removeDer": "Remove DER",
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "Bid ID",
+      "auctionId": "Auction ID",
+      "auctionName": "Auction name",
+      "product": "Product",
+      "companyName": "Company name",
+      "schedulingUnitOrPotential": "Scheduling unit/Potential",
+      "bidDate": "Bid date",
+      "flexPotential": "FSPA/FSP",
+      "schedulingUnit": "BSP",
+      "potential": "Potential",
+      "scheduluginUnitPotential": "Scheduling unit",
+      "potentialFromFlex": "Potential",
+      "potentialFromSU": "Potential",
+      "status": "Status",
+      "auctionStatus": "Auction status",
+      "bidStatus": "Bid status",
+      "der": "DER",
+      "onlyPrice": "Price",
+      "price": "Price [PLN/kW]",
+      "priceKwh": "Price [PLN/kWh]",
+      "onlyVolume": "Volume",
+      "volume": "Volume",
+      "volumeDivisibility": "Volume divisibility",
+      "commonPriceOfBid": "Common price of bid",
+      "commonsPriceOfBand": "Common price of band",
+      "hourNumber": "Timestamp",
+      "bandNumber": "Band",
+      "priceCommon": "Price",
+      "deliveryPeriod": "Delivery period",
+      "deliveryPeriodFrom": "Delivery period from",
+      "deliveryPeriodTo": "Delivery period to",
+      "deliveryPeriodDivisibility": "Delivery period divisibility",
+      "acceptedVolume": "Accepted volume",
+      "acceptedVolumeKw": "Accepted volume [kW]",
+      "acceptedVolumeKwh": "Accepted volume [kWh]",
+      "acceptedDeliveryPeriod": "Accepted delivery period",
+      "acceptedDeliveryPeriodFrom": "Accepted delivery period from",
+      "acceptedDeliveryPeriodTo": "Accepted delivery period to",
+      "downloadTemplateOfBid": "Download template of bid",
+      "limitPowerForBid": "Limit[{{unit}}]: {{Pmin}} — {{Pmax}}",
+      "importBid": {
+        "title": "Import bid",
+        "success": "Bid has been imported successfully",
+        "error": "An unexpected error has occurred. Contact technical support."
+      },
+      "tooltip": {
+        "ders": "DERs",
+        "potential": "Potential"
+      }
+    },
+    "preview": {
+      "product": "Product data",
+      "data": "Auction attributes",
+      "offers": "Submitted offers",
+      "capacityOffers": "Submitted capacity offers",
+      "energyOffers": "Submitted energy offers"
+    },
+    "table": {
+      "offerDayAheadTooltip": "Company: {{ companyName }}, Scheduling unit: {{ potentialName }} (ID: {{ potentialId }}), Volume: {{ volume }} {{ volumeUnit }}, Price: {{ price }} {{ priceUnit }}",
+      "offerCmvcTooltip": "Company: {{ companyName }}, Potential: {{ potentialId }}, Volume: {{ volume }} {{ volumeUnit }}, Price: {{ price }} {{ priceUnit }}",
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "ID",
+      "status": "Auction status",
+      "offers": "Offers",
+      "name": "Auction name",
+      "product": "Product",
+      "localization": "Localization",
+      "deliveryDate": "Delivery date",
+      "deliveryDateFrom": "Delivery date time from",
+      "deliveryDateTo": "Delivery date time to",
+      "gateOpeningTime": "Gate opening time",
+      "gateClosureTime": "Gate closure time",
+      "minDesiredPower": "Min desired power",
+      "maxDesiredPower": "Max desired power",
+      "volume": "V",
+      "price": "P",
+      "positiveBandsVolumeSum": "Scheduling unit band +",
+      "selfScheduleSum": "Scheduling unit's self-schedule",
+      "negativeBandsVolumeSum": "Scheduling unit band -",
+      "type": "Auction type",
+      "firstAuctionDate": "First auction date",
+      "lastAuctionDate": "Last auction date",
+      "maxDesiredCapacity": "Max desired capacity",
+      "maxDesiredEnergy": "Max desired energy",
+      "minDesiredCapacity": "Min desired capacity",
+      "minDesiredEnergy": "Min desired energy",
+      "energyGateOpeningTime": "Gate opening time - energy",
+      "energyGateClosureTime": "Gate closure time - energy",
+      "capacityGateOpeningTime": "Gate opening time - capacity",
+      "capacityGateClosureTime": "Gate closure time - capacity",
+      "energyAvailability": "Delivery - energy",
+      "energyAvailabilityFrom": "Delivery from - energy",
+      "energyAvailabilityTo": "Delivery to - energy",
+      "capacityAvailability": "Delivery - capacity",
+      "capacityAvailabilityFrom": "Delivery from - capacity",
+      "capacityAvailabilityTo": "Delivery to - capacity",
+      "availability": "Delivery",
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "createdBy": "Created by",
+      "lastModifiedBy": "Modified by",
+      "noSsTooltip": "Self-schedule has not been imported"
+    },
+    "title": {
+      "CMVC": "Congestion Management & Voltage Control",
+      "DAY_AHEAD": "Day-ahead",
+      "bidsEvaluation": "Bids evaluation"
+    },
+    "tooltip": {
+      "applyCommonPrice": "Be sure to fill all needed volumes before applying",
+      "changedValue": "Original value: {{ value }} {{ unit }}"
+    }
+  },
+  "algorithmEvaluations": {
+    "title": "Algorithm calculations",
+    "actions": {
+      "generateResults": {
+        "btn": "Generate results",
+        "success": "Operation completed successfully",
+        "error": "An unexpected error has occurred"
+      },
+      "parseResult": {
+        "success": "The results have been successfully parsed",
+        "error": "There was an error parsing the results"
+      },
+      "cancelEvaluation": {
+        "btn": "Cancel",
+        "question": "Are you sure you want to cancel evaluation process?",
+        "success": "Evaluation cancelled successfully",
+        "error": "You cannot cancel finished evaluation"
+      },
+      "exportEvaluation": {
+        "btn": "Export bids"
+      }
+    },
+    "table": {
+      "id": "Evaluation ID",
+      "typeOfAlgorithm": "Type of algorithm",
+      "deliveryDate": "Delivery date",
+      "kdmModelName": "Area",
+      "bids": "Bids",
+      "createdDate": "Creation date",
+      "endDate": "End date",
+      "inputFiles": "Input files",
+      "outputFiles": "Output files",
+      "processLogs": "Process logs",
+      "status": "Status",
+      "parseResults": "Parse result"
+    },
+    "tooltip": {
+      "bidId": "Bid id",
+      "schedulingUnit": "Scheduling unit",
+      "bidStatus": "Bid status"
+    }
+  },
+  "AlgorithmStatus": {
+    "EVALUATING": "Evaluating",
+    "KDM_MODEL_UPDATING": "Updating KDM Model",
+    "KDM_MODEL_NOT_ACQUIRED": "KDM model not acquired",
+    "COMPLETED": "Completed",
+    "FAILURE": "Algorithm failure",
+    "TECHNICAL_FAILURE": "Technical failure",
+    "CANCELLED": "Cancelled"
+  },
+  "AlgorithmType": {
+    "PBCM": "AGNO for reserves (PBCM)",
+    "BM": "Pure AGNO",
+    "DANO": "AGNO for DGIA (DANO)",
+    "SETO": "SETO",
+    "DISAGGREGATION": "AGNO disaggregation"
+  },
+  "error": {
+    "dayAhead": {
+      "offer": {
+        "notSetPriceInAllNonZeroBands": "Price not set in all non-zero bands",
+        "import": {
+          "incoherent": {
+            "self": {
+              "schedule": "Incoherent self-schedule"
+            }
+          },
+          "wrong": {
+            "file": "Bid has not been imported. Check correctness of the template."
+          }
+        },
+        "update": {
+          "import": {
+            "wrong": {
+              "file": "Data has not been updated, please check correctness of imported file."
+            }
+          }
+        },
+        "selectedDerIsNotJoinedToSchedulingUnit": "Cannot run the action, because there was a change in the structure of scheduling unit."
+      }
+    },
+    "agnoAlgorithm": {
+      "chooseOnlyCapacityRelatedBids": "Please choose only capacity-related bids",
+      "chooseOnlyEnergyRelatedBids": "Please choose only energy-related bids",
+      "cannotFoundLogFiles": "Process logs not found",
+      "cannotFoundInputFiles": "Input files not found",
+      "cannotFoundOutputFiles": "Output files not found"
+    },
+    "cmvc": {
+      "sameDates": "Gate closure time cannot be the same as gate opening time"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+<ng-container [ngSwitch]="embeddedPreview">
+  <ng-container *ngSwitchCase="false">
+    <p-accordionTab [header]="'flexPotentials.form.potentialData' | translate | uppercase" [selected]="selected || !embeddedPreview">
+      <ng-container *ngIf="data" [ngTemplateOutlet]="dataTab" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+    </p-accordionTab>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="true">
+    <app-toogle-data [header]="'flexPotentials.form.details' | translate | uppercase" [selected]="selected">
+      <ng-container *ngIf="data" [ngTemplateOutlet]="dataTab" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+    </app-toogle-data>
+  </ng-container>
+</ng-container>
+
+<ng-template #dataTab let-item>
+  <div [class.left-border-box]="borderLeft">
+    <div class="grid" [ngClass]="{ 'p-flex-column': embeddedPreview }">
+      <div class="field md:col-12 lg:col-6">
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'flexPotentials.table.fspId' | translate }}</label>
+            <span>{{ item.fsp?.representative?.companyName }} ({{ 'RoleShort.' + item.fsp?.role | translate }})</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'flexPotentials.table.unitId' | translate }}</label>
+            <app-toogle-data
+              *ngIf="item.units.length > 1; else showUnit"
+              [header]="'flexPotentials.table.unitsDetails' | translate | uppercase"
+              [selected]="true"
+            >
+              <div class="field" *ngFor="let unit of item.units">
+                <span>{{ unit?.name }}{{ unit?.sder ? '(SDER)' : '' }}</span>
+              </div>
+            </app-toogle-data>
+
+            <ng-template #showUnit>
+              <span *ngIf="item.units[0] as unit">{{ unit?.name }}{{ unit?.sder ? '(SDER)' : '' }}</span>
+            </ng-template>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'flexPotentials.table.volume' | translate }}</label>
+            <span>{{ item.volume | number: '1.2':'pl' }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'flexPotentials.table.volumeUnit' | translate }}</label>
+            <span>{{ 'VolumeUnit.' + item.volumeUnit | translate }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'flexPotentials.table.divisibility' | translate }}</label>
+            <span>{{ 'Boolean.' + !!item.divisibility | translate }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'flexPotentials.table.fullActivationTime' | translate }}</label>
+            <span>{{ item.fullActivationTime }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'flexPotentials.table.minDeliveryDuration' | translate }}</label>
+            <span>{{ item.minDeliveryDuration }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

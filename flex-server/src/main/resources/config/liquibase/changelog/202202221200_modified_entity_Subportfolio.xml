@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202202221200-table" author="">
+
+        <createTable tableName="subportfolio_cpi_type" remarks="Join table for Subportfolio and Coupling Point types">
+            <column name="subportfolio_id" type="bigint" remarks="Subportfolio identifier from table Subportfolio">
+                <constraints nullable="false"/>
+            </column>
+            <column name="localization_type_id" type="bigint" remarks="Localization Type identifier from table localization_type">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="subportfolio_id, localization_type_id" tableName="subportfolio_cpi_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="subportfolio_id" baseTableName="subportfolio_cpi_type" constraintName="fk_subpo_cpit_subpo_id"
+                                 referencedColumnNames="id" referencedTableName="subportfolio"/>
+
+        <addForeignKeyConstraint baseColumnNames="localization_type_id" baseTableName="subportfolio_cpi_type" constraintName="fk_subpo_cpit_local_type_id"
+                                 referencedColumnNames="id" referencedTableName="localization_type"/>
+    </changeSet>
+
+    <changeSet id="202202221200-data" author="" dbms="oracle">
+        <sql>
+            INSERT ALL
+            INTO subportfolio_cpi_type (subportfolio_id, localization_type_id) VALUES (id, 2)
+            SELECT * FROM subportfolio where subportfolio.coupling_point_id is not null;
+        </sql>
+    </changeSet>
+
+    <changeSet id="202202221200-column" author="">
+        <dropColumn tableName="subportfolio" columnName="coupling_point_id"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,12 @@
+<app-modal [handyScroll]="true" [showFooter]="true" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header>
+    <h2>{{ config.data.parentScreenName + '.table.description' | translate }}</h2>
+  </div>
+  <div modal-content class="preview-data">
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="config.data.parentScreenName + '.table.description' | translate | uppercase" [selected]="true">
+        <p>{{ config.data.description ? config.data.description : '' }}</p>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</app-modal>

@@ -1,0 +1,191 @@
+<h1 class="title">{{ 'activationsSettlements.title' | translate }}</h1>
+<div class="actions-box">
+  <button
+    appPreventDoubleClick
+    pButton
+    pRipple
+    type="button"
+    [label]="'activationsSettlements.actions.export.btn' | translate"
+    (click)="exportData()"
+  ></button>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 0 0 80px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'activationsSettlements.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.derName" pSortableColumn="derName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'activationsSettlements.table.derName' | translate }}
+            <p-sortIcon field="derName"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.offerId" pSortableColumn="offerId">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'activationsSettlements.table.offerId' | translate }}
+            <p-sortIcon field="offerId"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.auctionName" pSortableColumn="auctionName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'activationsSettlements.table.auctionName' | translate }}
+            <p-sortIcon field="auctionName"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.companyName" pSortableColumn="companyName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'activationsSettlements.table.companyName' | translate }}
+            <p-sortIcon field="companyName"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.acceptedDeliveryPeriod" pSortableColumn="acceptedDeliveryPeriodTo">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'activationsSettlements.table.acceptedDeliveryPeriod' | translate }}
+            <p-sortIcon field="acceptedDeliveryPeriodFrom,acceptedDeliveryPeriodTo"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.acceptedVolume">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'activationsSettlements.table.acceptedVolume' | translate }}
+          </div>
+        </th>
+        <th *ngIf="columnsState.activatedVolume">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'activationsSettlements.table.activatedVolume' | translate }}
+          </div>
+        </th>
+        <th *ngIf="columnsState.settlementAmount">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'activationsSettlements.table.settlementAmount' | translate }}
+          </div>
+        </th>
+      </tr>
+      <tr class="filter-row">
+        <th style="flex: 0 0 80px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.derName">
+          <p-columnFilter type="text" field="derName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.offerId">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="offerId"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.auctionName">
+          <p-columnFilter type="text" field="auctionName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.companyName">
+          <p-columnFilter type="text" field="companyName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 170px" *ngIf="columnsState.acceptedDeliveryPeriod">
+          <p-columnFilter
+            type="date"
+            field="acceptedDeliveryPeriod"
+            matchMode="equals"
+            [showMenu]="showFilterMenuForAcceptedDeliveryPeriod"
+          >
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar
+                inputId="acceptedDeliveryPeriod"
+                [ngModel]="value"
+                selectionMode="range"
+                (ngModelChange)="filter($event)"
+                [showIcon]="false"
+              ></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.acceptedVolume"></th>
+        <th *ngIf="columnsState.activatedVolume"></th>
+        <th *ngIf="columnsState.settlementAmount"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr [ngClass]="getRowClass(row)">
+        <td style="flex: 0 0 80px" *ngIf="columnsState.actions">
+          <i class="icon icon--edit c-pointer" (click)="edit(row)" *appHasAuthority="'FLEX_USER_SETTLEMENT_MANAGE'"></i>
+          <i class="icon icon--preview c-pointer" (click)="preview(row)"></i>
+        </td>
+        <td *ngIf="columnsState.id">
+          {{ row.id }}
+        </td>
+        <td *ngIf="columnsState.derName">
+          {{ row.derName }}
+        </td>
+        <td *ngIf="columnsState.offerId">
+          {{ row.offerId }}
+        </td>
+        <td *ngIf="columnsState.auctionName">
+          {{ row.auctionName }}
+        </td>
+        <td *ngIf="columnsState.companyName">
+          {{ row.companyName }}
+        </td>
+        <td style="flex: 1 0 170px" *ngIf="columnsState.acceptedDeliveryPeriod">
+          {{ formatDeliveryDate(row) }}
+        </td>
+        <td *ngIf="columnsState.acceptedVolume">
+          <div [pTooltip]="showTooltip(row)">
+            {{ row | showVolume: 'acceptedVolume':row.unit }}
+          </div>
+        </td>
+        <td *ngIf="columnsState.activatedVolume">
+          {{ row.activatedVolume ? row.activatedVolume + ' ' + row.unit : '' }}
+        </td>
+        <td *ngIf="columnsState.settlementAmount">
+          {{ row.settlementAmount }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

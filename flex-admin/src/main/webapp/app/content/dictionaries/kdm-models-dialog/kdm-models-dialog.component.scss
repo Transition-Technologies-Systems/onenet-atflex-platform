@@ -1,0 +1,29 @@
+:host ::ng-deep table {
+  .p-datatable {
+    th,
+    td {
+      border: 1px solid #c8c8c8;
+    }
+  }
+}
+
+.kdm-models-table {
+  width: 560px;
+}
+
+::ng-deep .p-confirm-popup {
+  box-shadow: none;
+}
+
+
+.timestamp-green {
+  td {
+    background-color: #d5fcd9 !important;
+  }
+}
+
+.timestamp-yellow {
+  td {
+    background-color: #faffc7 !important;
+  }
+}

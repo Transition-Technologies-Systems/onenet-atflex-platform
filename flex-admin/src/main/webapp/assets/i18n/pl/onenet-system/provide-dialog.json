@@ -1,0 +1,19 @@
+{
+  "provideDialog": {
+    "title": "Dostarcz",
+    "actions": {
+      "sendBtn": "Wyślij"
+    },
+    "form": {
+      "title": "Tytuł",
+      "description": "Opis",
+      "addFile": "Dodaj plik",
+      "offeredService": "Oferowana usługa"
+    },
+    "send": {
+      "noFile": "Proszę załączyć plik",
+      "success": "Prawidłowo dostarczono plik dla {{name}}",
+      "error": "Nie przesłano pliku. Proszę skontaktować się z pomocą techniczną."
+    }
+  }
+}

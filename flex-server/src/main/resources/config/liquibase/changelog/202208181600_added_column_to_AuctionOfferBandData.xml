@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202208181600-add-column" author="">
+        <addColumn tableName="auction_da_offer_band_data">
+            <column name="gdf" type="varchar(45)" remarks="Volume GDF factor">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="202208181600-data" author="">
+        <sql>
+            UPDATE auction_da_offer_band_data outer_band
+            SET outer_band.gdf = to_char(outer_band.accepted_volume) || '/' ||
+                (SELECT to_char(SUM(inner_band.accepted_volume))
+                FROM auction_da_offer_band_data inner_band
+                JOIN auction_da_offer_ders inner_offer_ders
+                ON inner_offer_ders.id = inner_band.auction_offer_ders_id
+                WHERE inner_offer_ders.offer_id =
+                    (SELECT outer_offer_ders.offer_id
+                    FROM auction_da_offer_ders outer_offer_ders
+                    WHERE outer_offer_ders.id = outer_band.auction_offer_ders_id)
+                AND inner_band.hour_number = outer_band.hour_number
+                AND inner_band.band_number = outer_band.band_number);
+        </sql>
+    </changeSet>
+    <changeSet id="202208181600-constraint" author="">
+        <addNotNullConstraint tableName="auction_da_offer_band_data" columnName="gdf"/>
+    </changeSet>
+</databaseChangeLog>

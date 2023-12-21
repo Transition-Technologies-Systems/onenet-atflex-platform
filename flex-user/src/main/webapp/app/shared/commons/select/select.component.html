@@ -1,0 +1,58 @@
+<p-dropdown
+  [options]="options ? options : []"
+  [autoDisplayFirst]="false"
+  [(ngModel)]="value"
+  (onChange)="onChangeValue($event)"
+  [styleClass]="styleClass"
+  [showClear]="showClear"
+  (onFocus)="onFocus()"
+  (onBlur)="onBlur()"
+  [inputId]="inputId ? inputId : ''"
+  appendTo="body"
+  [baseZIndex]="50000"
+  [disabled]="disabled"
+  [optionValue]="optionValue"
+  [optionLabel]="optionLabel"
+  [dropdownIcon]="iconClass"
+>
+  <ng-template pTemplate="item" let-item>
+    <div
+      class="text-ellipsis"
+      style="max-width: 40vw"
+      tooltipPosition="top"
+      *ngIf="optionWithTooltip || (optionWithPrompt && item.prompt); else showOption"
+      [pTooltip]="
+        optionWithPrompt && item.prompt ? item.prompt : translateDictionaries ? (item[optionLabel] | translate: item) : item[optionLabel]
+      "
+    >
+      <ng-container *ngTemplateOutlet="showOption"></ng-container>
+    </div>
+
+    <ng-template #showOption>
+      <span [class.italic]="item.italic">
+        {{ translateDictionaries ? (item[optionLabel] | translate: item) : item[optionLabel] }}
+      </span>
+    </ng-template>
+  </ng-template>
+  <ng-template let-selectedItem pTemplate="selectedItem">
+    <div
+      class="text-ellipsis"
+      style="max-width: 40vw"
+      tooltipPosition="top"
+      *ngIf="optionWithTooltip || (optionWithPrompt && selectedItem.prompt); else showOption"
+      [pTooltip]="
+        optionWithPrompt && selectedItem.prompt
+          ? selectedItem.prompt
+          : translateDictionaries
+          ? (selectedItem[optionLabel] | translate: selectedItem)
+          : selectedItem[optionLabel]
+      "
+    >
+      <ng-container *ngTemplateOutlet="showOption"></ng-container>
+    </div>
+
+    <ng-template #showOption>
+      {{ translateDictionaries ? (selectedItem[optionLabel] | translate: selectedItem) : selectedItem[optionLabel] }}
+    </ng-template>
+  </ng-template>
+</p-dropdown>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}" lang="en">
+    <head>
+        <title th:text="#{email.fspUserRegistration.title}">Flexibility Platform</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.fspUserRegistration.greeting(${fspUserReg.userName})}">
+            Dear
+        </p>
+        <p th:text="#{email.fspUserRegistration.fsp.confirmation.text1}">
+            We have registered the submission of an application for access to the OneNet Flexibility Platform:
+        </p>
+        <p>
+            <a th:text="#{email.fspUserRegistration.fsp.firstName(${fspUserReg.firstName})}"/><br>
+            <a th:text="#{email.fspUserRegistration.fsp.lastName(${fspUserReg.lastName})}"/><br>
+            <a th:text="#{email.fspUserRegistration.fsp.companyName(${fspUserReg.companyName})}"/><br>
+            <a th:text="#{email.fspUserRegistration.fsp.email(${fspUserReg.email})}"/><br>
+            <a th:text="#{email.fspUserRegistration.fsp.phoneNumber(${fspUserReg.phoneNumber})}"/>
+        </p>
+        <p>
+            <span th:text="#{email.fspUserRegistration.fsp.confirmation.text2}">If you have submitted a request, please confirm it by clicking here: </span>
+            <a th:with="url=(@{|${baseUrl}/registration/confirm?key=${fspUserReg.securityKey}|})" th:href="${url}"
+               th:text="#{email.fspUserRegistration.fsp.confirmation.text4}" th:style="'color: blue;'">Verify registration request</a>
+        </p>
+        <p>
+            <span th:text="#{email.fspUserRegistration.fsp.confirmation.text3}">If the application has not been sent by you, click here: </span>
+            <a th:with="url=(@{|${baseUrl}/registration/reject?key=${fspUserReg.securityKey}|})" th:href="${url}"
+               th:text="#{email.fspUserRegistration.fsp.confirmation.text5}" th:style="'color: red;'">Cancel registration request</a>
+        </p>
+        <p>
+            <span th:text="#{email.fspUserRegistration.regards}">Regards, </span>
+            <br/>
+            <em th:text="#{email.signature}">OneNet Flexibility Platform Administration.</em>
+        </p>
+    </body>
+</html>

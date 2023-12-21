@@ -1,0 +1,16 @@
+{
+  "offeredServices": {
+    "title": "Oferowane usługi",
+    "table": {
+      "id": "ID",
+      "title": "Tytuł",
+      "onenetId": "ID ONS",
+      "businessObject": "Obiekt biznesowy",
+      "serviceCode": "Kod usługi",
+      "fileSchema": "Schemat pliku",
+      "fileSchemaSample": "Przykładowy schemat pliku",
+      "description": "Opis",
+      "provide": "Dostarcz"
+    }
+  }
+}

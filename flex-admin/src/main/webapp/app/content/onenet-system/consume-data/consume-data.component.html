@@ -1,0 +1,120 @@
+<h1 class="title">{{ 'consumeData.title' | translate }}</h1>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'consumeData.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.title" pSortableColumn="title">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'consumeData.table.title' | translate }}
+            <p-sortIcon field="title"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.onenetId" pSortableColumn="onenetId">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'consumeData.table.onenetId' | translate }}
+            <p-sortIcon field="onenetId"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.businessObject" pSortableColumn="businessObject">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'consumeData.table.businessObject' | translate }}
+            <p-sortIcon field="businessObject"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.dataSupplier" pSortableColumn="dataSupplier">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'consumeData.table.dataSupplier' | translate }}
+            <p-sortIcon field="dataSupplier"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.description">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'consumeData.table.description' | translate }}
+          </div>
+        </th>
+        <th *ngIf="columnsState.file">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'consumeData.table.file' | translate }}
+          </div>
+        </th>
+      </tr>
+      <tr class="filter-row">
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.title">
+          <p-columnFilter type="text" field="title" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.onenetId">
+          <p-columnFilter type="text" field="onenetId" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.businessObject">
+          <p-columnFilter type="text" field="businessObject" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.dataSupplier">
+          <p-columnFilter type="text" field="dataSupplier" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.description"></th>
+        <th *ngIf="columnsState.file"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.title">{{ row.title }}</td>
+        <td *ngIf="columnsState.onenetId">{{ row.onenetId }}</td>
+        <td *ngIf="columnsState.businessObject">{{ row.businessObject }}</td>
+        <td *ngIf="columnsState.dataSupplier">{{ row.dataSupplierFull }}</td>
+        <td *ngIf="columnsState.description">
+          <i class="icon icon--preview" (click)="preview(row)"></i>
+        </td>
+        <td *ngIf="columnsState.file">
+          <i class="icon icon--download" (click)="downloadFile(row)"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

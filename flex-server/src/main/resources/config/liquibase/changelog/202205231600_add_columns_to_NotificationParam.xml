@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202205231600-add-column" author="">
+        <addColumn tableName="notification_param">
+            <column name="object" type="blob" remarks="Object saved as text, e.g. json."/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202205231600-drop-constraint" author="">
+        <dropNotNullConstraint tableName="notification_param" columnName="value"/>
+    </changeSet>
+</databaseChangeLog>

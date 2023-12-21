@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202112151650-1" author="">
+        <addColumn tableName="auction_day_ahead">
+            <column name="delivery_date" type="datetime" remarks="Delivery date">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202112151650-2" author="">
+        <sql>
+            update AUCTION_DAY_AHEAD a set a.delivery_date = a.auction_day + 1
+        </sql>
+    </changeSet>
+
+    <changeSet id="202112151650-3" author="">
+        <addNotNullConstraint tableName="auction_day_ahead" columnName="delivery_date"/>
+    </changeSet>
+</databaseChangeLog>

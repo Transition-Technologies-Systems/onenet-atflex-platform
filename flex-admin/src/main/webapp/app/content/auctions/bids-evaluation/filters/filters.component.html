@@ -1,0 +1,12 @@
+<app-filters [form]="filters" (getData)="filter()" state="auctions-bids-evaluation-filters">
+  <app-filter-container>
+    <app-filter
+      [showHeader]="false"
+      type="multi-select"
+      controlName="productId"
+      name="auctions.filters.product"
+      [dictionaries]="dictionaries.products$ | async"
+    ></app-filter>
+    <app-filter type="date" controlName="deliveryPeriod" name="auctions.filters.deliveryDate"></app-filter>
+  </app-filter-container>
+</app-filters>

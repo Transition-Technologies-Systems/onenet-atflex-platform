@@ -1,0 +1,29 @@
+<div [ngClass]="{ 'in-line': !dropdown }" class="grid p-justify-center options">
+  <ng-container *ngIf="dropdown">
+    <p-dropdown
+      [options]="options"
+      styleClass="p-paginator-rpp-options dropdown-options"
+      [dropdownIcon]="'icon icon--expand'"
+      (onChange)="onLangChange($event.value)"
+      optionLabel="label"
+      optionValue="value"
+      [(ngModel)]="selectedOption"
+    >
+    </p-dropdown>
+  </ng-container>
+
+  <ng-container *ngIf="!dropdown">
+    <p-button
+      styleClass="p-button p-button-text option lang-selector"
+      label="en"
+      (click)="changeLanguage('en')"
+      [ngClass]="selectedOption === 'en' ? 'active-lang' : ''"
+    ></p-button>
+    <p-button
+      styleClass="p-button p-button-text option lang-selector"
+      label="pl"
+      (click)="changeLanguage('pl')"
+      [ngClass]="selectedOption === 'pl' ? 'active-lang' : ''"
+    ></p-button>
+  </ng-container>
+</div>

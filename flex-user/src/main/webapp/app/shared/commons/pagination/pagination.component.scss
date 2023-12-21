@@ -1,0 +1,85 @@
+@import 'assets/scss/variables';
+
+.pagination {
+  ::ng-deep {
+    .p-dropdown {
+      color: $pagination-color;
+      font-family: 'Roboto Condensed';
+      border: none;
+      border-bottom: 2px solid $pagination-color;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .p-dropdown-label {
+      font-family: 'Roboto Condensed';
+      font-weight: 500;
+    }
+  }
+
+  margin-top: 15px;
+  display: flex;
+  color: $pagination-color;
+  align-items: center;
+  justify-content: flex-end;
+
+  > label {
+    margin: 0 5px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    align-items: center;
+
+    ::ng-deep button {
+      padding: 2px 5px;
+    }
+
+    .page-item {
+      margin: 0;
+
+      &.disabled {
+        cursor: not-allowed;
+      }
+
+      .page-link {
+        background-color: $pagination-background;
+        border-radius: 4px;
+        border: none;
+        color: #fff !important;
+      }
+
+      &.link {
+        .page-link {
+          background: transparent;
+          color: #212529 !important;
+        }
+      }
+
+      &.active {
+        .page-link {
+          background-color: $pagination-color;
+          color: white;
+        }
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.inactive {
+  button {
+    color: $pagination-inactive-color;
+    cursor: not-allowed;
+  }
+}

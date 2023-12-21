@@ -1,0 +1,30 @@
+CREATE OR REPLACE VIEW ALGORITHM_EVALUATION_VIEW AS
+   SELECT ae.id,
+        kdm.id AS kdm_model_id,
+        kdm.AREA_NAME AS kdm_model_name,
+        ae.TYPE_OF_ALGORITHM,
+                CASE
+                    WHEN TYPE_OF_ALGORITHM = 'DANO' THEN 1
+                    WHEN TYPE_OF_ALGORITHM = 'PBCM' THEN 2
+                    WHEN TYPE_OF_ALGORITHM = 'BM' THEN 3
+                    WHEN TYPE_OF_ALGORITHM = 'DISAGGREGATION' THEN 4
+                END AS type_order_pl,
+                CASE
+                    WHEN TYPE_OF_ALGORITHM = 'DISAGGREGATION' THEN 1
+                    WHEN TYPE_OF_ALGORITHM = 'DANO' THEN 2
+                    WHEN TYPE_OF_ALGORITHM = 'PBCM' THEN 3
+                    WHEN TYPE_OF_ALGORITHM = 'BM' THEN 4
+                END AS type_order_en,
+        ae.DELIVERY_DATE,
+        ae.END_DATE,
+        ae.STATUS,
+        ae.CREATED_BY,
+        ae.CREATED_DATE,
+        ae.LAST_MODIFIED_BY,
+        ae.LAST_MODIFIED_DATE,
+        (SELECT LISTAGG(OFFER_IDS.OFFER, ',') FROM
+            (SELECT DA_OFFER_ID OFFER FROM ALG_EVALUATION_DA_OFFERS ADA WHERE ADA.ALGORITHM_EVALUATION_ID = AE.ID) OFFER_IDS) AS DA_OFFERS,
+        (SELECT LISTAGG(OFFER_IDS.OFFER, ',') FROM
+            (SELECT CMVC_OFFER_ID OFFER FROM ALG_EVALUATION_CMVC_OFFERS ACM WHERE ACM.ALGORITHM_EVALUATION_ID = AE.ID) OFFER_IDS) AS CMVC_OFFERS
+   FROM ALGORITHM_EVALUATION ae
+   LEFT JOIN KDM_MODEL kdm ON kdm.id = ae.KDM_MODEL_ID

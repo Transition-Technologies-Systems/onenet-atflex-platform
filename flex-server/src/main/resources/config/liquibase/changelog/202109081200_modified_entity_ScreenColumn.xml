@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202109081200" author="">
+        <addColumn tableName="screen_columns">
+            <column name="export" type="boolean" remarks="Flag informing if column is to be exported"/>
+        </addColumn>
+        <sql>UPDATE screen_columns SET export = 1</sql>
+        <sql>UPDATE screen_columns SET export = 0 where screen_columns.column_name = 'actions' or screen_columns.column_name = 'delete'</sql>
+        <addNotNullConstraint tableName="screen_columns" columnName="export"/>
+    </changeSet>
+</databaseChangeLog>

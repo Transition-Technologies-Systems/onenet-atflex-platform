@@ -1,0 +1,130 @@
+<p-confirmPopup [baseZIndex]="20000"></p-confirmPopup>
+<h1 class="title">{{ 'onsUsers.title' | translate }}</h1>
+<div class="actions-box">
+  <button
+    appPreventDoubleClick
+    pButton
+    pRipple
+    type="button"
+    class="p-button-secondary"
+    [label]="'onsUsers.actions.add.btn' | translate"
+    (click)="add()"
+    *appHasAuthority="'FLEX_ADMIN_ONENET_USER_MANAGE'"
+  ></button>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngIf="columnsState.id" pSortableColumn="id">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'onsUsers.table.id' | translate }}
+            <p-sortIcon field="id"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.username" pSortableColumn="username">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'onsUsers.table.username' | translate }}
+            <p-sortIcon field="username"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.onenetId" pSortableColumn="onenetId">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'onsUsers.table.onenetId' | translate }}
+            <p-sortIcon field="onenetId"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.email" pSortableColumn="email">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'onsUsers.table.email' | translate }}
+            <p-sortIcon field="email"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.active">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'onsUsers.table.active' | translate }}
+          </div>
+        </th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+      <tr class="filter-row">
+        <th *ngIf="columnsState.id">
+          <p-columnFilter
+            type="numeric"
+            locale="pl-PL"
+            [minFractionDigits]="0"
+            [maxFractionDigits]="3"
+            field="id"
+            matchMode="equals"
+          ></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.username">
+          <p-columnFilter type="text" field="username" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.onenetId">
+          <p-columnFilter type="text" field="onenetId" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.email">
+          <p-columnFilter type="text" field="email" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.active"></th>
+        <th style="flex: 0 0 46px" *ngIf="columnsState.delete"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr [ngClass]="getRowClass(row)">
+        <td *ngIf="columnsState.id">{{ row.id }}</td>
+        <td *ngIf="columnsState.username">{{ row.username }}</td>
+        <td *ngIf="columnsState.onenetId">{{ row.onenetId }}</td>
+        <td *ngIf="columnsState.email">{{ row.email }}</td>
+        <td *ngIf="columnsState.active">
+          <div class="formgrid grid table-checkbox">
+            <div class="field-radiobutton">
+              <p-radioButton
+                [value]="true"
+                inputId="active-true"
+                [(ngModel)]="row.active"
+                (onClick)="setActiveUser(row.id)"
+                *appHasAuthority="'FLEX_ADMIN_ONENET_USER_MANAGE'"
+              ></p-radioButton>
+              <label for="active-true">{{ 'Boolean.' + row.active | translate }}</label>
+            </div>
+          </div>
+        </td>
+        <td style="flex: 0 0 46px" *ngIf="columnsState.delete">
+          <i *appHasAuthority="'FLEX_ADMIN_ONENET_USER_DELETE'" class="icon icon--delete c-pointer" (click)="delete($event, row)"></i>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td *ngIf="columnsState.actions" [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

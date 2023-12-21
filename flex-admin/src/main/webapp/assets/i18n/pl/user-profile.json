@@ -1,0 +1,55 @@
+{
+  "userProfile": {
+    "title": "Mój profil",
+    "form": {
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "email": "Adres e-mail",
+      "phoneNumber": "Numer telefonu",
+      "login": "Login",
+      "activated": "Aktywny",
+      "role": "Rola"
+    },
+    "changePassword": {
+      "title": "Zmień hasło",
+      "form": {
+        "currentPassword": "Obecne hasło",
+        "newPassword": "Nowe hasło",
+        "repeatNewPassword": "Powtórz nowe hasło"
+      }
+    },
+    "actions": {
+      "save": "Zapisz zmiany",
+      "success": "Profil został zaktualizowany",
+      "error": "Wystąpił błąd podczas aktualizacji profilu",
+      "changePasswordSuccess": "Hasło zostało zaktualizowane",
+      "changePasswordError": "Nieprawidłowe obecne hasło",
+      "updateEmailNotificationsSuccess": "Ustawienia powiadomień mailowych zostały zapisane"
+    },
+    "notifications": {
+      "title": "Powiadomienia mailowe",
+      "saveBtn": "Zapisz"
+    },
+    "notificationObjects": {
+      "FSP_REGISTRATION": "Rejestracja",
+      "PRODUCT": "Produkt",
+      "UNIT": "Zasób",
+      "SUBPORTFOLIO": "Subportfolio",
+      "FLEXIBILITY_POTENTIAL": "Potencjał elastyczności",
+      "SCHEDULING_UNIT": "Jednostka grafikowa",
+      "FSP": "FSP"
+    },
+    "notificationActions": {
+      "CREATION": "Utworzenie",
+      "EDITION": "Edycja",
+      "ASSIGNMENT_TO_REGISTER": "Przeniesienie do rejestru",
+      "APPLICATION_NOTIFICATION": "Nowy wniosek",
+      "APPLICATION_CONFIRAMTION_NOTIFICATION": "Potwierdzenie wniosku",
+      "CHANGE_NOTIFICATION": "Zmiana statusu wniosku",
+      "ACCEPTED": "Akceptacja rejestracji",
+      "REJECTED": "Odrzucenie rejestracji",
+      "APPLICATION_WITHDRAWAL": "Wycofanie wniosku",
+      "READY_FOR_TESTS_NOTIFICATION": "Gotowość do testów"
+    }
+  }
+}

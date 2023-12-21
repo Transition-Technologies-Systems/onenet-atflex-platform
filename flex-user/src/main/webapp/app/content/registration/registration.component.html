@@ -1,0 +1,168 @@
+<main id="page-wrapper">
+  <section class="box">
+    <div class="d-flex d-flex-justify-end manuals">
+      <app-manuals-download></app-manuals-download>
+    </div>
+
+    <h1>{{ 'title' | translate }}</h1>
+    <h2>{{ 'subtitle' | translate }}</h2>
+
+    <form id="login-box" [formGroup]="form" [form]="form" appValidatorContainer="fspUserRegistration">
+      <span class="field-control">
+        <span class="p-float-label">
+          <app-select
+            [options]="dictionaries.roles"
+            formControlName="userTargetRole"
+            inputId="field-userTargetRole"
+            aria-describedby="userTargetRole-help"
+          ></app-select>
+          <label for="field-userTargetRole">{{ 'registration.form.role' | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get('userTargetRole')?.touched">
+          <small id="userTargetRole-help" class="p-error" *ngIf="form.get('userTargetRole')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-firstName" type="text" pInputText formControlName="firstName" aria-describedby="firstName-help" />
+          <label for="field-firstName">{{ 'registration.form.firstName' | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get('firstName')?.touched">
+          <small id="firstName-help" class="p-error" *ngIf="form.get('firstName')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+          <small id="firstName-help" class="p-error" *ngIf="form.get('firstName')?.hasError('maxlength')">
+            {{ 'validate.maxlength' | translate: { value: 50 } }}
+          </small>
+        </ng-container>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-lastName" type="text" pInputText formControlName="lastName" aria-describedby="lastName-help" />
+          <label for="field-lastName">{{ 'registration.form.lastName' | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get('lastName')?.touched">
+          <small id="lastName-help" class="p-error" *ngIf="form.get('lastName')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+          <small id="firstName-help" class="p-error" *ngIf="form.get('firstName')?.hasError('maxlength')">
+            {{ 'validate.maxlength' | translate: { value: 50 } }}
+          </small>
+        </ng-container>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-companyName" type="text" pInputText formControlName="companyName" aria-describedby="companyName-help" />
+          <label for="field-companyName">{{ 'registration.form.companyName' | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get('companyName')?.touched">
+          <small id="companyName-help" class="p-error" *ngIf="form.get('companyName')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+          <small id="firstName-help" class="p-error" *ngIf="form.get('firstName')?.hasError('maxlength')">
+            {{ 'validate.maxlength' | translate: { value: 254 } }}
+          </small>
+        </ng-container>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-email" type="email" pInputText formControlName="email" aria-describedby="email-help" />
+          <label for="field-email">{{ 'registration.form.email' | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get('email')?.touched">
+          <small id="email-help" class="p-error" *ngIf="form.get('email')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+          <small id="firstName-help" class="p-error" *ngIf="form.get('firstName')?.hasError('email')">
+            {{ 'validate.email' | translate }}
+          </small>
+        </ng-container>
+      </span>
+      <span class="field-control">
+        <span class="p-float-label">
+          <ngx-intl-tel-input
+            [cssClass]="'custom'"
+            [preferredCountries]="prefferedCountries"
+            [enableAutoCountrySelect]="false"
+            [enablePlaceholder]="true"
+            [searchCountryFlag]="true"
+            [searchCountryField]="searchCountryField"
+            [selectFirstCountry]="false"
+            [selectedCountryISO]="selectedCountry"
+            [maxLength]="20"
+            [phoneValidation]="true"
+            inputId="field-phoneNumber"
+            name="phone"
+            formControlName="phoneNumber"
+          ></ngx-intl-tel-input>
+          <label for="field-phoneNumber">{{ 'registration.form.phoneNumber' | translate }}</label>
+        </span>
+        <ng-container *ngIf="form.get('phoneNumber')?.touched">
+          <small id="phoneNumber-help" class="p-error" *ngIf="form.get('phoneNumber')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+          <small
+            id="phoneNumber-help"
+            class="p-error"
+            *ngIf="form.get('phoneNumber')?.invalid && !form.get('phoneNumber')?.hasError('required')"
+          >
+            {{ 'validate.invalidPhoneNumber' | translate }}
+          </small>
+        </ng-container>
+      </span>
+      <div class="field-control">
+        <div class="field-checkbox">
+          <p-checkbox [binary]="true" formControlName="rulesConfirmation" inputId="field-rulesConfirmation"></p-checkbox>
+          <label for="field-rulesConfirmation" class="p-checkbox-label">
+            {{ 'registration.form.acceptRule' | translate }}
+            <a class="regulations" (click)="getRules($event, 'RULES')">{{ 'registration.form.rules' | translate }}</a>
+          </label>
+        </div>
+        <ng-container *ngIf="form.get('rulesConfirmation')?.touched">
+          <small id="rulesConfirmation-help" class="p-error" *ngIf="form.get('rulesConfirmation')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </div>
+      <div class="field-control">
+        <div class="field-checkbox">
+          <p-checkbox [binary]="true" formControlName="rodoConfirmation" inputId="field-rodoConfirmation"></p-checkbox>
+          <label for="field-rodoConfirmation" class="p-checkbox-label">
+            {{ 'registration.form.acceptRule' | translate }}
+            <a class="regulations" (click)="getRules($event, 'RODO')">{{ 'registration.form.rodo' | translate }}</a>
+          </label>
+        </div>
+        <ng-container *ngIf="form.get('rodoConfirmation')?.touched">
+          <small id="rodoConfirmation-help" class="p-error" *ngIf="form.get('rodoConfirmation')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </div>
+
+      <span class="field-control">
+        <h2 class="mt-0">{{ 'registration.attachments' | translate }}</h2>
+        <app-file-upload
+          [multiple]="true"
+          [required]="false"
+          [formTouched]="formTouched"
+          [acceptFormats]="acceptFormats"
+          (fileSelected)="onFileSelect($event)"
+        ></app-file-upload>
+      </span>
+
+      <div class="d-flex d-flex-space-between w-100 actions">
+        <p-button [label]="'registration.goToLogin' | translate" styleClass="p-button-link" (click)="goToLogin()"></p-button>
+        <button
+          appPreventDoubleClick
+          (click)="register()"
+          pButton
+          pRipple
+          type="submit"
+          [label]="'registration.register' | translate"
+        ></button>
+      </div>
+    </form>
+  </section>
+</main>

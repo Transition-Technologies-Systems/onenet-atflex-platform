@@ -1,0 +1,58 @@
+@import 'assets/scss/variables';
+
+:host ::ng-deep {
+  .p-dialog {
+    min-width: 40vw;
+
+    .p-dialog-header {
+      padding: 20px 20px 10px 20px;
+      border-bottom: $modal-header-border;
+      background: $modal-header-background;
+
+      h2 {
+        margin: 0;
+      }
+    }
+
+    .p-dialog-content {
+      padding: 20px;
+      background: $modal-background;
+    }
+
+    .p-dialog-footer {
+      padding: 0 20px 20px 20px;
+      background: $modal-background;
+    }
+  }
+
+  .p-dialog-mask {
+    height: auto !important;
+    position: relative !important;
+  }
+
+  .p-dialog-footer {
+    p-footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  ::ng-deep {
+    .p-calendar {
+      .p-calendar-w-btn {
+        height: inherit;
+        width: inherit;
+      }
+
+      .p-inputtext {
+        border-width: 0 !important;
+        border-color: transparent !important;
+      }
+
+      .p-datepicker-trigger {
+        border-width: 0 !important;
+        border-color: transparent !important;
+      }
+    }
+  }
+}

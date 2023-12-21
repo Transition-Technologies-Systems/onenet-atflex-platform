@@ -1,0 +1,14 @@
+{
+  "chat": {
+    "title": "Chat",
+    "newChat": {
+      "company": "Company"
+    },
+    "actions": {
+      "startNewChat": "Start new chat"
+    },
+    "messages": {
+      "read": "Read"
+    }
+  }
+}

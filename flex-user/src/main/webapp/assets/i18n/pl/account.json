@@ -1,0 +1,32 @@
+{
+  "account": {
+    "password": "Hasło",
+    "confirmPassword": "Powtórz hasło",
+    "currentPassword": "Aktualne hasło",
+    "activate": {
+      "setPassword": "Zapisz",
+      "success": "Konto na Platformie Elastyczności zostało aktywowane",
+      "error": "Wystąpił błąd podczas aktywacji konta na Platformie Elastyczności"
+    },
+    "changePassword": {
+      "btn": "Ustaw hasło",
+      "title": "Zmiana hasła",
+      "success": "Hasło zostało zmienione",
+      "error": "Wystąpił błąd podczas zmiany hasła"
+    },
+    "form": {
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "companyName": "Nazwa firmy",
+      "email": "E-mail",
+      "login": "Login",
+      "phoneNumber": "Nr telefonu"
+    },
+    "resetPassword": {
+      "setPassword": "Ustaw hasło",
+      "goToLogin": "Wróć do strony logowania",
+      "success": "Pomyślnie ustawiono hasło - zaloguj się do systemu",
+      "error": "Wystąpił błąd podczas ustawiania hasła - skontaktuj się z serwisem"
+    }
+  }
+}

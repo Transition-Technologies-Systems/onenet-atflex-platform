@@ -1,0 +1,24 @@
+<app-modal [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose [(ngModel)]="versionId" (ngModelChange)="changeVersion()" (closePreview)="close()">
+      <div sub-title>
+        {{ 'products.title' | translate }}
+      </div>
+      <div title>
+        {{ data.shortName }}
+      </div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <p-accordion [multiple]="true">
+      <app-product-preview [productData]="data" [borderLeft]="false"></app-product-preview>
+      <p-accordionTab [header]="'products.form.files' | translate | uppercase">
+        <div class="left-border-box">
+          <div class="download-file" *ngFor="let file of data.filesMinimal" (click)="onDownloadFile(file.fileId)">
+            {{ file.fileName }}
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</app-modal>

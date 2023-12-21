@@ -1,0 +1,354 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'products.actions.' + mode + '.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'products.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form" [form]="form" appValidatorContainer="product">
+    <div class="formgrid grid">
+      <div class="field col-6" *ngIf="mode === 'edit'">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="true">
+            <input id="field-id" type="text" pInputText formControlName="id" />
+            <label for="field-id">{{ 'products.table.id' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-fullName" type="text" pInputText formControlName="fullName" aria-describedby="fullName-help" />
+            <label for="field-fullName">{{ 'products.table.fullName' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('fullName')?.touched">
+            <small id="fullName-help" class="p-error" *ngIf="form.get('fullName')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="fullName-help" class="p-error" *ngIf="form.get('fullName')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 255 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-shortName" type="text" pInputText formControlName="shortName" aria-describedby="shortName-help" />
+            <label for="field-shortName">{{ 'products.table.shortName' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('shortName')?.touched">
+            <small id="shortName-help" class="p-error" *ngIf="form.get('shortName')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="shortName-help" class="p-error" *ngIf="form.get('shortName')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-locational">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="locational"
+              inputId="field-locational"
+              [label]="'products.table.locational' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="minBidSize"
+              inputId="field-minBidSize"
+              [max]="maxBidSize"
+              [correctValue]="false"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="2"
+              aria-describedby="minBidSize-help"
+            >
+            </app-input-number>
+            <label for="field-minBidSize">{{ 'products.table.minBidSize' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('minBidSize')?.touched">
+            <small id="minBidSize-help" class="p-error" *ngIf="form.get('minBidSize')?.hasError('maxControl')">
+              {{ 'validate.maxControl' | translate: { field: 'products.table.maxBidSize' | translate } }}
+            </small>
+            <small id="minBidSize-help" class="p-error" *ngIf="form.get('minBidSize')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="maxBidSize"
+              inputId="field-maxBidSize"
+              [min]="minBidSize"
+              [correctValue]="false"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="2"
+              aria-describedby="maxBidSize-help"
+            >
+            </app-input-number>
+            <label for="field-maxBidSize">{{ 'products.table.maxBidSize' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('maxBidSize')?.touched">
+            <small id="maxBidSize-help" class="p-error" *ngIf="form.get('maxBidSize')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.units"
+              formControlName="bidSizeUnit"
+              inputId="field-bidSizeUnit"
+              aria-describedby="bidSizeUnit-help"
+            ></app-select>
+            <label for="field-bidSizeUnit">{{ 'products.table.bidSizeUnit' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('bidSizeUnit')?.touched">
+            <small id="bidSizeUnit-help" class="p-error" *ngIf="form.get('bidSizeUnit')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.directions"
+              formControlName="direction"
+              inputId="field-direction"
+              aria-describedby="direction-help"
+            ></app-select>
+            <label for="field-direction">{{ 'products.table.direction' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('direction')?.touched">
+            <small id="direction-help" class="p-error" *ngIf="form.get('direction')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="maxFullActivationTime"
+              inputId="field-maxFullActivationTime"
+              [negative]="false"
+              [maxlength]="5"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="0"
+            >
+            </app-input-number>
+            <label for="field-maxFullActivationTime">{{ 'products.table.maxFullActivationTime' | translate }}</label>
+          </span>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-input-number
+              formControlName="minRequiredDeliveryDuration"
+              inputId="field-minRequiredDeliveryDuration"
+              [negative]="false"
+              [maxlength]="5"
+              [minFractionDigits]="0"
+              [maxFractionDigits]="0"
+            >
+            </app-input-number>
+            <label for="field-minRequiredDeliveryDuration">{{ 'products.table.minRequiredDeliveryDuration' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-active">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="active"
+              inputId="field-active"
+              [label]="'products.table.active' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-balancing">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="balancing"
+              inputId="field-balancing"
+              [label]="'products.table.balancing' | translate"
+            ></p-checkbox>
+          </div>
+          <ng-container *ngIf="form.get('balancing')?.touched">
+            <small id="balancing-help" class="p-error" *ngIf="form.get('balancing')?.hasError('required')">
+              {{ 'validate.requiredOne' | translate }}
+            </small>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-cmvc">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="cmvc"
+              inputId="field-cmvc"
+              [label]="'products.table.cmvc' | translate"
+            ></p-checkbox>
+          </div>
+          <ng-container *ngIf="form.get('cmvc')?.touched">
+            <small id="cmvc-help" class="p-error" *ngIf="form.get('cmvc')?.hasError('required')">
+              {{ 'validate.requiredOne' | translate }}
+            </small>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validFrom"
+              inputId="field-validFrom"
+              [minDate]="currentDate"
+              [maxDate]="form.get('validTo')?.value"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validFrom-help"
+            ></app-calendar>
+            <label for="field-validFrom">{{ 'products.table.validFrom' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validFrom')?.touched">
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="validFrom-help" class="p-error" *ngIf="form.get('validFrom')?.hasError('beforeCurrentHour')">
+              {{ 'validate.beforeCurrentHour' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-calendar
+              formControlName="validTo"
+              inputId="field-validTo"
+              [minDate]="minValidTo"
+              [showTime]="true"
+              [showMinute]="false"
+              [showSeconds]="false"
+              aria-describedby="validTo-help"
+            ></app-calendar>
+            <label for="field-validTo">{{ 'products.table.validTo' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('validTo')?.touched">
+            <small id="validTo-help" class="p-error" *ngIf="form.get('validTo')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.users"
+              formControlName="psoUserId"
+              inputId="field-psoUserId"
+              aria-describedby="psoUserId-help"
+            ></app-select>
+            <label for="field-psoUserId">{{ 'products.form.psoUserId' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('psoUserId')?.touched">
+            <small id="psoUserId-help" class="p-error" *ngIf="form.get('psoUserId')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-multiselect
+              [options]="dictionaries.users"
+              formControlName="ssoUserIds"
+              inputId="field-ssoUserIds"
+              aria-describedby="ssoUserIds-help"
+            ></app-multiselect>
+            <label for="field-ssoUserIds">{{ 'products.form.ssoUserIds' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('ssoUserIds')?.touched">
+            <small id="ssoUserIds-help" class="p-error" *ngIf="form.get('ssoUserIds')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+
+    <p-accordion [multiple]="true">
+      <p-accordionTab [header]="'products.form.files' | translate">
+        <app-file-upload
+          [files]="getFiles()"
+          (download)="onDownloadFile($event)"
+          (fileSelected)="onChangeFileSelected($event)"
+          (removeFileChange)="onRemoveFileChange($event)"
+        ></app-file-upload>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+  <div modal-footer></div>
+</app-modal>

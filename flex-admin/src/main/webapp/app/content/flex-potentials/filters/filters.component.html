@@ -1,0 +1,11 @@
+<app-filters [form]="filters" (getData)="filter()" state="flex-potentials-filters">
+  <app-filter-container>
+    <app-filter
+      type="multi-select"
+      controlName="unitName"
+      name="flexPotentials.filters.der"
+      [dictionaries]="dictionaries.ders$ | async"
+    ></app-filter>
+    <app-filter type="date-range" controlName="valid" name="flexPotentials.filters.validDate"></app-filter>
+  </app-filter-container>
+</app-filters>

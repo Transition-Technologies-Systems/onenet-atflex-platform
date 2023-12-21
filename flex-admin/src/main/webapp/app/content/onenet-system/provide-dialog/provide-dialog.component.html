@@ -1,0 +1,104 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'provideDialog.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button pButton pRipple type="button" [label]="'actions.cancel' | translate" class="p-button-secondary" (click)="close()"></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'provideDialog.actions.sendBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form" [form]="form" appValidatorContainer="provideDialog">
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-title" type="text" pInputText formControlName="title" aria-describedby="title-help" autocomplete="new-title" />
+            <label for="field-title">{{ 'provideDialog.form.title' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('title')?.touched">
+            <small id="title-help" class="p-error" *ngIf="form.get('title')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="title-help" class="p-error" *ngIf="form.get('title')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 255 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-12">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-description"
+              type="text"
+              pInputText
+              formControlName="description"
+              aria-describedby="description-help"
+              autocomplete="new-description"
+            />
+            <label for="field-description">{{ 'provideDialog.form.description' | translate }}</label>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-2 justify-content-between align-items-center">
+        <p-fileUpload
+          #fileUploader
+          [customUpload]="true"
+          [chooseLabel]="'provideDialog.form.addFile' | translate"
+          chooseIcon=""
+          [auto]="false"
+          mode="basic"
+          class="fileupload-button"
+          [multiple]="false"
+          (onSelect)="uploadModel($event)"
+        >
+        </p-fileUpload>
+      </div>
+      <div class="field col-10 justify-content-between align-items-center">
+        <span class="filename">
+          <span>{{ data.filename }}</span>
+          <button
+            pButton
+            type="button"
+            icon="pi pi-times"
+            iconPos="left"
+            *ngIf="data.filename"
+            (click)="clearUploader()"
+            class="ml-1"
+          ></button>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="offeredServicesDict"
+              formControlName="dataOfferingId"
+              inputId="field-dataOfferingId"
+              aria-describedby="dataOfferingId-help"
+            ></app-select>
+            <label for="field-dataOfferingId">{{ 'provideDialog.form.offeredService' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('dataOfferingId')?.touched">
+            <small id="dataOfferingId-help" class="p-error" *ngIf="form.get('dataOfferingId')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div modal-footer></div>
+</app-modal>

@@ -1,0 +1,58 @@
+<main id="page-wrapper">
+  <section class="box">
+    <div class="d-flex d-flex-justify-end manuals">
+      <app-manuals-download></app-manuals-download>
+    </div>
+
+    <h1>{{ 'title' | translate }}</h1>
+    <h2>{{ 'subtitle' | translate }}</h2>
+
+    <form id="login-box" [formGroup]="form" (ngSubmit)="logIn()">
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-username" type="text" pInputText formControlName="username" />
+          <label for="field-username">{{ 'login.username' | translate }}</label>
+        </span>
+        <small id="password-help" class="p-error" *ngIf="form.get('username')?.touched && form.get('username')?.hasError('required')">
+          {{ 'validate.required' | translate }}
+        </small>
+      </span>
+
+      <span class="field-control">
+        <span class="p-float-label">
+          <input id="field-password" type="password" pInputText formControlName="password" aria-describedby="password-help" />
+          <label for="field-password">{{ 'login.password' | translate }}</label>
+        </span>
+        <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('credentials')">
+          {{ 'login.invalid' | translate }}
+        </small>
+        <small id="password-help" class="p-error" *ngIf="form.get('password')?.touched && form.get('password')?.hasError('required')">
+          {{ 'validate.required' | translate }}
+        </small>
+      </span>
+
+      <div class="d-flex d-flex-space-between w-100 actions">
+        <button
+          appPreventDoubleClick
+          pButton
+          pRipple
+          type="button"
+          [label]="'login.registration' | translate"
+          class="p-button-outlined"
+          (click)="goToRegister()"
+        ></button>
+        <button pButton pRipple type="submit" [label]="'login.logIn' | translate"></button>
+      </div>
+      <div class="d-flex w-100 d-flex-space-between actions">
+        <p-button [label]="'login.forgotPassword.btn' | translate" styleClass="p-button-link" (click)="forgotPassword()"></p-button>
+        <app-language-change [dropdown]="true"></app-language-change>
+      </div>
+    </form>
+  </section>
+</main>
+<footer>
+  <div class="eu-info">
+    <div class="eu-flag"></div>
+    <div class="information" translate="euInfo"></div>
+  </div>
+</footer>

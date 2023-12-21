@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: prod
+  cloud:
+    config:
+      server:
+        composite:
+          - type: native
+            search-locations: file:/usr/local/flexibility-platform/central-config
+      profile: prod

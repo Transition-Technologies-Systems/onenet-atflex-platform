@@ -1,0 +1,43 @@
+:host ::ng-deep {
+  p-multiselect {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .multiselect-filter-row {
+    background: transparent;
+    min-height: 27px;
+    border: none;
+  }
+
+  .multiselect-style {
+    &.p-multiselect {
+      border: none;
+      min-height: 44px;
+
+      .p-multiselect-label {
+        padding-top: 20px;
+
+        font-family: Roboto Condensed;
+        color: #05358f;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+  }
+
+  .p-multiselect {
+    &:not(.p-disabled).p-focus {
+      box-shadow: none;
+    }
+
+    .p-multiselect-label {
+      height: 100%;
+      align-items: center;
+      padding-top: 6px;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<p-inputNumber
+  [(ngModel)]="value"
+  (ngModelChange)="onChangeValue($event)"
+  (onBlur)="onBlur()"
+  (onFocus)="onFocus()"
+  (onInput)="onInput($event)"
+  [inputId]="inputId"
+  [min]="minValue"
+  [max]="maxValue"
+  [suffix]="suffix"
+  [disabled]="disabled"
+  [maxlength]="maxLengthValue"
+  [minFractionDigits]="minFractionDigitsValue"
+  [maxFractionDigits]="maxFractionDigitsValue"
+  autocomplete="no-autocomplete"
+  locale="pl-PL"
+>
+</p-inputNumber>

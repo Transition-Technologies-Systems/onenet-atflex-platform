@@ -1,0 +1,132 @@
+<h1 class="title">{{ 'partnership.title' | translate }}</h1>
+<p-confirmPopup [baseZIndex]="20000"></p-confirmPopup>
+<div class="actions-box">
+  <p-selectButton [options]="getTabs()" [(ngModel)]="selectedTab" optionValue="type" (onChange)="changeTab()"></p-selectButton>
+</div>
+<div class="filters-box">
+  <app-partnership-filters
+    [tabType]="selectedTab"
+    [initFilters]="viewParameters.staticFilters"
+    (filterData)="filterCollection($event)"
+  ></app-partnership-filters>
+</div>
+<div class="table-box">
+  <app-columns-configuration
+    [columns]="columns"
+    [(ngModel)]="activeColumns"
+    (ngModelChange)="onActiveColumnsChange()"
+  ></app-columns-configuration>
+
+  <p-table
+    *ngIf="data$ | async as data"
+    [lazy]="true"
+    [value]="data"
+    [scrollable]="true"
+    [columns]="activeColumns"
+    [sortField]="viewParameters.sortField"
+    [sortOrder]="viewParameters.sortOrder"
+    [filters]="viewParameters.dynamicFilters"
+    (onLazyLoad)="loadCollection($event)"
+    responsiveLayout="scroll"
+    appStickyTable
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="flex: 0 0 68px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.status" pSortableColumn="status">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'partnership.table.status' | translate }}
+            <p-sortIcon field="status"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.bspName" [pSortableColumn]="selectedTab === 'INVITATION' ? 'bspName' : 'fspName'">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'partnership.table.sender' | translate }}
+            <p-sortIcon [field]="selectedTab === 'INVITATION' ? 'bspName' : 'fspName'"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.fspName" [pSortableColumn]="selectedTab === 'INVITATION' ? 'fspName' : 'bspName'">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'partnership.table.receiver' | translate }}
+            <p-sortIcon [field]="selectedTab === 'INVITATION' ? 'fspName' : 'bspName'"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.schedulingUnitName" pSortableColumn="schedulingUnitName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'partnership.table.schedulingUnit' | translate }}
+            <p-sortIcon field="schedulingUnitName"></p-sortIcon>
+          </div>
+        </th>
+        <th *ngIf="columnsState.derName" pSortableColumn="unitName">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'partnership.table.der' | translate }}
+            <p-sortIcon field="unitName"></p-sortIcon>
+          </div>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.sentDate">
+          <div class="flex justify-content-between align-items-center">
+            {{ 'partnership.table.sentDate' | translate }}
+          </div>
+        </th>
+      </tr>
+      <tr class="filter-row">
+        <th style="flex: 0 0 68px" *ngIf="columnsState.actions"></th>
+        <th *ngIf="columnsState.status"></th>
+        <th *ngIf="columnsState.bspName"></th>
+        <th *ngIf="columnsState.fspName"></th>
+        <th *ngIf="columnsState.schedulingUnitName">
+          <p-columnFilter type="text" field="schedulingUnitName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th *ngIf="columnsState.derName">
+          <p-columnFilter type="text" field="derName" matchMode="contains"></p-columnFilter>
+        </th>
+        <th style="flex: 1 0 140px" *ngIf="columnsState.sentDate">
+          <p-columnFilter type="date" field="sentDate" matchMode="lte">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <app-calendar inputId="sentDate" [ngModel]="value" (ngModelChange)="filter($event)" [showIcon]="false"></app-calendar>
+            </ng-template>
+          </p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td style="flex: 0 0 68px" *ngIf="columnsState.actions">
+          <ng-container *appHasRole="'ROLE_ADMIN'">
+            <i
+              class="icon icon--invitation-resend c-pointer"
+              *ngIf="['NEW', 'REJECTED'].includes(row.status)"
+              [pTooltip]="'partnership.actions.resend.tooltip' | translate"
+              (click)="resend($event, row)"
+            ></i>
+            <i
+              class="icon icon--invitation-cancel c-pointer"
+              [pTooltip]="'partnership.actions.cancel.tooltip' | translate"
+              *ngIf="row.status === 'NEW'"
+              (click)="cancel($event, row)"
+            ></i>
+          </ng-container>
+        </td>
+        <td *ngIf="columnsState.status">{{ 'partnership.status.' + row.status | translate }}</td>
+        <td *ngIf="columnsState.bspName">{{ selectedTab === 'INVITATION' ? row.bspName : row.fspName }}</td>
+        <td *ngIf="columnsState.fspName">{{ selectedTab === 'INVITATION' ? row.fspName : row.bspName }}</td>
+        <td *ngIf="columnsState.schedulingUnitName">{{ row.schedulingUnitName }}</td>
+        <td *ngIf="columnsState.derName">{{ row.derName }}</td>
+        <td style="flex: 1 0 140px" *ngIf="columnsState.sentDate">{{ row.sentDate ?? row.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns="columns">
+      <tr class="empty-row">
+        <td [attr.colspan]="columns?.length"></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="pagination-box">
+  <app-pagination
+    [size]="rows"
+    [currentPage]="page"
+    [totalElements]="totalRecords$ | async"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

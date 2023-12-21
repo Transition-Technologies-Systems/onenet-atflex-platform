@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202206301400-fill-columns" author="">
+        <sql>
+            UPDATE auction_da_offer SET price = 1234 WHERE price IS NULL;
+            UPDATE auction_da_offer SET volume_from = 1234 WHERE volume_from IS NULL;
+            UPDATE auction_da_offer SET volume_to = 1234 WHERE volume_to IS NULL;
+            UPDATE auction_da_offer SET accepted_volume_from = 1234 WHERE accepted_volume_from IS NULL;
+            UPDATE auction_da_offer SET accepted_volume_to = 1234 WHERE accepted_volume_to IS NULL;
+        </sql>
+    </changeSet>
+    <changeSet id="202206301400-constraint" author="">
+        <addNotNullConstraint tableName="auction_da_offer" columnName="price"/>
+        <addNotNullConstraint tableName="auction_da_offer" columnName="volume_from"/>
+        <addNotNullConstraint tableName="auction_da_offer" columnName="volume_to"/>
+        <addNotNullConstraint tableName="auction_da_offer" columnName="accepted_volume_from"/>
+        <addNotNullConstraint tableName="auction_da_offer" columnName="accepted_volume_to"/>
+    </changeSet>
+</databaseChangeLog>

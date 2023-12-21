@@ -1,0 +1,53 @@
+{
+  "userProfile": {
+    "title": "Mój profil",
+    "form": {
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "email": "Adres e-mail",
+      "phoneNumber": "Numer telefonu",
+      "login": "Login",
+      "activated": "Aktywny",
+      "role": "Rola",
+      "organization": "Organizacja"
+    },
+    "changePassword": {
+      "title": "Zmień hasło",
+      "form": {
+        "currentPassword": "Obecne hasło",
+        "newPassword": "Nowe hasło",
+        "repeatNewPassword": "Powtórz nowe hasło"
+      }
+    },
+    "actions": {
+      "save": "Zapisz zmiany",
+      "success": "Profil został zaktualizowany",
+      "error": "Wystąpił błąd podczas aktualizacji profilu",
+      "changePasswordSuccess": "Hasło zostało zaktualizowane",
+      "changePasswordError": "Nieprawidłowe obecne hasło",
+      "updateEmailNotificationsSuccess": "Ustawienia powiadomień mailowych zostały zapisane"
+    },
+    "notifications": {
+      "title": "Powiadomienia mailowe",
+      "saveBtn": "Zapisz"
+    },
+    "notificationObjects": {
+      "UNIT": "Zasób",
+      "SUBPORTFOLIO": "Subportfolio",
+      "FLEXIBILITY_POTENTIAL": "Potencjał elastyczności",
+      "SCHEDULING_UNIT": "Jednostka grafikowa",
+      "UNIT_ACTIVATION_REMINDER": "Aktywacja",
+      "FSP": "FSP"
+    },
+    "notificationActions": {
+      "CREATION": "Utworzenie",
+      "EDITION": "Edycja",
+      "CERTIFICATION": "Certyfikacja",
+      "CERTIFICATION_LOSS": "Utrata certyfikacji",
+      "ASSIGNMENT_TO_REGISTER": "Przeniesienie do rejestru",
+      "STATUS_CHANGE": "Zmiana statusu",
+      "DAY_AHEAD": "Day-ahead",
+      "CMVC": "Zarządzanie przeciążeniem i kontrola napięcia"
+    }
+  }
+}

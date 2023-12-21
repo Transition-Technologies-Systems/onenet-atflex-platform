@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202204051411.1" author="">
+        <addColumn tableName="scheduling_unit_proposal">
+            <column name="status_sort_order" type="number(3)" remarks="Numeric sort order of status">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="202204051411.2" author="">
+        <sql>
+            UPDATE scheduling_unit_proposal SET status_sort_order = 2;
+            UPDATE scheduling_unit_proposal SET status_sort_order = 1 WHERE status = 'NEW';
+        </sql>
+    </changeSet>
+    <changeSet id="202204051411.3" author="">
+        <addNotNullConstraint tableName="scheduling_unit_proposal" columnName="status_sort_order"/>
+    </changeSet>
+</databaseChangeLog>

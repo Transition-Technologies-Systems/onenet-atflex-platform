@@ -1,0 +1,185 @@
+@import 'assets/scss/variables';
+
+::ng-deep {
+  .chat-messages-header {
+    background: $chat-header-background;
+    box-shadow: $chat-header-box-shadow;
+    color: $chat-header-color;
+    padding: 10px 25px;
+    width: 100%;
+    left: 0;
+    top: 0;
+
+    h2 {
+      font-family: Roboto Condensed;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 20px;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.chat-messages-container {
+  position: relative;
+  background: $chat-messages-container-background;
+
+  .messages-container {
+    .attachment-control {
+      position: relative;
+
+      .attachment {
+        background: $chat-attachment-background;
+        padding: 5px 10px;
+        max-width: 130px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        margin-right: 5px;
+
+        span,
+        p-button ::ng-deep .p-button-link span {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        p-button {
+          max-width: 100%;
+          ::ng-deep {
+            .p-button-link {
+              font-size: 12px;
+              line-height: 14px;
+              padding: 0;
+              display: flex;
+              max-width: 100%;
+            }
+          }
+        }
+
+        button {
+          height: 18px;
+          width: 18px;
+        }
+      }
+    }
+
+    .messages {
+      padding: 5px 25px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: calc(90vh - 236px);
+
+      .message {
+        clear: both;
+        min-width: 200px;
+        max-width: 60%;
+        padding: 10px;
+        margin: 5px 0;
+        width: fit-content;
+        border-radius: 10px;
+        color: $chat-message-color;
+        border: $chat-message-border;
+        box-shadow: $chat-message-box-shadow;
+        background: $chat-message-background;
+
+        .attachments {
+          border-bottom: $chat-message-attachments-border-bottom;
+          padding: 0 0 5px 0;
+          margin: 0 0 5px 0;
+          display: flex;
+
+          .attachment {
+            background: $chat-message-attachment-background;
+            max-width: 200px;
+          }
+        }
+
+        p:not(.details) {
+          word-break: break-word;
+        }
+
+        .details {
+          font-size: 10px;
+          text-align: right;
+          margin: 4px 0 0 0;
+
+          span + span {
+            margin-left: 4px;
+          }
+        }
+
+        &:not(.receiver) {
+          float: right;
+        }
+
+        &.my-person {
+          background: $chat-message-background-my-person;
+        }
+
+        &.receiver {
+          color: $chat-message-receiver-color;
+          background: $chat-message-background-receiver;
+        }
+
+        &.is-automat {
+          color: $chat-message-automat-color;
+          background: $chat-message-background-automat;
+        }
+      }
+    }
+
+    .send-message {
+      border-top: $chat-message-send-box-border-top;
+      background: $chat-send-message-background;
+      padding: 10px 25px;
+      clear: both;
+
+      .field-control-attachments {
+        background: $chat-attachments-background;
+        max-width: calc(100% - 68px);
+        display: flex;
+        padding: 5px 0px;
+      }
+
+      input[type='file'] {
+        display: none;
+      }
+
+      textarea {
+        border: 1px solid #c6cde2;
+        box-shadow: 0px 4px 4px rgba(114, 239, 247, 0.1);
+        border-radius: 8px;
+      }
+
+      .message {
+        margin-right: 5px;
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+
+        &-count {
+          margin-right: 5px;
+        }
+      }
+
+      p-button + p-button {
+        margin-left: 5px;
+      }
+
+      ::ng-deep {
+        .p-button-text {
+          .pi {
+            color: #fff;
+            font-size: 2rem;
+          }
+        }
+      }
+    }
+  }
+}

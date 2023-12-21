@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="202107081530-table" author="">
+        <createSequence incrementBy="1" sequenceName="screen_columns_seq" startValue="1" ordered="true"/>
+        <createTable tableName="screen_columns" remarks="Table with column configuration">
+            <column name="id" type="bigint" defaultValueSequenceNext="screen_columns_seq" remarks="Identity of column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_screen_config_id" type="bigint" remarks="Config identifier from table user_screen_config">
+                <constraints nullable="false"/>
+            </column>
+            <column name="column_name" type="varchar2(255)" remarks="The name of the column">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visible" type="boolean" defaultValue="true" remarks="Flag informing if column is visible">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_nr" type="integer" remarks="The order number of column">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202107081530-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="user_screen_config_id" baseTableName="screen_columns"
+                                 constraintName="usr_scr_conf_scr_col_id" referencedColumnNames="id" referencedTableName="user_screen_config"/>
+    </changeSet>
+
+</databaseChangeLog>

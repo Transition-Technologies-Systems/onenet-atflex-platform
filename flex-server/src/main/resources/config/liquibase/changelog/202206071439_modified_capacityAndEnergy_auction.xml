@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202206071439-1" author="">
+        <update tableName="auctions_series">
+            <column name="auction_type" value="CAPACITY"/>
+            <column name="energy_gate_opening_time"/>
+            <column name="energy_gate_closure_time"/>
+            <column name="min_desired_energy"/>
+            <column name="max_desired_energy"/>
+            <column name="energy_availability_from"/>
+            <column name="energy_availability_to"/>
+            <where>auction_type = 'CAPACITY_AND_ENERGY'</where>
+        </update>
+    </changeSet>
+    <changeSet id="202206071439-2" author="">
+        <update tableName="auction_day_ahead">
+            <column name="auction_type" value="CAPACITY"/>
+            <column name="energy_gate_opening_time"/>
+            <column name="energy_gate_closure_time"/>
+            <column name="min_desired_energy"/>
+            <column name="max_desired_energy"/>
+            <column name="energy_availability_from"/>
+            <column name="energy_availability_to"/>
+            <where>auction_type = 'CAPACITY_AND_ENERGY'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

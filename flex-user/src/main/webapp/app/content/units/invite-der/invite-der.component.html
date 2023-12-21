@@ -1,0 +1,45 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'units.actions.inviteDer.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'units.actions.inviteDer.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" *ngIf="form">
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <app-select
+              [options]="dictionaries.scheduleUnits"
+              formControlName="schedulingUnitId"
+              inputId="field-schedulingUnitId"
+              aria-describedby="schedulingUnitId-help"
+            ></app-select>
+            <label for="field-schedulingUnit">{{ 'units.actions.inviteDer.schedulingUnit' | translate }}</label>
+          </span>
+        </span>
+        <ng-container *ngIf="form.get('schedulingUnitId')?.touched">
+          <small id="schedulingUnitId-help" class="p-error" *ngIf="form.get('schedulingUnitId')?.hasError('required')">
+            {{ 'validate.required' | translate }}
+          </small>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</app-modal>

@@ -1,0 +1,62 @@
+{
+  "fsps": {
+    "actions": {
+      "add": {
+        "btn": "Add new {{ roleName }}",
+        "title": "Add {{ roleName }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "There was an error adding the {{ role }}"
+      },
+      "edit": {
+        "title": "Edit {{ roleName }}: {{ representative.companyName }}",
+        "saveBtn": "Save",
+        "success": "Saving successful",
+        "error": "An error occurred while editing the {{ role }}"
+      },
+      "delete": {
+        "question": "Removing a selected {{ role }} will automatically remove all its users. Do you want to perform this operation?",
+        "success": "The selected {{ role }} has been successfully deleted",
+        "error": "An error occurred while deleting the selected {{ role }}"
+      },
+      "export": {
+        "btn": "Export to file",
+        "allData": "Export data of all {{ role }}s",
+        "displayedData": "Export data of displayed {{ role }}s"
+      }
+    },
+    "filters": {
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "validDate": "Expiry date",
+      "active": "Active"
+    },
+    "form": {
+      "validFrom": "Expiry date from",
+      "validTo": "Expiry date to",
+      "active": "Active"
+    },
+    "table": {
+      "actions": "Actions",
+      "delete": "Delete",
+      "id": "FSP Id",
+      "bspId": "BSP Id",
+      "companyName": "Company name",
+      "role": "Role",
+      "createdDate": "Creation date",
+      "lastModifiedDate": "Last modified",
+      "active": "Active",
+      "agreementWithTso": "Agreement with TSO",
+      "validFrom": "Expiry date from",
+      "validTo": "Expiry date to",
+      "representative": {
+        "firstName": "Representative's name",
+        "lastName": "Representative's last name",
+        "email": "Representative's e-mail address",
+        "phoneNumber": "Representative's phone number"
+      }
+    },
+    "title": "FSP",
+    "titleBsp": "BSP"
+  }
+}

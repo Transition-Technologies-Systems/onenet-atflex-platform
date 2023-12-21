@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202105051345" author="">
+
+        <addColumn tableName="flex_potential">
+            <column name="probability_of_availability" type="tinyint" remarks="Percentage probability of availability">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by_role" type="varchar(50)" remarks="Information about role of user who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by_role" type="varchar(50)" remarks="Information about role of user who last modified the record"/>
+
+            <column name="last_version" type="boolean" defaultValueBoolean="true" remarks="Is the latest version of that FlexPotential">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="bigint" remarks="FlexPotential parent identity">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="flex_potential" constraintName="fk_flex_pot_parent_id"
+                                 referencedColumnNames="id" referencedTableName="flex_potential"/>
+
+    </changeSet>
+</databaseChangeLog>

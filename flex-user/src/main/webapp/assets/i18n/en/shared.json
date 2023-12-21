@@ -1,0 +1,41 @@
+{
+  "shared": {
+    "proposal": {
+      "confirm": {
+        "title": "Propose DER",
+        "question": "Do you accept to join your DER {{ derName }} to {{ schedulingUnitName }}?",
+        "questionFsp": "Do you want to accept offer from {{ fspName }}?",
+        "accept": {
+          "btn": "Accept",
+          "success": "The proposal was successfully accepted",
+          "error": "An error occurred while accepting the proposal"
+        },
+        "reject": {
+          "btn": "Reject",
+          "success": "The proposal was rejected",
+          "error": "An error occurred while declining the proposal"
+        }
+      },
+      "btn": "Propose DER",
+      "btnDer": "Invite DER",
+      "title": "Propose DER",
+      "saveBtn": "Send request",
+      "subportfolio": "Subportfolio",
+      "fspId": "FSP",
+      "bspId": "BSP",
+      "unitId": "DER",
+      "derType": "Type of DER",
+      "product": "Product",
+      "type": "Type",
+      "schedulingUnit": "Scheduling unit",
+      "sourcePower": "Source power/receiving power [kW]",
+      "connectionPower": "Connection power [kW]",
+      "createdDate": "Creation date",
+      "invalidKey": "The proposal has already been accepted / rejected",
+      "success": "DER proposal successfully sent",
+      "error": "An error occurred while sending the DER proposal",
+      "no-subportfolio": "DERs without assigned subportfolio"
+    },
+    "volumeTooltip": "Positive bands/Negative bands"
+  }
+}

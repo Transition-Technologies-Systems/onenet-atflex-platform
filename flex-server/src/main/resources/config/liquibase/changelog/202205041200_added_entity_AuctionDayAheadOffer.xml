@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202205041200-table" author="">
+        <createTable tableName="auction_da_offer" remarks="Auction Day Ahead offer table">
+            <column name="id" type="bigint" defaultValueSequenceNext="auction_offer_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="auction_day_ahead_id" type="bigint" remarks="Auction Day-ahead id">
+                <constraints nullable="false"/>
+            </column>
+            <column name="scheduling_unit_id" type="bigint" remarks="Scheduling unit id">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(50)" remarks="Offer status">
+                <constraints nullable="false" />
+            </column>
+            <column name="type" type="varchar(50)" remarks="Offer type">
+                <constraints nullable="false" />
+            </column>
+            <column name="volume_divisibility" type="boolean" remarks="Volume divisibility">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_period_from" type="datetime" remarks="Delivery period from">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_period_to" type="datetime" remarks="Delivery period to">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_period_divisibility" type="boolean" remarks="Delivery period divisibility">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accepted_delivery_period_from" type="datetime" remarks="Accepted delivery period from">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accepted_delivery_period_to" type="datetime" remarks="Accepted delivery period to">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202205041200-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="auction_day_ahead_id" baseTableName="auction_da_offer"
+                                 constraintName="au_da_offer_ada_id" referencedColumnNames="id" referencedTableName="auction_day_ahead"/>
+        <createIndex tableName="auction_da_offer" indexName="idx_fk_au_da_off_da_ada_id">
+            <column name="auction_day_ahead_id" type="bigint"/>
+        </createIndex>
+        <addForeignKeyConstraint baseColumnNames="scheduling_unit_id" baseTableName="auction_da_offer"
+                                 constraintName="au_da_offer_su_id" referencedColumnNames="id" referencedTableName="scheduling_unit"/>
+        <createIndex tableName="auction_da_offer" indexName="idx_fk_au_da_offer_su_id">
+            <column name="scheduling_unit_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="202205041200-audit" author="">
+        <addColumn tableName="auction_da_offer">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,58 @@
+<ng-container [ngSwitch]="embeddedPreview">
+  <ng-container *ngSwitchCase="false">
+    <p-accordionTab [header]="'schedulingUnits.form.schedulingUnitData' | translate | uppercase" [selected]="selected || !embeddedPreview">
+      <ng-container *ngIf="data" [ngTemplateOutlet]="dataTab" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+    </p-accordionTab>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="true">
+    <app-toogle-data [header]="'schedulingUnits.form.details' | translate | uppercase" [selected]="selected">
+      <ng-container *ngIf="data" [ngTemplateOutlet]="dataTab" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+    </app-toogle-data>
+  </ng-container>
+</ng-container>
+
+<ng-template #dataTab let-item>
+  <div [class.left-border-box]="borderLeft">
+    <div class="grid" [ngClass]="{ 'p-flex-column': embeddedPreview }">
+      <div class="field md:col-12 lg:col-6">
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.name' | translate }}</label>
+            <span>{{ item.name }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.bsp' | translate }}</label>
+            <span>{{ item.bsp?.representative?.companyName }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.schedulingUnitType' | translate }}</label>
+            <span>{{ item.schedulingUnitType?.nlsCode | translate }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'schedulingUnits.table.numberOfDers' | translate }}</label>
+            <span>{{ item.numberOfDers }}({{ item.numberOfDersProposals }})</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <label>{{ 'schedulingUnits.table.unitId' | translate }}</label>
+          <app-toogle-data [header]="'schedulingUnits.table.unitsDetails' | translate | uppercase" [selected]="true">
+            <ng-container *ngFor="let fsp of fspWithDers">
+              <div class="field" *ngFor="let der of getDersForFsp(fsp)">
+                <span>
+                  {{ der.name }}; {{ 'units.table.sourcePowerInfo' | translate }}: {{ der.sourcePower }} kW; {{ der.fspCompanyName }}
+                </span>
+              </div>
+            </ng-container>
+          </app-toogle-data>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202208011300-fill-column-da" author="">
+        <sql>
+            UPDATE auction_da_offer SET status = 'ACCEPTED' WHERE status = 'GIA_ACCEPTED';
+            UPDATE auction_da_offer SET status = 'REJECTED' WHERE status = 'GIA_REJECTED';
+            UPDATE auction_da_offer SET status = 'ACCEPTED' WHERE status = 'GIA_AUTOMATIC_ACCEPTED';
+            UPDATE auction_da_offer SET status = 'REJECTED' WHERE status = 'GIA_AUTOMATIC_REJECTED';
+            UPDATE auction_da_offer SET status = 'ACCEPTED' WHERE status = 'AGNO_ACCEPTED';
+            UPDATE auction_da_offer SET status = 'REJECTED' WHERE status = 'AGNO_REJECTED';
+            UPDATE auction_da_offer SET status = 'PENDING' WHERE status = 'SENT_TO_BM';
+        </sql>
+    </changeSet>
+
+    <changeSet id="202208011300-fill-column-cmvc" author="">
+        <sql>
+            UPDATE auction_cmvc_offer SET status = 'ACCEPTED' WHERE status = 'GIA_ACCEPTED';
+            UPDATE auction_cmvc_offer SET status = 'REJECTED' WHERE status = 'GIA_REJECTED';
+            UPDATE auction_cmvc_offer SET status = 'ACCEPTED' WHERE status = 'GIA_AUTOMATIC_ACCEPTED';
+            UPDATE auction_cmvc_offer SET status = 'REJECTED' WHERE status = 'GIA_AUTOMATIC_REJECTED';
+            UPDATE auction_cmvc_offer SET status = 'ACCEPTED' WHERE status = 'AGNO_ACCEPTED';
+            UPDATE auction_cmvc_offer SET status = 'REJECTED' WHERE status = 'AGNO_REJECTED';
+            UPDATE auction_cmvc_offer SET status = 'PENDING' WHERE status = 'SENT_TO_BM';
+        </sql>
+    </changeSet>
+</databaseChangeLog>

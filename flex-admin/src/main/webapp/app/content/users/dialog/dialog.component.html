@@ -1,0 +1,272 @@
+<app-modal [showFooter]="false" [showHeader]="true" [confirmClosableActions]="confirmClosableActions">
+  <div modal-header class="d-flex d-flex-space-between w-100">
+    <h2>{{ 'users.actions.' + mode + '.title' | translate: config.data }}</h2>
+    <div class="actions">
+      <button
+        pButton
+        pRipple
+        type="button"
+        [label]="'actions.cancel' | translate"
+        class="p-button-secondary"
+        (click)="close()"
+      ></button>
+      <button
+        appPreventDoubleClick
+        pButton
+        pRipple
+        type="button"
+        [label]="'users.actions.' + mode + '.saveBtn' | translate"
+        (click)="save()"
+      ></button>
+    </div>
+  </div>
+  <div modal-content [formGroup]="form" [form]="form" appValidatorContainer="user">
+    <div class="formgrid grid">
+      <div class="field col">
+        <p-message severity="info" *ngIf="fspOwner" [text]="'users.info.fspOwner' | translate" styleClass="w-100"></p-message>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-firstName" type="text" pInputText formControlName="firstName" aria-describedby="firstName-help" />
+            <label for="field-firstName">{{ 'users.table.firstName' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('firstName')?.touched">
+            <small id="firstName-help" class="p-error" *ngIf="form.get('firstName')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="firstName-help" class="p-error" *ngIf="form.get('firstName')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-lastName" type="text" pInputText formControlName="lastName" aria-describedby="lastName-help" />
+            <label for="field-lastName">{{ 'users.table.lastName' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('lastName')?.touched">
+            <small id="lastName-help" class="p-error" *ngIf="form.get('lastName')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="lastName-help" class="p-error" *ngIf="form.get('lastName')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="mode === 'edit'">
+            <input id="field-email" type="text" pInputText formControlName="email" aria-describedby="email-help" />
+            <label for="field-email">{{ 'users.form.email' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('email')?.touched">
+            <small id="email-help" class="p-error" *ngIf="form.get('email')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="email-help" class="p-error" *ngIf="form.get('email')?.hasError('email')">
+              {{ 'validate.email' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label">
+            <ngx-intl-tel-input
+              [cssClass]="'custom'"
+              [preferredCountries]="prefferedCountries"
+              [enableAutoCountrySelect]="false"
+              [enablePlaceholder]="true"
+              [searchCountryFlag]="true"
+              [searchCountryField]="searchCountryField"
+              [selectFirstCountry]="false"
+              [selectedCountryISO]="selectedCountry"
+              [maxLength]="20"
+              [phoneValidation]="true"
+              inputId="field-phoneNumber"
+              name="phone"
+              formControlName="phoneNumber"
+              aria-describedby="phoneNumber-help"
+            ></ngx-intl-tel-input>
+            <label for="field-phoneNumber">{{ 'users.table.phoneNumber' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('phoneNumber')?.touched">
+            <small id="phoneNumber-help" class="p-error" *ngIf="form.get('phoneNumber')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small
+              id="phoneNumber-help"
+              class="p-error"
+              *ngIf="form.get('phoneNumber')?.invalid && !form.get('phoneNumber')?.hasError('required')"
+            >
+              {{ 'validate.invalidPhoneNumber' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="mode === 'edit'">
+            <input id="field-login" type="text" pInputText formControlName="login" aria-describedby="login-help" />
+            <label for="field-login">{{ 'users.table.login' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('login')?.touched">
+            <small id="login-help" class="p-error" *ngIf="form.get('login')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="login-help" class="p-error" *ngIf="form.get('login')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 50 } }}
+            </small>
+            <small id="login-help" class="p-error" *ngIf="form.get('login')?.hasError('pattern')">
+              {{ 'users.warning.patternLogin' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div class="formgrid grid" *ngIf="mode === 'add'">
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input id="field-password" type="password" pInputText formControlName="password" aria-describedby="password-help" />
+            <label for="field-password">{{ 'users.form.password' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('password')?.touched">
+            <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('minlength')">
+              {{ 'validate.minlength' | translate: { value: 4 } }}
+            </small>
+            <small id="password-help" class="p-error" *ngIf="form.get('password')?.hasError('maxlength')">
+              {{ 'validate.maxlength' | translate: { value: 100 } }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col">
+        <span class="field-control">
+          <span class="p-float-label">
+            <input
+              id="field-confirmPassword"
+              type="password"
+              pInputText
+              formControlName="confirmPassword"
+              aria-describedby="confirmPassword-help"
+            />
+            <label for="field-confirmPassword">{{ 'users.form.confirmPassword' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('confirmPassword')?.touched">
+            <small id="confirmPassword-help" class="p-error" *ngIf="form.get('confirmPassword')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+            <small id="confirmPassword-help" class="p-error" *ngIf="form.get('confirmPassword')?.hasError('isMatching')">
+              {{ 'validate.passwordDoNotMatching' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-0 d-flex d-flex-align-center">
+        <div class="col formgroup-inline" id="field-passwordSetByUser">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="passwordSetByUser"
+              inputId="field-passwordSetByUser"
+              [label]="'users.form.passwordSetByUser' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="fspOwner">
+            <app-select
+              [options]="dictionaries.roles"
+              formControlName="role"
+              inputId="field-role"
+              aria-describedby="role-help"
+            ></app-select>
+            <label for="field-role">{{ 'users.form.role' | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('role')?.touched">
+            <small id="role-help" class="p-error" *ngIf="form.get('role')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+      <div class="field col-6" *ngIf="isFSP">
+        <span class="field-control">
+          <span class="p-float-label" [class.disabled]="fspOwner">
+            <app-select
+              [options]="dictionaries.companies$ | async"
+              formControlName="fspId"
+              inputId="field-fspId"
+              aria-describedby="fspId-help"
+            ></app-select>
+            <label for="field-fspId">{{ fspLabel | translate }}</label>
+          </span>
+          <ng-container *ngIf="form.get('fspId')?.touched">
+            <small id="fspId-help" class="p-error" *ngIf="form.get('fspId')?.hasError('required')">
+              {{ 'validate.required' | translate }}
+            </small>
+          </ng-container>
+        </span>
+      </div>
+    </div>
+    <div>
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-active">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="activated"
+              inputId="field-activated"
+              [label]="'users.table.activated' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="mode === 'add'">
+      <div class="field col grid">
+        <div class="col-12 formgroup-inline" id="field-passwordChangeOnFirstLogin">
+          <div class="field-checkbox">
+            <p-checkbox
+              [binary]="true"
+              formControlName="passwordChangeOnFirstLogin"
+              inputId="field-passwordChangeOnFirstLogin"
+              [label]="'users.form.passwordChangeOnFirstLogin' | translate"
+            ></p-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="mode === 'edit'">
+      <div>
+        <div class="field col grid">
+          {{ 'users.form.unsuccessfulLoginCount' | translate: { value: unsuccessfulLoginCount } }}
+        </div>
+      </div>
+      <div>
+        <div class="field col grid">
+          {{ 'users.form.lastSuccessfulLoginDate' | translate: { value: lastSuccessfulLoginDate } }}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div modal-footer></div>
+</app-modal>

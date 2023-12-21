@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202108271500" author="">
+        <addColumn tableName="activity_monitor">
+            <column name="http_request_uri_path" type="varchar(255)" remarks="Uri path of http request initiating the activity">
+                <constraints nullable="true"/>
+            </column>
+            <column name="http_response_status" type="varchar(50)" remarks="Http response status for http request">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202108271500-2" author="">
+        <addColumn tableName="activity_monitor">
+            <column name="app_module_name" type="varchar(50)" remarks="The application module name in which the activity was performed">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

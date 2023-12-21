@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202101270802-table" author="">
+        <createTable tableName="user_role" remarks="Table with security roles assigned to user used for authentication and access-control">
+            <column name="user_id" type="bigint" remarks="User identifier from table User">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="varchar(50)" remarks="Name of security role">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="user_id, role" tableName="user_role"/>
+    </changeSet>
+
+    <changeSet id="202101270802-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role" constraintName="fk_user_id" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="202101270802-data" author="" runOnChange="true">
+        <loadUpdateData primaryKey="user_id" file="config/liquibase/data/user_role.csv" separator=";" tableName="user_role"/>
+    </changeSet>
+</databaseChangeLog>

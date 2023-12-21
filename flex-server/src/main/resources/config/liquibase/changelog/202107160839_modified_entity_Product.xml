@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202107160839.1" author="">
+        <dropColumn tableName="product" columnName="max_duration_from"/>
+        <dropColumn tableName="product" columnName="max_duration_to"/>
+        <dropColumn tableName="product" columnName="min_duration_from"/>
+        <dropColumn tableName="product" columnName="min_duration_to"/>
+    </changeSet>
+
+    <changeSet id="202107160839.2" author="">
+        <addColumn tableName="product">
+            <column name="max_full_activation_time" type="smallint" remarks="Maximum time for full activation of product">
+                <constraints nullable="true" />
+            </column>
+            <column name="min_delivery_duration" type="smallint" remarks="Minimum required duration of product delivery">
+                <constraints nullable="true" />
+            </column>
+            <column name="aggregation_allowed" type="boolean" defaultValueBoolean="true" remarks="Is aggregation allowed">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <sql>UPDATE PRODUCT SET max_full_activation_time = '60'</sql>
+        <sql>UPDATE PRODUCT SET min_delivery_duration = '60'</sql>
+
+        <addNotNullConstraint tableName="product" columnName="max_full_activation_time"/>
+        <addNotNullConstraint tableName="product" columnName="min_delivery_duration"/>
+
+        <sql>UPDATE PRODUCT SET type = 'FREQUENCY_CONTROL'</sql>
+    </changeSet>
+</databaseChangeLog>

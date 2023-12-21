@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="202206091100-add-column" author="">
+        <addColumn tableName="auction_da_offer">
+            <column name="bid_common_price" type="boolean" remarks="Flag informing if a common price is set" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="common_price" type="decimal(13,3)" remarks="Common price of bid"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

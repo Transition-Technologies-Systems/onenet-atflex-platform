@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+    <property name="now_in_utc" value="CURRENT_TIMESTAMP()" dbms="h2"/>
+    <property name="now_in_utc" value="sys_extract_utc(systimestamp)" dbms="oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="clobType" value="clob" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
+    <property name="uuidType" value="uuid" dbms="h2, oracle"/>
+
+    <include file="classpath:config/liquibase/changelog/202301121200_add_entity_OnenetUser.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202301261000_add_entity_ActiveOnenetUser.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202301271000_add_entity_OfferedServices.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202302011150_add_entity_ConsumeData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202302071300_add_entity_OnenetUserOfferedServices.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/202302081130_add_entity_OnenetUserConsumeData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202302091230_add_column_to_OfferedServices.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202302151000_add_column_to_ConsumeData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202302151430_add_column_to_ConsumeData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202309071010_modify_entity_ConsumeData.xml" relativeToChangelogFile="false" />
+    <include file="classpath:config/liquibase/changelog/202309071020_modify_entity_OfferedServices.xml" relativeToChangelogFile="false" />
+
+    <!-- ALL VIEWS-->
+    <include file="classpath:config/liquibase/views.xml"/>
+
+</databaseChangeLog>

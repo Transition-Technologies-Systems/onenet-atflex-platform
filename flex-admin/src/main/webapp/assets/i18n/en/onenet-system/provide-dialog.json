@@ -1,0 +1,19 @@
+{
+  "provideDialog": {
+    "title": "Provide",
+    "actions": {
+      "sendBtn": "Send"
+    },
+    "form": {
+      "title": "Title",
+      "description": "Description",
+      "addFile": "Add file",
+      "offeredService": "Offered service"
+    },
+    "send": {
+      "noFile": "Please attach the file",
+      "success": "Successfully provided file for {{name}}",
+      "error": "Could not send a file. Please contact technical support."
+    }
+  }
+}

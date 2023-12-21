@@ -1,0 +1,149 @@
+<ng-container [ngSwitch]="embeddedPreview">
+  <ng-container *ngSwitchCase="false">
+    <p-accordionTab [header]="'products.form.prodData' | translate | uppercase" [selected]="selected || !embeddedPreview">
+      <ng-container *ngIf="data" [ngTemplateOutlet]="dataTab" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+    </p-accordionTab>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="true">
+    <app-toogle-data [header]="'products.form.details' | translate | uppercase" [selected]="selected || !embeddedPreview">
+      <ng-container *ngIf="data" [ngTemplateOutlet]="dataTab" [ngTemplateOutletContext]="{ $implicit: data }"></ng-container>
+    </app-toogle-data>
+  </ng-container>
+</ng-container>
+
+<ng-template #dataTab let-item>
+  <div [class.left-border-box]="borderLeft">
+    <div class="grid" [ngClass]="{ 'p-flex-column': embeddedPreview }">
+      <div class="field md:col-12 lg:col-6">
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.id' | translate }}</label>
+            <span>{{ item?.id }} </span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.shortName' | translate }}</label>
+            <span>{{ item?.shortName }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.fullName' | translate }}</label>
+            <span>{{ item?.fullName }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.locational' | translate }}</label>
+            <span>{{ 'Boolean.' + item?.locational | translate }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.bidSizeUnit' | translate }}</label>
+            <span>{{ item?.bidSizeUnit ? ('VolumeUnit.' + item?.bidSizeUnit | translate) : '' }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.direction' | translate }}</label>
+            <span>{{ item.direction ? ('Direction.' + item?.direction | translate) : '' }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.minBidSize' | translate }}</label>
+            <span>{{ item?.minBidSize }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.maxBidSize' | translate }}</label>
+            <span>{{ item?.maxBidSize }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.maxFullActivationTime' | translate }}</label>
+            <span>
+              {{ item?.maxFullActivationTime }}
+            </span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.minRequiredDeliveryDuration' | translate }}</label>
+            <span>
+              {{ item?.minRequiredDeliveryDuration }}
+            </span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.validFrom' | translate }}</label>
+            <span>{{ item?.validFrom | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.validTo' | translate }}</label>
+            <span>{{ item?.validTo | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.active' | translate }}</label>
+            <span>{{ 'Boolean.' + item?.active | translate }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.balancing' | translate }}</label>
+            <span>{{ 'Boolean.' + item?.balancing | translate }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.cmvc' | translate }}</label>
+            <span>{{ 'Boolean.' + item?.cmvc | translate }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.createdDate' | translate }}</label>
+            <span>{{ item?.createdDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+        <div [ngClass]="{ 'data-field': embeddedPreview }">
+          <div class="field">
+            <label>{{ 'products.table.lastModifiedDate' | translate }}</label>
+            <span>{{ item?.lastModifiedDate | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="field md:col-12 lg:col-6 preview-user">
+        <div class="grid box">
+          <div class="field md:col-12 lg:col-6 flex">
+            <label>{{ 'products.form.psoUserId' | translate }}</label>
+            <span class="block">
+              <div class="psoUser name">
+                {{ data?.psoUserId | dictionaryName: users }}
+              </div>
+            </span>
+          </div>
+          <div class="field md:col-12 lg:col-6 flex">
+            <label>{{ 'products.form.ssoUserIds' | translate }}</label>
+            <span class="block">
+              <div class="ssoUser name" *ngFor="let ssoUser of data?.ssoUserIds">
+                {{ ssoUser | dictionaryName: users }}
+              </div>
+            </span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</ng-template>

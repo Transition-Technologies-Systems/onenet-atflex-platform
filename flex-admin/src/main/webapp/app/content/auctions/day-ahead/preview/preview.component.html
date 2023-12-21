@@ -1,0 +1,284 @@
+<app-modal [handyScroll]="true" [showFooter]="false" [showHeader]="true" [showConfirmAfterEsc]="false">
+  <div modal-header class="w-100">
+    <app-version-choose [(ngModel)]="versionId" (ngModelChange)="changeVersion()" (closePreview)="close()">
+      <div sub-title>
+        {{ 'auctions.title.' + type | translate }}
+      </div>
+      <div title>ID: {{ data.id }}</div>
+      <div actions>
+        <ng-container *appHasAuthority="'FLEX_ADMIN_AUCTIONS_DAY_AHEAD_OFFER_CREATE'">
+          <button
+            appPreventDoubleClick
+            pButton
+            pRipple
+            type="button"
+            *ngIf="!isSeriesView && isOpenAuction && auction?.canAddBid"
+            class="p-button-secondary"
+            [label]="'auctions.actions.bids.add.btn' | translate"
+            (click)="addBid()"
+          ></button>
+        </ng-container>
+      </div>
+    </app-version-choose>
+  </div>
+  <div modal-content class="preview-data">
+    <div class="formgrid grid">
+      <div class="field col-6">
+        <p-accordion [multiple]="true">
+          <p-accordionTab [header]="'auctions.preview.product' | translate | uppercase" [selected]="true">
+            <ng-container *ngIf="productData">
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.id' | translate }}</label>
+                  <span>{{ productData.id }} </span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.shortName' | translate }}</label>
+                  <span>{{ productData.shortName }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.fullName' | translate }}</label>
+                  <span>{{ productData.fullName }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.locational' | translate }}</label>
+                  <span>{{ 'Boolean.' + productData.locational | translate }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.direction' | translate }}</label>
+                  <span>{{ productData.direction ? ('Direction.' + productData.direction | translate) : '' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.minBidSize' | translate }}</label>
+                  <span>{{ productData.minBidSize }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.maxBidSize' | translate }}</label>
+                  <span>{{ productData.maxBidSize }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.maxFullActivationTime' | translate }}</label>
+                  <span>
+                    {{ productData.maxFullActivationTime }}
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'products.table.minRequiredDeliveryDuration' | translate }}</label>
+                  <span>
+                    {{ productData.minRequiredDeliveryDuration }}
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+      <div class="field col-6">
+        <p-accordion [multiple]="true">
+          <p-accordionTab [header]="'auctions.preview.data' | translate | uppercase" [selected]="true">
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.id' | translate }}</label>
+                <span>{{ data.id }}</span>
+              </div>
+            </div>
+            <div *ngIf="!isSeriesView">
+              <div class="field">
+                <label>{{ 'auctions.table.deliveryDate' | translate }}</label>
+                <span>{{ auction?.deliveryDate | date: 'dd/MM/yyyy' }}</span>
+              </div>
+            </div>
+            <div *ngIf="isEnergyTab || isCapacityTab">
+              <div class="field">
+                <label>{{ 'auctions.table.status' | translate }}</label>
+                <span>{{ 'AuctionStatus.' + auction?.status | translate }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.name' | translate }}</label>
+                <span>{{ data.name }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="field">
+                <label>{{ 'auctions.table.product' | translate }}</label>
+                <span>{{ productData?.shortName }}</span>
+              </div>
+            </div>
+            <div *ngIf="isSeriesView">
+              <div class="field">
+                <label>{{ 'auctions.table.type' | translate }}</label>
+                <span>{{ 'AuctionDayAheadType.' + series?.type | translate }}</span>
+              </div>
+            </div>
+            <div *ngIf="isCapacityTab || (isSeriesView && series?.type === 'CAPACITY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.' + (isSeriesView ? 'capacityGateOpeningTime' : 'gateOpeningTime') | translate }}
+                </label>
+                <span>{{ data.capacityGateOpeningTime | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div *ngIf="isCapacityTab || (isSeriesView && series?.type === 'CAPACITY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.' + (isSeriesView ? 'capacityGateClosureTime' : 'gateClosureTime') | translate }}
+                </label>
+                <span>{{ data.capacityGateClosureTime | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div *ngIf="isEnergyTab || (isSeriesView && series?.type === 'ENERGY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.' + (isSeriesView ? 'energyGateOpeningTime' : 'gateOpeningTime') | translate }}
+                </label>
+                <span>{{ data.energyGateOpeningTime | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div *ngIf="isEnergyTab || (isSeriesView && series?.type === 'ENERGY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.' + (isSeriesView ? 'energyGateClosureTime' : 'gateClosureTime') | translate }}
+                </label>
+                <span>{{ data.energyGateClosureTime | date: 'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+            </div>
+            <div *ngIf="isCapacityTab || (isSeriesView && series?.type === 'CAPACITY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.minDesiredCapacity' | translate }}
+                </label>
+                <span>{{ data.minDesiredCapacity }}</span>
+              </div>
+            </div>
+            <div *ngIf="isCapacityTab || (isSeriesView && series?.type === 'CAPACITY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.maxDesiredCapacity' | translate }}
+                </label>
+                <span>{{ data.maxDesiredCapacity }}</span>
+              </div>
+            </div>
+            <div *ngIf="isEnergyTab || (isSeriesView && series?.type === 'ENERGY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.minDesiredEnergy' | translate }}
+                </label>
+                <span>{{ data.minDesiredEnergy }}</span>
+              </div>
+            </div>
+            <div *ngIf="isEnergyTab || (isSeriesView && series?.type === 'ENERGY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.maxDesiredEnergy' | translate }}
+                </label>
+                <span>{{ data.maxDesiredEnergy }}</span>
+              </div>
+            </div>
+            <div *ngIf="isCapacityTab || (isSeriesView && series?.type === 'CAPACITY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.' + (isSeriesView ? 'capacityAvailability' : 'availability') | translate }}
+                </label>
+                <span>{{ formatAvailability(data, 'capacity') }}</span>
+              </div>
+            </div>
+            <div *ngIf="isEnergyTab || (isSeriesView && series?.type === 'ENERGY')">
+              <div class="field">
+                <label>
+                  {{ 'auctions.table.' + (isSeriesView ? 'energyAvailability' : 'availability') | translate }}
+                </label>
+                <span>{{ formatAvailability(data, 'energy') }}</span>
+              </div>
+            </div>
+            <ng-container *ngIf="isSeriesView">
+              <div>
+                <div class="field">
+                  <label>{{ 'auctions.table.firstAuctionDate' | translate }}</label>
+                  <span>{{ series?.firstAuctionDate | date: 'dd/MM/yyyy' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'auctions.table.lastAuctionDate' | translate }}</label>
+                  <span>{{ series?.lastAuctionDate | date: 'dd/MM/yyyy' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'auctions.table.createdDate' | translate }}</label>
+                  <span>{{ series?.createdDate | date: 'dd/MM/yyyy' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'auctions.table.lastModifiedDate' | translate }}</label>
+                  <span>{{ series?.lastModifiedDate | date: 'dd/MM/yyyy' }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'auctions.table.createdBy' | translate }}</label>
+                  <span>{{ series?.createdBy }}</span>
+                </div>
+              </div>
+              <div>
+                <div class="field">
+                  <label>{{ 'auctions.table.lastModifiedBy' | translate }}</label>
+                  <span>{{ series?.lastModifiedBy }}</span>
+                </div>
+              </div>
+            </ng-container>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+    <ng-container *ngIf="!isSeriesView">
+      <p-accordion *appHasAuthority="'FLEX_ADMIN_AUCTIONS_DAY_AHEAD_OFFER_VIEW'">
+        <p-accordionTab
+          *ngIf="isCapacityTab"
+          [header]="'auctions.preview.' + (isCapacityTab ? 'capacityOffers' : 'offers') | translate | uppercase"
+          [selected]="true"
+        >
+          <ng-template pTemplate="content">
+            <app-auctions-offers
+              type="preview"
+              [auction]="auction"
+              [auctionType]="auctionType"
+              [auctionDayAheadId]="data.id"
+              auctionDayAheadType="CAPACITY"
+            ></app-auctions-offers>
+          </ng-template>
+        </p-accordionTab>
+        <p-accordionTab *ngIf="isEnergyTab" [header]="'auctions.preview.energyOffers' | translate | uppercase" [selected]="true">
+          <ng-template pTemplate="content">
+            <app-auctions-offers
+              type="preview"
+              [auction]="auction"
+              [auctionType]="auctionType"
+              [auctionDayAheadId]="data.id"
+              auctionDayAheadType="ENERGY"
+            ></app-auctions-offers>
+          </ng-template>
+        </p-accordionTab>
+      </p-accordion>
+    </ng-container>
+  </div>
+</app-modal>

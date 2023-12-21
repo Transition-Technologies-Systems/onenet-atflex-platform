@@ -1,0 +1,17 @@
+{
+  "login": {
+    "username": "Login",
+    "password": "Hasło",
+    "email": "E-mail",
+    "logIn": "Zaloguj",
+    "invalid": "Błędny login lub hasło",
+    "forgotPassword": {
+      "title": "Odzyskiwanie hasła",
+      "btn": "Zapomniałeś hasła?",
+      "reset": "Resetuj",
+      "success": "Wysłano link do resetowania hasła na wskazany adres e-mail",
+      "error": "Wystąpił błąd podczas odzyskiwania hasła - skontaktuj się z serwisem"
+    },
+    "alreadyLoggedIn": "Jesteś już zalogowany"
+  }
+}

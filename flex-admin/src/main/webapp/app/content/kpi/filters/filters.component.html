@@ -1,0 +1,23 @@
+<app-filters
+  [form]="filters"
+  (getData)="filter()"
+  state="kpi-filters"
+  submitName="kpi.actions.generate"
+  [hideToogle]="true"
+  [disabledSubmitButton]="filters.invalid"
+>
+  <app-filter-container *ngIf="init">
+    <app-filter
+      type="select"
+      controlName="type"
+      name="kpi.filters.type"
+      [translateDictionaries]="true"
+      [filter]="true"
+      [dictionaries]="dictionaries.type"
+    ></app-filter>
+
+    <ng-container *ngIf="$showDateFilters | async">
+      <app-filter type="date-range" controlName="date" name="kpi.filters.date"></app-filter>
+    </ng-container>
+  </app-filter-container>
+</app-filters>

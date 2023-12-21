@@ -1,0 +1,10 @@
+<main id="page-wrapper">
+  <section class="box">
+    <h1>{{ 'title' | translate }}</h1>
+    <h2>{{ 'subtitle' | translate }}</h2>
+    <p class="text-align-center">{{ 'registration.reject.info' | translate }}</p>
+    <p class="text-align-center">
+      <p-button icon="pi pi-check" (click)="confirmOption()" [label]="'actions.ok' | translate" styleClass="p-button-text"></p-button>
+    </p>
+  </section>
+</main>

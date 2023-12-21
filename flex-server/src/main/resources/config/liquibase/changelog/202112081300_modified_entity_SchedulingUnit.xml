@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202112081300-table" author="">
+        <dropColumn tableName="scheduling_unit" columnName="product_id"/>
+        <addColumn tableName="scheduling_unit">
+            <column name="scheduling_unit_type_id" type="bigint" remarks="Identity of scheduling unit type">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+        <addForeignKeyConstraint baseColumnNames="scheduling_unit_type_id" baseTableName="scheduling_unit" constraintName="fk_su_scheduling_unit_type" referencedColumnNames="id"
+                                 referencedTableName="scheduling_unit_type"/>
+    </changeSet>
+
+    <changeSet id="202112081300-sql" author="">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <and>
+                    <sqlCheck expectedResult="0">select count(*) from product</sqlCheck>
+                    <sqlCheck expectedResult="0">select count(*) from scheduling_unit</sqlCheck>
+                </and>
+            </not>
+        </preConditions>
+        <loadData file="config/liquibase/data/scheduling_unit_type.csv" separator=";" tableName="scheduling_unit_type"/>
+        <sql>insert into scheduling_unit_type_products(scheduling_unit_type_id, product_id)
+                select 1, product.id from product
+        </sql>
+        <sql>UPDATE scheduling_unit SET scheduling_unit_type_id = 1</sql>
+    </changeSet>
+
+    <changeSet id="202112081300-constraints" author="">
+        <addNotNullConstraint tableName="scheduling_unit" columnName="scheduling_unit_type_id"/>
+    </changeSet>
+</databaseChangeLog>

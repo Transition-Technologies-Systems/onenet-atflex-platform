@@ -1,0 +1,59 @@
+{
+  "users": {
+    "actions": {
+      "add": {
+        "btn": "Dodaj użytkownika",
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas dodawania użytkownika",
+        "title": "Dodaj nowego użytkownika",
+        "saveBtn": "Zapisz"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć określonego użytkownika z systemu?",
+        "answerYes": "Tak, usuń tego użytkownika",
+        "answerNo": "Anuluj",
+        "success": "Wskazany użytkownik został pomyślnie usunięty z systemu",
+        "error": "Wystąpił błąd podczas usuwania użytkownika"
+      },
+      "edit": {
+        "success": "Zapis udany",
+        "error": "Wystąpił błąd podczas edytowania użytkownika",
+        "title": "Edytuj użytkownika: {{ login }}",
+        "saveBtn": "Zapisz"
+      },
+      "reload": {
+        "btn": "Załaduj ponownie"
+      }
+    },
+    "form": {
+      "password": "Hasło",
+      "confirmPassword": "Powtórz hasło",
+      "email": "Adres e-mail",
+      "fspId": "FSP",
+      "fspa": "FSPA",
+      "bsp": "BSP",
+      "role": "Rola",
+      "passwordChangeOnFirstLogin": "Zmiana hasła przy pierwszym logowaniu",
+      "unsuccessfulLoginCount": "Liczba nieudanych prób logowania do systemu: {{ value }}",
+      "lastSuccessfulLoginDate": "Ostatnie udane logowanie: {{ value }}",
+      "passwordSetByUser": "Hasło ustawione przez użytkownika"
+    },
+    "info": {
+      "fspOwner": "Użytkownik jest właścicielem FSP"
+    },
+    "table": {
+      "actions": "Akcje",
+      "delete": "Usuwanie",
+      "id": "ID",
+      "firstName": "Imię",
+      "lastName": "Nazwisko",
+      "login": "Login",
+      "roles": "Rola",
+      "companyName": "Nazwa firmy",
+      "email": "Adres e-mail",
+      "phoneNumber": "Numer telefonu",
+      "activated": "Aktywny"
+    },
+    "title": "Użytkownicy"
+  }
+}

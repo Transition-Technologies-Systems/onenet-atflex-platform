@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202111231425-table" author="">
+        <createSequence incrementBy="1" sequenceName="auction_cmvc_seq" startValue="1" ordered="true"/>
+        <createTable tableName="auction_cmvc" remarks="Auctions CmVc table">
+            <column name="id" type="bigint" defaultValueSequenceNext="auction_cmvc_seq" remarks="Identity column">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)" remarks="Auction name">
+                <constraints nullable="false" />
+            </column>
+            <column name="product_id" type="bigint" remarks="Product id associated with the auction">
+                <constraints nullable="false" />
+            </column>
+            <column name="status" type="varchar(50)" remarks="Auction status">
+                <constraints nullable="false" />
+            </column>
+            <column name="auction_type" type="varchar(50)" remarks="Auction type">
+                <constraints nullable="true" />
+            </column>
+            <column name="localization" type="varchar(255)" remarks="Unit ppe - Energy consumption point (in Polish - Punkt Poboru Energii)">
+                <constraints nullable="true" />
+            </column>
+            <column name="delivery_date_from" type="datetime" remarks="Minimum delivery dat for the service">
+                <constraints nullable="false" />
+            </column>
+            <column name="delivery_date_to" type="datetime" remarks="Maximum delivery date for the service">
+                <constraints nullable="false" />
+            </column>
+            <column name="gate_opening_time" type="datetime" remarks="Time and date of the commencement of the submission of bids to the auction">
+                <constraints nullable="false" />
+            </column>
+            <column name="gate_closure_time" type="datetime" remarks="Time and date of closing the submission of bids for the auction">
+                <constraints nullable="false" />
+            </column>
+            <column name="min_desired_power" type="decimal(21,2)" remarks="Minimum volume of capacity for a given auction">
+                <constraints nullable="false" />
+            </column>
+            <column name="max_desired_power" type="decimal(21,2)" remarks="Maximum volume of capacity for a given auction">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202111231425-constraints" author="">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="auction_cmvc" constraintName="fk_auction_cmvc_product_id"
+                                 referencedColumnNames="id" referencedTableName="product"/>
+        <createIndex tableName="auction_cmvc" indexName="idx_fk_au_cmvc_product_id">
+            <column name="product_id" type="bigint"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="202111231425-audit" author="">
+        <addColumn tableName="auction_cmvc">
+            <column name="created_by" type="varchar(50)" defaultValue="system" remarks="Information about who created the record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}" remarks="Date of record creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)" remarks="Information about who last modified the record"/>
+            <column name="last_modified_date" type="timestamp" remarks="Date of the last modification of the record"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
